@@ -1,0 +1,26 @@
+#Only class is printed in introspector's BeanInfo
+##Detail
+```
+BeanInfo beanInfo= Introspector.getBeanInfo(object.getClass());
+System.out.println(beanInfo.toString());
+```
+Output:
+```
+class
+```
+##Reason
+UserBean userBean is private with no setter and getter.
+```
+private UserBean userBean;
+```
+##Solution
+Add public getter and setter to this private field.
+```
+public UserBean getUserBean() {
+    return userBean;
+}
+
+public void setUserBean(UserBean userBean) {
+    this.userBean = userBean;
+}
+```

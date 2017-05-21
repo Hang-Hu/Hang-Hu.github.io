@@ -1,0 +1,4 @@
+#Configuration Error: deployment source 'war exploded' is not valid
+##Solution
+1. maven clean
+2. Tomcat cofiguration->Deployment->Delete the artifact and re add it.

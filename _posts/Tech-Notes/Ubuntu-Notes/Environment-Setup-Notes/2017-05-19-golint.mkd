@@ -1,0 +1,32 @@
+---
+layout: post
+author: Hang Hu
+categories: ubuntu
+tags: Ubuntu Environment-Setup 
+cover: 
+---
+
+## Installation
+
+```
+sudo apt install golint
+```
+
+## Usage
+
+```
+golint menu.go 
+menu.go:9:6: exported type Func should have comment or be unexported
+menu.go:20:12: should omit type *DataNode from declaration of var node; it will be inferred from the right-hand side
+menu.go:28:1: exported function InitLinkedList should have comment or be unexported
+menu.go:30:18: should omit type *DataNode from declaration of var currentNode; it will be inferred from the right-hand side
+menu.go:48:1: exported function Help should have comment or be unexported
+menu.go:59:1: exported function Quit should have comment or be unexported
+menu.go:62:1: exported function Date should have comment or be unexported
+menu.go:69:1: exported function Info should have comment or be unexported
+menu.go:74:1: exported function ReadTwoNumber should have comment or be unexported
+menu.go:83:1: exported function Add should have comment or be unexported
+menu.go:88:1: exported function Sub should have comment or be unexported
+menu.go:93:1: exported function Mul should have comment or be unexported
+menu.go:98:1: exported function Div should have comment or be unexported
+```

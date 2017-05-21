@@ -1,0 +1,20 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Maven 
+cover: 
+---
+
+Edit your personal configuration file:
+```
+vim ~/.m2/settings.xml
+```
+Add this code between `<proxies></proxies>`
+```
+ <proxy>
+   <active>true</active>
+   <host>127.0.0.1</host>
+   <port>8087</port>
+ </proxy>
+```

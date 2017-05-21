@@ -1,0 +1,11 @@
+---
+layout: post
+author: Hang Hu
+categories: centos
+tags: CentOS 
+cover: 
+---
+
+```
+rm -rf ECollaborationWebUpload/
+```

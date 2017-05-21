@@ -1,0 +1,5 @@
+#search command-line history
+```
+history | grep git
+```
+Substitute git for whatever you want to search

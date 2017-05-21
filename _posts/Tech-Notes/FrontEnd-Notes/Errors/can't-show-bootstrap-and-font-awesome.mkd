@@ -1,0 +1,6 @@
+Simply because FreeCodeCamp forgets to add http: or https: in front of //.  
+Here are the right ones:
+```
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
+```

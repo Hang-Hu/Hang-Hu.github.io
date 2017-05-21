@@ -1,0 +1,22 @@
+#SAXParseException; systemId: lineNumber: 1; columnNumber: 1; Content is not allowed in prolog.
+##Reason
+`controller.xml` isn't deployed to tomcat so SAXReader reads an empty file, making such error because of white spaces.
+##Solution
+Use Reader to read file before SAXReader, which turns this error into a `FileNotFoundException`.
+```
+SAXReader saxReader=new SAXReader();
+Reader xmlReader=null;
+System.out.println(path);
+try {
+    xmlReader=new FileReader(path);
+} catch (FileNotFoundException e) {
+    e.printStackTrace();
+}
+System.out.println(xmlReader.toString());
+Document document= null;
+try {
+    document = saxReader.read(xmlReader);
+} catch (DocumentException e) {
+    e.printStackTrace();
+}
+```

@@ -1,0 +1,51 @@
+---
+layout: post
+author: Hang Hu
+categories: ubuntu
+tags: Ubuntu Application 
+cover: 
+---
+
+## Beamer
+
+`
+~/Downloads$ pandoc Firstslide.mkd -t beamer -o FirstSlide.pdf --slide-level=2 -V theme=Warsaw
+`
+
+```
+pandoc go-code-style.mkd -t beamer -o go-code-style.pdf --slide-level=2 -V theme=metropolis --highlight-style tango
+```
+
+To make the code block a smaller font.
+
+```
+pandoc go-code-style.mkd -t beamer -o go-code-style.pdf --slide-level=2 -V theme=metropolis --highlight-style tango -H make-code-tinysize.tex 
+```
+
+`make-code-footnotesize.tex`:
+
+```
+\renewenvironment{Shaded} {\begin{snugshade}\footnotesize} {\end{snugshade}}
+```
+## revealjs
+
+`
+~/reveal.js$ pandoc -t revealjs -s ~/Downloads/FirstSlide.mkd -V theme=sky -V transition=convex -o ~/Downloads/FirstSlide.html
+`
+
+## Error:no picture in pdf generated from markdown
+
+### Reason
+
+Use html instead of markdown, which can be recognized by retext but not pandoc.
+```
+<img src=./flower.jpg width=100%/>
+```
+### Solution
+
+Use markdown instead.
+```
+ ![alt tag](./flower.jpg)
+```
+
+

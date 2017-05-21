@@ -1,0 +1,14 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Spring-Framework Spring-Security 
+cover: 
+---
+
+## Reason
+
+This is the feature of Spring 3.
+## Solution
+
+Change `j_spring_security_check` to the url of `login` manually. Because `j_spring_security_check` stands for login url configured in xml or Java config.

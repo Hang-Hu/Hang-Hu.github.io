@@ -1,0 +1,115 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Spring-Framework SpringMVC 
+cover: 
+---
+
+### MVC
+
+<img src="/home/joanna/Pictures/CodePic/SpringMVC/mvc.png" width="100%">
+### Spring MVC
+
+<img src="/home/joanna/Pictures/CodePic/SpringMVC/springmvc.png" width="100%">
+### jar of Spring mvc
+
+<img src="/home/joanna/Pictures/CodePic/SpringMVC/springmvc-detail.png" width="100%">
+```
+spring-webmvc-3.2.0.RELEASE
+```
+### Configure web.xml for DispatcherServlet and springmvc.xml
+
+ctrl+shift+T, type DispatcherServlet, enter and then copy the full name.  
+```
+  <servlet>
+  	<servlet-name>springmvc</servlet-name>
+  	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  	<init-param>
+  		<param-name>contextConfigLocation</param-name>
+  		<param-value>classpath:springmvc.xml</param-value>
+  	</init-param>
+  </servlet>
+<servlet-mapping>
+	<servlet-name>springmvc</servlet-name>
+	<url-pattern>*.do</url-pattern>
+</servlet-mapping>
+```
+>Note that `init-param` for configuring `springmvc.xml` can be deleted if there is a `springmvc-servlet.xml` in `WEB-INF`.
+### Configure Spring
+
+Create source folder named `config`, create springmvc.xml in it.
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springfeamework.org/schema/aop" 
+	xmlns:tx="http://springframework.org/schema/tx"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc 
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd		
+        http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
+</beans>
+```
+### Configure HandlerMapping
+
+In springmvc.xml before, use this between beans to create an object for its class.
+```
+<bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"></bean>
+```
+### Write UserController implementing Controller
+
+```
+public class UserController implements Controller{
+	@Override
+	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// TODO Auto-generated method stub
+		ModelAndView mv=new ModelAndView();
+		mv.addObject("user", "Tom");
+		//Set physical view
+		mv.setViewName("/WEB-INF/index.jsp");
+		return mv;
+	}
+}
+```
+### Create an object for controller using Spring
+
+In springmvc.xml, add this between beans.
+```
+<bean id="userController" name="/index.do" class="com.huhang.controller.UserController"></bean>
+```
+>Note that distributed systems need `id`.
+### Configure HandlerAdapter which executes UserHandler
+
+```
+<bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"></bean>
+```
+### Create physical view in WEB-INF
+
+index.jsp:
+```
+<body>
+<h1>${user}</h1>
+</body>
+```
+### Logical view instead of physical view
+
+```
+//set logical view
+mv.setViewName("index");
+```
+And ViewResolver is needed in springmvc.xml.
+```
+<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<property name="prefix" value="/WEB-INF/"></property>
+	<property name="suffix" value=".jsp"></property>
+</bean>
+```
+Then the logical view consists of `prefix+logical view+suffix`, which is `/WEB-INF/index.jsp`, the same as physical view written before.

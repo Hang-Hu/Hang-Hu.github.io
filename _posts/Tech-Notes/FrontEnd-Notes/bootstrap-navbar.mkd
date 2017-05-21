@@ -1,0 +1,32 @@
+#Bootstrap Narvigation Bar
+This bar can be used both in laptop and phone.  
+In computers, the navifation bar show its full appearance.  
+In small devices, the navigation bar is replaced by a button in the top right corner. Only when the button is clicked, the navigation bar will be displayed.  
+The reason why navigation in codePen can't toggle:  
+Because I forget to add bootstrap and jquery javascript to its ```<head>```.Both javascript are needed for toggling.Remember these javascripts added by CodePen are useless, so add it to html ```<head>``` manually.
+```
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+```
+
+```
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#my-navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#about">Hang Hu's Portfolio</a>
+    </div>
+    <div class="collapse navbar-collapse" id="my-navbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#about">ABOUT</a></li>
+        <li><a href="#portfolio">PORTFOLIO</a></li>
+        <li><a href="#contact">CONTACT</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+```

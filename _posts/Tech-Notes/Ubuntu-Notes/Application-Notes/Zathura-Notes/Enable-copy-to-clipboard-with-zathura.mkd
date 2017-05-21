@@ -1,0 +1,4 @@
+#Enable copy-to-clipboard with zathura
+Add `set selection-clipboard clipboard` in the config file `~/.config/zathura/zathurarc` or `/etc/zathurarc`.
+
+

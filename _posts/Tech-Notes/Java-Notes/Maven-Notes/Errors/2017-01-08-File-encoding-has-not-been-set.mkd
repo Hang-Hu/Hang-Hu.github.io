@@ -1,0 +1,23 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Maven 
+cover: 
+---
+
+## Reason
+
+This or a similar warning is emitted by a plugin that processes plain text files but has not been configured to use a specific file encoding. So eliminating the warning is simply a matter of finding out which plugin emits it and how to configure the file encoding for it. 
+## Solution
+
+This is as easy as adding the following property to your POM between existing project(or one of its parent POMs):
+```
+<project>
+  ...
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  ...
+</project>
+````

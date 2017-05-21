@@ -1,0 +1,2 @@
+#Generate getters and setters
+Source->Generate getters and setters->select all->ok

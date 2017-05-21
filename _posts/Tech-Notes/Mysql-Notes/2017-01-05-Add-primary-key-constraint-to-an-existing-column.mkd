@@ -1,0 +1,11 @@
+---
+layout: post
+author: Hang Hu
+categories: mysql
+tags: Mysql 
+cover: 
+---
+
+```
+mysql> alter table Short_Answer_Question add primary key(question);
+```

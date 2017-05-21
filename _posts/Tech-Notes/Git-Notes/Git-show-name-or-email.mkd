@@ -1,0 +1,7 @@
+#Git show name or email
+```
+git config user.name
+```
+```
+git config --list
+```

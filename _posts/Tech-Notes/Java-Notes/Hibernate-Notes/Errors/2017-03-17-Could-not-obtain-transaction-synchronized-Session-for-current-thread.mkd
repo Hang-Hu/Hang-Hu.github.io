@@ -1,0 +1,22 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Hibernate 
+cover: 
+---
+
+## Reason
+
+Transaction support is not enabled yet.
+## Solution
+
+### Spring Configuration
+
+1. `<tx:annotation-driven>` in `springmvc.xml` or `@EnableTransactionManagement` in `AppConfig`
+2. Declare the transactionManager, don't forget to give a sessionFactory to it.
+### Dao Annotation
+
+Add `@Transactional` along with `@Repository` for such Class as `UserDaoImpl`.
+
+

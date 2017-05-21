@@ -1,0 +1,20 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Java-Library Jackson 
+cover: 
+---
+
+```
+@Override
+public String toString() {
+    String json=null;
+    try {
+        json=new ObjectMapper().writeValueAsString(this);
+    } catch (JsonProcessingException e) {
+        e.printStackTrace();
+    }
+    return json;
+}
+```

@@ -1,0 +1,17 @@
+---
+layout: post
+author: Hang Hu
+categories: mysql
+tags: Mysql 
+cover: 
+---
+
+## Reason
+
+MySQL is not running.
+## Solution
+
+Start mysql service will solve it.
+```
+service mysqld start
+```

@@ -1,0 +1,11 @@
+# Mount remote directory
+
+```
+sshfs cloud@firstvps:/home/cloud/.aria2/Download/ /home/joanna/remote/
+```
+
+## Unmount
+
+```
+fusermount -u ~/remote
+```

@@ -1,0 +1,12 @@
+#Failure to find javax.transaction:jta:jar:1.0.1B
+##Reason
+Can't download `jta 1.0.1B` in current maven repository.
+##Solution
+```
+<dependency>
+ <groupId>org.hibernate</groupId>
+ <artifactId>hibernate</artifactId>
+ <version>3.3.2.GA</version>
+</dependency>
+```
+It has a recommended dependency for JTA 1.1.

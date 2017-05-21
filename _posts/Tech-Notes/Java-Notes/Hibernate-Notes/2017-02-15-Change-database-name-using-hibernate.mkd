@@ -1,0 +1,27 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Hibernate 
+cover: 
+---
+# Change database name using hibernate
+
+## 1. application.properties
+
+```
+# Database related properties
+
+database.driverClass=com.mysql.jdbc.Driver
+database.jdbcUrl=jdbc:mysql://111.28.163.139/ECollaborationWeb
+database.user=root
+database.password=123
+```
+## 2. Database in the right->setting
+
+## 3. *.hbm.xml
+
+`schema="ECollaborationWeb"` is the name of database.
+```
+<class name="com.general.dao.entity.AccessEntity" table="Access" schema="ECollaborationWeb">
+```

@@ -1,0 +1,11 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Java-IDE Intellij 
+cover: 
+---
+
+1. Right-click on the module, select "Add framework support...", and check the "Maven" technology.
+
+2. This also creates a pom.xml, modify it.

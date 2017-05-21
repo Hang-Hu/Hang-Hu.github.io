@@ -1,0 +1,10 @@
+#Print makes every link followed by www.
+##Reason
+This snippet of code in `bootstrap.css` is the reason.
+```
+a[href]:after {
+content: " (" attr(href) ")";
+}
+```
+##Solution
+Deleting such snippet makes printing works well.

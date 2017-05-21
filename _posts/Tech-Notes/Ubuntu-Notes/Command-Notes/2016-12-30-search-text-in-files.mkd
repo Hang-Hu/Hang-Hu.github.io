@@ -1,0 +1,20 @@
+---
+layout: post
+author: Hang Hu
+categories: ubuntu
+tags: Ubuntu Command 
+cover: 
+---
+
+## Print the name of file whose text matches
+
+```
+grep -rl ".metadata" ./
+```
+## Print the line which matches
+
+```
+grep -r ".metadata" ./
+```
+-r means recursively  
+-l means --files-with-matches 

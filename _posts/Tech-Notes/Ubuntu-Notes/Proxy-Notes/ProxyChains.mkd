@@ -1,0 +1,31 @@
+# ProxyChains
+
+## Install
+
+```
+sudo apt install proxychains 
+```
+
+## Configuration
+
+```
+sudo vim /etc/proxychains.conf 
+```
+Uncomment `dynamic_chain`, comment `strict_chain`.  
+Add this line in the last of the file:  
+```
+socks5    127.0.0.1    1080
+http      127.0.0.1    8087
+```
+
+```
+sudo vim /usr/bin/proxychains 
+```
+
+Change `LD_PRELOAD=libproxychains.so.3` to `LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libproxychains.so.3` based on the address of `libproxychains.so.3` in your system.
+
+## Usage
+
+```
+proxychains dropbox start -i
+```

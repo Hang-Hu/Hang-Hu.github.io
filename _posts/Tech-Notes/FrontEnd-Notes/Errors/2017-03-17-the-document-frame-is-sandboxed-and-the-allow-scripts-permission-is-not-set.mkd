@@ -1,0 +1,24 @@
+---
+layout: post
+author: Hang Hu
+categories: frontend
+tags: FrontEnd 
+cover: 
+---
+
+## Reason
+
+`sandbox` attribute is to run JavaScript only allowed when `allow-scripts` is specified in `sandbox`.
+## Solution
+
+If you have no control on the website.
+### Windows
+
+```
+"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --args --allow-scripts
+```
+### Linux
+
+```
+google-chrome --args --allow-scripts
+```

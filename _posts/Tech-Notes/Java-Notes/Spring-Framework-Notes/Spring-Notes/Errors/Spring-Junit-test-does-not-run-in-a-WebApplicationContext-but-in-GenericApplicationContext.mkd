@@ -1,0 +1,5 @@
+#Spring Junit test does not run in a WebApplicationContext but in GenericApplicationContext
+##Reason
+You are running in a GenericApplicationContext, but you need a WebApplicationContext.
+##Solution
+Adding  `@WebAppConfiguration` before test class.

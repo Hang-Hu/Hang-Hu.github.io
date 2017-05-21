@@ -1,0 +1,11 @@
+#java.lang.NoSuchFieldException in reflection
+##Reason
+The `getField`` method will only find the field if it's public.
+```
+Field field=object.getClass().getField(propertyName);
+```
+##Solution
+You will need to use the `getDeclaredField` method instead, which will find any field declared directly on the class.
+```
+Field field=object.getClass().getDeclaredField(propertyName);
+```

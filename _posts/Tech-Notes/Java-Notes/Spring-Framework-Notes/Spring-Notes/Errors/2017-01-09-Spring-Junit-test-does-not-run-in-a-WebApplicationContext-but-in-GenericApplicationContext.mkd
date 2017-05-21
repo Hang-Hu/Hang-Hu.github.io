@@ -1,0 +1,14 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Spring-Framework Spring 
+cover: 
+---
+
+## Reason
+
+You are running in a GenericApplicationContext, but you need a WebApplicationContext.
+## Solution
+
+Adding  `@WebAppConfiguration` before test class.

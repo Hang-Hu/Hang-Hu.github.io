@@ -1,0 +1,10 @@
+# get your group and username
+
+Get username
+```
+users
+```
+Get group
+```
+groups
+```

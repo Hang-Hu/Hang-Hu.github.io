@@ -1,0 +1,9 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Java-IDE Eclipse 
+cover: 
+---
+
+select code->right click-> surround with->try catch block

@@ -1,0 +1,5 @@
+#Contents related to database is red in .hbm.xml
+##Reason
+Data Source is none.
+##Solution
+Persistence->Right click on ECollaborationWeb->Assign Data Source

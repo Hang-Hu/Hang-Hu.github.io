@@ -1,0 +1,16 @@
+#ROLE_ADMIN cannot start with ROLE_
+##Detail
+Caused by: java.lang.IllegalArgumentException: ROLE_ADMIN cannot start with ROLE_ (it is automatically added)
+##Reason
+`ROLE_` will be automatically added to inMemoryAuthentication's roles. However, roles in `.antMatchers("/user/**").access("hasRole('ROLE_USER')")` or database won't be added with prefix `ROLE_`, so you add it manually.
+##Solution
+Change:
+```
+authenticationManagerBuilder.inMemoryAuthentication().withUser("bill").password("123")
+.roles("ROLE_ADMIN");
+```
+To:
+```
+authenticationManagerBuilder.inMemoryAuthentication().withUser("bill").password("123")
+.roles("ADMIN");
+```

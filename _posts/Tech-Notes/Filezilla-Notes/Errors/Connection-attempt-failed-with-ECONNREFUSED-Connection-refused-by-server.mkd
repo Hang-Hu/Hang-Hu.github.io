@@ -1,0 +1,5 @@
+#Connection attempt failed with "ECONNREFUSED - Connection refused by server
+##Reason
+FTP protocol is blocked by ustc cloud
+##Solution
+Use SFTP to connect which uses 22 for port instead of 21 which is simply FTP

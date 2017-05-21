@@ -1,0 +1,12 @@
+---
+layout: post
+author: Hang Hu
+categories: ubuntu
+tags: Ubuntu Command 
+cover: 
+---
+
+```
+sudo apt install --only-upgrade youtube-dl
+
+```

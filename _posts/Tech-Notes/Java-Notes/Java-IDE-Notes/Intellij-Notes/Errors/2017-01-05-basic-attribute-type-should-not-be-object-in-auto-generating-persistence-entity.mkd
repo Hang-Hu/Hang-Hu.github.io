@@ -1,0 +1,14 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Java-IDE Intellij 
+cover: 
+---
+
+## Reason
+
+role is a enum, but idea cannot recognize it and map it to Object.
+## Solution
+
+`Expand all` and find any line marked `red`, then change it manually.

@@ -1,0 +1,20 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Java-Core 
+cover: 
+---
+
+>Date has before and after methods and can be compared to each other as follows:
+```
+if(todayDate.after(historyDate) && todayDate.before(futureDate)) {
+    // In between
+}
+```
+For an inclusive comparison:
+```
+if(!historyDate.after(todayDate) && !futureDate.before(todayDate)) {
+    /* historyDate <= todayDate <= futureDate */ 
+}
+```

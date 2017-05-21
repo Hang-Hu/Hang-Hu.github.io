@@ -1,0 +1,31 @@
+# Remove some certificate
+
+```
+sudo vim /etc/ca-certificates.conf
+```
+Add `!` to those you don't want
+```
+sudo update-ca-certificates 
+```
+Result:
+```
+Updating certificates in /etc/ssl/certs...
+WARNING: Skipping duplicate certificate Go_Daddy_Class_2_CA.pem
+WARNING: Skipping duplicate certificate Go_Daddy_Class_2_CA.pem
+0 added, 7 removed; done.
+Running hooks in /etc/ca-certificates/update.d...
+
+Removing debian:CNNIC_ROOT.pem
+Removing debian:Entrust.net_Premium_2048_Secure_Server_CA.pem
+Removing debian:Entrust_Root_Certification_Authority.pem
+Removing debian:WoSign.pem
+Removing debian:WoSign_China.pem
+Removing debian:CA_WoSign_ECC_Root.pem
+Removing debian:Certification_Authority_of_WoSign_G2.pem
+done.
+Updating Mono key store
+/etc/ca-certificates/update.d/mono-keystore: 10: /etc/ca-certificates/update.d/mono-keystore: /usr/bin/cert-sync: not found
+Done
+done.
+
+```

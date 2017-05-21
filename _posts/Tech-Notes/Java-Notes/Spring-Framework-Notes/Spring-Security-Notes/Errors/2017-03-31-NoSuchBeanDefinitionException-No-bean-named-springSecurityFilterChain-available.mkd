@@ -1,0 +1,21 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Spring-Framework Spring-Security 
+cover: 
+---
+
+## Details
+
+org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'springSecurityFilterChain' available
+## Reason
+
+The securiy configuration isnot imported yet or there is no `<http>` in `security.xml`.
+## Solution
+
+Add these in springmvc-servlet.xml.
+```
+<!-- import security configuration-->
+<import resource="security.xml"/>
+```

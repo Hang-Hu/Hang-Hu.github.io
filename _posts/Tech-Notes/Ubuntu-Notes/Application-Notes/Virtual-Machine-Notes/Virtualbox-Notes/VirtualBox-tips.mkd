@@ -1,0 +1,4 @@
+#VirtualBox tips
+1. Draging can be used only in simple file or zip.
+2. Draging from host to guest works while crashes inversily.
+3. From guest to host, use usb.

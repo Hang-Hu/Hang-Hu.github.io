@@ -1,0 +1,11 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Java-IDE Eclipse 
+cover: 
+---
+
+1. Install STS for eclipse Marketplace in help.
+2. Right click Project->Spring Tools->add Spring Project Nature
+2. Project Properties > Spring > Bean Support > Config Sets > Add New Group (contains all configuration files). Then open applicationContext.xml again.

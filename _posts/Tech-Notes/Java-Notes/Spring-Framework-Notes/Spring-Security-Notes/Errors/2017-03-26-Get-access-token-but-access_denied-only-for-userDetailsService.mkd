@@ -1,0 +1,34 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Spring-Framework Spring-Security 
+cover: 
+---
+
+## Details
+
+I have both `inMemoryAuthentication()` and `userDetailsService()` for method `configureGlobalSecurity`. `inMemoryAuthentication()` works well both in getting access token, refresh token and accessing with access token. `userDetailsService()` works in the term of getting token and get `access_denied` when accessing resources.
+## Reason
+
+By default role should begin with prefix `ROLE_`.
+## Solution
+
+1. Change `.antMatchers("/user/**").access("hasRole('USER')")` to `.antMatchers("/user/**").access("hasRole('ROLE_USER')")` in `configure(HttpSecurity http)`.
+2. Add 'ROLE_' to 'USER', 'ADMIN' in database. 
+## Further
+
+If you don't want to use `ROLE_` as prefix, change it in `spring-security.xml`.
+```
+<!-- Configuring RoleVoter bean to use custom access roles, by default roles 
+		should be in the form ROLE_{XXX} -->
+	<beans:bean id="roleVoter"
+		class="org.springframework.security.access.vote.RoleVoter">
+		<beans:property name="rolePrefix" value=""></beans:property>
+	</beans:bean>
+	<beans:bean id="accessDecisionManager"
+		class="org.springframework.security.access.vote.AffirmativeBased">
+		<beans:constructor-arg name="decisionVoters"
+			ref="roleVoter" />
+	</beans:bean>
+```

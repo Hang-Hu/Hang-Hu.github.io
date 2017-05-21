@@ -1,0 +1,5 @@
+#NoClassDefFoundError: org/dom4j/DocumentException
+##Reason
+Last time I make `war` using jar in `lib`, then I delete it and use maven instead. So it can't find dom4j.
+##Solution
+Delete old war and build a new one.

@@ -1,0 +1,56 @@
+用tab代替空格，并写入原文件
+```
+sed -i  's/ /\t/g' distros.txt
+-i write to the original file
+s substitution
+s/ / whitespace
+\t tab
+g global,globally to a line, not to the first instance.
+```
+也可以是：
+```
+sed -i 's_ _\t_g' distros.txt
+```
+yes,any character can br used as delimiter,like slash '/' or underscore '_'
+```
+echo "front" | sed '1s/front/back/'
+1: The first line of the input stream will be edited.
+
+-n: use -n to turn off autoprint.
+```
+Make xxxController Controller
+```
+sed -i "s/Controller//g" *
+```
+Make `@Pathvariable("project_token") String projectToken` simple `String projectToken`
+```
+sed -i "s/@PathVariable(.*) //g" *
+```
+Make `@Pathvariable String projectToken` simple `String projectToken`
+```
+ sed -i "s/@PathVariable //g" *
+ ```
+ Use `public class ApplicationImpl{` to replace `public class Application {`
+ ```
+ sed -i "s/\ {/Impl{/g" *
+```
+This turns `public class AccessEntity {
+` into `public class AccessEntity implements Entity{
+`
+```
+sed -i "s/Entity\ {/Entity\ implements Entity{/g" *.java
+```
+##Use sed recursively
+This turns `package main.java.com.general.DTO` to `package com.general.DTO`
+```
+find ./ -type f -print0 | xargs -0 sed -i "s/package\ main.java.com./package\ com./g" *.java 
+```
+##Delete matched lines
+Lines beginning with `/` will be deleted
+```
+sed -i "/\//d" *.java 
+```
+Lines beginning with `*` will be deleted
+```
+sed -i "/*/d" *.java
+```

@@ -1,0 +1,15 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Tomcat 
+cover: 
+---
+
+## Reason
+
+Not know.
+SpringMVC is the name of a tomcat server.
+## Solution
+
+Delete it and add a new tomcat server.

@@ -1,0 +1,9 @@
+# Alt+F4 doesn't work xfce
+
+## Reason
+
+Fn lock is closed. Now you have to use Fn+Alt+F4.  
+
+## Solution
+
+Long press Fn+Esc.  

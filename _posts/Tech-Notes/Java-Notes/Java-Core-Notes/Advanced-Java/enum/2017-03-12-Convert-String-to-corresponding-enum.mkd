@@ -1,0 +1,12 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Java-Core 
+cover: 
+---
+
+```
+//convert email type from string in database to enum in Java code
+profileDTO.setEmailType(EmailType.valueOf(userEntity.getEmailType().toUpperCase()));
+```

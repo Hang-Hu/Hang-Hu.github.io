@@ -1,0 +1,7 @@
+#UserController can't be instantiated
+##Reason
+`com.huhang.controller.UserController.java` is used and it's wrong to append `.java`.
+##Solution
+```
+<bean name="/index.do" class="com.huhang.controller.UserController"></bean>
+```

@@ -1,0 +1,14 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java JEE 
+cover: 
+---
+
+## Reason
+
+The data submitted by form is String, but corresponding data in Javabean where DataConverter is used to convert data to is Date.
+## Method
+
+Change Birthday in Javabean to type String instead of Date.

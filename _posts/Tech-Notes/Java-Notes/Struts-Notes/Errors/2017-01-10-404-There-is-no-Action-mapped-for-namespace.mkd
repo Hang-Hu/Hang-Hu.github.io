@@ -1,0 +1,13 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Struts 
+cover: 
+---
+## Reason
+
+The location of `struts.xml` is wrong.
+## Solution
+
+Put `struts.xml` directly in `src/main/resources`.

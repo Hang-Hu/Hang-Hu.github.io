@@ -1,0 +1,26 @@
+---
+layout: post
+author: Hang Hu
+categories: mysql
+tags: Mysql 
+cover: 
+---
+
+## Details
+
+com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: Data source rejected establishment of connection, message from server: "Too many connections"
+## Reason
+
+Too many connections
+## Solution
+
+```
+vim /etc/my.cnf
+```
+Add max_connections below `[mysqld]`
+```
+[mysqld]
+max_connections=250
+```
+Then the exception stops.
+

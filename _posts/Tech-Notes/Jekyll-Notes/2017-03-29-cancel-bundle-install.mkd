@@ -1,0 +1,10 @@
+---
+layout: post
+author: Hang Hu
+categories: jekyll
+tags: Jekyll 
+cover: 
+---
+
+There is a hidden directory called .bundle in `~`. Remove that, then run bundle again.
+

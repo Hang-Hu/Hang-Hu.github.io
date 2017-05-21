@@ -1,0 +1,11 @@
+#java.lang.NoClassDefFoundError: org/slf4j/impl/StaticLoggerBinder
+##Reason
+Jar corresponding to `StaticLoggerBinder` is lost
+##Solution
+```
+<dependency>
+	<groupId>org.slf4j</groupId>
+	<artifactId>slf4j-log4j12</artifactId>
+	<version>1.5.6</version>
+</dependency>
+```

@@ -1,0 +1,4 @@
+#mysql remote connect using command line
+```
+mysql -h 115.28.163.139 -P 3306 -u archiLab -p
+```

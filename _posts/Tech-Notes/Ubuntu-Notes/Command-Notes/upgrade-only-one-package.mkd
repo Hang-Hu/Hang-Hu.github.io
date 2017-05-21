@@ -1,0 +1,6 @@
+# upgrade only one package
+
+```
+sudo apt install --only-upgrade youtube-dl
+
+```

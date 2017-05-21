@@ -1,0 +1,12 @@
+---
+layout: post
+author: Hang Hu
+categories: vim
+tags: Vim 
+cover: 
+---
+
+```
+:%!xxd to switch into hex mode
+:%!xxd -r to exit from hex mode
+```

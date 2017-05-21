@@ -1,0 +1,14 @@
+# java.lang.IllegalArgumentException: expecting IdClass mapping
+
+## Reason
+
+A bug.
+
+## Solution
+
+Change `<composite-id class="com.acme.CustomerInventoryPK" mapped="true"></composite-id>` to `<composite-id></composite-id>`.
+
+## Reference
+
+`https://hibernate.atlassian.net/browse/HHH-8851`
+`https://forum.hibernate.org/viewtopic.php?f=1&t=1030434`

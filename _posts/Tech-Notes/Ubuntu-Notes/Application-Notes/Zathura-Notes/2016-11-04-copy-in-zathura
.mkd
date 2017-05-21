@@ -1,0 +1,10 @@
+---
+layout: post
+author: Hang Hu
+categories: ubuntu
+tags: Ubuntu Application Zathura 
+cover: 
+---
+
+1. Mark text in zathura, select it using mouse is ok.  
+2. And then go to shift-ins it in a terminal.

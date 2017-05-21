@@ -1,0 +1,25 @@
+---
+layout: post
+author: Hang Hu
+categories: mysql
+tags: Mysql 
+cover: 
+---
+
+## Reason
+
+This limitation, which was only due to historical, code legacy reasons, has been lifted in recent versions of MySQL:
+
+>
+Changes in MySQL 5.6.5 (2012-04-10, Milestone 8)
+>
+Previously, at most one TIMESTAMP column per table could be automatically initialized or updated to the current date and time. This restriction has been lifted. Any TIMESTAMP column definition can have any combination of DEFAULT CURRENT_TIMESTAMP and ON UPDATE CURRENT_TIMESTAMP clauses. In addition, these clauses now can be used with DATETIME column definitions. For more information, see Automatic Initialization and Updating for TIMESTAMP and DATETIME.
+
+http://dev.mysql.com/doc/relnotes/mysql/5.6/en/news-5-6-5.html
+## Solution
+
+Install mysql whose version is higher than 5.6.5.
+```
+sudo apt-get install mysql-client-core-5.6
+sudo apt-get install mysql-server-5.6
+```

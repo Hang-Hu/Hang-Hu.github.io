@@ -1,0 +1,11 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Java-Core 
+cover: 
+---
+
+```
+String path=Thread.currentThread().getContextClassLoader().getResource("").getPath();
+```

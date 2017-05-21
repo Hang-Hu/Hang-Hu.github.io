@@ -1,0 +1,30 @@
+---
+layout: post
+author: Hang Hu
+categories: ubuntu
+tags: Ubuntu Application ImageMagic 
+cover: 
+---
+## Convert from png to jpeg
+
+```
+convert hw2.png hw2.jpeg
+```
+
+## Convert hw2.jpeg to hw2-q50.jpeg with quality of 50:
+
+```
+convert -quality 50 hw2.jpeg hw2-q50.jpeg
+```
+
+## However, sometimes convert png will causes bigger picture:
+
+```
+convert -quality 5 hw2.png hw2-q5.png
+```
+
+## Convert from quality 50 to 50, no change in picture size:
+
+```
+convert -quality 85 hw2-q50.png hw2-q50-50.png
+```

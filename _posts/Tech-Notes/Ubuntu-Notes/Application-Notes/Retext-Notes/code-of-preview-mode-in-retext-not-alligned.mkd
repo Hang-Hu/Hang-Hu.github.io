@@ -1,0 +1,3 @@
+#code of preview mode in retext not alligned
+1. edit->change preview font  
+2. change it to monospace.

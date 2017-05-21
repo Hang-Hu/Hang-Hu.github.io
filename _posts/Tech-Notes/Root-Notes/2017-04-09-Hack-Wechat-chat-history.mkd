@@ -1,0 +1,27 @@
+---
+layout: post
+author: Hang Hu
+categories: root
+tags: Root 
+cover: 
+---
+
+IMEI 866963020171395
+```
+busybox vi /data/data/com.tencent.mm/shared_prefs/system_config_prefs.xml
+```
+```
+?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <int name="update_swip_back_status" value="0" />
+    <string name="support.weixin.qq.com">support.weixin.qq.com</string>
+    <boolean name="first_launch_weixin" value="false" />
+    <int name="default_uin" value="1085619761" />
+    <boolean name="set_service" value="true" />
+    <boolean name="settings_fully_exit" value="false" />
+    <string name="builtin_short_ips">6,183.192.199.147,80,short.weixin.qq.com|6,
+    <long name="recomended_update_ignore" value="1491538043" />
+</map>
+```
+
+UNI 1085619761

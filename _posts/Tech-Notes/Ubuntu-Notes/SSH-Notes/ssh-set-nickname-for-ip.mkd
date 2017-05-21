@@ -1,0 +1,11 @@
+#ssh set nickname for ip
+If no config in .ssh, create one.
+```
+vim ~/.ssh/config
+```
+Add this lines:
+```
+Host EcollaborationWeb                                                      
+HostName 115.28.163.140
+User root
+```

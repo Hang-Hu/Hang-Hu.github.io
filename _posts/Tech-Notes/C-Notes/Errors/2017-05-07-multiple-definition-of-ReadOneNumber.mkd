@@ -1,0 +1,20 @@
+---
+layout: post
+author: Hang Hu
+categories: c
+tags: C 
+cover: 
+---
+
+## Reason
+
+```
+gcc linkedlist.c menu.c  menu
+```
+This command use linkedlist twice because menu.c has already inported `linkedlist.h`.
+
+## Solution
+
+```
+gcc menu.c  menu
+```

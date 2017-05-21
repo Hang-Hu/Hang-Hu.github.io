@@ -1,0 +1,124 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Spring-Framework SpringMVC 
+cover: 
+---
+
+#### User.java in com.huhang.domain
+
+#### CommandController implements AbstractCommandController
+
+CommandController can pass mapped key and value to POJO `User`.
+```
+public class CommandController extends AbstractCommandController{
+	public CommandController(){
+		this.setCommandClass(User.class);
+	}
+	@Override
+	protected ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object command,
+			BindException errors) throws Exception {
+		User user=(User)command;
+		ModelAndView mv=new ModelAndView();
+		mv.addObject("user", user);
+		mv.setViewName("index");
+		return mv;
+	}
+}
+```
+Its configuration in springmvc.xml:
+```
+<bean name="/command.do" class="com.huhang.controller.CommandController"></bean>
+```
+#### register.jsp for passing values to CommandController
+
+```
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<form action="./command.do" method="post">
+		<div class="form-group">
+			<label for="username">User name:</label>
+			<input class="form-control" name="name">
+		</div>
+	    <div class="form-group">
+	    	<label for="password">Password:</label>
+	    	<input type="password" class="form-control" name="password">
+	    </div>
+	    <div class="form-group">
+	    	<label for="repassword">Retype password:</label>
+	    	<input type="password" class="form-control" name="repassword">
+	    </div>
+	    <div class="form-group">
+	    	<label for="age">Age:</label>
+	    	<input type="number" class="form-control" name="age">
+	    </div>
+	    <div class="form-group">
+	    	<label for="birthday">Birthday:</label>
+	    	<input class="form-control" name="birthday">
+	    </div>
+	    <div class="form-group">
+	    	<label for="address">Address:</label>
+	    	<input class="form-control" name="address">
+	    </div>
+	    <div class="checkbox">
+	    	<label><input type="checkbox"> Remember me</label>
+	  </div>
+	    <button type="submit" class="btn btn-default">Submit</button>
+	</form>
+</body>
+</html>
+```
+#### RegisterController to access register.jsp
+
+```
+public class RegisterController implements Controller{
+	@Override
+	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mv=new ModelAndView();
+		mv.setViewName("register");
+		return mv;
+	}
+}
+``` 
+Its configuration:
+```
+<bean name="/register.do" class="com.huhang.controller.RegisterController"></bean>
+```
+#### index.jsp for displaying the result
+
+```
+<%
+	if(request.getAttribute("user") instanceof User){
+		User user=(User)request.getAttribute("user");
+		if(user!=null){
+			out.print(user.getName()+" "+user.getAge()+" "+user.getBirthday()+" "+user.getAddress());
+		}
+	}else{
+		out.print(request.getAttribute("user"));
+	}
+%>
+```
+#### Different Date Format
+
+```
+@Override
+protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws Exception {
+	String birthday=request.getParameter("birthday");
+	boolean allowEmpty=true;
+	if(birthday.contains("/")){
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy/MM/dd"), allowEmpty));	
+	}else if(birthday.contains("-")){
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), allowEmpty));
+	}	
+}
+```

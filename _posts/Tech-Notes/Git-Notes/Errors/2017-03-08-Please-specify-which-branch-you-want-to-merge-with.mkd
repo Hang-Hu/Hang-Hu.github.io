@@ -1,0 +1,14 @@
+---
+layout: post
+author: Hang Hu
+categories: git
+tags: Git 
+cover: 
+---
+
+## Reason
+
+'git pull' doesn't specify what branch to pull.
+## Solution
+
+Use 'git pull origin master'.

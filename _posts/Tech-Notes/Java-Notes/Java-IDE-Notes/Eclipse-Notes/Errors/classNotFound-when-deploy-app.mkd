@@ -1,0 +1,8 @@
+#java.lang.ClassNotFoundException when deploy app
+###Reason  
+I never build any class for com.huhang.servlet.ServletDemo1, of course can't find this class.
+###Solution
+I am not sure which one or ones worked.  
+Right click project, and choose "Build Project".  
+Right click Tomcat in "Server" section, choose "Clean"  
+Right click Tomcat in "Server" section, choose "Publish"

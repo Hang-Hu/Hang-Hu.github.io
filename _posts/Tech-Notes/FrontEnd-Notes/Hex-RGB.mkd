@@ -1,0 +1,27 @@
+#Hex and RGB
+##Hex
+In CSS, we can use 6 hexadecimal digits to represent colors, two each for the red (R), green (G), and blue (B) components. For example, #000000 is black and is also the lowest possible value. You can find more information about the RGB color system here.
+
+Replace the word black in our body element's background-color with its hex code representation, #000000.
+
+```css
+<style>
+  body {
+    background-color: #000000;
+  }
+</style>
+```
+
+Many people feel overwhelmed by the possibilities of more than 16 million colors. And it's difficult to remember hex code. Fortunately, you can shorten it.
+
+For example, red's hex code #FF0000 can be shortened to #F00. This shortened form gives one digit for red, one digit for green, and one digit for blue.
+
+##RGB
+
+```css
+<style>
+  body {
+    background-color: rgb(0,0,0);
+  }
+</style>
+```

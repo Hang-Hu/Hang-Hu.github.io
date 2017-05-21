@@ -1,0 +1,5 @@
+#delete specified history in commandline
+```
+vim ~/.bash_history
+```
+Then delete the specified line of history you want to remove.

@@ -1,0 +1,19 @@
+#Rename a database in mysql
+##StackOverflow
+Use these few simple commands:
+```
+mysqldump -u username -p -v olddatabase > olddbdump.sql
+mysqladmin -u username -p create newdatabase
+mysql -u username -p newdatabase < olddbdump.sql
+```
+##Example
+```
+mysqladmin -u root -p create ECollaborationWebOldByMe
+mysqldump -u root -p -v ECollaborationWeb > ECollaborationWebOld.sql
+mysql -u root -p ECollaborationWebOldByMe<ECollaborationWebOld.sql
+```
+Then drop the old one.
+```
+joanna@JC:~$ mysql -u root -p
+mysql> drop database ECollaborationWeb;
+```

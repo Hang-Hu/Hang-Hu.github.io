@@ -1,0 +1,7 @@
+#NumberFormatException: null
+##Reason
+`Integer.valueOf(projectToken)`, `projectToken` is null because I forgot to give value to it.
+##Solution
+```
+projectToken=new IdsGetter().getProjectId();
+```

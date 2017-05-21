@@ -1,0 +1,13 @@
+---
+layout: post
+author: Hang Hu
+categories: root
+tags: Root 
+cover: 
+---
+
+`
+dd if=20170409backup.ab bs=24 skip=1|python -c "import zlib,sys;sys.stdout.write(zlib.decompress(sys.stdin.read()))" > 20170409backup.tar
+`
+
+

@@ -1,0 +1,12 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Java-IDE Intellij 
+cover: 
+---
+
+## Solution
+
+1. maven clean
+2. Tomcat cofiguration->Deployment->Delete the artifact and re add it.

@@ -1,0 +1,479 @@
+#Javascript
+###use F12 for browser console.
+###comment
+```
+//comment
+/* This is a muti-line
+comment*/
+```
+###seven data types
+Seven data types are undefined, null, boolean, string, symbol, number, and object.
+###variables
+We tell JavaScript to create or declare a variable by putting the keyword var in front of it, like so:  
+```
+var myName;
+```
+###undifined
+When JavaScript variables are declared, they have an initial value of undefined. If you do a mathematical operation on an undefined variable your result will be NaN which means "Not a Number". If you concatenate a string with an undefined variable, you will get a literal string of "undefined".  
+Initialize variables so they won't be undefined.
+###function
+```
+function convertToF(celsius) {
+  var fahrenheit;
+  fahrenheit=celsius*9/5+32;
+  return fahrenheit;
+}
+convertToF(30);
+```
+###+= for concatenating strings
+```
+var myString;
+myStr="This is the first sentence. ";
+myStr+="This is the second sentence.";
+
+```
+###array
+```
+var myArray = ["Hang HU",21];
+```
+###nested array
+```
+var myArray = [["Hang Hu",21],["Ying Yin",21]];
+```
+###access multi-dimensional array
+```
+var arr = [
+    [1,2,3],
+    [4,5,6],
+    [7,8,9],
+    [[10,11,12], 13, 14]
+];
+arr[3]; // equals [[10,11,12], 13, 14]
+arr[3][0]; // equals [10,11,12]
+arr[3][0][1]; // equals 11
+```
+###append data to the end of array using push()
+```
+var myArray = [["John", 23], ["cat", 2]];
+myArray.push(["dog",3]);
+```
+###pop the last item of array
+```
+var myArray = [["John", 23], ["cat", 2]];
+var removedFromMyArray;
+removedFromMyArray=myArray.pop();
+```
+###remove the first item from array using shift()
+```
+// Setup
+var myArray = [["John", 23], ["dog", 3]];
+var removedFromMyArray;
+removedFromMyArray=myArray.shift();
+```
+###add element at the beginning of array using unshift()
+```
+var myArray = [["John", 23], ["dog", 3]];
+myArray.shift();
+myArray.unshift(["Paul",35]);
+```
+###print
+```
+console.log("Hi World");
+console.log(a+b);
+```
+###global scope
+Variables which are defined outside of a function block have Global scope.     
+Variables which are used without the var keyword are automatically created in the global scope.   
+```
+function fun1() {
+  // Assign 5 to oopsGlobal Here
+  oopsGlobal=5;
+}
+var myGlobal=10;
+``` 
+###equality
+==
+###strict equality
+Strict equality (===) is the counterpart to the equality operator (==). Unlike the equality operator, strict equality tests both the data type and value of the compared elements.
+```
+function testStrict(val) {
+  if (val===7) { 
+    return "Equal";
+  }
+  return "Not Equal";
+}
+```
+###not equal
+!=
+###strictly not equal
+The strict inequality operator (!==) is the opposite of the strict equality operator. It means "Strictly Not Equal" and returns false where strict equality would return true and vice versa. Strict inequality will not convert data types.
+###object
+```
+var myDog = {
+  "name":"Doggy",
+  "legs":2,
+  "tails":1,
+  "friends":["Human","Another dog"]
+};
+var legnum=myDog.legs;
+```
+###access property with space using []
+```
+var myObj = {
+  "Space Name": "Kirk",
+  "More Space": "Spock"
+};
+myObj["Space Name"]; // Kirk
+myObj['More Space']; // Spock
+```
+###access property using variable playerNumber
+```
+var testObj = {
+  12: "Namath",
+  16: "Montana",
+  19: "Unitas"
+};
+var playerNumber=16;
+var player = testObj[playerNumber];
+```
+###change property using dot or bracket notation
+```
+var ourDog = {
+  "name": "Camper",
+  "legs": 4,
+  "tails": 1,
+  "friends": ["everything!"]
+};
+ourDog.name = "Happy Camper"; or
+
+ourDog["name"] = "Happy Camper";
+```
+###add property
+```
+var myDog = {
+  "name": "Happy Coder",
+  "legs": 4,
+  "tails": 1,
+  "friends": ["Free Code Camp Campers"]
+};
+myDog.bark="Wang-Wang";
+```
+###delete property
+```
+delete myDog.tails;
+```
+###use object for lookup
+Objects can be thought of as a key/value storage, like a dictionary. If you have tabular data, you can use an object to "lookup" values rather than a switch statement or an if/else chain. This is most useful when you know that your input data is limited to a certain range.  
+```
+function phoneticLookup(val) {
+  var result="";
+  var lookup={
+    "alpha":"Adams",
+    "bravo":"Boston",
+    "charlie":"Chicago",
+    "delta":"Denver",
+    "echo":"Easy",
+    "foxtrot":"Frank",
+    "":undefined
+  };
+  result=lookup[val];
+  // Only change code above this line
+  return result;
+}
+phoneticLookup("charlie");
+```
+###test if object has given property using hasOwnProperty()
+```
+var myObj = {
+  gift: "pony",
+  pet: "kitten",
+  bed: "sleigh"
+};
+
+function checkObj(checkProp) {
+  // Your Code Here
+  if(myObj.hasOwnProperty(checkProp))
+    return myObj[checkProp];
+  else
+    return "Not Found";
+}
+// Test your code by modifying these values
+checkObj("gift");
+```
+###array containing objects
+This is an array which contains one object inside. The object has various pieces of metadata about an album. It also has a nested "formats" array. If you want to add more album records, you can do this by adding records to the top level array.  
+```
+var myMusic = [
+  {
+    "artist": "Billy Joel",
+    "title": "Piano Man",
+    "release_year": 1973,
+    "formats": [
+      "CS",
+      "8T",
+      "LP" ],
+    "gold": true
+  },
+  {
+    "artist":"Pue",
+    "title":"Blue",
+    "release_year":2016,
+    "formats":[
+      "CD",
+      "Cassette",
+      "LP"
+    ]
+  }
+  // Add record here
+];
+```
+###JSON
+JavaScript Object Notation or JSON is a related data interchange format used to store data.
+```
+{
+  "artist": "Daft Punk",
+  "title": "Homework",
+  "release_year": 1997,
+  "formats": [
+    "CD",
+    "Cassette",
+    "LP"
+  ],
+  "gold": true
+}
+```
+###access nested object
+```
+var myStorage = {
+  "car": {
+    "inside": {
+      "glove box": "maps",
+      "passenger seat": "crumbs"
+     },
+    "outside": {
+      "trunk": "jack"
+    }
+  }
+};
+var gloveBoxContents = myStorage.car.inside["glove box"];
+```
+###access nested arrays using [0]
+```
+var myPlants = [
+  {
+    type: "flowers",
+    list: [
+      "rose",
+      "tulip",
+      "dandelion"
+    ]
+  },
+  {
+    type: "trees",
+    list: [
+      "fir",
+      "pine",
+      "birch"
+    ]
+  }
+];
+var secondTree =myPlants[1].list[1];
+```
+###regular expressions
+Regular expressions are used to find certain words or patterns inside of strings.
+
+```
+/the/gi
+```
+
+/ is the start of the regular expression.
+
+the is the pattern we want to match.
+
+/ is the end of the regular expression.
+
+g means <strong>global</strong>, which causes the pattern to return all matches in the string, not just the first one.
+
+i means that we want to <strong>ignore</strong> the case (uppercase or lowercase) when searching for the pattern.
+```
+var testString = "Ada Lovelace and Charles Babbage designed the first computer and the software that would have run on it.";
+var expression = /and/gi;
+```
+###find numbers using \d
+Digit selector <strong>\d</strong> which is used to retrieve one digit (e.g. numbers 0 to 9) in a string.
+
+In JavaScript, it is used like this: /\d/g.
+
+Appending a <strong>plus sign</strong> (+) after the selector, e.g. /\d+/g, allows this regular expression to match one or more digits.
+```
+var testString = "There are 3 cats but 4 dogs.";
+var expression = /\d+/g;
+```
+###whitespace selector \s
+There are many kinds of whitespace characters, such as " " (space), \r (the carriage return), \n (newline), \t (tab), and \f (the form feed).
+```
+var testString = "How many spaces are there in this sentence?";
+var expression = /\s+/g;
+```
+###invert matches using uppercase
+ \s will match any whitespace, and \S(uppercase of s) will match anything that isn't whitespace.
+```
+var testString = "How many non-space characters are there in this sentence?";
+var expression = /\S/g;
+// This code counts the matches of expression in testString
+var nonSpaceCount = testString.match(expression).length;
+```
+Notice:using /\S+/g here will get 9 while /\S+/g will get 49.
+###constructor
+A constructor function is given a capitalized name to make it clear that it is a constructor.
+```
+var MotorBike = function() {
+  this.wheels=2;
+  this.engines=1;
+  this.seats=2;
+};
+```
+###make object with constructor
+```
+var myCar=new Car();
+```
+###constructor with parameters
+```
+var Car = function(wheels,seats,engine) {
+  this.wheels = wheels;
+  this.seats = seats;
+  this.engines = engine;
+};
+var myCar=new Car(2,2,1);
+```
+###private property and public method
+This keyword can be used to reference public properties of the current object.
+To add private property, we create the variable inside the constructor using the var keyword we're familiar with, instead of creating it as a property of this.  
+```
+var Bike = function() {
+  // this is a private variable
+  var gear=0;
+  // these are public methods
+  this.getGear=function(){
+    return gear;
+  };
+  this.setGear=function(newgear){
+    gear=newgear;
+  };
+};
+```
+### use map(function(val){}) to iterate over and change array's each value
+```
+var oldArray = [1,2,3,4,5];
+var newArray = oldArray.map(function(val){
+  return val+3;
+});
+```
+###reduce(function(previousVal,currentVal){})
+The accumulator is like a total that reduce keeps track of after each operation. The current value is just the next element in the array you're iterating through. 
+reduce has an optional second argument which can be used to set the initial value of the accumulator. If no initial value is specified it will be the first array element and currentVal will start with the second array element.  
+Use the reduce method to sum all the values in array and assign it to singleVal.  
+```
+var array = [4,5,6,7,8];
+var singleVal = 0;
+singleVal = array.reduce(function(previousVal,currentVal){
+  return previousVal+currentVal;
+});
+```
+###filter()
+The filter method is used to iterate through an array and filter out elements where a given condition is not true.      
+```
+var oldArray = [1,2,3,4,5,6,7,8,9,10];
+var newArray = oldArray.filter(function(val){
+  return val<6;
+});
+```
+Filter out all non-alphanumeric characters, notice that use '0' rather than 0.
+```  
+  array=array.filter(function(val){
+    return ((val>='0')&&(val<='9'))||((val>='a')&&(val<='z'))||((val>='A')&&(val<='Z'));
+  });
+```
+###sort()
+Unlike the previous array methods we have been looking at, sort actually alters the array in place. However, it also returns this sorted array.  
+Sort can be passed a compare function as a callback. The compare function should return a negative number if a should be before b, a positive number if a should be after b, or 0 if they are equal.  
+If no compare (callback) function is passed in, it will convert the values to strings and sort alphabetically.  
+So, the compare function has the following form:  
+```
+function compare(a, b) {
+  if (a is less than b by some ordering criterion) {
+    return -1;
+  }
+  if (a is greater than b by the ordering criterion) {
+    return 1;
+  }
+  // a must be equal to b
+  return 0;
+}
+```
+Sort the elements from smallest to largest number:
+```
+var array = [1, 12, 21, 2];
+array.sort(function(a, b) {
+  return a - b;
+});
+```
+Use sort to sort array from largest to smallest.  
+```
+var array = [1, 12, 21, 2];
+array.sort(function(a,b){
+  return b-a;
+});
+```
+###reverse()
+Do reverse in array and it will return a reversed array.  
+```
+var array = [1,2,3,4,5,6,7];
+var newArray = [];
+newArray = array.reverse();
+```
+###concat()
+```
+var oldArray = [1,2,3];
+var newArray = [];
+var concatMe = [4,5,6];
+newArray = oldArray.concat(concatMe);
+```
+###split
+Split uses the argument you pass in as a delimiter to determine which points the string should be split at.  
+Here ' ' is used as delimiter.
+```
+var string = "Split me into an array";
+var array = [];
+array = string.split(' ');
+```
+###join()
+We can use the join method to join each element of an array into a string separated by whatever delimiter you provide as an argument.  
+```
+var joinMe = ["Split","me","into","an","array"];
+var joinedString = '';
+joinedString = joinMe.join(" ");
+```
+###toLowerCase()
+```
+var array=["A","B","C"];
+array[0]=array[0].toLowerCase();
+console.log(array);
+```
+output:["a","b","c"]
+###
+###
+###
+###
+###
+###
+###
+###
+###
+###
+###
+###
+###
+###
+###
+###

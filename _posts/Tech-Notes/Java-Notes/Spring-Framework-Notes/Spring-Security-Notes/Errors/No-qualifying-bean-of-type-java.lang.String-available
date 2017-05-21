@@ -1,0 +1,15 @@
+# No qualifying bean of type 'java.lang.String' available
+
+## Details
+
+`
+org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'java.lang.String' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+`
+
+## Reason
+
+`@Autowired` is left before method `loadUserByUsername` while `private UserService userService;` is commented, then Spring regarded parameter `String username` as bean being autowired, which made this exception.
+
+## Solution
+
+Comment `@Autowired`.

@@ -1,0 +1,33 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Spring-Framework SpringMVC 
+cover: 
+---
+
+## Detail
+
+```
+@Controller
+public class WeekController {
+	@RequestMapping("/weeks")
+	@ResponseBody public WeekDTO getWeekList(@Valid @RequestBody User user){
+		return new WeekDTO();
+	}
+}
+```
+```
+public class User {
+    @NotNull
+    private Integer id;
+    @NotNull
+    private String name;
+    @NotNull
+    @Min(18)
+    private Integer age;
+```
+## Reason
+
+1. Parameters in json didn't match the `requirements` when using hibernate validator's `@Valid`, such as `@NotNull`, `@Min`.
+2. No getters and setters in class `User` when using `@Valid`

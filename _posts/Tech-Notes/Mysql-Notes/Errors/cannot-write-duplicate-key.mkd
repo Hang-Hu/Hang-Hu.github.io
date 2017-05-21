@@ -1,0 +1,15 @@
+#ERROR 1022 (23000): Can't write; duplicate key in table 'RealTime'
+```
+mysql> create table RealTime( 
+device_id int not null, 
+group_id int not null, 
+status int not null, 
+error_code int not null, 
+primary key(device_id,group_id), 
+constraint fk_device foreign key (device_id) references Device(id) on update cascade, 
+constraint fk_group foreign key(group_id) references DeviceGroup(id) on update cascade);
+```
+##Reason
+The most likely you already have a constraint with the name fk_device and fk_group in your database. Just rename the constraints if so.
+##Solution
+change it another constraint name.

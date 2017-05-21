@@ -1,0 +1,14 @@
+---
+layout: post
+author: Hang Hu
+categories: git
+tags: Git 
+cover: 
+---
+
+```
+git config user.name
+```
+```
+git config --list
+```

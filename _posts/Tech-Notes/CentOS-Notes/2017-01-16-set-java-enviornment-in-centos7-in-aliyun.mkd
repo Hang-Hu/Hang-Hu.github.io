@@ -1,0 +1,73 @@
+---
+layout: post
+author: Hang Hu
+categories: centos
+tags: CentOS 
+cover: 
+---
+
+### Mysql
+
+Mysql is already installed.
+### JDK
+
+Directory:`/usr/local/jdk1.8.0_91`
+#### Upload jdk installation file
+
+Using FileZilla in root
+#### Extract and move it to /usr/local
+
+```
+tar xzvf jdk-8u91-linux-x64.tar.gz
+```
+#### Set environmental variables
+
+```
+vim /etc/profile
+```
+```
+# for java environment
+
+export JAVA_HOME=/usr/local/jdk1.8.0_91
+export JRE_HOME=${JAVA_HOME}/jre
+export CLASS_PATH=.:${JAVA_HOME}/lib/dt.jar:${JAVA_HOME}/lib/tools.jar:${JRE_HOME}/lib:$CLASSPATH
+export PATH=${JAVA_HOME}/bin:${JRE_HOME}/bin:$PATH
+```
+`:$PATH` in the end of above lines means adding PATH defined before, if lost, will cause `vi command not found`.
+#### Source and test it
+
+```
+source /etc/profile 
+java -version 
+```
+### Tomcat
+
+#### tar and move
+
+```
+tar -zxvf apache-tomcat-8.0.37.tar.gz
+sudo mv apache-tomcat-8.0.37 /usr/local
+```
+#### Set enviornmental variables
+
+##### Edit /etc/profile
+
+```
+vim /etc/profile
+```
+```
+# set tomcat environment
+
+CATALINA_HOME=/usr/local/apache-tomcat-8.0.37
+export CATALINA_HOME
+```
+##### Edit catalina.sh
+
+```
+vim /usr/local/apache-tomcat-8.0.37/bin/catalina.sh
+Add these to the end:
+# for tomcat and java environment by huhang                                  
+
+CATALINA_HOME=/usr/local/apache-tomcat-8.0.37
+JAVA_HOME=/usr/local/jdk1.8.0_91
+```

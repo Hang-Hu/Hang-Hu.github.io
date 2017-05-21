@@ -1,0 +1,14 @@
+---
+layout: post
+author: Hang Hu
+categories: ubuntu
+tags: Ubuntu Application Convert-Formats 
+cover: 
+---
+
+```
+convert img{0..19}.jpg merged.pdf
+```
+```
+convert $(ls *.jpg) merged.pdf
+```

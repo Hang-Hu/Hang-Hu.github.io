@@ -1,0 +1,11 @@
+#org.hibernate.HibernateException: Could not obtain transaction-synchronized Session for current thread
+##Reason
+Transaction support is not enabled yet.
+##Solution
+###Spring Configuration
+1. `<tx:annotation-driven>` in `springmvc.xml` or `@EnableTransactionManagement` in `AppConfig`
+2. Declare the transactionManager, don't forget to give a sessionFactory to it.
+###Dao Annotation
+Add `@Transactional` along with `@Repository` for such Class as `UserDaoImpl`.
+
+

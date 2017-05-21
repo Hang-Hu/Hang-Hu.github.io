@@ -1,0 +1,22 @@
+# Get USB Vendor id of android phone
+
+```
+lsusb -v
+```
+```
+Bus 001 Device 031: ID 2717:0368  
+Device Descriptor:
+  bLength                18
+  bDescriptorType         1
+  bcdUSB               2.10
+  bDeviceClass            0 (Defined at Interface level)
+  bDeviceSubClass         0 
+  bDeviceProtocol         0 
+  bMaxPacketSize0        64
+  idVendor           0x2717 
+  idProduct          0x0368 
+  bcdDevice            2.32
+  iManufacturer           1 Xiaomi
+  iProduct                2 MI 4LTE
+```
+Here is the result: `idVendor 0x2717`

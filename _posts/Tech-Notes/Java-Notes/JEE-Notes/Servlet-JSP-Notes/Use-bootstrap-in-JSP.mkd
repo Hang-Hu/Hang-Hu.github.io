@@ -1,0 +1,47 @@
+#Use bootstrap in JSP
+1. Download Bootstrap from http://getbootstrap.com/
+2. Create a dynamic web project in eclipse. Make sure that this dynamic web project could be run on the server. 
+3. Under WebContent folder, create a bootstrap folder.
+4. Import css,fonts,js from downloaded Bootstrap resources into the newly created folder, “bootstrap” in step 3.
+5.Create include.jsp and other files include it to use bootstrap and jquery
+
+include.jsp
+```
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<style type="text/css">
+    <%@include file="bootstrap/css/bootstrap.css" %>
+    <%@include file="bootstrap/css/bootstrap-theme.css" %>
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="bootstrap/js/jquery.js"></script>
+<script src="bootstrap/js/bootstrap.js"></script>
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+</body>
+</html>
+```
+register.jsp
+```
+<!DOCTYPE html>
+<html>
+<head>
+<jsp:include page="include.jsp" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<style type="text/css">
+    <%@include file="css/register.css" %>
+</style>
+<script src="js/register.js"></script>
+<title>Register</title>
+</head>
+<body>
+</body>
+</html>
+```

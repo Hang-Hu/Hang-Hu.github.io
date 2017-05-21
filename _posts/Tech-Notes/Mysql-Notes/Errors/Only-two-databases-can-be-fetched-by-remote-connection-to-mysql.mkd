@@ -1,0 +1,11 @@
+#Only One database can be fetched by remote connection to mysql
+##Detail
+Only information_schema can be fetched by remote connection to mysql, including command-line and navicat.
+##Reason
+Privileges to root for remote connection of those databases haven't been granted yet.
+##Solution
+Grant privileges to root for remote connection of all databases' all tables.
+First * means all databases, second means all tables, and % means remote.
+```
+mysql> grant all privileges on *.* to 'root'@'%' identified by '123';
+```

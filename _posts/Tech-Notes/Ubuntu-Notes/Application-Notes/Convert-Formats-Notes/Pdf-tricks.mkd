@@ -1,0 +1,5 @@
+#Pdf tricks
+##pdftotext
+```
+pdftotext OG.pdf OG.txt
+```

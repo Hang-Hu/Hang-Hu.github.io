@@ -1,0 +1,48 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Spring-Framework SpringMVC 
+cover: 
+---
+
+For executing controller.
+#### SimpleControllerHandlerAdapter
+
+Adapter(executor) of `Controllers`.
+```
+<bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"></bean>
+```
+Source code for it:
+```
+public boolean supports(Object handler) {
+	return (handler instanceof Controller);
+}
+
+public ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object handler)
+		throws Exception {
+
+	return ((Controller) handler).handleRequest(request, response);
+}
+```
+#### HttpRequestHandlerAdapter
+
+Adapter(executor) of `HttpRequestHandlers`.
+HttpController implements `HttpRequestHandler`:
+```
+public class HttpController implements HttpRequestHandler{
+	@Override
+	public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute("user", "Welcome!");
+		request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+	}
+}
+```
+Configuration in springmvc.xml for `HttpController`:
+```
+<bean id="httpController" class="com.huhang.controller.HttpController"></bean>
+```
+Configuration in springmvc.xml for `HttpRequestHandlerAdapter`:
+```
+<bean class="org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter"></bean>
+```

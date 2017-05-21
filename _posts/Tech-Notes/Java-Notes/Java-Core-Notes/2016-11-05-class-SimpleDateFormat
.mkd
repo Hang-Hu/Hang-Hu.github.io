@@ -1,0 +1,21 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Java-Core 
+cover: 
+---
+
+DateFormat.format only works on Date values.
+
+You should use two SimpleDateFormat objects: one for parsing, and one for formatting. For example:
+```
+// Note, MM is months, not mm
+DateFormat outputFormat = new SimpleDateFormat("MM/yyyy");
+DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
+
+String inputText = "2012-11-17T00:00:00.000-05:00";
+Date date = inputFormat.parse(inputText);
+String outputText = outputFormat.format(date);
+```
+EDIT: Note that you may well want to specify the time zone and/or locale in your formats, and you should also consider using Joda Time instead of all of this to start with - it's a much better date/time API.s

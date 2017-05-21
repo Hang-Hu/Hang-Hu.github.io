@@ -1,0 +1,6 @@
+#Move folders to overwrite another folder with the same name
+Though its man page doesn't document it, mv will refuse to rename a directory to another directory if the target directory contains files. This is a good thing in your case because you turn out to want to merge the content of the source into the target, which mv will not do.
+```
+rm -rf /usr/local/apache-tomcat-8.0.37/webapps/ROOT/teacher/team/
+mv  team/ /usr/local/apache-tomcat-8.0.37/webapps/ROOT/teacher/
+```

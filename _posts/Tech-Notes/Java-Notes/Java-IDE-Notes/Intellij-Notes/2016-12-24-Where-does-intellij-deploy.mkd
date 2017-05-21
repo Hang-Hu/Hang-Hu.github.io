@@ -1,0 +1,13 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Java-IDE Intellij 
+cover: 
+---
+
+`out` file in source files.
+```
+~/Documents/CodeSpace/code4java/eclipse workspace/SimpleController2-Config/out/
+```
+And `usr/local/apache-tomcat-8.0.37/webapps/ROOT`

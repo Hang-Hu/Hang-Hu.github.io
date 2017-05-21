@@ -1,0 +1,303 @@
+#EJB 3.0
+###Basic
+1. Why EJB: distributed and transactional
+###Stateful and Stateless Session Bean
+1.  Stateful: every session has its own state(value of instance variable)  
+    For example, do session twice:  
+    0 1 2 3 0 1 2 3  
+2.  Stateless: all session share the same instance variable  
+    For example:  
+    0 1 2 3 4 5 6 7  
+    Execute this client for second time:  
+    8 9 10 11 12 13 14 15   
+StatelessEjbBean is the same as StatefulEjbBean  
+```
+@Stateless   
+@Remote   
+public class StatelessEjbBean implements StatelessEjb {   
+   
+    private int state;   
+       
+    public void compute(int i) {   
+        state = state + i;   
+    }   
+   
+    public int getResult() {   
+        return state;   
+    }   
+   
+}
+```
+```Client
+//first session
+StatefullEjb ejb = (StatefullEjb)ctx.lookup("StatefullEjbBean/remote");   
+System.out.println(ejb.getResult());   
+ejb.compute(1);   
+System.out.println(ejb.getResult());   
+ejb.compute(1);   
+System.out.println(ejb.getResult());   
+ejb.compute(1);   
+System.out.println(ejb.getResult());   
+   
+//second session
+StatefullEjb ejb2 = (StatefullEjb)ctx.lookup("StatefullEjbBean/remote");   
+System.out.println(ejb2.getResult());   
+ejb2.compute(1);   
+System.out.println(ejb2.getResult());   
+ejb2.compute(1);   
+System.out.println(ejb2.getResult());   
+ejb2.compute(1);   
+System.out.println(ejb2.getResult());   
+```
+###Remote and Local Access
+ 
+2. <img src="/home/joanna/Pictures/CodePic/EJB/RemoteAccess.png" width=100%>  
+    Remote Access使用socket进行通信。Socket编程中通信必须实现序列化才能发送出去 ，使用的是传值的方式而不是引用。因此服务端反序列化后得到对象并对对象调用method，客户端的相应object不会随之改变。  
+    <img src="/home/joanna/Pictures/CodePic/EJB/LocalAccess.png" width=100%>  
+    Local Access客户端和服务器在同一个JVM进程中，因此直接传递指向object的reference即可，这样服务端对object做的修改客户端也能看到。  
+    WebService Client可以访问stateless session bean,要求@WebMethod  
+    独立性：由于Remote Access不能使用reference，因此不能依赖于参数的改变，而应该用return返回传数据。
+    use `User findUser(User user)` instead of `boolean findUser(User user)`,不要修改参数user，而是新建一个newUser，将`setXXX`作用于newUser，最后`return newUser`。
+    Remote Access要用粗粒度的数据访问：由于socket建立连接，序列化和反序列化耗费大量时间，因此尽量一次将数据传递完成，不要分批传递。
+   一个企业Bean可同时是@Remote和@Local      
+###Remote and Local Client
+1. Remote Client 客户端与其调用的EJB object不在一个JVM进程中,只能用Remote Access  
+   Local Client 在一个JVM进程中,可以用Local or Remote Access
+>Remote Client(Written in java project)
+```
+InitialContext context=new InitialContext();
+UserManager userManager=(UserManager)context.lookup("UserManagerBean/remote");
+```
+>Local Client(Written in JSP)
+
+```
+InitialContext context=new InitialContext();
+		UserManager userManager=(UserManager)context.lookup("UserManagerBean/local");
+```  
+```
+InitialContext context=new InitialContext();
+		UserManager userManager=(UserManager)context.lookup("UserManagerBean/remote");
+```  
+Local Client最简单的就是写一个web project，在jsp中写java code，类似于Remote Client，需要在`<%@ page import="" %>`引入这些包（包括UserManager的用户包），最后将System.out改为out即可。
+Local Client配置时不需要jndi.porperties,也不需要EJB3_CLIENT中的大量client的jar包，因为它处在本地与server在同一个jboss中。加入了反而会带来问题，因为尽管开发中加入后lib是空的，但deploy的lib中会有这些jar包。其中的servlet会带来error。
+###@Stateless
+```
+@Target(Type) @Retention(RUNTIME)
+//表示@Stateless 可以用在class前面，运行时可读
+public @interface Stateless{
+    String name() default "";//用这个定义JNDI的name
+    String mappedName() default "/";
+    String description() default "";
+} 
+```
+Usage:`@Stateless(name="HelloWorld")`
+###@Remote and @Local
+```
+//只有value，用于impelmets multiple interfaces时，确定哪些是Remote,哪些是Local
+@Remote(value={EjbInterface1.class,EjbInterface2.class})
+@Local(value={EjbInterface3.class,EjbInterface4.class})
+```
+像@Remote和@Local这样annotation只有一个属性且为value的情况，java规定可以省略`value=`  
+也可将@Remote和@Local定义在对应interface前，这样就更加简单，不用区分class implements的哪些interface是@Local，哪些是@Remote
+###Message Driven Bean
+####JMS(Java Message Service)
+1. Client communicate with another client via server.
+2. 异步的
+####JMS的消息模型
+#####P2P
+如QQ普通聊天
+<img src="/home/joanna/Pictures/EJB/p2p.png">
+#####Publish/Subscribe
+如QQ群
+<img src="/home/joanna/Pictures/EJB/Pub-Sub.png">
+有时间依赖性，不在线则接收不到
+为缓和这种严格的时间相关性，订阅者可以创建可持久化的订阅，这样消息会在所有可持久化的订阅接收到之后才销毁。
+Queue和topic统称为destination
+####JMS Programming Model
+<img src="/home/joanna/Pictures/EJB/JMS-model.png">
+Connect Factory generates Connection, Connection generates Session.  
+Get ConnectionFactory and Destination through JNDI.  
+Session可以创建消息的生产者和消费者。  
+MDB是一种MessageListener，是异步的。一旦消息到达，将自动调用MessageListener的onMessage()。  
+>MyQueueMDBBean.java(server)
+```
+@MessageDriven(
+    activationConfig={
+            //定义destination type
+            @ActivationConfigProperty(propertyName="destinationType",propertyValue="javax.jms.Queue"),
+            //定义destination name,也是JNDI name
+            @ActivationConfigProperty(propertyName="destination",propertyValue="queue/myqueue")
+    }
+)
+public class MyQueueMDBBean implements MessageListener{
+    static int i=0;
+    @Override
+    public void onMessage(Message msg) {
+
+        TextMessage textMessage=(TextMessage)msg;
+        try {
+            System.out.println("【MyQueueMDBBean】消息"+(i++)+"被接收了。TextMessage:"+textMessage.getText());
+        } catch (JMSException e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+>MyQueueMDBBeanClient(client)
+```
+public class MyQueueMDBBeanClient {
+     public static void main(String[] args) throws Exception {
+        InitialContext context=new InitialContext();
+
+        //lookup获取QueueConnectionFactory
+        QueueConnectionFactory factory=(QueueConnectionFactory)context.lookup("ConnectionFactory");
+
+        //QueueConnectionFactory创建QueueConnection对象
+        QueueConnection connection=factory.createQueueConnection();
+
+        //QueueConnection创建QueueSession对象，第一个参数表示事务自动提交，无需commit，第二个参数表示一旦消息被正确送达，将自动发回响应
+        QueueSession session=connection.createQueueSession(false, QueueSession.AUTO_ACKNOWLEDGE);
+
+        //lookup获取Destination对象
+        Queue queue=(Queue)context.lookup("queue/myqueue");
+
+        //QueueSession创建文本消息
+        TextMessage msg=session.createTextMessage("Hello world!");
+
+        //QueueSession创建发送者
+        QueueSender sender=session.createSender(queue);
+
+        //sender发送信息
+        for(int i=0;i<10;i++){
+            sender.send(msg);
+            System.out.println("消息"+i+"已经发送");
+        }
+
+        //关闭QueueSession,QueueConnection
+        session.close();
+        connection.close();
+    }
+}
+```
+对于Topic，将Queue改为Topic即可。
+###JPA
+####Entity Bean
+#####Difference from JavaBean
+1. class前加了@Entity
+2. 
+```
+@Id//表示primary key，也可放在getId() Method前面
+@GeneratedValue
+private int id;
+```
+默认映射，@Transient不映射  
+@Table(name="")改变映射的表名  
+@Column(name="")改变映射的Column名  
+>Server
+```
+@Stateless
+@Remote
+public class UserManagerBean implements UserManager{
+    @PersistenceContext//注入，xml只有一个时可以不写name
+    private EntityManager entityManager;
+
+    @Override
+    public void addUser(String name){
+        User user=new User();
+        user.setName(name);
+        entityManager.persist(user);
+    }
+}
+```
+####映射关系
+#####多对一
+@ManyToOne
+例如员工和公司就是一个多对一的关系。下边就是公司和员工的实体Bean的映射。  
+对于多对一关系在多处加上@ManyToOne
+```
+@Entity
+public class Company {
+    @Id
+    private int id;
+    private String name;
+}
+@Entity
+public class Employee {
+    @Id
+    private int id;
+    private String name;
+    
+    @ManyToOne
+    @JoinColumn(name="company_id")
+    private Company company;
+}
+```
+#####一对多
+同样，如果上边的公司和员工的关系是一对多，那么可以改成如下写法：
+```
+@Entity
+public class Employee {      //员工
+    @Id
+    @GeneratedValue          //自动生成ID
+    private int id;
+
+    private String name;
+}
+@Entity
+public class Company {
+    @Id
+    private int id;
+    private String name;
+
+    @OneToMany   //一对多设置
+    private Set<Employee> employees;
+}
+```
+#####一对多双向关联
+```
+@Entity
+public class Company {
+    @Id
+    private int id;
+    private String name;
+
+    @OneToMany(mappedBy="company")   //一对多设置
+    private Set<Employee> employees;
+}
+@Entity
+public class Employee {      //员工
+    @Id
+    @GeneratedValue          //自动生成ID
+    private int id;
+
+    private String name;
+
+    @ManyToOne
+    private Company company;
+}
+```
+#####多对多关联映射 
+例如角色和员工的关系就是多对多关系，一个员工可以有多个角色，即使经理，也是销售，一个角色也可以有多个员工，例如我们公司的销售有张三也有李四。代码如下：
+```
+@Entity
+public class Role {
+    @Id
+    private int id;
+    private String name;
+
+    @ManyToMany
+    @JoinTable(name="T_Role_Staff")   //新建表T_Role_Stafff
+    private Set<Staff> staffs;
+}
+@Entity
+public class Staff {
+    @Id
+    private int id;
+    private String name;
+    @ManyToMany(mappedBy="staffs")
+    private Set<Role> roles;
+}
+```
+##Error
+###java.lang.ClassCastException: $Proxy102
+若是在ejb03中Local Client的JSP那儿，若不用Java Build Path->Project中加入server,而是使用Export的方式，则要求配置jbossweb-tomcat55.sar中的jboss-service.xml,将UseJBossWebLoader改为true，否则会使用Tomcat来load web project，使得Local Client与EJB Server不在一个JBoss中，则也不在一个JVM，就不再是Local Client了。

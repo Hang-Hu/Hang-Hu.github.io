@@ -1,0 +1,32 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Tomcat 
+cover: 
+---
+
+### Files
+
+#### conf
+
+configuration files
+#### webApps
+
+Static files we created
+#### work
+
+Working files when tomcat is started
+### Deploy app by copying
+
+Copy files in WebContent and build in eclipse to webApps file.  
+Use ```localhost:8080/personal-portfolio/index.html``` to access it.
+Note that META-INF is file only used for eclipse and can be deleted when being deployed.
+### Deploy by war
+
+```
+jar -cvf MyApp.war
+cp MyApp.war /usr/local/apache-tomcat-8.0.37/webapps
+```
+When tomcat is started, this .war file will be unjar automatically.
+Deleting this .war file will delete unjared file as well.

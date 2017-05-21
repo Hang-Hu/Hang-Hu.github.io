@@ -1,0 +1,30 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Maven 
+cover: 
+---
+
+## Reason
+
+.hbm.xml files aren't deployed in this path in `war` by maven because they are not included in `resources`.
+## Solution
+
+Add `resources` inside `build`, point one resource to `src/main/java` for `**/*.hbm.xml`.
+```
+	<build>
+		<sourceDirectory>src/main/java</sourceDirectory>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.hbm.xml</include>
+                </includes>
+            </resource>
+        </resources>
+    <build>
+```

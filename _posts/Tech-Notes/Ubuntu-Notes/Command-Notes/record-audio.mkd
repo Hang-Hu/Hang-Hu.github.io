@@ -1,0 +1,8 @@
+#Record audio
+```
+arecord demo.wav
+```
+##Play it
+```
+mpv demo.wav
+```

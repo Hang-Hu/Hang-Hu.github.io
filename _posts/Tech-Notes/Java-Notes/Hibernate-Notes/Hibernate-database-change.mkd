@@ -1,0 +1,11 @@
+#Hibernate database change
+##Add manually
+###For normal property, choose property
+###
+##Import from database
+1. If any, delete FileEntity, FinalFileEntity and their hbm.xml.
+2. Generate Persistence Mapping -> by database schema
+3. Click on Final and FinalFile without specific entities, otherwise error `relationship reference disabled table` will occur.
+4. `Show default relationships`, `Add to sessionFactory` and `Generate Seperate XML per entity` is checkboxed.
+5. `Entity suffix` is Entity.
+6. Click ok to generate it, then generate object manually.

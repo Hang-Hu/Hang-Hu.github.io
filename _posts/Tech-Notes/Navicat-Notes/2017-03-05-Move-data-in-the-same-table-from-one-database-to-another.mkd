@@ -1,0 +1,17 @@
+---
+layout: post
+author: Hang Hu
+categories: navicat
+tags: Navicat 
+cover: 
+---
+
+## Export
+
+Right click the table on one database, choose `Export Wizard` and choose `sql`, then `Structure and data`.
+## Import
+
+Use this command to import sql file into another database.
+```
+mysql -u username -p database_name < file.sql
+```

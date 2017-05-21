@@ -1,0 +1,11 @@
+#Sort list by one field
+```
+//sort planDTOs by deadline
+Collections.sort(planDTOs, new Comparator<PlanDTO>() {
+    @Override
+    public int compare(PlanDTO o1, PlanDTO o2) {
+        //ascending order
+        return o1.getDeadline().compareTo(o2.getDeadline());
+    }
+});
+```

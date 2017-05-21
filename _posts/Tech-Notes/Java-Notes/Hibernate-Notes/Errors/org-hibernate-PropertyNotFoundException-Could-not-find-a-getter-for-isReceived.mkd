@@ -1,0 +1,15 @@
+#org.hibernate.PropertyNotFoundException: Could not find a getter for isReceived
+##Reason
+Auto generated error, `Is` is forgetted.
+```
+public Boolean getReceived() {
+    return isReceived;
+}
+```
+##Solution
+Change it to:
+```
+public Boolean getIsReceived() {
+    return isReceived;
+}
+```

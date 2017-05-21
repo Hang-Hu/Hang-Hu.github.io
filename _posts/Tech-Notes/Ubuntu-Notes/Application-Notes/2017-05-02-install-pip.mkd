@@ -1,0 +1,12 @@
+---
+layout: post
+author: Hang Hu
+categories: ubuntu
+tags: Ubuntu Application 
+cover: 
+---
+
+```
+sudo apt-get install python-pip
+pip -V
+```

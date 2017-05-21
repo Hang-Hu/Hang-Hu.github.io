@@ -1,0 +1,18 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Java-Core 
+cover: 
+---
+
+```
+<select class="ui dropdown fluid">
+    <option value=""> 邮箱类型 </option>
+    <option th:each="emailType: ${T(com.general.Enum.EmailType).values()}"
+            th:value="${emailType}"
+            th:text="${emailType}"
+            th:selected="${emailType==profile.emailType}">
+    </option>
+</select>
+```

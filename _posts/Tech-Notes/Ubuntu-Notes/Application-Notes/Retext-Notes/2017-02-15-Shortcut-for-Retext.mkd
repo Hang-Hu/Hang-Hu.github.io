@@ -1,0 +1,15 @@
+---
+layout: post
+author: Hang Hu
+categories: ubuntu
+tags: Ubuntu Application Retext 
+cover: 
+---
+
+```
+bold(**)            ctrl+B
+preview             ctrl+E
+Live preview        ctrl+L
+Quit                ctrl+Q
+
+```

@@ -1,0 +1,11 @@
+---
+layout: post
+author: Hang Hu
+categories: mysql
+tags: Mysql 
+cover: 
+---
+
+```
+mysql -h 115.28.163.139 -P 3306 -u archiLab -p
+```

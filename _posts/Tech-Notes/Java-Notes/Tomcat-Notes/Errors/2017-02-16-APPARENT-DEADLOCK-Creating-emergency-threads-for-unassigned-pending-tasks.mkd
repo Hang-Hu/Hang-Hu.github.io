@@ -1,0 +1,18 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Tomcat 
+cover: 
+---
+
+## Reason
+
+Network problem is to blame.
+So, directly the issue is that the Connection pool was trying to acquire new Connections, but the tasks attempting to acquire those tasks froze for a long period of time, so long that c3p0 decided the tasks must be deadlocked and then discarded and replaced the Thread pool. Later, the Thread pool was hung on idle connection test tasks.
+
+Normally, "hung" tasks tend to look like the second Thread underneath the first "Pool thread stack traces:" label above: performing network IO that fails to complete. 
+
+## Solution
+
+Start openvpn and try to search in google, restart tomcat after connection is ok. 

@@ -1,0 +1,2 @@
+#lvalue required as left operand of assignment
+Left should be a variable so that right value can be assigned to it. Im my case, `*p=size` is required instead of `p=size`.

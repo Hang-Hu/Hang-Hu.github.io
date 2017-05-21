@@ -1,0 +1,5 @@
+#view hex by vim
+```
+:%!xxd to switch into hex mode
+:%!xxd -r to exit from hex mode
+```

@@ -1,0 +1,3 @@
+#Turn on auto completion in mysql
+1. enter mysql
+2. `mysql> rehash;`

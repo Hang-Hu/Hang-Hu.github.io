@@ -1,0 +1,17 @@
+---
+layout: post
+author: Hang Hu
+categories: ubuntu
+tags: Ubuntu Command 
+cover: 
+---
+
+```
+sshfs cloud@firstvps:/home/cloud/.aria2/Download/ /home/joanna/remote/
+```
+
+## Unmount
+
+```
+fusermount -u ~/remote
+```

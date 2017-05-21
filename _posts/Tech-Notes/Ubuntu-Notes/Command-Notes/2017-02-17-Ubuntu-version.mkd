@@ -1,0 +1,11 @@
+---
+layout: post
+author: Hang Hu
+categories: ubuntu
+tags: Ubuntu Command 
+cover: 
+---
+
+```
+lsb_release -a
+```

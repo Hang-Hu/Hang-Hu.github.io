@@ -1,0 +1,14 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Java-Core 
+cover: 
+---
+
+## Reason
+
+One thread created by me is still running, so main will wait it. And the thread is `sessionFactory` which is static field.
+## Solution
+
+Close `sessionFactory` manually using static method.

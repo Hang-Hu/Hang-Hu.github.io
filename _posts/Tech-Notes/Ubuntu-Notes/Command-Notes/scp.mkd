@@ -1,0 +1,6 @@
+# scp
+
+Copy /root/cm-13.0-20160820-SNAPSHOT-ZNH5YAO0J0-cancro.zip from DigitalOcean to `~`
+```
+scp DigitalOcean:/root/cm-13.0-20160820-SNAPSHOT-ZNH5YAO0J0-cancro.zip ~
+```

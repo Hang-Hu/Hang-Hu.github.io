@@ -1,0 +1,4 @@
+#cannot resolve struts-default
+1. Double shift, 
+2. type struts-default, 
+3. add it into fileset

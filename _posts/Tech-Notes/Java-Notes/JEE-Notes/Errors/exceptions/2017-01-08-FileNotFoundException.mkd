@@ -1,0 +1,53 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java JEE 
+cover: 
+---
+
+## Case1
+
+### Detail
+
+`java.io.FileNotFoundException: 
+/home/joanna/Documents/code4java/eclipse%20workspace/.metadata/.plugins/
+org.eclipse.wst.server.core/tmp0/wtpwebapps/SimpleController3-Interceptor/WEB-INF/classes/log.xml`  
+```
+cd ~/Desktop/Link to eclipse workspace/.metadata/.plugins/
+org.eclipse.wst.server.core/tmp0/wtpwebapps/
+```
+### Reason
+
+`path` fetched by this code can only write to `log.xml`, however, when I want to write to `log.xml` using this `path`, FileNotFoundException occurs.
+`
+String path=Thread.currentThread().getContextClassLoader().getResource("log.xml").getPath();
+`
+### Solution
+
+Code below can both read and write to log.xml without exception
+```
+String path=getServletContext().getRealPath("WEB-INF/classes/log.xml");
+```
+Print `path`:
+`
+/home/joanna/Documents/code4java/eclipse workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/SimpleController3-Interceptor/WEB-INF/classes/log.xml
+`
+### A better one
+
+You should never access web resources as `java.io.File` objects. In many application servers they will not exist independently in the file system.
+```
+InputStream sourceInput=
+request.getServletContext().getResourceAsStream("WEB-INF/classes/log.xml");
+```
+## Case2
+
+### Reason
+
+Go to deploy directory and find no `controller.xml` here.
+```
+cd /usr/local/apache-tomcat-8.0.37/webapps/ROOT/WEB-INF/classes
+```
+### Solution
+
+Delete war in idea's Run->Server->Deployment, generate it again by maven.

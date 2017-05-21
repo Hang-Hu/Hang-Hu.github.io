@@ -1,0 +1,30 @@
+---
+layout: post
+author: Hang Hu
+categories: ubuntu
+tags: Ubuntu Proxy 
+cover: 
+---
+
+## Problem
+
+In that way I can't use google to search.  
+We are sorry  
+No permission  
+Robots  
+
+## Solution
+
+### Update XX-Net
+
+copy data in XX-Net to newly downloaded XX-Net and use this new XX-Net to replace the old one.
+
+## Other Solution
+
+### Set direct access 
+
+This method is describe in the following website.
+```
+https://github.com/XX-net/XX-Net/issues/4326
+https://github.com/XX-net/XX-Net/issues/4207
+```

@@ -1,0 +1,36 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Maven 
+cover: 
+---
+
+## Create project:
+
+```
+Choose a number or apply filter (format: [groupId:]artifactId, case sensitive contains): 
+973: Choose org.apache.maven.archetypes:maven-archetype-quickstart version: 
+1: 1.0-alpha-1
+2: 1.0-alpha-2
+3: 1.0-alpha-3
+4: 1.0-alpha-4
+5: 1.0
+6: 1.1
+Choose a number: 6
+Define value for property 'groupId': : com.huhang.process
+Define value for property 'artifactId': : ProcessMKD 
+[INFO] Using property: version = 1.0-SNAPSHOT
+Define value for property 'package':  com.huhang.process: : com.huhang.process
+Confirm properties configuration:
+groupId: com.huhang.process
+artifactId: ProcessMKD
+version: 1.0-SNAPSHOT
+package: com.huhang.process
+```
+## Open with idea:
+
+```
+cd ProcessMKD/
+idea pom.xml 
+```

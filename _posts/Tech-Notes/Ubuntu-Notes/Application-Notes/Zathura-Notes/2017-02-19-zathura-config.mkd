@@ -1,0 +1,66 @@
+---
+layout: post
+author: Hang Hu
+categories: ubuntu
+tags: Ubuntu Application Zathura 
+cover: 
+---
+
+```
+vim ~/.config/zathura/zathurarc
+```
+```
+//make zathura open with full size
+set window-height 1080
+set window-width 1920
+//set zathura icon
+set window-icon ~/Downloads/Theme&Icon/emerald_icons_theme_by_vinceliuice-d846l3k/Emerald/apps/scalable/steam_icon_211820.svg
+//don't know the usage
+set adjust-open best-fit
+//open with dual page, like 'd'
+set pages-per-row 2
+## System icon for zathura
+
+```
+sudo vim /usr/share/applications/zathura.desktop
+```
+Add this line after `Exec`.
+```
+Icon=/home/joanna/Pictures/Icons/steam_icon_211820.svg                      
+```
+
+## Other tricks
+
+例如设置夜间模式为默认时：
+set recolor true
+在配置文件中还可以根据你的习惯（在vim中的习惯）进行一些键映射。
+### 书签的保存：
+
+书签的保存可有几种不同的方式，默认的是database-plain(源代码中的表述)文本保存，在配置文件中还可以指定使用sqlite数据库保存。这几个文件的默认位置是：\$HOME/.local/share/zathura/如果使用了sqlite方式保存，则该目录下会生成一个bookmarks.sqlite的数据库文件。
+如果使用默认的保存方式，则该目录下的bookmarks即为书签的保存文件。另一个文件：history则为进度和比例的记录。
+### 介绍  
+
+Zathura是一款新的 PDF 查看器 ，它相当轻巧，界面简约（与 Apvlv 很相似），且可以定制（如按键绑定、默认窗口大小等 ）,支持vim风格快捷键。除了 PDF 查看器所具有的一般功能之外，Zathura 还包括搜索、表单编辑、可点击链接、导出图像等其他功能。  
+```
+快捷键
+gg
+G
+j/k/h/l
+J/K  翻一页
+Tab 打开/关闭index（一般是目录）
+o 打开另外的文件
+f Follow a link on the page
+m 标记位置（用过vim的都知道的。。）
+' 跳转到标记位置
+[0-9]+G 到指定页
+a 放大页面到合适大小
+s 放大页面到窗口宽度
+F5 Toggle fullscreen mode
+^n Toggle statusbar visibility
+^m Toggle inputbar visibility
+^q 退出
+常用命令：
+:bmark xxx  创建书签
+:blist 打开bookmark
+:q 退出
+```

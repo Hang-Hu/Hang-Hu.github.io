@@ -1,0 +1,11 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Struts 
+cover: 
+---
+
+1. Double shift, 
+2. type struts-default, 
+3. add it into fileset

@@ -1,0 +1,14 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Java-Core 
+cover: 
+---
+
+`Calendar.DATE` is the day and time(to second) today.
+```
+Calendar calendar=new GregorianCalendar();
+calendar.add(Calendar.DATE, 1);
+Date date=calendar.getTime();
+```

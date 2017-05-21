@@ -1,0 +1,27 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Java-Library JDBC 
+cover: 
+---
+
+## One Result
+
+```
+if(rs.next()){
+	deviceGroup.setId(rs.getInt("id"));
+	deviceGroup.setName(rs.getString("name"));
+}
+```
+## Many Results
+
+```
+while(rs.next()){
+	DeviceGroup group=new DeviceGroup();
+	group.setId(rs.getInt("id"));
+	group.setName(rs.getString("name"));
+	groups.add(group);
+	System.out.println(group.getId()+" "+group.getName());
+}
+```

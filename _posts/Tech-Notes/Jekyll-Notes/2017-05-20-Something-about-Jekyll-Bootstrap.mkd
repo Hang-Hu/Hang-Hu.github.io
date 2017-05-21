@@ -1,0 +1,19 @@
+---
+layout: post
+author: Hang Hu
+categories: jekyll
+tags: Jekyll 
+cover: 
+---
+
+## Display of title
+
+1. Every title must have one line before and one line after
+2. Every title must have one space between `# ` and `Something`
+
+
+## Command
+
+```
+bundle exec jekyll serve
+```

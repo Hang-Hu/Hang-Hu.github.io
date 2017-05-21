@@ -1,0 +1,14 @@
+---
+layout: post
+author: Hang Hu
+categories: ubuntu
+tags: Ubuntu Application 
+cover: 
+---
+
+```
+sudo apt install nautilus-dropbox 
+```
+```
+proxychains dropbox start -i
+```

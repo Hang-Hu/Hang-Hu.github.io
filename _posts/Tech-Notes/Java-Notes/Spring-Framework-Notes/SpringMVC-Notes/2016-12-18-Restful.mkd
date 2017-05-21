@@ -1,0 +1,44 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Spring-Framework SpringMVC 
+cover: 
+---
+
+Those websites which opens to outside require restful.
+In `UserController`
+```
+@RequestMapping("update/{id}")
+public String update(@PathVariable Integer id){
+	System.out.println("id: "+id);
+	return "redirect:/user/list.do";//redirect back to page who call update
+}
+```
+In `web.xml`
+```
+<servlet-mapping>
+	<servlet-name>springmvc</servlet-name>
+	<url-pattern>/rest/*</url-pattern>
+</servlet-mapping>
+```
+In `list.jsp`
+```
+<table>
+	<tr>
+		<td>Id</td>
+		<td>Name</td>
+		<td>Age</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>${user.id }</td>
+		<td>${user.name }</td>
+		<td>${user.age }</td>
+		<td>
+		  <a href="${pageContext.request.contextPath }/rest/user/update/${user.id }">Update</a>
+		</td>
+	</tr>
+</table>
+
+```

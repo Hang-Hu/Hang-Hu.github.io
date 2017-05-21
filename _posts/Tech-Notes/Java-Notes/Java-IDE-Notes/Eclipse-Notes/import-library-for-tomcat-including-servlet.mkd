@@ -1,0 +1,2 @@
+#Import library for tomcat
+Properties->Java Build Path->Libraries->Add Library->Server Runtime->Apache Tomcat 8.0

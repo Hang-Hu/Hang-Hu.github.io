@@ -1,0 +1,9 @@
+#Compare enum in thymeleaf
+```
+<select class="ui dropdown fluid">
+    <option value=""> 请选择性别 </option>
+    <option th:selected="${profile.gender==T(com.general.Enum.Gender).MALE}">男</option>
+    <option th:selected="${profile.gender==T(com.general.Enum.Gender).FEMALE}">女</option>
+</select>
+```
+>T is operator to access a class level (static) field or method, the part of SpEL (Spring Expression Language). 

@@ -1,0 +1,5 @@
+#java.net.ConnectException: Connection refused
+##Reason
+Port number for mysql is wrong.
+##Solution
+Change it from `3301` to `3306`.

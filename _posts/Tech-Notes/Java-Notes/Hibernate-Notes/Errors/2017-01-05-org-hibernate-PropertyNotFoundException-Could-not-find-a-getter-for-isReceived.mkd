@@ -1,0 +1,24 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Hibernate 
+cover: 
+---
+
+## Reason
+
+Auto generated error, `Is` is forgetted.
+```
+public Boolean getReceived() {
+    return isReceived;
+}
+```
+## Solution
+
+Change it to:
+```
+public Boolean getIsReceived() {
+    return isReceived;
+}
+```

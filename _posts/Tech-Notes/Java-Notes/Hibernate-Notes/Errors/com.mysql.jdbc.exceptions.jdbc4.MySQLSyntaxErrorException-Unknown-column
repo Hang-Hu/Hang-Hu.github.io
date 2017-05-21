@@ -1,0 +1,13 @@
+#com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Unknown column
+##Detail
+com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException: Unknown column 'huhang' in 'where clause'
+##Reason
+`''` is forgotten.
+##Solution
+```
+String HQL="from UsersEntity u where u.username='"+username+"'";
+```
+Instead of
+```
+String HQL="from UsersEntity u where u.username="+username;
+```

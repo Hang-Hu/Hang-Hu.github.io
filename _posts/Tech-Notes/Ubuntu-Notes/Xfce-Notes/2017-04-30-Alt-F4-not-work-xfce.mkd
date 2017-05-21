@@ -1,0 +1,15 @@
+---
+layout: post
+author: Hang Hu
+categories: ubuntu
+tags: Ubuntu Xfce 
+cover: 
+---
+
+## Reason
+
+Fn lock is closed. Now you have to use Fn+Alt+F4.  
+
+## Solution
+
+Long press Fn+Esc.  

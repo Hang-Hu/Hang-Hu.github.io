@@ -1,0 +1,19 @@
+---
+layout: post
+author: Hang Hu
+categories: frontend
+tags: FrontEnd 
+cover: 
+---
+
+## Reason
+
+This snippet of code in `bootstrap.css` is the reason.
+```
+a[href]:after {
+content: " (" attr(href) ")";
+}
+```
+## Solution
+
+Deleting such snippet makes printing works well.

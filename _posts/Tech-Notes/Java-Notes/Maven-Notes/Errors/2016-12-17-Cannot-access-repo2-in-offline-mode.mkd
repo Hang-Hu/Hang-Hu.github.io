@@ -1,0 +1,15 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Maven 
+cover: 
+---
+
+## Reason
+
+Offline mode is turned on in `~/.m2/settings.xml`
+
+## Solution
+
+Set offline to default `false`.

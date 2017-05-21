@@ -1,0 +1,32 @@
+---
+layout: post
+author: Hang Hu
+categories: vps
+tags: Vps 
+cover: 
+---
+
+## Login with password and change it
+
+## Config in client
+
+```
+vim ~/.ssh/config
+```
+Add following:
+```
+Host DigitalOcean
+HostName 111.236.179.21
+User root
+```
+## Login with key
+
+```
+ssh-copy-id DigitalOcean
+ssh DigitalOcean
+vim /etc/ssh/sshd_config
+```
+change `PermitRootLogin yes` to `PermitRootLogin without-password`
+```
+service ssh restart
+```

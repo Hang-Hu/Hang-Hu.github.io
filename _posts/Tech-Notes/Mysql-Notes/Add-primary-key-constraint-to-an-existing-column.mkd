@@ -1,0 +1,4 @@
+#Add primary key constraint to an existing column
+```
+mysql> alter table Short_Answer_Question add primary key(question);
+```

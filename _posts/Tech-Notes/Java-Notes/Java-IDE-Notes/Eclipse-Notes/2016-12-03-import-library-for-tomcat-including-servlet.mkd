@@ -1,0 +1,9 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Java-IDE Eclipse 
+cover: 
+---
+
+Properties->Java Build Path->Libraries->Add Library->Server Runtime->Apache Tomcat 8.0

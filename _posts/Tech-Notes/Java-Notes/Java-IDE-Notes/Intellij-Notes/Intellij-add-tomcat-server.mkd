@@ -1,0 +1,3 @@
+#Intellij add tomcat server
+1. Run->Edit Configurations
+2. Alt+Insert, select tomcat

@@ -1,0 +1,11 @@
+---
+layout: post
+author: Hang Hu
+categories: ubuntu
+tags: Ubuntu Application ffmpeg 
+cover: 
+---
+
+```
+ffmpeg -i ITEnPPTexample-sliced.avi  revealJS.mp4
+```

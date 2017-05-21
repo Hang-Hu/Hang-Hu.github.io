@@ -1,0 +1,16 @@
+---
+layout: post
+author: Hang Hu
+categories: ubuntu
+tags: Ubuntu Command 
+cover: 
+---
+
+```
+arecord demo.wav
+```
+## Play it
+
+```
+mpv demo.wav
+```

@@ -1,0 +1,13 @@
+---
+layout: post
+author: Hang Hu
+categories: mysql
+tags: Mysql 
+cover: 
+---
+
+```
+SELECT `COLUMN_NAME` 
+FROM `INFORMATION_SCHEMA`.`COLUMNS` 
+WHERE `TABLE_SCHEMA`='ECollaborationWeb' AND `TABLE_NAME`='User';
+```

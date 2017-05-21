@@ -1,0 +1,4 @@
+#JUnit
+1. Properties->Library->add JUnit4
+2. `@Test`
+3. `import org.junit.Test;

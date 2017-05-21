@@ -1,0 +1,24 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Maven 
+cover: 
+---
+
+## Reason1
+
+No hibernate dependency, only hibernate-core dependency.
+## Reason2
+
+`ga` is different from `GA`.
+## Solution
+
+```
+<!-- Hibernate core -->
+<dependency>
+    <groupId>org.hibernate</groupId>
+    <artifactId>hibernate-core</artifactId>
+    <version>3.3.2.GA</version>
+</dependency>
+```

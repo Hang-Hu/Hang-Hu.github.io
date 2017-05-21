@@ -1,0 +1,22 @@
+---
+layout: post
+author: Hang Hu
+categories: ubuntu
+tags: Ubuntu Application Video-Player Smplayer 
+cover: 
+---
+
+### Icon
+
+Options->Preference->Interfaces->Icon_Set
+### Playlist auto load
+
+Playlist->Add files from folder:choose Video and audio files
+### mpv as engine
+
+General->Multimedia engine
+### proxy
+
+Network->proxy
+###
+

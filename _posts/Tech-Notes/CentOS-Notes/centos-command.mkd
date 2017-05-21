@@ -1,0 +1,8 @@
+#centos command
+###scp
+`
+scp /home/joanna/Downloads/基础配置资源/jdk-8u91-linux-x64.tar.gz root@115.28.163.139:/usr/local/jdk-8u91-linux-x64.tar.gz
+`
+Not stable, first at high speed then zero speed.
+FileZilla is better at its re-connect function.
+###

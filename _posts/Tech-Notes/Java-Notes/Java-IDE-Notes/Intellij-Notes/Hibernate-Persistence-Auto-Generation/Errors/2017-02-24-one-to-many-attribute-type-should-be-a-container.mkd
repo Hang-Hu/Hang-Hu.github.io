@@ -1,0 +1,14 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Java-IDE Intellij 
+cover: 
+---
+
+## Reason
+
+One team has many `FinalFileEntityPk`s, so `Set` is needed.
+## Solution
+
+Use `Set<FinalFileEntityPK>` instead of `FinalFileEntityPK`

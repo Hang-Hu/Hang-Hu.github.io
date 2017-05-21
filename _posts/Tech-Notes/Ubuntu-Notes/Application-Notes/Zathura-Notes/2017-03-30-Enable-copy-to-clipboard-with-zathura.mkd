@@ -1,0 +1,11 @@
+---
+layout: post
+author: Hang Hu
+categories: ubuntu
+tags: Ubuntu Application Zathura 
+cover: 
+---
+
+Add `set selection-clipboard clipboard` in the config file `~/.config/zathura/zathurarc` or `/etc/zathurarc`.
+
+

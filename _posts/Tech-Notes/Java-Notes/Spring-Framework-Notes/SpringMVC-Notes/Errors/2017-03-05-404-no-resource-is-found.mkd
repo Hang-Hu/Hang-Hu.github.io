@@ -1,0 +1,48 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Spring-Framework SpringMVC 
+cover: 
+---
+
+## Problem1
+
+### Detail
+
+`
+WARN PageNotFound:1108 - No mapping found for HTTP request with URI [/FirstSpringMVC/index.do] in DispatcherServlet with name 'springmvc'
+`
+### Reason
+
+`/` is missed before `index.do`.
+### Solution
+
+Add `/` before `index.do`
+```
+<bean name="/index.do" class="com.huhang.controller.UserController"></bean>
+```
+## Problem2
+
+### Detail
+
+No error in console at all.
+`Initialization new StandardServletEnvironment` before `startup in 1525ms` is lost compared to successful start.
+### Reason
+
+Servlet `DispatcherServlet` is not deployed at all, deleting `springmvc-servlet.xml` responds nothing, then deleting `web.xml` responds nothing, which indicates that web.xml has not been read by tomcat yet.
+### Solutuin
+
+Then I found `web.xml` is located at `WebContent`,a false place. Then I move it to `WEB-INF`. Hopefully, everything goes well after that.
+
+## Problem3
+
+### Detail
+
+Change `WebContent` to `webapp` and displays 404.
+### Reason
+
+Not found
+### Solution
+
+Add `<packaging>war</packaging>` to `pom.xml`, then Maven will use `war` instead of default `jar`, which work magically.

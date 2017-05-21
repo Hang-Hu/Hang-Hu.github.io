@@ -1,0 +1,7 @@
+# Rotate pdf
+
+90 degree clockwise:
+```
+pdftk in.pdf cat 1-endeast output out.pdf
+```
+north: 0, east: 90, south: 180, west: 270, left: -90, right: +90, down: +180. left, right, and down make relative adjustments to a page's rotation.

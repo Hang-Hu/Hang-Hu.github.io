@@ -1,0 +1,32 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Spring-Framework Spring 
+cover: 
+---
+
+## Example
+
+```
+@WebAppConfiguration
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/springmvc-servlet.xml"})
+@Transactional
+public class TestBatchProcessing {
+    @Autowired
+    private SessionFactory sessionFactory;
+    @Test
+    public void test(){
+        Session session=sessionFactory.getCurrentSession();
+        for(int i=0;i<10000;i++){
+            Employee employee=new Employee();
+            session.save(employee);
+            if(i%20==0){
+                session.flush();
+                session.clear();
+            }
+        }
+    }
+}
+```

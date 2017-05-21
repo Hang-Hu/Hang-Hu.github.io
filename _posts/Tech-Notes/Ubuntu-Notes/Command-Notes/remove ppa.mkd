@@ -1,0 +1,5 @@
+#remove ppa
+```
+cd /etc/apt/sources.list.d
+```
+remove any ppa you don't want.

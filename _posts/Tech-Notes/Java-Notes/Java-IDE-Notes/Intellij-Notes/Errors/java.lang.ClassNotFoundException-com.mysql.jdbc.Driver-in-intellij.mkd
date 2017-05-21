@@ -1,0 +1,11 @@
+#java.lang.ClassNotFoundException: com.mysql.jdbc.Driver in intellij
+##Reason
+It's a dependency problem, mysql-connector-java is needed.
+##Solution
+```
+<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>6.0.5</version>
+</dependency>
+```

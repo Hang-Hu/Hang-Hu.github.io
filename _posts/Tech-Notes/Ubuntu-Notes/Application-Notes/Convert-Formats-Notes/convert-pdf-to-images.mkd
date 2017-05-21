@@ -1,0 +1,13 @@
+#Convert pdf to images
+
+1. PNG, JPG or (virtually) any other image format can be chosen
+2. -density xxx will set the dpi to xxx (common are 150 and 300), high density means high resolution and bigger image size. 
+3. -quality xxx will set the compression to xxx for PNG, JPG and MIFF file formates (100 means no compression)
+4.  all other options (such as trimming, grayscale, etc) can be viewed on the website of Image Magic.
+5. 300 density  and 75 quality is better than 150 density and 100 quality.
+```
+convert -density 300 session1.pdf -quality 75 session1.jpeg
+```
+```
+convert -density 150 session1.pdf -quality 45 session1.jpeg
+```

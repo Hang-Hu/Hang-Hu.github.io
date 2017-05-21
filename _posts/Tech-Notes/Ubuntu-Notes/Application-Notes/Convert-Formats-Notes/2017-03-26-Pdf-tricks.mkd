@@ -1,0 +1,13 @@
+---
+layout: post
+author: Hang Hu
+categories: ubuntu
+tags: Ubuntu Application Convert-Formats 
+cover: 
+---
+
+## pdftotext
+
+```
+pdftotext OG.pdf OG.txt
+```

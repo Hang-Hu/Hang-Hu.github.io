@@ -1,0 +1,11 @@
+#Changes to make intellij a solarized theme
+Change to absolute solarized will lead to some loss of contrast, so I make three changes on default theme to make it easy for eyes.
+```
+Setting->Editor->Color&Fonts->General
+```
+##First change on background
+On the right choose Text->Default text, change background to `FDF6E3`.
+##Second change on default text color
+On the right choose Text->Default text, change foreground to `657B83`.
+##Third change on current row
+On the right choose Editor->Caret row, change background to `EEE8D5`.

@@ -1,0 +1,6 @@
+#Double cannot be dereferenced?
+##Reason
+You can't call a method on a primitive.
+##Solution
+Wrap double primitive in Double object.  
+(new Double(doubleNum)).toString();  

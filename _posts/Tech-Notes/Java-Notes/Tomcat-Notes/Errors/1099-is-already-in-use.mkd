@@ -1,0 +1,8 @@
+#1099 is already in use
+```
+joanna@JC:~$ netstat -nlp|grep 1099
+(Not all processes could be identified, non-owned process info
+ will not be shown, you would have to be root to see it all.)
+tcp6       0      0 :::1099                 :::*                    LISTEN      24512/java      
+joanna@JC:~$ kill -9 24512
+```

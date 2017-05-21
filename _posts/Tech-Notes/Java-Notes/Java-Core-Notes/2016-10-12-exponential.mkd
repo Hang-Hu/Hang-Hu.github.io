@@ -1,0 +1,11 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Java-Core 
+cover: 
+---
+
+^ is the bitwise exclusive OR (XOR) operator in Java (and many other languages). It is not used for exponentiation.  
+For that, you must use double Math.pow(double,doble).  
+Remember that Math.pow() return a double,and you must cast it into int quickly to avoid precision problem.

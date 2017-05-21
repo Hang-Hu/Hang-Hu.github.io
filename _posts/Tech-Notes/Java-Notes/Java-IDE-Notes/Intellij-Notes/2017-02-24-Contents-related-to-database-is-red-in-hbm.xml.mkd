@@ -1,0 +1,14 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Java-IDE Intellij 
+cover: 
+---
+
+## Reason
+
+Data Source is none.
+## Solution
+
+Persistence->Right click on ECollaborationWeb->Assign Data Source

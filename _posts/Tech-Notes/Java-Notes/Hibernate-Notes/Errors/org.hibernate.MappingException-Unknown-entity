@@ -1,0 +1,7 @@
+#org.hibernate.MappingException: Unknown entity
+##Detail
+org.hibernate.MappingException: Unknown entity:com.huhang.entity.UsersEntity
+##Reason
+This project uses Java Config and annotation to configure Spring. However,  `scanPackages("com.huhang.entity")` can only scan `annotation`, do nothing with mapping files, which initiate no entity at all.
+##Solution
+Use JPA annotation instead of `mapping files`.

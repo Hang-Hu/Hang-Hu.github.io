@@ -1,0 +1,17 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Java-Core Reflection 
+cover: 
+---
+
+## Reason
+
+The field is private.
+## Solution
+
+Use `setAccessible` before call method on `Field`.
+```
+field.setAccessible(true);
+```

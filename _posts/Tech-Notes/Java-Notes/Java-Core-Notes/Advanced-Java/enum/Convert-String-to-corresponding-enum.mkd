@@ -1,0 +1,5 @@
+#Convert String to corresponding enum
+```
+//convert email type from string in database to enum in Java code
+profileDTO.setEmailType(EmailType.valueOf(userEntity.getEmailType().toUpperCase()));
+```

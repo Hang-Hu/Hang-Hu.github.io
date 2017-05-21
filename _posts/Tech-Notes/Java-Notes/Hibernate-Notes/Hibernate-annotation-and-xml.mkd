@@ -1,0 +1,80 @@
+#Hibernate annotation and xml
+##Annotation
+`Employee.java`
+```
+@Entity
+@Table(name = "Employees")
+public class Employee implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO
+    private long id;
+    @Column
+    private String name;
+    @Column
+    private int age;
+    @Column
+    private float salary;
+    //getters and setters
+}
+```
+`springmvc-servlet.xml`
+```
+<property name="packagesToScan" value="com.huhang.entity"/>
+```
+`pom.xml`
+```
+<resources>
+    <resource>
+        <directory>src/main/resources</directory>
+    </resource>
+</resources>
+```
+##XML
+`Employee.java`
+```
+public class Employee implements Serializable{
+    private long id;
+    private String name;
+    private int age;
+    private float salary;
+    //getters and setters
+}
+```
+`Employee.hbm.xml`
+```
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.huhang.entity.Employee" table="Employees" schema="TestHibernate">
+        <id name="id" column="id" >
+            <generator class="increment"/>
+        </id>
+        <property name="name" column="name"></property>
+        <property name="age" column="age"></property>
+        <property name="salary" column="salary"></property>
+    </class>
+</hibernate-mapping>
+```
+`springmvc-servlet.xml`
+```
+<property name="packagesToScan" value="com.huhang.entity"/>
+<property name="mappingLocations">
+    <list>
+        <value>classpath:com/huhang/entity/Employee.hbm.xml</value>
+    </list>
+</property>
+```
+`pom.xml`
+```
+<resources>
+    <resource>
+        <directory>src/main/resources</directory>
+    </resource>
+    <resource>
+        <directory>src/main/java/</directory>
+        <includes>**/*.hbm.xml</includes>
+    </resource>
+</resources>
+```

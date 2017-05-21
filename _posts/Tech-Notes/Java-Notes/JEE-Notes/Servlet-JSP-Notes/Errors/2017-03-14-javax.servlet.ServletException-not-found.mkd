@@ -1,0 +1,22 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java JEE Servlet-JSP 
+cover: 
+---
+
+## Reason
+
+`javax.servlet-api` dependency is needed.
+## Solution
+
+Add the `javax.servlet-api` to dependency.
+```
+<dependency>
+    <groupId>javax.servlet</groupId>
+    <artifactId>javax.servlet-api</artifactId>
+    <version>3.1.0</version>
+    <scope>provided</scope>
+</dependency>
+```

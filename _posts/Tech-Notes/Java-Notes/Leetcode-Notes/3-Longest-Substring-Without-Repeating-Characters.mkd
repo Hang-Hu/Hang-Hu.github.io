@@ -1,0 +1,33 @@
+#Longest Substring Without Repeating Characters
+##Idea
+1. A pointer to the end of the substring, it scans the string one by one
+2. A pointer to the start of the substring, when repeating character, it jumps to previous repeating character of the one pointed by rightIndex, and every character before will be lefted out. Thus method `previousPosition` start from leftIndex, for every character before leftIndex is ignored, and they are not considered as part of the substring.
+3. maxLength to record max length in the process
+4. the final length may not be the max length, thus max length is needed.
+##Code
+```
+public class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        int leftIndex=0;//if it occurs repeating character in [leftIndex,rightIndex) for current character, jump to previous repeating character+1. Otherwise keep still.
+        int rightIndex=0;//scan the string
+        int maxLength=0;
+        while(rightIndex<s.length()){
+            int previousIndex=previousPosition(s.charAt(rightIndex), s, leftIndex, rightIndex);//character before leftIndex is lefted out
+            if(previousIndex!=-1)//character in rightIndex has repeating character before
+                leftIndex=1+previousIndex;
+            int curLength=rightIndex-leftIndex+1;
+            if(curLength>maxLength)
+                maxLength=curLength;
+            rightIndex++;
+        }
+        return maxLength;
+    }
+    public int previousPosition(char c, String s, int beginIndex, int endIndex){//beginIndex is inclusive, endIndex is exclusive
+        for(int i=endIndex-1; i>=beginIndex; i--){
+            if(c==s.charAt(i))
+                return i;//returns the position of previous repeating character
+        }
+        return -1;//-1 means no repeating character before
+    }
+}
+```

@@ -1,0 +1,22 @@
+---
+layout: post
+author: Hang Hu
+categories: ubuntu
+tags: Ubuntu Proxy 
+cover: 
+---
+
+## Example:gPodder
+
+If you want to use a proxy for gPodder, but don't want to use a proxy for other applications, you can create a short shell script:
+```
+# !/bin/sh
+
+export http_proxy=http://username:password@hostname:port
+gpodderIf you want to use a proxy for gPodder, but don't want to use a proxy for other applications, you can create a short `shell script`:
+
+# !/bin/sh
+
+export http_proxy=http://username:password@hostname:port
+gpodder
+```

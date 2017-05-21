@@ -1,0 +1,20 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Java-Core 
+cover: 
+---
+
+## Example
+
+```
+Date date=new Date();
+SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd");
+String dateStr=format.format(date);
+System.out.println(date);
+System.out.println(dateStr);
+```
+Output:
+Mon Feb 13 19:58:42 CST 2017
+2017-02-13

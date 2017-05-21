@@ -1,0 +1,425 @@
+---
+layout: post
+author: Hang Hu
+categories: c
+tags: C 
+cover: 
+---
+
+## phase_1
+
+```
+ 08048b80 <phase_1>:
+ 8048b80:	55                   	push   %ebp
+ 8048b81:	89 e5                	mov    %esp,%ebp
+ 8048b83:	83 ec 08             	sub    $0x8,%esp
+ 8048b86:	c7 44 24 04 68 99 04 	movl   $0x8049968,0x4(%esp)
+ 8048b8d:	08 
+ 8048b8e:	8b 45 08             	mov    0x8(%ebp),%eax
+ 8048b91:	89 04 24             	mov    %eax,(%esp)
+ 8048b94:	e8 0a 05 00 00       	call   80490a3 <strings_not_equal>
+ 8048b99:	85 c0                	test   %eax,%eax
+ 8048b9b:	74 05                	je     8048ba2 <phase_1+0x22>
+ 8048b9d:	e8 c8 0a 00 00       	call   804966a <explode_bomb>
+ 8048ba2:	c9                   	leave  
+ 8048ba3:	c3                   	ret    
+```
+phase_1 uses arg1 and 0x8049968 as arguments of strings_not_equal.   
+If strings are diffrent, this function returns 0 as eax, thus make it jump to skip explode.  
+So look at what inside ```0x8049968```:
+```
+(gdb) x/s 0x8049968
+0x8049968:	"When I get angry, Mr. Bigglesworth gets upset."
+```
+## phase_2
+
+```
+ 384 08048ba4 <phase_2>:
+ 385  8048ba4:   55                      push   %ebp
+ 386  8048ba5:   89 e5                   mov    %esp,%ebp
+ 387  8048ba7:   83 ec 28                sub    $0x28,%esp
+ 388  8048baa:   c7 45 fc 00 00 00 00    movl   $0x0,-0x4(%ebp)
+ 389  8048bb1:   8d 45 e0                lea    -0x20(%ebp),%eax
+ 390  8048bb4:   89 44 24 04             mov    %eax,0x4(%esp)
+ 391  8048bb8:   8b 45 08                mov    0x8(%ebp),%eax
+ 392  8048bbb:   89 04 24                mov    %eax,(%esp)
+ 393  8048bbe:   e8 4d 04 00 00          call   8049010 <read_six_numbers>
+ 394  8048bc3:   c7 45 f8 00 00 00 00    movl   $0x0,-0x8(%ebp)
+ 395  8048bca:   eb 27                   jmp    8048bf3 <phase_2+0x4f>
+ 396  8048bcc:   8b 45 f8                mov    -0x8(%ebp),%eax
+ 397  8048bcf:   8b 54 85 e0             mov    -0x20(%ebp,%eax,4),%edx
+ 398  8048bd3:   8b 45 f8                mov    -0x8(%ebp),%eax
+ 399  8048bd6:   83 c0 03                add    $0x3,%eax
+ 400  8048bd9:   8b 44 85 e0             mov    -0x20(%ebp,%eax,4),%eax
+ 401  8048bdd:   39 c2                   cmp    %eax,%edx
+ 402  8048bdf:   74 05                   je     8048be6 <phase_2+0x42>
+ 403  8048be1:   e8 84 0a 00 00          call   804966a <explode_bomb>
+ 404  8048be6:   8b 45 f8                mov    -0x8(%ebp),%eax
+ 405  8048be9:   8b 44 85 e0             mov    -0x20(%ebp,%eax,4),%eax
+ 406  8048bed:   01 45 fc                add    %eax,-0x4(%ebp)
+ 407  8048bf0:   ff 45 f8                incl   -0x8(%ebp)
+ 408  8048bf3:   83 7d f8 02             cmpl   $0x2,-0x8(%ebp)
+ 409  8048bf7:   7e d3                   jle    8048bcc <phase_2+0x28>
+ 410  8048bf9:   83 7d fc 00             cmpl   $0x0,-0x4(%ebp)
+ 411  8048bfd:   75 05                   jne    8048c04 <phase_2+0x60>
+ 412  8048bff:   e8 66 0a 00 00          call   804966a <explode_bomb>
+ 413  8048c04:   c9                      leave  
+ 414  8048c05:   c3                      ret  
+```
+```
+ 746 08049010 <read_six_numbers>:
+ 747  8049010:   55                      push   %ebp
+ 748  8049011:   89 e5                   mov    %esp,%ebp
+ 749  8049013:   56                      push   %esi
+ 750  8049014:   53                      push   %ebx
+ 751  8049015:   83 ec 30                sub    $0x30,%esp
+ 752  8049018:   8b 45 0c                mov    0xc(%ebp),%eax
+ 753  804901b:   83 c0 14                add    $0x14,%eax
+ 754  804901e:   8b 55 0c                mov    0xc(%ebp),%edx
+ 755  8049021:   83 c2 10                add    $0x10,%edx
+ 756  8049024:   8b 4d 0c                mov    0xc(%ebp),%ecx
+ 757  8049027:   83 c1 0c                add    $0xc,%ecx
+ 758  804902a:   8b 5d 0c                mov    0xc(%ebp),%ebx
+ 759  804902d:   83 c3 08                add    $0x8,%ebx
+ 760  8049030:   8b 75 0c                mov    0xc(%ebp),%esi
+ 761  8049033:   83 c6 04                add    $0x4,%esi
+ 762  8049036:   89 44 24 1c             mov    %eax,0x1c(%esp)
+ 763  804903a:   89 54 24 18             mov    %edx,0x18(%esp)
+ 764  804903e:   89 4c 24 14             mov    %ecx,0x14(%esp)
+ 765  8049042:   89 5c 24 10             mov    %ebx,0x10(%esp)
+ 766  8049046:   89 74 24 0c             mov    %esi,0xc(%esp)
+ 767  804904a:   8b 45 0c                mov    0xc(%ebp),%eax
+ 768  804904d:   89 44 24 08             mov    %eax,0x8(%esp)
+ 769  8049051:   c7 44 24 04 95 9c 04    movl   $0x8049c95,0x4(%esp)
+ 770  8049058:   08 
+ 771  8049059:   8b 45 08                mov    0x8(%ebp),%eax
+ 772  804905c:   89 04 24                mov    %eax,(%esp)
+ 773  804905f:   e8 04 f8 ff ff          call   8048868 <sscanf@plt>
+ 774  8049064:   89 45 f4                mov    %eax,-0xc(%ebp)
+ 775  8049067:   83 7d f4 05             cmpl   $0x5,-0xc(%ebp)
+ 776  804906b:   7f 05                   jg     8049072 <read_six_numbers+0x62>
+ 777  804906d:   e8 f8 05 00 00          call   804966a <explode_bomb>
+ 778  8049072:   83 c4 30                add    $0x30,%esp
+ 779  8049075:   5b                      pop    %ebx
+ 780  8049076:   5e                      pop    %esi
+ 781  8049077:   5d                      pop    %ebp
+ 782  8049078:   c3                      ret    
+ 783 
+```
+Give 0 to ebp-4, which is used as sum of n0, n1, n2.  
+Use arg1 and address ebp-0x20 as arguments of function read_six_numbers.  
+This function reads 6 inputs to `*(ebp-0x20)~*(ebp-0xc)`, use n0~n5 as their alias, and it compares 5 and n1 in `8049067`, n1 must be larger than 5.  
+Give 0 to ebp-8, which is used as loop condition.  
+Then the jump brings it to condition of a loop.  
+If `*(ebp-8)<=2`, then continues loop.  
+Alias `*(ebp-8)` as i, i is 0 at initial, i++ in each loop, i can be 0,1,2.  
+`*(ebp-0x20+4*i)` must be equal to `*(ebp-0x20+4*(i+3))`, which means n0 must equals n3, n1 must equals n4, n2 must equals n5.  
+Then it compares 0 and sum, sum(n0+n1+n2) can't be 0, otherwise it exploeds.  
+All in all, input must satisfy these following conditions.  
+
+1. 6 numbers(n0...n5).
+2. n1>5
+3. n0==n3
+4. n1==n4
+5. n2==n5
+6. n0+n1+n2!=0  
+
+Try ```5 6 7 5 6 7```, defuse the bomb!
+## phase_3
+
+```
+ 08048c06 <phase_3>:
+ 8048c06:	55                   	push   %ebp
+ 8048c07:	89 e5                	mov    %esp,%ebp
+ 8048c09:	83 ec 28             	sub    $0x28,%esp
+ 8048c0c:	c7 45 f8 00 00 00 00 	movl   $0x0,-0x8(%ebp)
+ 8048c13:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%ebp)
+ 8048c1a:	8d 45 f0             	lea    -0x10(%ebp),%eax
+ 8048c1d:	89 44 24 0c          	mov    %eax,0xc(%esp)
+ 8048c21:	8d 45 f4             	lea    -0xc(%ebp),%eax
+ 8048c24:	89 44 24 08          	mov    %eax,0x8(%esp)
+ 8048c28:	c7 44 24 04 97 99 04 	movl   $0x8049997,0x4(%esp)
+ 8048c2f:	08 
+ 8048c30:	8b 45 08             	mov    0x8(%ebp),%eax
+ 8048c33:	89 04 24             	mov    %eax,(%esp)
+ 8048c36:	e8 2d fc ff ff       	call   8048868 <sscanf@plt>
+ 8048c3b:	89 45 fc             	mov    %eax,-0x4(%ebp)
+ 8048c3e:	83 7d fc 01          	cmpl   $0x1,-0x4(%ebp)
+ 8048c42:	7f 05                	jg     8048c49 <phase_3+0x43>
+ 8048c44:	e8 21 0a 00 00       	call   804966a <explode_bomb>
+ 8048c49:	8b 45 f4             	mov    -0xc(%ebp),%eax
+ 8048c4c:	89 45 ec             	mov    %eax,-0x14(%ebp)
+ 8048c4f:	83 7d ec 07          	cmpl   $0x7,-0x14(%ebp)
+ 8048c53:	77 54                	ja     8048ca9 <phase_3+0xa3>
+ 8048c55:	8b 55 ec             	mov    -0x14(%ebp),%edx
+ 8048c58:	8b 04 95 a0 99 04 08 	mov    0x80499a0(,%edx,4),%eax
+ 8048c5f:	ff e0                	jmp    *%eax
+ 8048c61:	c7 45 f8 35 01 00 00 	movl   $0x135,-0x8(%ebp)
+ 8048c68:	eb 44                	jmp    8048cae <phase_3+0xa8>
+ 8048c6a:	c7 45 f8 b7 02 00 00 	movl   $0x2b7,-0x8(%ebp)
+ 8048c71:	eb 3b                	jmp    8048cae <phase_3+0xa8>
+ 8048c73:	c7 45 f8 34 03 00 00 	movl   $0x334,-0x8(%ebp)
+ 8048c7a:	eb 32                	jmp    8048cae <phase_3+0xa8>
+ 8048c7c:	c7 45 f8 ef 00 00 00 	movl   $0xef,-0x8(%ebp)
+ 8048c83:	eb 29                	jmp    8048cae <phase_3+0xa8>
+ 8048c85:	c7 45 f8 06 02 00 00 	movl   $0x206,-0x8(%ebp)
+ 8048c8c:	eb 20                	jmp    8048cae <phase_3+0xa8>
+ 8048c8e:	c7 45 f8 73 01 00 00 	movl   $0x173,-0x8(%ebp)
+ 8048c95:	eb 17                	jmp    8048cae <phase_3+0xa8>
+ 8048c97:	c7 45 f8 37 02 00 00 	movl   $0x237,-0x8(%ebp)
+ 8048c9e:	eb 0e                	jmp    8048cae <phase_3+0xa8>
+ 8048ca0:	c7 45 f8 e2 00 00 00 	movl   $0xe2,-0x8(%ebp)
+ 8048ca7:	eb 05                	jmp    8048cae <phase_3+0xa8>
+ 8048ca9:	e8 bc 09 00 00       	call   804966a <explode_bomb>
+ 8048cae:	8b 45 f0             	mov    -0x10(%ebp),%eax
+ 8048cb1:	39 45 f8             	cmp    %eax,-0x8(%ebp)
+ 8048cb4:	74 05                	je     8048cbb <phase_3+0xb5>
+ 8048cb6:	e8 af 09 00 00       	call   804966a <explode_bomb>
+ 8048cbb:	c9                   	leave  
+ 8048cbc:	c3                   	ret    
+```
+Use test case:2 5.  
+Give arg1 and `0x8049997` as arguments to call function sscanf, which returns input0(also called n0 below).  
+Then it compares 0 and `*(ebp-4)`, which is n0, n0 must be larger than 0, otherwise it will explode.  
+Then it compares 7 and `*(ebp-0x14)`, which is n0, n0 must be less than or equal to 7, otherwise it explodes.  
+Then it jumps to `*(0x80499a0+4*n0)`, which is `*(0x80499a8)` in this test case.And check the value:  
+```
+(gdb) x/6 0x80499a8
+0x80499a8:	134515827	134515836	134515845	134515854
+0x80499b8:	134515863	134515872
+```
+134515827 equals to 0x8048C73, so it jumps to `0x8048C73`.  
+Then move 0x334(820 in decimal) to ebp-8.  
+At last, compare `*(ebp-0x10)`, which is n1, with `*(ebp-8)`, and they must be equal.  
+In a word, these conditions must be satisfied.  
+
+1. 1<n0<=7
+2. n1==820
+Try `2 820` and it succeeds!
+## phase_4
+
+```
+ 08048cec <phase_4>:
+ 8048cec:	55                   	push   %ebp
+ 8048ced:	89 e5                	mov    %esp,%ebp
+ 8048cef:	83 ec 28             	sub    $0x28,%esp
+ 8048cf2:	8d 45 f4             	lea    -0xc(%ebp),%eax
+ 8048cf5:	89 44 24 08          	mov    %eax,0x8(%esp)
+ 8048cf9:	c7 44 24 04 c0 99 04 	movl   $0x80499c0,0x4(%esp)
+ 8048d00:	08 
+ 8048d01:	8b 45 08             	mov    0x8(%ebp),%eax
+ 8048d04:	89 04 24             	mov    %eax,(%esp)
+ 8048d07:	e8 5c fb ff ff       	call   8048868 <sscanf@plt>
+ 8048d0c:	89 45 fc             	mov    %eax,-0x4(%ebp)
+ 8048d0f:	83 7d fc 01          	cmpl   $0x1,-0x4(%ebp)
+ 8048d13:	75 07                	jne    8048d1c <phase_4+0x30>
+ 8048d15:	8b 45 f4             	mov    -0xc(%ebp),%eax
+ 8048d18:	85 c0                	test   %eax,%eax
+ 8048d1a:	7f 05                	jg     8048d21 <phase_4+0x35>
+ 8048d1c:	e8 49 09 00 00       	call   804966a <explode_bomb>
+ 8048d21:	8b 45 f4             	mov    -0xc(%ebp),%eax
+ 8048d24:	89 04 24             	mov    %eax,(%esp)
+ 8048d27:	e8 91 ff ff ff       	call   8048cbd <func4>
+ 8048d2c:	89 45 f8             	mov    %eax,-0x8(%ebp)
+ 8048d2f:	81 7d f8 80 9d 00 00 	cmpl   $0x9d80,-0x8(%ebp)
+ 8048d36:	74 05                	je     8048d3d <phase_4+0x51>
+ 8048d38:	e8 2d 09 00 00       	call   804966a <explode_bomb>
+ 8048d3d:	c9                   	leave  
+ 8048d3e:	c3                   	ret    
+```
+Test case is 2 8.  
+Use arg1 and `0x80499c0` as arguments to call sscanf which always returns 1.  
+Know ebp-0xc stores the input0 by gdb.  
+```
+(gdb) x/6wd $ebp-0xc
+0xffffc8bc:	2	134523280	1	-14088
+0xffffc8cc:	134515491	134523280
+```
+It uses test eax,eax and jg, so input0 can't be zero.  
+Then it moves input0 to `*(esp)` and calls func4.  
+```
+ 08048cbd <func4>:
+ 8048cbd:	55                   	push   %ebp
+ 8048cbe:	89 e5                	mov    %esp,%ebp
+ 8048cc0:	83 ec 08             	sub    $0x8,%esp
+ 8048cc3:	83 7d 08 01          	cmpl   $0x1,0x8(%ebp)
+ 8048cc7:	7f 09                	jg     8048cd2 <func4+0x15>
+ 8048cc9:	c7 45 fc 01 00 00 00 	movl   $0x1,-0x4(%ebp)
+ 8048cd0:	eb 15                	jmp    8048ce7 <func4+0x2a>
+ 8048cd2:	8b 45 08             	mov    0x8(%ebp),%eax
+ 8048cd5:	48                   	dec    %eax
+ 8048cd6:	89 04 24             	mov    %eax,(%esp)
+ 8048cd9:	e8 df ff ff ff       	call   8048cbd <func4>
+ 8048cde:	89 c2                	mov    %eax,%edx
+ 8048ce0:	0f af 55 08          	imul   0x8(%ebp),%edx
+ 8048ce4:	89 55 fc             	mov    %edx,-0x4(%ebp)
+ 8048ce7:	8b 45 fc             	mov    -0x4(%ebp),%eax
+ 8048cea:	c9                   	leave  
+ 8048ceb:	c3                   	ret    
+```
+Easily I find func4 is such a function.  
+```
+func4(int x){
+    if(x<=1)
+        return 1;
+    else
+        return x*func4(x-1);
+}
+```
+`func4(5)=5*func4(4)=5*4*func4(3)=5*4*3*func4(2)=5*4*3*2*func4(1)=5*4*3*2*1=5!`
+Function func4 return input0! to eax, then phase_4 compares it with`$0x9d80`, which is 40320 in decimal. 8!==40320 so input0 must be 8 and there is only one input.  
+Try `8`, defuse the bomb!
+## phase_5
+
+```
+ 08048d3f <phase_5>:
+ 8048d3f:	55                   	push   %ebp
+ 8048d40:	89 e5                	mov    %esp,%ebp
+ 8048d42:	83 ec 38             	sub    $0x38,%esp
+ 8048d45:	8d 45 e8             	lea    -0x18(%ebp),%eax
+ 8048d48:	89 44 24 0c          	mov    %eax,0xc(%esp)
+ 8048d4c:	8d 45 ec             	lea    -0x14(%ebp),%eax
+ 8048d4f:	89 44 24 08          	mov    %eax,0x8(%esp)
+ 8048d53:	c7 44 24 04 97 99 04 	movl   $0x8049997,0x4(%esp)
+ 8048d5a:	08 
+ 8048d5b:	8b 45 08             	mov    0x8(%ebp),%eax
+ 8048d5e:	89 04 24             	mov    %eax,(%esp)
+ 8048d61:	e8 02 fb ff ff       	call   8048868 <sscanf@plt>
+ 8048d66:	89 45 fc             	mov    %eax,-0x4(%ebp)
+ 8048d69:	83 7d fc 01          	cmpl   $0x1,-0x4(%ebp)
+ 8048d6d:	7f 05                	jg     8048d74 <phase_5+0x35>
+ 8048d6f:	e8 f6 08 00 00       	call   804966a <explode_bomb>
+ 8048d74:	8b 45 ec             	mov    -0x14(%ebp),%eax
+ 8048d77:	83 e0 0f             	and    $0xf,%eax
+ 8048d7a:	89 45 ec             	mov    %eax,-0x14(%ebp)
+ 8048d7d:	8b 45 ec             	mov    -0x14(%ebp),%eax
+ 8048d80:	89 45 f8             	mov    %eax,-0x8(%ebp)
+ 8048d83:	c7 45 f0 00 00 00 00 	movl   $0x0,-0x10(%ebp)
+ 8048d8a:	c7 45 f4 00 00 00 00 	movl   $0x0,-0xc(%ebp)
+ 8048d91:	eb 16                	jmp    8048da9 <phase_5+0x6a>
+ 8048d93:	ff 45 f0             	incl   -0x10(%ebp)
+ 8048d96:	8b 45 ec             	mov    -0x14(%ebp),%eax
+ 8048d99:	8b 04 85 c0 a5 04 08 	mov    0x804a5c0(,%eax,4),%eax
+ 8048da0:	89 45 ec             	mov    %eax,-0x14(%ebp)
+ 8048da3:	8b 45 ec             	mov    -0x14(%ebp),%eax
+ 8048da6:	01 45 f4             	add    %eax,-0xc(%ebp)
+ 8048da9:	8b 45 ec             	mov    -0x14(%ebp),%eax
+ 8048dac:	83 f8 0f             	cmp    $0xf,%eax
+ 8048daf:	75 e2                	jne    8048d93 <phase_5+0x54>
+ 8048db1:	83 7d f0 0b          	cmpl   $0xb,-0x10(%ebp)
+ 8048db5:	75 08                	jne    8048dbf <phase_5+0x80>
+ 8048db7:	8b 45 e8             	mov    -0x18(%ebp),%eax
+ 8048dba:	39 45 f4             	cmp    %eax,-0xc(%ebp)
+ 8048dbd:	74 05                	je     8048dc4 <phase_5+0x85>
+ 8048dbf:	e8 a6 08 00 00       	call   804966a <explode_bomb>
+ 8048dc4:	c9                   	leave  
+ 8048dc5:	c3                   	ret    
+```
+Test case is `8 10`.  
+Use arg1 and `0x8049997` as arguments to call function sscanf, which returns 2(argument number) to eax.  
+And argument number must be greater than 1, otherwise it explodes.  
+Know ebp-0x14 contains input0 by gdb:  
+```
+(gdb) x/6 $ebp-0x14
+0xffffc8b4:	8	-135943285	5	134523360
+0xffffc8c4:	2	-14088
+```
+Fetch input0 in ebp-0x14, AND it with 0xf, and return the result to ebp-0x14, which means input0=input0%15.  
+Then give 0 to ebp-0x10, which contains the loop counter.  
+Give 0 to ebp-0xc, which is the `sum` of numbers in ebp-0x14 except input0.  
+After jump, it's the condition of a loop, if `*(ebp-0x14)` doesn't equal 0xf(15 in decimal), then it continues looping.  
+In this loop, it increases loop counter, loads `ebp-0x14` to eax, counts `*(0x804a5c0+4*eax)`, saves it back to ebp-14, and add this number to `ebp-0xc`.  
+After the loop, it compares 0xb(11 in decimal) with `*(ebp-0x10)`, and they must be equal, which means loop time must be 11 times.  
+Then compare -0x18(%ebp) with -0xc(%ebp)(sum), and they must be equal.  
+What is -0x18(%ebp):  
+```
+(gdb) x/6 $ebp-0x18
+0xffffc8b0:	10	8	-135943285	5
+0xffffc8c0:	134523360	2
+```
+Of course it's `input1`, which means input1 equals sum of numbers in -0x14(%ebp) except input0.  
+Figure out the linked list by gdb:  
+```
+(gdb) x/1d 0x804a5c0+4*8
+0x804a5e0 <array.2484+32>:	0
+(gdb) x/1d 0x804a5c0+4*0
+0x804a5c0 <array.2484>:	    10
+(gdb) x/1d 0x804a5c0+4*10
+0x804a5e8 <array.2484+40>:	1
+(gdb) x/1d 0x804a5c0+4*1
+0x804a5c4 <array.2484+4>:	2
+(gdb) x/1d 0x804a5c0+4*2
+0x804a5c8 <array.2484+8>:	14
+(gdb) x/1d 0x804a5c0+4*14
+0x804a5f8 <array.2484+56>:	6
+(gdb) x/1d 0x804a5c0+4*6
+0x804a5d8 <array.2484+24>:	15
+(gdb) 
+```
+Less than 11 times, so use a number which is not in set {8,0,10,1,2,14,6,15}, here I use 3.  
+```
+(gdb) x/1d 0x804a5c0+4*3
+0x804a5cc <array.2484+12>:	7
+(gdb) x/1d 0x804a5c0+4*7
+0x804a5dc <array.2484+28>:	11
+(gdb) x/1d 0x804a5c0+4*11
+0x804a5ec <array.2484+44>:	13
+(gdb) x/1d 0x804a5c0+4*13
+0x804a5f4 <array.2484+52>:	9
+(gdb) x/1d 0x804a5c0+4*9
+0x804a5e4 <array.2484+36>:	4
+(gdb) x/1d 0x804a5c0+4*4
+0x804a5d0 <array.2484+16>:	8
+```
+Base on above data, the linked list is:`3->7->11->13->9->4->8->0->10->1->2->14->6->15`.  
+Loop counter is 11, so input0 should be 11.  
+Sum is 13+9+4+8+0+10+1+2+14+6+15=82, so input1 should be 82.  
+Try `11 82`, it succeeds!
+## phase_6
+
+```assembly
+ 08048e5a <phase_6>:
+ 8048e5a:	55                   	push   %ebp
+ 8048e5b:	89 e5                	mov    %esp,%ebp
+ 8048e5d:	83 ec 18             	sub    $0x18,%esp
+ 8048e60:	c7 45 f8 6c a6 04 08 	movl   $0x804a66c,-0x8(%ebp)
+ 8048e67:	8b 45 08             	mov    0x8(%ebp),%eax
+ 8048e6a:	89 04 24             	mov    %eax,(%esp)
+ 8048e6d:	e8 e6 f9 ff ff       	call   8048858 <atoi@plt>
+ 8048e72:	89 c2                	mov    %eax,%edx
+ 8048e74:	8b 45 f8             	mov    -0x8(%ebp),%eax
+ 8048e77:	89 10                	mov    %edx,(%eax)
+ 8048e79:	8b 45 f8             	mov    -0x8(%ebp),%eax
+ 8048e7c:	89 04 24             	mov    %eax,(%esp)
+ 8048e7f:	e8 42 ff ff ff       	call   8048dc6 <fun6>
+ 8048e84:	89 45 f8             	mov    %eax,-0x8(%ebp)
+ 8048e87:	8b 45 f8             	mov    -0x8(%ebp),%eax
+ 8048e8a:	89 45 fc             	mov    %eax,-0x4(%ebp)
+ 8048e8d:	c7 45 f4 01 00 00 00 	movl   $0x1,-0xc(%ebp)
+ 8048e94:	eb 0c                	jmp    8048ea2 <phase_6+0x48>
+ 8048e96:	8b 45 fc             	mov    -0x4(%ebp),%eax
+ 8048e99:	8b 40 08             	mov    0x8(%eax),%eax
+ 8048e9c:	89 45 fc             	mov    %eax,-0x4(%ebp)
+ 8048e9f:	ff 45 f4             	incl   -0xc(%ebp)
+ 8048ea2:	83 7d f4 08          	cmpl   $0x8,-0xc(%ebp)
+ 8048ea6:	7e ee                	jle    8048e96 <phase_6+0x3c>
+ 8048ea8:	8b 45 fc             	mov    -0x4(%ebp),%eax
+ 8048eab:	8b 10                	mov    (%eax),%edx
+ 8048ead:	a1 6c a6 04 08       	mov    0x804a66c,%eax
+ 8048eb2:	39 c2                	cmp    %eax,%edx
+ 8048eb4:	74 05                	je     8048ebb <phase_6+0x61>
+ 8048eb6:	e8 af 07 00 00       	call   804966a <explode_bomb>
+ 8048ebb:	c9                   	leave  
+ 8048ebc:	c3                   	ret    
+```
+atoi@plt returns the input0 to eax.  
+fun6 returns arg1, which is the argument in (%esp) before calling fun6.  
+Then gives the initial number(1) to -0xc(%ebp)  
+After that, program jumps to ```8048ea2```, a loop which is controled by -0xc(%ebp) for 8 times. It loads -0x4(%ebp) to eax, does `eax=*(eax+8)` and saves eax back to -0x4(%ebp).  
+After 8 loops, it compares `*(eax)`, which is fetched from -0x4(%ebp), with `*(0x804a66c)`, which is the input0.  
+So look at edx at ```8048eb2``` is a good idea:  
+```
+i r
+```
+Then I find edx is 171.
+Try 171 as the only input, and phase_6 is defused.  

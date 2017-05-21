@@ -1,0 +1,9 @@
+#remove a file from git repository but not filesystem
+##Remove it
+```
+git rm --cached file1.txt
+```
+##Push changes to remote
+```
+git push origin branch_name(usually master)
+```

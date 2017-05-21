@@ -1,0 +1,10 @@
+#Set default software using mime
+##The First Way
+MIME Type Editor
+##The Second Way
+right click the file, choose `properties`, click `open with`, choose a software to set as default.
+##The Third Way
+```
+vim ~/.config/mimeapps.list
+```
+Edit it to override system settings

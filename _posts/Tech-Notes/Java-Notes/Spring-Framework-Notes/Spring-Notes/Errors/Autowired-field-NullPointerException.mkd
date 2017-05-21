@@ -1,0 +1,12 @@
+#Autowired field NullPointerException
+##Reason
+I new a `PlanServiceImpl`, the JVM instantiates a copy of the new object and hands to to me, while Spring know nothing about it because I didn't tell Spring using `Autowired` or anything else. Then `Autowired` field in `PlanServiceImpl` won't be instantiated, which cause a NullPointerException.
+##Detailed Reason
+`
+The Spring Inversion of Control (IoC) container has three main logical components: a registry (called the ApplicationContext) of components (beans) that are available to be used by the application, a configurer system that injects objects' dependencies into them by matching up the dependencies with beans in the context, and a dependency solver that can look at a configuration of many different beans and determine how to instantiate and configure them in the necessary order.
+`
+`
+The IoC container isn't magic, and it has no way of knowing about Java objects unless you somehow inform it of them. When you call new, the JVM instantiates a copy of the new object and hands it straight to you--it never goes through the configuration process. 
+`
+##Solution
+Don't `new` class which has `Autowired` field, pass `Autowired` field using parameters.

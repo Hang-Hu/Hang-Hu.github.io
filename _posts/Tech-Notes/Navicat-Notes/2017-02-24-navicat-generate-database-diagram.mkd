@@ -1,0 +1,9 @@
+---
+layout: post
+author: Hang Hu
+categories: navicat
+tags: Navicat 
+cover: 
+---
+
+Right click on `ECollaborationWeb` -> Click `Reverse database to model` -> Click Untitled Model's options in the upper left -> File -> Print as -> PNG

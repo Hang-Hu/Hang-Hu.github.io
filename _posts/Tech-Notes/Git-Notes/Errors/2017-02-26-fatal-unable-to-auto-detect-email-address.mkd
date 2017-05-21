@@ -1,0 +1,20 @@
+---
+layout: post
+author: Hang Hu
+categories: git
+tags: Git 
+cover: 
+---
+
+## Reason
+
+Email address and name is needed.
+## Solution
+
+```
+git config --global user.email "huhang@mail.ustc.edu.cn"
+git config --global user.name "HangHu"
+```
+```
+Omit --global to set the identity only in this repository.
+```

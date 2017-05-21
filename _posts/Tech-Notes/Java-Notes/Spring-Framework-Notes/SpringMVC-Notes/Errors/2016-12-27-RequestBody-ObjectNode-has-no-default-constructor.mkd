@@ -1,0 +1,46 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Spring-Framework SpringMVC 
+cover: 
+---
+
+## Reason
+
+`ObjectNode` has no default non-arg constructor, which Jackson requires for databinding.
+## Solution
+
+Use `String` instead of `ObjectNode`.
+```
+@Controller
+public class WeekController {
+	//getWeekList
+	@RequestMapping("/weeks")
+	@ResponseBody public WeekDTO getWeekList(@RequestBody String json){
+		System.out.println("weeks here.");
+		System.out.println(json); 
+		try {
+			JsonNode jsonNode=new ObjectMapper().readTree(json);
+			System.out.println(jsonNode.get("number").get("token"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return new WeekDTO();
+	}
+}
+```
+Test of this controller
+```
+curl -X POST 
+--data '{"page":"1","number":{"token":"3"}}' 
+-H "Content-Type:application/json" 
+-H "Accept:application/json" 
+http://localhost:8080/weeks
+```
+Console output
+```
+weeks here.
+{"page":"1","number":{"token":"3"}}
+"3"
+```

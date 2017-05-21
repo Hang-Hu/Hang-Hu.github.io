@@ -1,0 +1,16 @@
+# adbd cannot run as root in production builds
+
+```
+busybox vi default.prop
+```
+Change `debuggable` from 0 to 1, `ro.secure` from 1 to 0, ro.adb.secure from 1 to 0.
+```
+# ADDITIONAL_DEFAULT_PROPERTIES
+#
+ro.secure=0
+ro.allow.mock.location=0
+ro.adb.secure=0
+ro.debuggable=1
+persist.sys.timezone=Asia/Shanghai
+persist.sys.usb.config=none
+```

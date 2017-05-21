@@ -1,0 +1,14 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Java-Library JUnit 
+cover: 
+---
+
+## Reason
+
+The class which uses junit test is named after `class Test`.
+## Solution
+
+Change the class name.

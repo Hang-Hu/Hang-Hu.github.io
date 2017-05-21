@@ -1,0 +1,16 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Hibernate 
+cover: 
+---
+
+## Detail
+
+Caused by: org.springframework.beans.factory.NoUniqueBeanDefinitionException: No qualifying bean of type 'java.util.Properties' available: expected single matching bean but found 2:  systemProperties, hibernateProperties
+## Reason
+
+## Solution
+
+Remove `@Bean` for `hibernateProperties`.

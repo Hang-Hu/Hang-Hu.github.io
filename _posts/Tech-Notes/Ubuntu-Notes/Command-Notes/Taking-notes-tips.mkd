@@ -1,0 +1,4 @@
+#Taking notes tips
+1. Convert one ppt to multiple jpegs using command-line
+2. Use command to add muptiple `<img src="" width="100%">` to a markdown file whose name is `className+sequence+pptName`, command or java is ok.
+3. Take notes in this markdown file.

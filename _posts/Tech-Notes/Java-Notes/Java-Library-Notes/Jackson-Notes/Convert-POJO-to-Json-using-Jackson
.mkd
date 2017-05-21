@@ -1,0 +1,13 @@
+#Convert POJO to Json using Jackson
+```
+@Override
+public String toString() {
+    String json=null;
+    try {
+        json=new ObjectMapper().writeValueAsString(this);
+    } catch (JsonProcessingException e) {
+        e.printStackTrace();
+    }
+    return json;
+}
+```

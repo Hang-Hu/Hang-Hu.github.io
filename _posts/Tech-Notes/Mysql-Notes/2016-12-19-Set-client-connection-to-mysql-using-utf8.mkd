@@ -1,0 +1,20 @@
+---
+layout: post
+author: Hang Hu
+categories: mysql
+tags: Mysql 
+cover: 
+---
+
+## Similiar setting
+
+This have the same effect as set below code in mysql server's config
+```
+init-connect='SET NAMES utf8'
+```
+## setting in client
+
+```
+url=jdbc:mysql://115.28.163.139:3306/ArchitectureLab?characterEncoding=utf8
+```
+This will set encoding utf8 for connection.

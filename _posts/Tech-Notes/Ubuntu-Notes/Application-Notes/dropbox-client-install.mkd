@@ -1,0 +1,8 @@
+# Dropbox install
+
+```
+sudo apt install nautilus-dropbox 
+```
+```
+proxychains dropbox start -i
+```

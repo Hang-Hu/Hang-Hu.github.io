@@ -1,0 +1,22 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Maven 
+cover: 
+---
+
+### Build with one command
+
+`
+joanna@JC:~/Documents/code4java/eclipse workspace$ mvn archetype:generate -DgroupId=imooc-arthur -DartifactId=spring-mvc-study -DarchetypeArtifactId=maven-archetype-webapp
+`
+### Import
+
+1. right click in blank area of `Navigator`, choose `import`, 
+2. select `Exisiting Maven Projects`, 
+3. browse and choose `imooc/spring-mvc-study`, then finish
+### Fix the missing java path
+
+1. Create `java` folder in `src/main`
+2. 

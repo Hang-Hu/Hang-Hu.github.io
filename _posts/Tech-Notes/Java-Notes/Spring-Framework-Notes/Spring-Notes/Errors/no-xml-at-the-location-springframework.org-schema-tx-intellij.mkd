@@ -1,0 +1,5 @@
+#no xml at the location springframework.org/schema/tx intellij
+##Reason
+`www` is forgetten.
+##Solution
+Use `http://www.springframework.org/schema/tx` instead of `http://springframework.org/schema/tx`

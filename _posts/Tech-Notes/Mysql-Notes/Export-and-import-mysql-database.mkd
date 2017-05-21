@@ -1,0 +1,11 @@
+#Export and import mysql database
+##Emport
+Then use this command to export your database:
+```
+mysqldump -u YourUser -p YourDatabaseName > wantedsqlfile.sql
+```
+##Import
+```
+mysql -u username -p database_name < file.sql
+```
+

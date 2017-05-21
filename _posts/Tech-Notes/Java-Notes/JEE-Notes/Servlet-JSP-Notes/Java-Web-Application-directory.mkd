@@ -1,0 +1,9 @@
+#Java Web Application directory
+###build
+########classes
+Class file(bytecode) compiled from .java file
+###Web-INF
+####lib
+Such as dom4j-1.6.1.jar
+####web.xml
+Configuration file for the application

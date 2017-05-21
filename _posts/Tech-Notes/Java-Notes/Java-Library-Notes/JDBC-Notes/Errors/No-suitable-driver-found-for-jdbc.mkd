@@ -1,0 +1,5 @@
+#No suitable driver found for jdbc
+##Reason
+`mysql-connector-java-version.jar` is needed.
+##Solution
+Put this jar in WebContent/WEB-INF/lib folder.

@@ -1,0 +1,12 @@
+---
+layout: post
+author: Hang Hu
+categories: ubuntu
+tags: Ubuntu Command 
+cover: 
+---
+
+```
+cd /etc/apt/sources.list.d
+```
+remove any ppa you don't want.

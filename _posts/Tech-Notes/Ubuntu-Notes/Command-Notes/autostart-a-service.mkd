@@ -1,0 +1,16 @@
+# autostart a service
+
+## To start a daemon at startup:
+```
+update-rc.d service_name defaults
+```
+## To remove:
+```
+update-rc.d -f service_name remove
+```
+defaults => default run levels 2,3,4 and 5
+
+## Example:
+```
+update-rc.d tomcat7 defaults
+```

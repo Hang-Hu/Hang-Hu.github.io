@@ -1,0 +1,6 @@
+#Cut pdf
+pdftk is a useful multi-platform tool for the job (pdftk homepage).
+```
+pdftk full-pdf.pdf cat 2-15 output outfile_p12-15.pdf
+```
+you pass the filename of the main pdf, then you tell it to only include certain pages (2-15 in this example) and output it to a new file.

@@ -1,0 +1,17 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java JEE Servlet-JSP 
+cover: 
+---
+
+## Error Code
+
+```
+response.sendRedirect(request.getContextPath()+"/login.html");
+request.getRequestDispatcher("/login_fail.html").forward(request, response);
+```
+## Reason
+
+Can't forward after sending redirect.

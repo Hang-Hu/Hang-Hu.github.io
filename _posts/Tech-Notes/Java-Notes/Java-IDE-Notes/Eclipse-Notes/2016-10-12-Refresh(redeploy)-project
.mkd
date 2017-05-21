@@ -1,0 +1,15 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Java-IDE Eclipse 
+cover: 
+---
+
+1. save changes using ctrl+c
+2. right click project and choose "Build Project"(if Build Automatically is on, then this step can be skipped)
+3. right click tomcat and choose "Publish"
+
+## For build project automaticall
+
+Click "Project" in the top bar and choose "Build Automatically"

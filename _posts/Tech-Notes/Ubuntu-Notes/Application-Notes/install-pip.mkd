@@ -1,0 +1,6 @@
+# install pip on ubuntu16.04
+
+```
+sudo apt-get install python-pip
+pip -V
+```

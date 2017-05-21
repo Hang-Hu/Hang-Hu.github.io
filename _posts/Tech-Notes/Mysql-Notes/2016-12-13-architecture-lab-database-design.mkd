@@ -1,0 +1,105 @@
+---
+layout: post
+author: Hang Hu
+categories: mysql
+tags: Mysql 
+cover: 
+---
+
+#### Device
+
+```
+- id int//设备号
+- group_id int @Group.id//组号
+- name text//设备名
+primary key(id,group_id)
+```
+#### DeviceGroup
+
+```
+- id int primary key//组号
+- name text//组名
+```
+#### ErrorHistory
+
+```
+- id int auto_increment primary key
+- device_id int @Device.id
+- group_id int @DeviceGroup.id
+- status int
+- error_code int
+- start_time timestamp
+- end_time timestamp
+```
+#### RealTime
+
+```
+- device_id int @Device.id
+- group_id int @DeviceGroup.id
+- status int
+- error_code int
+primary key(device_id,group_id)
+```
+#### getErrorHistory
+
+```
+mysql> select DeviceGroup.id group_id,DeviceGroup.name group_name,Device.id device_id,Device.name device_name,ErrorHistory.start_time start,ErrorHistory.end_time,ErrorHistory.error_code 
+from DeviceGroup,Device,ErrorHistory 
+where DeviceGroup.id=Device.group_id 
+and ErrorHistory.device_id=Device.id 
+and ErrorHistory.group_id=Device.group_id
+and ErrorHistory.group_id=000000 
+and device_id=20161212 
+and error_code=0 
+and start_time between now()-interval 31 day and now() 
+limit 1,2;
+```
+`time between now()-interval 31 day and now()` get the tuple which is within last 31 days.
+`limit 1,2` get the tuple from 1+1 to 2.
+#### getRealTime
+
+```
+mysql> select RealTime.group_id,DeviceGroup.name group_name,RealTime.device_id,Device.name device_name,RealTime.status,RealTime.error_code 
+from RealTime,DeviceGroup,Device 
+where RealTime.device_id=Device.id 
+and RealTime.group_id=DeviceGroup.id 
+and RealTime.group_id=000000 
+limit 1,3;
+```
+#### select the next record which is ok status after the false status
+
+```
+mysql> select * 
+from Log 
+where device_id=20161212 
+and time>'2016-12-12-22:05:34' 
+and status=1 
+limit 1;
+```
+Then I can calculate the `duration` of error.
+#### create table ErrorHistory
+
+```
+mysql> create table ErrorHistory( 
+id int not null primary key auto_increment, 
+device_id int not null, 
+group_id int not null, 
+status int not null, 
+error_code int not null, 
+start_time timestamp not null, 
+end_time timestamp not null default current_timestamp, 
+constraint fk_device foreign key (device_id) references Device(id) on update cascade, 
+constraint fk_group foreign key(group_id) references DeviceGroup(id) on update cascade);
+```
+### create table RealTime
+
+```
+mysql> create table RealTime( 
+device_id int not null, 
+group_id int not null, 
+status int not null, 
+error_code int not null, 
+primary key(device_id,group_id), 
+constraint fk_device2 foreign key (device_id) references Device(id) on update cascade, 
+constraint fk_group2 foreign key(group_id) references DeviceGroup(id) on update cascade);
+```

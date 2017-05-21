@@ -1,0 +1,21 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Tomcat 
+cover: 
+---
+
+## Reason
+
+I moved war to ArchitectureLab folder, which is wrong because tomcat only scan war in webapps and deploy it automatically.
+```
+mv ArchitectureLab.war /usr/local/apache-tomcat-8.0.37/webapps/ArchitectureLab/
+```
+## Solution
+
+Move war to webapps instead.
+```
+mv ArchitectureLab.war /usr/local/apache-tomcat-8.0.37/webapps/
+
+```

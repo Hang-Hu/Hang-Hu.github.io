@@ -1,0 +1,15 @@
+#Mi4 flashboot from android 6 to 4.4
+##Tools
+```
+cancro_alpha_global_images_5.12.10_20151126.0000.5_4.4_global_0bc13dbf79
+磁盘模式工具
+MiPhone20151028
+```
+Note that the new version of miflash(MiFlashSetup201612220) need 3.5 .Net Framework and can't recognize my mi4 at all.
+##Process
+1. Press lower voice button+power button to enter fastboot mode.
+2. Connect computer with line, click device in `virtual box` and choose phone
+3. open `清除fastboot进磁盘操作.bat` in `磁盘模式工具` file
+4. untar flashboot file
+5. Open MiFlash, copy the file address and click `刷新`, then click `刷机`
+6. After it succeeds, long press power button for one minute

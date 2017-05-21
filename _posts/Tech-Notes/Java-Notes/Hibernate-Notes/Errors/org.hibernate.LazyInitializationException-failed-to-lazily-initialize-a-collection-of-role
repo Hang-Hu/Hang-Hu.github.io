@@ -1,0 +1,19 @@
+#org.hibernate.LazyInitializationException: failed to lazily initialize a collection of role, could not initialize proxy - no Session
+##Reason
+By default hibernate lazily load collections and when you use it in controller which has no `@Transactional`, hibernate's loading will fail. 
+##Solution1-Prolong JPA session
+Add this to web.xml
+```
+<filter>
+    <filter-name>SpringOpenEntityManagerInViewFilter</filter-name>
+    <filter-class>org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter</filter-class>
+</filter>
+<filter-mapping>
+    <filter-name>SpringOpenEntityManagerInViewFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+</filter-mapping>
+```
+This code is used to `"to allow for lazy loading in web views despite the original transactions already being completed"`, this way you can use collections in jsp or controllers.  
+However, lots of disadvantages is reported, don't do like this.
+##Solution2-Best one, do bussiness in service layer
+No bussiness logic in controller and move this code to service layer.

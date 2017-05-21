@@ -1,0 +1,17 @@
+---
+layout: post
+author: Hang Hu
+categories: ubuntu
+tags: Ubuntu Command 
+cover: 
+---
+
+## 10 most common words
+
+```
+tr -c '[:alnum:]' '[\n*]' < test.txt | sort | uniq -c | sort -nr | head  -10
+```
+
+## Reference
+
+https://unix.stackexchange.com/questions/41479/find-n-most-frequent-words-in-a-file

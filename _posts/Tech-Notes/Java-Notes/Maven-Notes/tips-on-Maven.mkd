@@ -1,0 +1,4 @@
+#Tips to use maven
+1. Use mvn clean install in command line gives only important and critical error.
+2. Markers in eclipse do have error hints about maven.
+3. As for `pom.xml`, search it in google using `spring-orm maven`

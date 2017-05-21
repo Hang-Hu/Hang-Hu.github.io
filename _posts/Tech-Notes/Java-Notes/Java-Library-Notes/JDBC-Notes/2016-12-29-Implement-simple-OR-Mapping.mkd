@@ -1,0 +1,30 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Java-Library JDBC 
+cover: 
+---
+
+Already know names in java code, while know nothing about table or column names in DB.  
+已知java代码中的UserBean的className和各项fieldName，由xml映射表查出对应需要的table和column名字。
+Read
+```
+Conversation.getUser("userName","Tom");
+UserBean queryUser(String userName);
+```
+Create
+```
+Conversation.save(UserBean u);
+boolean insertUser(UserBean u);
+```
+Update
+```
+Conversation.updateUser(UserBean u);
+boolean updateUser(UserBean u)
+```
+Delete
+```
+Conversation.deleteUser(UserBean u);
+boolean deleteUser(UserBean u)
+```

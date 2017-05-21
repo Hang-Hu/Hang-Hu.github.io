@@ -1,0 +1,3 @@
+#cancel bundle install
+There is a hidden directory called .bundle in `~`. Remove that, then run bundle again.
+

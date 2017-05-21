@@ -1,0 +1,45 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Spring-Framework SpringMVC 
+cover: 
+---
+
+### Basic test
+
+```
+curl -X POST 
+--data '{"page":"1","number":{"token":"3"}}' 
+-H "Content-Type:application/json" 
+-H "Accept:application/json" 
+http://localhost:8080/weeks
+```
+```
+-X is followed by POST, GET, etc
+--data(or -d) is followed by request body
+-H means header
+```
+### Test with list
+
+```
+curl -X 
+POST --data '{"page":"1","number":[{"token":"3"},{"token":"4"}]}' 
+-H "Content-Type:application/json" 
+-H "Accept:application/json" 
+http://localhost:8080/weeks
+```
+### Test in restful
+
+```
+curl -X PUT 
+--data '{"page":"1","number":{"token":"3"}}' 
+-H "Content-Type:application/json" 
+-H "Accept:application/json" 
+http://localhost:8080/applications/1
+```
+### Test with access-token
+
+```
+curl -X GET --data '{"page":"1","number":{"token":"3"}}' -H "Content-Type:application/json" -H "Accept:application/json" -H "access-token:1111" http://localhost:8080/weeks
+```

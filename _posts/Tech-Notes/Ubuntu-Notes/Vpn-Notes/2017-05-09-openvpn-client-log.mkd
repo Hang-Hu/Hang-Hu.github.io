@@ -1,0 +1,26 @@
+---
+layout: post
+author: Hang Hu
+categories: ubuntu
+tags: Ubuntu Vpn 
+cover: 
+---
+
+## Configuration
+
+```
+sudo vim /etc/default/openvpn
+```
+Change from `OPTARGS=""` to `OPTARGS="--log /var/log/openvpn.log"`
+
+## Enable config
+
+```
+sudo systemctl daemon-reload
+```
+
+## Log
+
+```
+tail -f /var/log/openvpn.log
+```

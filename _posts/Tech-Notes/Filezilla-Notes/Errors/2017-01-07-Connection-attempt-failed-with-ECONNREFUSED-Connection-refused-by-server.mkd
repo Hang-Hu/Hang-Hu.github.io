@@ -1,0 +1,14 @@
+---
+layout: post
+author: Hang Hu
+categories: filezilla
+tags: Filezilla 
+cover: 
+---
+
+## Reason
+
+FTP protocol is blocked by ustc cloud
+## Solution
+
+Use SFTP to connect which uses 22 for port instead of 21 which is simply FTP

@@ -1,0 +1,34 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Spring-Framework SpringMVC 
+cover: 
+---
+
+## Forward
+
+### 1. In the same class such as User
+
+```
+return "redirect:list.do";
+return "redirect:/user/list.do"
+```
+### 2. Not in the same class
+
+```
+return "redirect /item/list.do"
+```
+## Redirect
+
+### 1. In the same class such as User
+
+```
+return "forward:list.do";
+return "forward:/user/list.do"
+```
+### 2. Not in the same class
+
+```
+return "forward /item/list.do"
+```

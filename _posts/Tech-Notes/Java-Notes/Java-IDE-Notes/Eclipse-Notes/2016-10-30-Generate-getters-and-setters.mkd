@@ -1,0 +1,9 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Java-IDE Eclipse 
+cover: 
+---
+
+Source->Generate getters and setters->select all->ok

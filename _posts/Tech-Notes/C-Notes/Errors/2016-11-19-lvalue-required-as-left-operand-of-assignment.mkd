@@ -1,0 +1,9 @@
+---
+layout: post
+author: Hang Hu
+categories: c
+tags: C 
+cover: 
+---
+
+Left should be a variable so that right value can be assigned to it. Im my case, `*p=size` is required instead of `p=size`.

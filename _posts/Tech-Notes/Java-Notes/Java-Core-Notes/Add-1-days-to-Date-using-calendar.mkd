@@ -1,0 +1,7 @@
+#Add 1 days to Date using Calendar
+`Calendar.DATE` is the day and time(to second) today.
+```
+Calendar calendar=new GregorianCalendar();
+calendar.add(Calendar.DATE, 1);
+Date date=calendar.getTime();
+```

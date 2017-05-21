@@ -1,0 +1,22 @@
+---
+layout: post
+author: Hang Hu
+categories: mysql
+tags: Mysql 
+cover: 
+---
+
+```
+mysql> update DeviceGroup
+    -> set name='江苏'
+    -> where id=1
+    -> ;
+```
+```
+mysql> update Device 
+    -> set name='文件服务器'
+    -> where id=20160001
+    -> and group_id=0
+    -> ;
+
+```

@@ -1,0 +1,6 @@
+#Tomcat Server An internal error occurred during: "Updating status for SpringMVC". java.lang.IndexOutOfBoundsException
+##Reason
+Not know.
+SpringMVC is the name of a tomcat server.
+##Solution
+Delete it and add a new tomcat server.

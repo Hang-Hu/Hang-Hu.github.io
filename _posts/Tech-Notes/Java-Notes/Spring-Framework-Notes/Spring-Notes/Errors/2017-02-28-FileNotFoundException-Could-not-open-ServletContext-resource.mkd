@@ -1,0 +1,19 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Spring-Framework Spring 
+cover: 
+---
+
+## Details
+
+`
+FileNotFoundException: Could not open ServletContext resource [/WEB-INF/views/api/projects/4/applications/students/4.html]
+`
+## Reason
+
+`@ResponseBody` is forgotten to add, which makes `Spring` resolve it as `/WEB-INF/views/api/projects/4/applications/students/4.html`.
+## Solution
+
+Add `@ResponseBody` before `@RequestMapping`.

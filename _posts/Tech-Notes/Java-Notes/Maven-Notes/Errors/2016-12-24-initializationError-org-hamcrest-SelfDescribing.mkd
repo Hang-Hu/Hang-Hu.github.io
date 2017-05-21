@@ -1,0 +1,14 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Maven 
+cover: 
+---
+
+## Reason
+
+Intellij download a corrupted hamcrest jar for maven.
+## Solution
+
+Go to `.m2/repository/org/hamcrest` and delete it.

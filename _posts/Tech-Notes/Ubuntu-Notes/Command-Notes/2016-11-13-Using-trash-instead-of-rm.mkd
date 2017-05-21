@@ -1,0 +1,14 @@
+---
+layout: post
+author: Hang Hu
+categories: ubuntu
+tags: Ubuntu Command 
+cover: 
+---
+
+```
+trash-empty  
+trash-list   
+trash-put    
+trash-rm  
+```

@@ -1,0 +1,17 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java JEE Servlet-JSP 
+cover: 
+---
+
+## Full exception name
+
+java.lang.IllegalStateException: Cannot call sendRedirect() after the response has been committed
+## Reason
+
+After calling `response.sendRedirect()` in POJO, I call another `sendRedirect()` in the servlet calling POJO.
+## Solution
+
+Delete the `sendRedirect()` in POJO.

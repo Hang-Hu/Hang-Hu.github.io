@@ -1,0 +1,13 @@
+#Hibernate default bidirectional strategy of update and save
+##Update
+```
+sessionFactory.getCurrentSession().update(entity);
+```
+`update` do update without any insertion, no relational entity be inserted.
+##Save
+```
+sessionFactory.getCurrentSession().save(entity);
+```
+`save` do insert the entity itself, no relational entity will be saved cascadely by default. And `List` will fail.
+##Cascade
+If you want to get the effect of cascade, declare it in `mapping file` or `annotation`.

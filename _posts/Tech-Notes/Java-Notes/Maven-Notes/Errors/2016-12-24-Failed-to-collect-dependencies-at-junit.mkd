@@ -1,0 +1,14 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Maven 
+cover: 
+---
+
+## Reason
+
+Intellij downloads a corrupted junit file
+## Solution
+
+Delete it in maven repository and re-download it using terminal.

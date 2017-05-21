@@ -1,0 +1,11 @@
+---
+layout: post
+author: Hang Hu
+categories: centos
+tags: CentOS 
+cover: 
+---
+
+```
+ssh root@115.28.163.139
+```

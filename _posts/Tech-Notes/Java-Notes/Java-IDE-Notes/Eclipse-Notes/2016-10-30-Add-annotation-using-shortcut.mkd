@@ -1,0 +1,9 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Java-IDE Eclipse 
+cover: 
+---
+
+I have found that writing /**[enter] before a class or method will produce documentation comments in Eclipse. 

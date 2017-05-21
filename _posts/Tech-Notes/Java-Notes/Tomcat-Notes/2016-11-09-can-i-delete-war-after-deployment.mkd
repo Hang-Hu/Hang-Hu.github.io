@@ -1,0 +1,11 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Tomcat 
+cover: 
+---
+
+ 
+war不能在tomcat运行时删除，否则会删除自动解压的工程。 你可以停止tomcat后删除war。
+另：当你重新部署的时候，如果有与war文件相同的文件夹，就不会重新部署。

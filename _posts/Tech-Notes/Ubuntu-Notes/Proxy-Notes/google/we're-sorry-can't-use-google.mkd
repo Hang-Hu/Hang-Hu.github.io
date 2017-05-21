@@ -1,0 +1,12 @@
+#we're sorry can't use google
+After grade to the nearest stable version, I can't use google today.
+##Solution
+Change from google hk to https://www.google.com/#newwindow=1&safe=strict&q=%s
+
+And I get capcha popup, everything goes ok.
+Here is the website of capcha:
+https://ipv4.google.com/sorry/index?continue=https://www.google.com/search%3Fsclient%3Dpsy-ab%26newwindow%3D1%26safe%3Dstrict%26biw%3D1536%26bih%3D738%26q%3Dgoogle%2B%25E9%25AA%258C%25E8%25AF%2581%25E7%25A0%2581%26oq%3Dgoogle%2B%25E9%25AA%258C%25E8%25AF%2581%25E7%25A0%2581%26gs_l%3Dhp.3..0j0i12k1l3.6650.11988.1.12608.18.16.1.0.0.0.508.5321.2-1j13j0j1.15.0....0...1c.1j4.64.psy-ab..11.5.1426.0..0i67k1j0i20k1.Sm7owGyNHlM%26pbx%3D1%26bav%3Don.2,or.r_cp.%26bvm%3Dbv.135258522,d.amc%26ech%3D1%26psi%3DwBf7V7_FLqnZjwSolo_QBA.1476073418860.5%26ei%3D0hf7V7_UAoLWjwTN4YeABA%26emsg%3DNCSR%26noj%3D1&q=CGMSBGuyw9MY36_svwUiGQDxp4NLbq94tHUhbSid8_LfQw6TFEvqric
+
+
+
+www.google.com/sg (Singapore) is better for connection

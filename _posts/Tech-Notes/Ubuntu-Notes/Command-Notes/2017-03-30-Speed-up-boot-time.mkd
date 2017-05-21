@@ -1,0 +1,20 @@
+---
+layout: post
+author: Hang Hu
+categories: ubuntu
+tags: Ubuntu Command 
+cover: 
+---
+
+```
+joanna@JC:~$ systemd-analyze blame
+    1min 17.512s sendmail.service
+         26.236s NetworkManager-wait-online.service
+          2.237s dnsmasq.service
+          1.187s apparmor.service
+...
+```
+Cancle one useless service.
+```
+joanna@JC:~$ sudo systemctl disable sendmail.service
+```

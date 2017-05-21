@@ -1,0 +1,8 @@
+#Hibernate database name change gives MySQLSyntaxErrorException: Table doesn't exist
+##Reason
+`schema` *.hbm.xml hasn't been changed from `ECollaborationWeb2` to `ECollaborationWeb`.
+##Solution
+Change it using sed.
+```
+sed -i "s/ECollaborationWeb2/ECollaborationWeb/g" *.xml
+```

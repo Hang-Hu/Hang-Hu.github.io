@@ -1,0 +1,22 @@
+---
+layout: post
+author: Hang Hu
+categories: ubuntu
+tags: Ubuntu Application 
+cover: 
+---
+
+```
+vim ~/.profile
+```
+
+Add two lines in the end:
+
+```
+export GPODDER_HOME=/home/joanna/ProgramFiles/gPodder/
+export GPODDER_DOWNLOAD_DIR=/home/joanna/Music/podcasts/
+```
+
+```
+source ~/.profile
+```

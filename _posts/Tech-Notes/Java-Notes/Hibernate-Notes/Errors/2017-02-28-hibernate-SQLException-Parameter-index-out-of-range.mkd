@@ -1,0 +1,67 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Hibernate 
+cover: 
+---
+## Details
+
+`
+java.sql.SQLException: Parameter index out of range (8 > number of parameters, which is 7).
+`
+## Reason
+
+I map team and member twice, Hibernate can't handle this. In the insert it fails when counting the parameters. Each column should be mapped only once (except if one mapping is read only).
+## Solution
+
+Use `insert="false" update="false"` in two `many-to-one`, because id can't be used with `insert="false" update="false"`.
+```
+<many-to-one name="teamByTeam" class="com.general.dao.entity.TeamEntity" insert="false" update="false">
+    <column name="team"/>
+</many-to-one>
+<many-to-one name="studentByMember" class="com.general.dao.entity.StudentEntity" insert="false" update="false">
+    <column name="member"/>
+</many-to-one>
+```
+## Abandoned Solution
+
+This solution is abandoned because `team` and `member` disappears after change, while they are already used in code.
+Use `key-many-to-one` instead of `key-property` and `many-to-one`. 
+### Original
+
+```
+<class name="com.general.dao.entity.TeamStudentEntity" table="Team__Student" schema="ECollaborationWeb">
+    <composite-id mapped="true" class="com.general.dao.entity.TeamStudentEntityPK">
+        <key-property name="teamByTeam" class="com.general.dao.entity.TeamEntity" column="team"/>
+        <key-property name="studentByMember" class="com.general.dao.entity.StudentEntity" column="member"/>
+    </composite-id>
+    <many-to-one name="teamByTeam" class="com.general.dao.entity.TeamEntity">
+        <column name="team"/>
+    </many-to-one>
+    <many-to-one name="studentByMember" class="com.general.dao.entity.StudentEntity">
+        <column name="member"/>
+    </many-to-one>
+</class>
+```
+### Change to
+
+```
+<class name="com.general.dao.entity.TeamStudentEntity" table="Team__Student" schema="ECollaborationWeb">
+    <composite-id mapped="true" class="com.general.dao.entity.TeamStudentEntity">
+        <key-many-to-one name="teamByTeam" class="com.general.dao.entity.TeamEntity" column="team"/>
+        <key-many-to-one name="studentByMember" class="com.general.dao.entity.StudentEntity" column="member"/>
+    </composite-id>
+</class>
+```
+## Another simpler solution
+
+Delete `many-to-one`, just leave ids. If you need team object, get it using teamId.
+```
+<class name="com.general.dao.entity.TeamStudentEntity" table="Team__Student" schema="ECollaborationWeb">
+    <composite-id mapped="true" class="com.general.dao.entity.TeamStudentEntity">
+        <key-property name="teamByTeam" class="com.general.dao.entity.TeamEntity" column="team"/>
+        <key-property name="studentByMember" class="com.general.dao.entity.StudentEntity" column="member"/>
+    </composite-id>
+</class>
+```

@@ -1,0 +1,10 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Java-IDE Intellij 
+cover: 
+---
+
+1. Run->Edit Configurations
+2. Alt+Insert, select tomcat

@@ -1,0 +1,14 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Spring-Framework Spring 
+cover: 
+---
+
+## Reason
+
+`www` is forgetten.
+## Solution
+
+Use `http://www.springframework.org/schema/tx` instead of `http://springframework.org/schema/tx`

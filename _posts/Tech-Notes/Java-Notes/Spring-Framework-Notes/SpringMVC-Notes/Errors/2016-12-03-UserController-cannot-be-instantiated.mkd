@@ -1,0 +1,16 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Spring-Framework SpringMVC 
+cover: 
+---
+
+## Reason
+
+`com.huhang.controller.UserController.java` is used and it's wrong to append `.java`.
+## Solution
+
+```
+<bean name="/index.do" class="com.huhang.controller.UserController"></bean>
+```

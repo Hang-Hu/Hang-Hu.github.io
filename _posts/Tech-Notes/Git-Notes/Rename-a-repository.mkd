@@ -1,0 +1,13 @@
+#Rename a repository
+##Change it on website
+1. On GitHub, navigate to the main page of the repository.
+
+2. Repository settings buttonUnder your repository name, click  Settings.
+
+3. Repository renameUnder the Repository Name heading, type the new name of your repository.
+
+4. Click Rename.
+##Change the redirected url
+```
+git remote set-url origin new_url
+```

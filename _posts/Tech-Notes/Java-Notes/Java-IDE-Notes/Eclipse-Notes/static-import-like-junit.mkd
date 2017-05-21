@@ -1,0 +1,12 @@
+#Generate static imports in Eclipse on autocomplete for JUnit
+###Open Content Assist
+Go to Window > Preferences > Java > Editor > Content Assist  
+Enable use static imports  
+###Add junit for static import
+Go to Favorites below  
+Click New Type  
+Type ```org.junit```  
+Click ok  
+###Use
+Hold on ```Ctrl+Shift+O``` and you get all classes and static imports autocompleted.  
+Or wait for eclipse to ask you.

@@ -1,0 +1,271 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java JEE Servlet-JSP 
+cover: 
+---
+
+### Life cycle
+
+#### default constructor
+
+Runs only once when servlet is loaded.
+#### init()
+
+Runs once time when servlet is first created.
+#### service()
+
+Runs every time when I refresh its page.
+#### destroy()
+
+Runs when undeployed.
+### interface Servlet
+
+### abstract class GenericServlet implements Servlet
+
+GenericSevlet implements 5 methods in interface Servlet, so if you inherit from it, you don't have write it.  
+Just override the must method and ignore others.
+### abstract class HttpServlet extends GenericServlet(Used in development)
+
+Very important to override its doGet, doPost etc method.  
+Because every time you request a servlet, service is executed to deal with it. And service inherited from GenericServlet was override to call service overloaded by HttpServlet. This service will figure out method of the request and pass request to doGet, doPost etc based on its method type.  
+However, doGet etc in HttpServlet do nothing but gives out an error message.  
+So it's necessary for you to override it and write what to do.  
+<strong>Warning</strong>:Don't override service(), because I want to use its pretty written service() to pass request to according method.  
+### Diffs between Get and Post
+
+Get is passing information through address.  
+Post is through request body. 
+So type http://localhost:8080/TestServlet/demo1, and you send a Get.
+### ServletConfig
+
+#### Function1 Get configuration file: web.xml
+
+```
+String encoding = this.getServletConfig().getInitParameter("encoding");
+```
+If you want to get initparameters directly, getInitParameter() is enough because GenericServlet implement it from interface ServletConfig.
+```
+String encoding = this.getInitParameter("encoding");
+```
+```
+    @Override
+    public String getInitParameter(String name) {
+        return getServletConfig().getInitParameter(name);
+    }
+```
+As for this.config in GenericServlet, it comes from parameters passed to init().
+```
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        this.config = config;
+        this.init();
+    }
+``` 
+#### Function2: Get ServletContext
+
+### ServletContext
+
+One ServletContext in one application(project)  
+#### Share data between Servlet
+
+A Servlet set Attributes:
+```
+ServletContext application=this.getServletContext();
+application.setAttribute("name","Tom");
+```
+Another Servlet get Attributes setted by previous Servlet:
+```
+ServletContext application=this.getServletContext();	
+String name = (String)application.getAttribute("name");
+```
+#### Get global configuration info
+
+Get global initParameter:
+```
+String encoding=this.getServletContext().getInitParameter("encoding");
+
+```
+Global initParameter is defined here:
+```
+  <context-param>
+    <param-name>encoding</param-name>
+    <param-value>UTF-8</param-value>
+  </context-param>
+```
+#### Get real path
+
+Input the sub path based on path in webApp, like "/WEB-INF/a.properties", and get its full(real) path:  
+/usr/local/apache-tomcat-8.0.37/webapps/TestServletConfig/WEB-INF/a.properties  
+Access a.properties based on full path.  
+```
+String path=this.getServletContext().getRealPath("/WEB-INF/a.properties");
+Properties pro=new Properties();
+pro.load(new FileInputStream(path));
+response.getWriter().append("key:").append(pro.getProperty("key")).append("\nPath: ").append(path);
+```
+#### Request forward
+
+1. ServletContextDemo5's doGet() forward request and response to /ServletContextDemo6(url-pattern).  
+2. ServletContextDemo6's doGet() do things inside it.
+3. return to ServletContextDemo5
+4. ServletContextDemo5 end
+```
+this.getServletContext().getRequestDispatcher("/ServletContextDemo6").forward(request, response);
+```
+### HttpServletRequest and HttpServletResponse
+
+Every time Tomcat get a http request, it will created a request object and a response object whose class implement interface HttpServletRequest and interface HttpServletResponse.
+#### HttpServletResponse
+
+##### addHeader() and setHeader()
+
+addHeader(String name, String value) can add more than one header with the same name but different values.  
+setHeader(String name, String value) add a header when no header with this name exists, but change its value when a header with this name already exists. 
+setHeader() is often used.
+##### setStatus()
+
+Set status code for this response.
+##### Tell Tomcat the encoding of source file
+
+Tell server to use GBK or UTF-8 to decode source file, or Tomcat will use ISO-8859-1 to decode which absolutely has no Chinese.  
+The encoding of source file depends on your system setting, or you can set it manually in eclipse if you want an encoding different from system one.
+```
+response.setCharacterEncoding("UTF-8");
+```
+##### Tell browser the encoding server uses
+
+1. Tell browser to set charset  as GBK or UTF-8, or browser will use default setting or Western if auto-detect is on to decode. Then you have to set the right encoding manually.
+```
+response.setHeader("content-type","text/html;charset=UTF-8");
+```
+2. You can use html tags to tell browser the charset.
+```
+response.getWriter().write("<html><head><meta charset='GBK'></head><body><p>Hello你好！</p></body></html>");
+```
+##### Tell Tomcat server and browser the encoding in one method
+
+```
+response.setContentType("text/html;charset=GBK");
+```
+##### getOutputStream()
+
+```
+response.getOutputStream().write("你好hello!".getBytes("GBK"));
+```
+write in ServletOutputStream uses byte[] as parameter, String have to be converted to byte[]. And getBytes() in String can encode String into byte[] using platform's default charset unless you give another charset like "GBK" to it.  
+However in that way only server know the encoding, you have to tell browser either using setHeader() or setContentType() or html tags. 
+##### File Downloading
+
+```
+//Get input stream
+String path=this.getServletContext().getRealPath("/WEB-INF/classes/kuon.jpg");
+FileInputStream file=new FileInputStream(path);
+//Get output stream
+ServletOutputStream output=response.getOutputStream();
+//Get file name for downloading, which int this case is kuon.jpg
+String fileName=path.substring(path.lastIndexOf(47));
+//Set encoding for file name
+fileName=URLEncoder.encode(fileName,"UTF-8");
+//set header for downloading
+response.setHeader("content-disposition","attachment;filename="+fileName);
+//set header for file type
+response.setHeader("content-type","image/jpeg");
+
+//Do write to output stream
+byte[] buffer=new byte[1024];
+while((file.read(buffer))!=-1){
+	output.write(buffer);
+}
+//close resources
+output.close();
+file.close();
+```
+##### CAPTCHA
+
+```
+//Create BufferedImage for CAPTCHA
+int width=120;
+int height=60;
+BufferedImage image=new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);
+//Create a Graphics2D which can be used to draw into BufferedImage
+Graphics2D g2d=image.createGraphics();
+//fill Rectangular
+g2d.setColor(Color.CYAN);
+g2d.fillRect(0, 0, width, height);
+//draw Rectangular
+g2d.setColor(Color.BLACK);
+g2d.drawRect(0, 0, width, height);
+//Set color and font of text
+g2d.setColor(Color.blue);
+Font font=new Font("Monospace",Font.ROMAN_BASELINE|Font.ITALIC,25);
+g2d.setFont(font);
+//Get random CAPTCHA
+Random rand=new Random();
+for(int i=0,positionX=20;i<4;i++,positionX+=20){
+	int number=rand.nextInt(10);
+	g2d.drawString(number+"",positionX, 40);
+}
+//Add 9 random lines
+for(int i=0;i<9;i++){
+	g2d.drawLine(rand.nextInt(width), rand.nextInt(height),rand.nextInt(width), rand.nextInt(height));		
+}
+//output BufferedImage
+ImageIO.write(image, "jpeg", response.getOutputStream());
+```
+##### Tell browser not cache
+
+For different types and versions of browser, set all three of them to ensure.
+```
+response.setHeader("pragma", "nocache");
+response.setHeader("cache-control", "no-cache");
+response.setHeader("expires", "0");
+```
+##### refresh
+
+Show current time, refresh every second.  
+```
+response.setHeader("content-type", "text/html;charset=UTF-8");
+response.setHeader("refresh", "1");
+response.getWriter().write(ZonedDateTime.now().format(DateTimeFormatter.RFC_1123_DATE_TIME));
+```
+##### Jump to another page in * seconds using refresh
+
+```
+response.getWriter().write("Jump to RefreshJump2 in 3 seconds");
+response.setHeader("refresh", "3;url=/HttpServletResponse/ServletRefreshJump2");
+```
+##### Redirect
+
+```
+response.setStatus(302);
+response.setHeader("location", "/HttpServletResponse/ServletRefresh");
+```
+Or the following line has the same effect.
+```
+response.sendRedirect("/HttpServletResponse/ServletRefresh");
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

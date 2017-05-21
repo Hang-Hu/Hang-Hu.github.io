@@ -1,0 +1,18 @@
+---
+layout: post
+author: Hang Hu
+categories: git
+tags: Git 
+cover: 
+---
+
+## Remove it
+
+```
+git rm --cached file1.txt
+```
+## Push changes to remote
+
+```
+git push origin branch_name(usually master)
+```

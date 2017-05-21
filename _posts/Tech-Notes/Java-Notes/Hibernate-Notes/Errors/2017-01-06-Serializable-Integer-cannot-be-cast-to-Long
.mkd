@@ -1,0 +1,25 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Hibernate 
+cover: 
+---
+
+## Reason
+
+`hibernateUtil.create(entity)` returns Serializable which is identifier(id) for entity Class, which is an Integer in class, so it throws exception in runtime.
+```
+public <T> long createEntity(T entity) {
+    return (long)hibernateUtil.create(entity);
+}
+```
+## Solution
+
+Use Number as proxy:
+```
+public <T> long createEntity(T entity) {
+    Number number= (Number) hibernateUtil.create(entity);
+    return number.longValue();
+}
+```

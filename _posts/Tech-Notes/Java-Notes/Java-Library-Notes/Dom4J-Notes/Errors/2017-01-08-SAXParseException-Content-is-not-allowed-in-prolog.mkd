@@ -1,0 +1,31 @@
+---
+layout: post
+author: Hang Hu
+categories: java
+tags: Java Java-Library Dom4J 
+cover: 
+---
+
+## Reason
+
+`controller.xml` isn't deployed to tomcat so SAXReader reads an empty file, making such error because of white spaces.
+## Solution
+
+Use Reader to read file before SAXReader, which turns this error into a `FileNotFoundException`.
+```
+SAXReader saxReader=new SAXReader();
+Reader xmlReader=null;
+System.out.println(path);
+try {
+    xmlReader=new FileReader(path);
+} catch (FileNotFoundException e) {
+    e.printStackTrace();
+}
+System.out.println(xmlReader.toString());
+Document document= null;
+try {
+    document = saxReader.read(xmlReader);
+} catch (DocumentException e) {
+    e.printStackTrace();
+}
+```

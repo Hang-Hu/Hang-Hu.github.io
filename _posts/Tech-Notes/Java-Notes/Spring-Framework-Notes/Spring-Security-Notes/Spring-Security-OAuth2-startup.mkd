@@ -1,0 +1,3 @@
+#Spring Security OAuth2 startup
+##Get refresh token and access token
+Access `/oauth/token` with client credentials and user credentials including username and password. Then Security will check the username, password and get according authorities. Note that `loadUserByUsername` is called `only once` before refresh token expires, and information about user is recorded by Security consisting of `name`, `authorities`, `credentials`, etc.

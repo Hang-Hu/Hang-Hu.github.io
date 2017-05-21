@@ -1,0 +1,26 @@
+## Description
+I can login with guest and root, but can't joanna  
+
+## Try
+Then I tried creating a new user hu, which works.  
+## Solution
+### Delete all .* file in /home/joanna
+```
+cd /home/joanna
+sudo rm -r .*
+```
+### Get it from backup
+```
+cd /home/joanna/Downloads/bakjoannaInvisible
+tar xzvf /media/joanna/D/ubuntu16.04-2016.7.5.tar.gz /home/joanna
+```
+### Copy it to /home/joanna
+```
+cd /home/joanna/Downloads/bakjoannaInvisible
+sudo cp -r .* /home/joanna
+```
+### Change the permission of files and subFolder files in /home/joanna
+```
+sudo chown -R /home/joanna
+```
+### Reboot and login
