@@ -1,0 +1,86 @@
+/******* Variation 2 *******/
+
+.list-v2 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-flow: row wrap;
+	justify-content: space-around;
+}
+
+.list-v2 li {
+  width: 215px;
+  padding: 10px 0;
+}
+
+.list-v2 li > div {
+  width: 184px;
+}
+
+.postTitle {
+  font-weight: 700;
+  display: block;
+  line-height: 20px;
+}
+
+.list-v2 li img {
+  border-bottom: 17px solid #E6EEF6;
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.list-v2 li span {
+  display: block;
+  font-size: 11px;
+  color: #868686;
+  line-height: 12px;
+  font-weight: 700;
+}
+
+@media only screen and (max-width: 420px) {
+  .list-v2 li {
+    width: 100%;
+  }
+  .list-v2 li > div {
+    width: inherit;
+	}
+}
+
+/******* Variation 1 *******/
+
+.sidebar .list-v1 .inlineblock {
+  font-weight: 600;
+  font-size: 16px;
+  color: #333;
+}
+
+h3.h3.bdr-bot.pb10 {
+  border-color: rgba(0,0,0,0);
+  font-size: 22px;
+  color: #333;
+}
+
+.list-v1 .postLink {
+  font-size: 12px;
+  color: #2A7AFF;
+  text-decoration: underline;
+}
+
+.sidebar .list-v1 .inlineLink {
+  font-weight: 600;
+  font-size: 16px;
+  color: #333;
+}
+
+.sidebar .list-v1 p {
+  color: #333;
+	margin: 12px 0;
+  font-size: 16px;
+}
+
+.sidebar .list-v1 li {
+  margin: 35px 0;
+}
+
+/* EDITOR PROPERTIES - PLEASE DON'T DELETE THIS LINE TO AVOID DUPLICATE PROPERTIES */

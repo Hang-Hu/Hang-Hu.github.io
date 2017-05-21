@@ -1,0 +1,5064 @@
+@import url(//fonts.googleapis.com/css?family=Open+Sans:400, 300, 300italic, 600, 400italic, 700, 600italic, 700italic, 800italic, 800);
+    @import url(//fonts.googleapis.com/css?family=Source+Sans+Pro:400, 200, 200italic, 300, 300italic, 400italic, 600, 600italic, 700italic, 700);
+    .hiw-image, .ml20 {
+    margin-left: 20px;
+}
+.mb40, .mtb40 {
+    margin-bottom: 40px;
+}
+.banner-section, .btn-wrap, .sub-nav {
+    text-align: center;
+}
+.fo:after, .resumeExmp p {
+    clear: both;
+}
+.inlineLink, .link {
+    cursor: pointer;
+}
+body {
+    font-family: 'Open Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 25px;
+    color: #555;
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: always;
+    text-rendering: optimizeLegibility;
+}
+.h1, .h2, a {
+    font-weight: 300;
+}
+a {
+    color: #444;
+    transition: color .4s ease-in-out, background .4s ease-in-out, border-color .4s ease-in-out;
+    text-decoration: none;
+}
+a:focus, a:hover {
+    color: #444;
+    text-decoration: underline;
+}
+a:active, a:focus {
+    color: #222;
+    text-decoration: underline;
+}
+.btn.active:focus, .btn:active:focus, .btn:focus, a:focus {
+    outline: 0;
+}
+ul {
+    list-style: none;
+    padding: 0;
+}
+::-webkit-input-placeholder {
+    color: #bbb!important;
+    text-overflow: ellipsis;
+}
+:-moz-placeholder {
+    color: #bbb!important;
+    text-overflow: ellipsis;
+}
+::-moz-placeholder {
+    color: #bbb!important;
+    text-overflow: ellipsis;
+}
+:-ms-input-placeholder {
+    color: #bbb!important;
+    text-overflow: ellipsis;
+}
+.posF {
+    position: fixed;
+}
+.posR {
+    position: relative;
+}
+.overlay {
+    opacity: 0;
+    transition: opacity .3s ease;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: #333;
+}
+.bdr-bot {
+    border-bottom: 1px solid #bbb;
+}
+.pb10 {
+    padding-bottom: 10px;
+}
+.pt50 {
+    padding-top: 50px;
+}
+.pt30 {
+    padding-top: 30px;
+}
+.p20 {
+    padding: 20px;
+}
+.mt10 {
+    margin-top: 10px;
+}
+.mt15 {
+    margin-top: 15px;
+}
+.mt20 {
+    margin-top: 20px;
+}
+.mtb40 {
+    margin-top: 40px;
+}
+.h-separator {
+    position: relative;
+}
+.h-separator:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background: #bbb;
+    bottom: 0;
+    left: 0;
+}
+.font-ssp {
+    font-family: 'Source Sans Pro', sans-serif;
+}
+.font-gotham, .h1, .h2, h1, h2, h3, h4, h5, h6 {
+    font-family: 'Gotham SSm A', 'Gotham SSm B', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.h1 {
+    font-size: 50px;
+    line-height: 110%}
+.h2 {
+    font-size: 30px;
+    line-height: 120%;
+    margin: 0 0 30px;
+}
+.h2 a {
+    font-size: 14px;
+    font-weight: 400;
+    text-transform: lowercase;
+}
+.h3 {
+    font-size: 24px;
+    line-height: 133.3%;
+    font-weight: 300;
+    margin: 0 0 15px;
+    font-family: 'Gotham SSm A', 'Gotham SSm B', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.h4, .h5 {
+    line-height: 157.9%;
+    margin-top: 0;
+    font-family: 'Gotham SSm A', 'Gotham SSm B', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.h4 {
+    font-size: 20px;
+    font-weight: 700;
+}
+.h5, .semi-bold {
+    font-weight: 600;
+}
+.h5 {
+    font-size: 16px;
+}
+.small {
+    font-size: 12px;
+    color: #999;
+    line-height: 19px;
+}
+.inlineLink, .inlineLink:active, .inlineLink:focus, .inlineLink:hover {
+    color: #F25E46;
+}
+.bold {
+    font-weight: 700;
+}
+.p-lg {
+    font-size: 20px;
+    line-height: 158%}
+.inlineLink {
+    font-weight: 600;
+}
+.sidebar .inlineLink {
+    color: #545454;
+    font-weight: 400;
+}
+.sidebar .inlineLink:active, .sidebar .inlineLink:focus, .sidebar .inlineLink:hover {
+    color: #545454;
+}
+.default-text {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: inherit;
+    margin: 0;
+}
+.bot-head {
+    border-bottom: 1px solid #eee;
+    font-weight: 600;
+    margin: 30px 0 15px;
+}
+.text-green {
+    color: #50aca3;
+}
+.navbar-default .navbar-nav>li>a, .navbar-toggle .open-nav {
+    color: #333;
+}
+.page-header {
+    float: left;
+    width: 100%;
+    background: 0 0;
+    border: none;
+    margin: 0 0 -118px;
+    z-index: 1;
+}
+.header-inner {
+    background: #fff;
+    border: none;
+    border-bottom: 1px solid #c1c1c1;
+    margin-bottom: 0;
+    border-radius: 0;
+}
+.navbar-header {
+    margin: 29px 5px;
+}
+.navbar>.container .navbar-brand {
+    text-indent: -999999px;
+    width: 199px;
+    height: auto;
+    padding: 0;
+    margin: 0;
+}
+.navbar>.container .navbar-brand img {
+    float: left;
+    max-width: 100%;
+    height: auto;
+}
+.navbar-toggle {
+    font-size: 16px;
+    border: none;
+    padding: 0;
+    margin: 8px 15px 0 0;
+}
+.navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
+    background: 0 0;
+}
+.navbar-nav>li>.dropdown-menu {
+    text-transform: capitalize;
+    left: 0;
+    right: auto;
+    border: 1px solid rgba(0, 0, 0, .15);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, .176);
+    border-radius: 4px;
+    margin-top: 4px;
+}
+.noTouchDevice .navbar-nav>li:after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    display: block;
+    background: 0 0;
+    height: 5px;
+}
+.noTouchDevice .navbar-nav>li a {
+    transition: none;
+}
+.navbar-default .navbar-top-links {
+    float: right;
+    font-size: 12px;
+    font-weight: 400;
+    margin-top: 9px;
+}
+.navbar-default .navbar-top-links a {
+    padding: 4px 10px 5px;
+    border-radius: 4px;
+    font-weight: 400;
+}
+.navbar-default .navbar-top-links>li>a:hover, .page-header .navbar-top-links>li>a:hover {
+    text-decoration: none;
+    color: #fff;
+    background: #f15f4c;
+}
+.navbar-default .navbar-top-links .fa {
+    font-size: 13px;
+    margin-right: 5px;
+}
+.navbar-default .nav-pills {
+    margin: 0 0 11px;
+    font-size: 14px;
+}
+.navbar-default .nav-pills>li>a {
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 6px 12px;
+}
+.breadcrumb>li, .breadcrumb>li a {
+    text-transform: capitalize;
+}
+.navbar-default .nav-pills>li.active>a, .navbar-default .nav-pills>li.active>a:focus, .navbar-default .nav-pills>li.active>a:hover, .navbar-default .nav-pills>li>a:focus, .navbar-default .nav-pills>li>a:hover, .navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
+    background-color: #f15f4c;
+    color: #fff;
+}
+.sub-nav h1 {
+    margin-bottom: 40px;
+}
+.sub-nav ul {
+    margin: 0;
+    padding: 0;
+}
+.sub-nav ul li {
+    list-style: none;
+    display: inline-block;
+    margin: 0 30px;
+}
+.sub-nav ul li a {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 600;
+    color: #C5C5C6;
+}
+.sub-nav ul li a.active, .sub-nav ul li a:active, .sub-nav ul li a:hover, .sub-nav ul li.active a {
+    text-decoration: none;
+    color: #333;
+}
+.sub-nav ul li a .svgPart {
+    display: block;
+}
+.sub-nav ul li svg {
+    fill: #C3C3C3;
+    transition: fill .4s ease-in-out 0s;
+}
+.about.active svg, .about:hover svg {
+    fill: #F3572E;
+}
+.team.active svg, .team:hover svg {
+    fill: #00688E;
+}
+.work.active svg, .work:hover svg {
+    fill: #FFC000;
+}
+.job.active svg, .job:hover svg {
+    fill: #00AC66;
+}
+.contact.active svg, .contact:hover svg {
+    fill: #FFF055;
+}
+.breadcrumb {
+    background-color: transparent;
+    margin-bottom: 10px;
+}
+.breadcrumb>li {
+    color: inherit;
+    font-size: 14px;
+}
+.breadcrumb>li+li:before {
+    content: '>';
+    color: inherit;
+}
+.breadcrumb>.active {
+    color: inherit;
+    font-weight: 600;
+}
+.page-footer {
+    color: #999;
+    background-color: #4b494f;
+    border-top: 4px solid #f60;
+    padding: 50px 0 0;
+}
+.page-footer-top {
+    border-top: 1px solid rgba(255, 255, 255, .1);
+    padding-top: 50px;
+}
+.page-footer-bottom {
+    padding: 45px 0;
+    font-size: 13px;
+}
+.page-footer-bottom address {
+    margin-bottom: 0;
+}
+.page-footer a:active, .page-footer a:hover {
+    color: #999;
+}
+.page-footer ul, .page-footer ul li {
+    line-height: 25px;
+}
+.page-footer ul .phone-no, .page-footer ul a {
+    color: #fff;
+    font-size: 12px;
+    font-weight: 400;
+}
+.page-footer ul .phone-no {
+    line-height: 16px;
+}
+.page-footer .title, .page-footer a {
+    color: #fff;
+    font-weight: 400;
+}
+.btn, .btn-lg, .btn-md {
+    font-weight: 700;
+}
+.page-footer .title {
+    font-size: 14px;
+    font-weight: 700;
+    margin: 0 0 15px;
+}
+.page-footer .copyright, .page-footer .languages {
+    font-size: 16px;
+    border-top: 5px solid rgba(255, 255, 255, .1);
+    padding: 20px 0 10px;
+    float: none;
+    color: #999;
+    overflow: hidden;
+}
+.page-footer .logo {
+    margin: -8px 0 0;
+}
+.page-footer .languages {
+    border-bottom: 5px solid rgba(255, 255, 255, .1);
+}
+.auth-footer, .tiny-footer {
+    padding: 0;
+}
+.foot-links {
+    float: right;
+    margin-top: 3px;
+}
+.foot-links li {
+    display: inline-block;
+    vertical-align: top;
+    padding: 0 5px;
+    border-right: 1px solid #999;
+    line-height: 14px;
+}
+.foot-links li:last-child {
+    border: 0;
+    padding-right: 0;
+}
+.foot-links li a {
+    color: #999;
+    padding: 0 5px;
+    font-size: 14px;
+    display: block;
+}
+.foot-links li a:hover {
+    color: #fff;
+}
+.auth-footer .page-footer-bottom {
+    padding: 0 0 20px;
+}
+.auth-bottom-row {
+    border-top: 5px solid rgba(255, 255, 255, .1);
+    clear: both;
+    overflow: hidden;
+    padding-top: 20px;
+}
+.page-main {
+    color: #333;
+}
+.social-links {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    font-size: 0;
+    margin: 0 0 15px;
+}
+.social-links li {
+    display: inline-block;
+    margin: 0 7px 0 0;
+}
+.social-links li a {
+    color: #fff;
+    border: 2px solid #eee;
+    border-radius: 50%;
+    display: block;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    width: 35px;
+    font-size: 12px;
+}
+.social-links a:hover {
+    color: #999;
+}
+.social-links .fa {
+    font-size: 14px;
+    vertical-align: middle;
+    height: 19px;
+}
+.social-links a.google:hover {
+    border-color: #9b3528;
+    color: #9b3528;
+}
+.social-links a.fb:hover {
+    border-color: #293e6b;
+    color: #293e6b;
+}
+.social-links a.twitter:hover {
+    border-color: #0079a6;
+    color: #0079a6;
+}
+.social-links a.linkdin:hover {
+    border-color: #005580;
+    color: #005580;
+}
+.social-links a.pinterest:hover {
+    border-color: #8e161b;
+    color: #8e161b;
+}
+.social-links a.youtube:hover {
+    border-color: #830000;
+    color: #830000;
+}
+.social-links a.insta:hover {
+    border-color: #395973;
+    color: #395973;
+}
+.btn-default, .btn-primary {
+    min-width: 237px;
+    font-size: 21px;
+    color: #f1f6fb!important;
+    border-color: transparent;
+}
+.btn {
+    border-radius: 3px;
+    transition: background .5s ease-in-out;
+    line-height: 100%;
+    max-width: 100%;
+    font-family: 'Gotham SSm A', 'Gotham SSm B', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.btn-primary {
+    background-color: #f15f4c;
+}
+.btn-primary.active, .btn-primary:active, .btn-primary:focus, .btn-primary:hover, .open>.dropdown-toggle.btn-primary {
+    background-color: #f3372b;
+    border-color: transparent;
+}
+.btn-default {
+    min-height: 50px;
+    background-color: #f60;
+}
+.btn-default.active, .btn-default:active, .btn-default:focus, .btn-default:hover, .open>.dropdown-toggle.btn-default {
+    background-color: #ee3d26;
+    color: #f1f6fb;
+    border-color: transparent;
+}
+.btn-sm {
+    min-width: 111px;
+    min-height: 20px;
+    font-size: 14px;
+    padding: 9px 22px;
+}
+.btn-md {
+    min-width: 182px;
+    min-height: 35px;
+    font-size: 18px;
+    padding: 7px 22px;
+}
+.btn-lg {
+    min-width: 300px;
+    font-size: 16px;
+    line-height: 130%;
+    padding: 12px 22px;
+}
+.btn-block {
+    min-width: 100%!important;
+}
+.form-action {
+    margin: 25px 0;
+}
+.modal {
+    z-index: 99999;
+}
+.share {
+    min-height: 30px;
+    margin: 10px 0 15px;
+}
+.addthis_button_google_plusone, .addthis_button_linkedin_counter, .addthis_button_tweet, .addthis_counter.addthis_pill_style.addthis_nonzero, .share .addthis_button_facebook_share {
+    margin-right: 10px;
+}
+.share .fb_iframe_widget span {
+    vertical-align: top!important;
+}
+.share .addthis_button_tweet iframe {
+    width: 80px!important;
+}
+.share #___plusone_0 {
+    width: 60px!important;
+}
+.section {
+    padding: 50px 0;
+}
+.para-section {
+    padding: 25px 0;
+}
+.bg-default {
+    background-color: #fff;
+    color: inherit;
+}
+.bg-primary, .highlight {
+    background: #f1f6fb;
+    color: inherit;
+}
+.bg-secondary {
+    background-color: #e9eef3;
+}
+.img-container {
+    display: block;
+    margin-bottom: 35px;
+}
+.block {
+    padding: 35px;
+    margin-bottom: 35px;
+}
+.block .h2 {
+    font-size: 34px;
+    font-weight: 400;
+    margin: 20px 0 10px;
+}
+.block p {
+    font-size: 24px;
+    line-height: 148%;
+    font-weight: 200;
+    color: #555;
+}
+.banner-section {
+    background-size: auto 100%;
+    padding: 107px 0 0;
+}
+.banner-section .h1 {
+    margin: 20px 0 15px;
+    font-weight: 200;
+}
+.banner-section .p-lg {
+    margin: 0 0 21px;
+    font-family: 'Gotham SSm A', 'Gotham SSm B', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 200;
+}
+.banner-section .btn {
+    text-transform: uppercase;
+}
+.banner-section .img {
+    position: absolute;
+    bottom: 0;
+    max-width: 100%}
+.home-banner {
+    background: url(//www.livecareer.com/images/uploaded/lca/banner-img.jpg) center center no-repeat #f7f8f3;
+}
+.rb-banner {
+    background: url(//www.livecareer.com/images/uploaded/lca/rb-banner.jpg) center center no-repeat #ecf0f3;
+}
+.clb-banner {
+    background: url(//www.livecareer.com/images/uploaded/lca/clb-banner.jpg) center no-repeat #ecf0f3;
+}
+.aboutus-banner {
+    background: url(//www.livecareer.com/images/uploaded/lca/aboutus-banner.jpg) center no-repeat;
+    text-align: left;
+}
+.jobs-banner {
+    background: url(//www.livecareer.com/images/uploaded/lca/jobs-banner.jpg) center no-repeat;
+}
+.team-banner {
+    background: url(//www.livecareer.com/images/uploaded/lca/team-banner.jpg) center no-repeat;
+    text-align: left;
+}
+.work-here-banner {
+    background: url(//www.livecareer.com/images/uploaded/lca/work-here-banner.jpg) center no-repeat;
+}
+.contactus-banner {
+    background: url(//www.livecareer.com/images/uploaded/lca/contactus-banner.jpg) center no-repeat;
+}
+.clb-banner, .home-banner, .rb-banner {
+    height: 815px;
+}
+.aboutus-banner, .contactus-banner, .jobs-banner, .team-banner, .work-here-banner {
+    height: 460px;
+    background-size: cover;
+}
+.rb-banner .h1 {
+    font-size: 46px;
+}
+.clb-banner .h1 {
+    font-size: 40px;
+}
+.clb-banner .btn-lg, .home-banner .btn-lg, .rb-banner .btn-lg, .work-here-banner .btn-lg {
+    font-size: 16px;
+    line-height: 19px;
+    min-width: 400px;
+    padding: 14px 22px;
+}
+.aboutus-banner>.container, .contactus-banner>.container, .jobs-banner>.container, .team-banner>.container, .work-here-banner>.container {
+    height: 100%;
+    position: relative;
+    padding-top: 30px;
+}
+.aboutus-banner>.container {
+    padding-top: 0;
+}
+.aboutus-banner .img, .contactus-banner .img, .jobs-banner .img, .team-banner .img, .work-here-banner .img {
+    left: -2%}
+.team-banner .img {
+    left: -6%}
+.clb-banner p, .rb-banner .default-text {
+    margin-bottom: 19px;
+}
+.aboutus-banner .h1 {
+    font-size: 100px;
+    line-height: 125%;
+    color: #393a65;
+    margin: 0;
+}
+.jobs-banner .h1 {
+    text-align: left;
+    color: #00ca66;
+    font-size: 100px;
+    font-weight: 200;
+    text-indent: -5px;
+    margin: 0;
+}
+.jobs-banner .h2 {
+    font-size: 40px;
+    line-height: 1;
+    font-weight: 300;
+    margin: 30px 0 0;
+}
+.team-banner .h1 {
+    font-size: 70px;
+}
+.work-here-banner .h1 {
+    font-size: 47px;
+}
+.contactus-banner .h1 {
+    display: inline-block;
+    font-size: 70px;
+}
+.contactus-banner .strong {
+    text-align: right;
+    display: block;
+    color: #f2572c;
+    font-size: 20px;
+    line-height: 160%;
+    font-weight: 600;
+}
+.thumbnail {
+    background-color: inherit;
+    border: none;
+    text-align: center;
+    margin: 0;
+}
+.thumbnail-section {
+    padding: 20px 0;
+}
+.thumbnail .caption {
+    padding: 0;
+    color: #333;
+    font-size: 14px;
+}
+.thumbnail .caption p {
+    color: #555;
+}
+.thumbnail .caption .h4 {
+    margin-top: 8px;
+}
+.img-thumbnail {
+    border: none;
+    padding: 0;
+}
+.img-thumbnail.cust-pad {
+    padding: 42px 0 3px;
+}
+.thumbnail .btn {
+    margin-top: 10px;
+}
+.carousel-control.left, .carousel-control.right {
+    background-image: none;
+    opacity: 1;
+    font-size: 72px;
+    filter: none;
+}
+.carousel-control .fa {
+    color: #484848;
+    position: absolute;
+    top: 44%;
+    left: 41%}
+.modal-content .carousel-control .fa {
+    color: #fff;
+}
+.article-section .h3, .article-section .h3 a {
+    color: #333;
+    font-weight: 200;
+}
+.thumb-img {
+    min-height: 200px;
+    display: inline-block;
+    vertical-align: top;
+}
+.article-section .h3 {
+    font-size: 20px;
+    line-height: 28px;
+}
+.article-section .img-thumbnail {
+    float: left;
+    margin-bottom: 8px;
+    margin-right: 30px;
+    width: auto;
+}
+.article-section .img-thumbnail img {
+    width: 100%;
+    max-width: 165px;
+    margin: 0;
+}
+.article-section .thumbnail .caption {
+    text-align: left;
+}
+.client-list, .client-list li, .rb-clients, .resume-sample, .team-members {
+    text-align: center;
+}
+.article-section .caption {
+    padding: 0;
+}
+.article-section .author-details {
+    color: #999;
+    font-size: 12px;
+    margin-bottom: 15px;
+    display: block;
+}
+.article-section p {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    color: #555;
+}
+.testimonial .fa-quote-left, .testimonial .fa-quote-right {
+    color: #64c4b9;
+    font-size: 42px;
+}
+.testimonial blockquote {
+    border: 0;
+}
+.carousel-indicators {
+    margin: 0;
+    padding: 0;
+    position: static;
+    width: 100%;
+    font-size: 0;
+}
+.carousel-indicators li {
+    border: 0;
+    border-radius: 50%;
+    height: 14px;
+    margin: 0 15px 0 0;
+    width: 14px;
+    background: #D1DCE7;
+    transition: all .4s ease-in-out;
+}
+.carousel-indicators li.active, .carousel-indicators li:hover {
+    background: #f15f4c;
+    margin-right: 15px;
+    height: 14px;
+    width: 14px;
+}
+.carousel-inner .item {
+    padding-top: 10px;
+    overflow: hidden;
+}
+.testimonial .carousel-inner {
+    min-height: 130px;
+}
+.testimonial .carousel-inner p {
+    font-size: 14px;
+    font-weight: 500;
+    color: #555;
+}
+.testimonial .carousel-inner span {
+    color: #777;
+    display: block;
+    font-size: 80%;
+    line-height: 1.42857;
+}
+.testimonial .carousel-inner span:before {
+    content: '\2014 \00A0'}
+.testimonial.testi-md .text, .testimonial.testi-md blockquote {
+    font-size: 22px;
+    line-height: 150%;
+    font-weight: 600;
+    font-style: italic;
+    margin: 0;
+    padding: 0;
+    vertical-align: top;
+}
+.testimonial.testi-md .fa-quote-left {
+    margin-right: 12px;
+}
+.testimonial.testi-md .fa-quote-right {
+    margin-left: 12px;
+}
+.resume-sample {
+    padding: 50px 0 30px;
+    font-size: 0;
+}
+.sample-inner {
+    width: 285px;
+    display: inline-block;
+    vertical-align: top;
+}
+.resume-sample a {
+    width: 263px;
+    display: inline-block;
+    vertical-align: top;
+    border-radius: 4px;
+    position: relative;
+    transition: all .5s ease 0s;
+    margin-bottom: 20px;
+}
+.resume-sample a:first-child {
+    margin-left: 0;
+}
+.resume-sample a:last-child {
+    margin-right: 0;
+}
+.resume-sample img {
+    width: 100%;
+    border-radius: inherit;
+    max-width: 263px;
+}
+.resume-sample .overlay {
+    transition: all .5s ease 0s;
+    border-radius: inherit;
+}
+.resume-sample a:hover .overlay {
+    transition: all .5s ease 0s;
+    background: #f15f4c;
+    opacity: 1;
+}
+.resume-sample span {
+    position: absolute;
+    color: #fff;
+    text-align: center;
+    left: 40%;
+    top: 50%;
+    transition: all .5s ease 0s;
+}
+.resume-sample a:hover span {
+    top: 40%}
+.resume-sample em {
+    font-size: 14px;
+    font-weight: 700;
+    display: block;
+    font-style: normal;
+}
+.resume-sample .fa-search-plus {
+    font-size: 17px;
+    display: block;
+}
+.clients-sec {
+    padding: 50px 0;
+}
+.clients-sec .section-title {
+    margin-bottom: 55px;
+}
+.client-list {
+    overflow: hidden;
+    font-size: 0;
+}
+.client-list li {
+    width: 190px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-bottom: 30px;
+}
+.client-list.sm, .rb-clients .h3 {
+    vertical-align: top;
+    display: inline-block;
+}
+.rb-clients {
+    padding: 50px 0 0;
+}
+.rb-clients .h3 {
+    margin-right: 17px;
+}
+.client-list.sm li {
+    width: 68px;
+    margin: 0 15px 30px;
+}
+.icon-cl, .icon-pen, .icon-resume, .icon-search, .icon-test, .icon-tips {
+    display: inline-block;
+    width: 140px;
+    height: 128px;
+    background: url(//www.livecareer.com/images/uploaded/lca/thumbnail-icons.png) center 0 no-repeat;
+}
+.icon-cl {
+    background-position: center -128px;
+}
+.icon-pen {
+    background-position: center -256px;
+}
+.icon-search {
+    background-position: center -383px;
+}
+.icon-test {
+    background-position: center -512px;
+}
+.icon-tips {
+    background-position: center -640px;
+}
+.client1, .client2, .client3, .client4, .client5, .client6 {
+    background: url(//www.livecareer.com/images/uploaded/lca/clients.png) no-repeat;
+    display: inline-block;
+    vertical-align: middle;
+}
+.client1 {
+    width: 86px;
+    height: 24px;
+}
+.client2 {
+    background-position: 0 -40px;
+    width: 33px;
+    height: 33px;
+}
+.client3 {
+    background-position: 0 -80px;
+    width: 74px;
+    height: 32px;
+}
+.client4 {
+    background-position: 0 -120px;
+    width: 113px;
+    height: 22px;
+}
+.client5 {
+    background-position: 0 -160px;
+    width: 146px;
+    height: 21px;
+}
+.client6 {
+    background-position: 0 -200px;
+    width: 95px;
+    height: 26px;
+}
+.sm .client1, .sm .client2, .sm .client3, .sm .client4, .sm .client5, .sm .client6, .sm .client7 {
+    background: url(//www.livecareer.com/images/uploaded/lca/clients-small.png) no-repeat;
+    display: inline-block;
+    vertical-align: middle;
+}
+.sm .client1 {
+    width: 68px;
+    height: 19px;
+}
+.sm .client2 {
+    background-position: 0 -40px;
+    width: 27px;
+    height: 28px;
+}
+.sm .client3 {
+    background-position: 0 -80px;
+    width: 54px;
+    height: 24px;
+}
+.sm .client4 {
+    background-position: 0 -120px;
+    width: 68px;
+    height: 15px;
+}
+.sm .client5 {
+    background-position: 0 -160px;
+    width: 68px;
+    height: 26px;
+}
+.sm .client6 {
+    background-position: 0 -200px;
+    width: 68px;
+    height: 21px;
+}
+.sm .client7 {
+    background-position: 0 -240px;
+    width: 68px;
+    height: 17px;
+}
+.ic-leftStyle, .ic-rightStyle {
+    width: 41px;
+    height: 9px;
+    background: url(//www.livecareer.com/images/uploaded/lca/page-icons.png) no-repeat;
+    display: inline-block;
+    vertical-align: middle;
+}
+.ic-leftStyle {
+    background-position: 0 -15px;
+}
+.rsm-sample-modal {
+    color: #333;
+    font-size: 14px;
+}
+.rsm-sample-modal .modal-title {
+    font-family: 'Gotham SSm A', 'Gotham SSm B', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 200;
+}
+.rsm-sample-modal .h4 {
+    font-size: 16px;
+    margin-top: 8px;
+}
+.rsm-sample-modal p {
+    color: #555;
+    font-weight: 400;
+}
+.rsm-sample-modal .modal-dialog {
+    width: 600px;
+    top: 30px;
+}
+.rsm-sample-modal .modal-sub-title {
+    font-size: 19px;
+    font-weight: 700;
+}
+.rsm-sample-modal .modal-footer {
+    border: none;
+}
+.rsm-sample-modal .carousel-indicators {
+    position: absolute;
+    left: 0;
+}
+.rsm-sample-modal .carousel .item {
+    width: 100%;
+    height: 420px;
+}
+.rsm-sample-modal .carousel .item img {
+    width: 100%}
+.about-product {
+    overflow: hidden;
+}
+.about-product .h4 {
+    font-weight: 300;
+}
+.desktop-img {
+    position: relative;
+    bottom: -25px;
+}
+.mob-img {
+    max-width: 720px;
+    width: 100%;
+    margin-top: 40px;
+    height: auto;
+}
+.about-product .h2 {
+    margin: 20px 0 5px;
+}
+.about-product .img-resp {
+    max-width: 570px;
+    width: 100%}
+.rb-features {
+    background: #64c4b9;
+    padding: 44px 0 0;
+    color: #fff;
+    overflow: hidden;
+}
+.rb-features .img-resp {
+    max-width: 600px;
+    width: 100%;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .23);
+}
+.feature-list {
+    margin: 0;
+}
+.feature-list li {
+    overflow: hidden;
+}
+.feature-list li.pos1 {
+    margin: 37px 0 90px;
+}
+.feature-list li.pos2 {
+    margin-top: 105px;
+}
+.list-cont {
+    display: inline-block;
+    width: 80%;
+    vertical-align: middle;
+}
+.feature-list.right .list-cont {
+    width: 72%;
+    margin-left: 10%}
+.list-arrow-left {
+    display: inline-block;
+    vertical-align: top;
+}
+.para-section-list {
+    margin: 25px 0 20px;
+    padding: 0 0 0 40px;
+    list-style: disc;
+}
+.para-section-list li {
+    padding-bottom: 13px;
+}
+.join-us {
+    padding: 40px 0 0;
+}
+.join-us .h1 {
+    font-size: 42px;
+    line-height: 120%;
+    margin-bottom: 35px;
+}
+.join-us .img-container {
+    margin-bottom: 0;
+}
+.join-us .btn {
+    margin-bottom: 45px;
+}
+.team-members .main-members {
+    margin-top: 35px;
+    margin-bottom: 20px;
+}
+.team-members .thumbnail {
+    border-bottom: 1px solid #eee;
+    padding: 0;
+    margin-bottom: 50px;
+    position: relative;
+}
+.team-members .thumb-img {
+    width: 70%;
+    max-width: 100%;
+    min-height: inherit;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid #666;
+}
+.team-members .thumb-img img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+}
+.team-members .thumbnail .h4 {
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 400;
+    color: #333;
+    margin: 20px 0 0;
+}
+.team-members .thumbnail p {
+    color: #666;
+}
+.team-members .thumbnail .details {
+    font-size: 13px;
+    line-height: 22px;
+    text-align: left;
+    border-radius: 4px;
+    overflow-y: auto;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    padding: 15px;
+    cursor: default;
+    visibility: hidden;
+    opacity: 0;
+    transition: all .3s ease-in-out;
+}
+.team-members .thumbnail:hover .details {
+    visibility: visible;
+    opacity: 1;
+}
+.work-here .block {
+    min-height: 331px;
+}
+.work-here .block .h2 {
+    margin-top: 50px;
+}
+.work-here .thumbnail [class*=icon-] {
+    display: inline-block;
+    margin-bottom: 30px;
+}
+.icon-coverage, .icon-health, .icon-time-off, .icon-workplace {
+    height: 85px;
+}
+.icon-health {
+    padding-top: 8px;
+}
+.icon-time-off {
+    padding-top: 10px;
+}
+.icon-workplace {
+    padding-top: 15px;
+}
+.img-placeholder {
+    display: block;
+    background: #777;
+    height: 100%;
+    width: 100%;
+    max-width: 100%;
+    min-height: 315px;
+    margin-bottom: 30px;
+    position: relative;
+}
+.img-placeholder:before {
+    position: absolute;
+    left: 42%;
+    top: 45%;
+    color: #000;
+    content: "Placeholder"}
+.img-placeholder.ht {
+    height: 719px;
+}
+.get-started {
+    padding: 40px 0;
+}
+.get-started .h2 {
+    margin-bottom: 10px;
+    font-size: 26px;
+}
+.get-started p {
+    color: #555;
+    font-weight: 200;
+}
+.get-started .btn {
+    margin-top: 20px;
+}
+.get-started .tooltip-inner {
+    background: #fff;
+    color: #000;
+    font-size: 14px;
+    line-height: 130%;
+    border: 1px solid #ff6900;
+    padding: 10px;
+}
+.get-started .tooltip.top .tooltip-arrow {
+    border-top-color: #ff6900;
+    border-width: 10px 10px 0;
+    bottom: -4px;
+    margin-left: -10px;
+}
+.get-started .tooltip.top .tooltip-arrow:before {
+    font-family: FontAwesome;
+    content: "\f0d7";
+    position: absolute;
+    left: -7.5px;
+    font-size: 28px;
+    top: -26px;
+    color: #fff;
+}
+.get-started-img {
+    width: 85%;
+    min-height: 625px;
+    position: relative;
+    top: -155px;
+    margin-bottom: -135px;
+}
+.icon-clb, .icon-clb-shadow, .icon-cr, .icon-cr-shadow, .icon-rb, .icon-rb-shadow, .icon-rr, .icon-rr-shadow {
+    display: inline-block;
+    position: absolute;
+    background-size: 100% auto!important;
+}
+.icon-clb, .icon-cr, .icon-rb, .icon-rr {
+    bottom: 12px;
+    transition: bottom .5s ease-in-out;
+}
+.icon-clb, .icon-clb-shadow {
+    width: 568px;
+    height: 349px;
+    background: url(//www.livecareer.com/images/uploaded/lca/icon-clb.png) 0 bottom no-repeat;
+}
+.icon-clb-shadow {
+    height: 341px;
+    background: url(//www.livecareer.com/images/uploaded/lca/icon-clb-shadow.png) 0 bottom no-repeat;
+    left: 0;
+    bottom: 0;
+    z-index: 9;
+}
+.icon-clb:hover {
+    bottom: 18px;
+}
+.icon-clb-shadow+.tooltip {
+    left: 12.7%!important;
+    top: 155px!important;
+}
+.icon-rb, .icon-rb-shadow {
+    width: 466px;
+    height: 313px;
+    background: url(//www.livecareer.com/images/uploaded/lca/icon-rb.png) 0 bottom no-repeat;
+}
+.icon-rb-shadow {
+    height: 325px;
+    background: url(//www.livecareer.com/images/uploaded/lca/icon-rb-shadow.png) 0 bottom no-repeat;
+    left: 21%;
+    bottom: auto;
+    top: 48px;
+}
+.icon-rb:hover {
+    bottom: 18px;
+}
+.icon-rb-shadow+.tooltip {
+    left: 33.7%!important;
+    top: -18px!important;
+}
+.icon-rr, .icon-rr-shadow {
+    width: 446px;
+    height: 274px;
+    background: url(//www.livecareer.com/images/uploaded/lca/icon-rr.png) 0 bottom no-repeat;
+}
+.icon-rr-shadow {
+    background: url(//www.livecareer.com/images/uploaded/lca/icon-rr-shadow.png) 0 bottom no-repeat;
+    left: 46%;
+    bottom: 112px;
+}
+.icon-cr:hover, .icon-rr:hover {
+    bottom: 18px;
+}
+.icon-rr-shadow+.tooltip {
+    left: 60.6%!important;
+    top: 137px!important;
+}
+.icon-cr, .icon-cr-shadow {
+    width: 433px;
+    height: 266px;
+    background: url(//www.livecareer.com/images/uploaded/lca/icon-cr.png) 0 bottom no-repeat;
+}
+.icon-cr-shadow {
+    width: 446px;
+    background: url(//www.livecareer.com/images/uploaded/lca/icon-cr-shadow.png) 0 bottom no-repeat;
+    left: 60%;
+    top: 22px;
+}
+.icon-cr-shadow+.tooltip {
+    left: 68.5%!important;
+    top: -80px!important;
+}
+.contact-us .h2 {
+    margin-bottom: 15px;
+}
+.contact-us .form-section {
+    border-right: 1px solid #edebee;
+    padding-right: 35px;
+}
+.contact-us .form-section p {
+    margin-bottom: 30px;
+}
+.contact-us .form-group {
+    float: none;
+}
+.contact-us textarea.form-control {
+    max-width: 100%;
+    min-width: 100%;
+    max-height: 349px;
+    min-height: 349px;
+}
+.contact-us .live-help-section {
+    padding-left: 35px;
+}
+.contact-us .live-help-section .btn-lg {
+    min-width: 250px;
+    line-height: 115%}
+.contact-us .live-help-section .details {
+    margin-top: 15px;
+}
+.contact-us .live-help-section .details span {
+    display: block;
+}
+.jobs-section {
+    font-size: 16px;
+    border-right: 1px solid #edebee;
+    padding-right: 30px;
+    margin-bottom: 50px;
+}
+.filter {
+    margin-bottom: 30px;
+}
+.filter li {
+    display: inline-block;
+    font-size: 16px;
+    color: #444;
+    margin: 0 4px;
+}
+.filter li .link, .filter li a {
+    border-radius: 3px;
+    padding: 5px 12px;
+}
+.filter li .link.active, .filter li .link:active, .filter li .link:hover, .filter li a.active, .filter li a:active, .filter li a:hover {
+    background-color: #f60;
+    color: #fff;
+    text-decoration: none;
+}
+.nofound {
+    display: none;
+}
+.jobs-list .list-group-item {
+    padding: 0;
+    border: none;
+    margin-bottom: 30px;
+}
+.jobs-list .list-group-item a {
+    display: block;
+    border-radius: 4px;
+    line-height: 30px;
+    margin: 0 -8px;
+}
+.jobs-list .list-group-item a [class*=col-] {
+    padding: 0 8px;
+}
+.jobs-list .list-group-item a.active, .jobs-list .list-group-item a:active, .jobs-list .list-group-item a:hover {
+    text-decoration: none;
+    background-color: #f1f6fb;
+}
+.jobs-list .list-group-item .h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 0;
+}
+.perks-section {
+    padding-left: 30px;
+}
+.perks-section .h4 {
+    font-size: 16px;
+    margin: 20px 0 5px;
+}
+.article h1 {
+    font-size: 30px;
+    font-weight: 200;
+}
+.article .h1 {
+    margin: 0;
+    font-size: 30px;
+}
+.article h3 {
+    font-size: 20px;
+    font-weight: 700;
+}
+.article .h3 {
+    margin: 30px 0 15px;
+}
+.article .img-container, .article p {
+    margin-bottom: 20px;
+}
+.article p {
+    font-size: 14px;
+}
+.article .img-container>img {
+    display: block;
+    width: 100%}
+.article .bg-primary {
+    font-size: 20px;
+    font-weight: 600;
+    padding: 20px 30px;
+    margin: 30px 0;
+}
+.article .thumbnail {
+    text-align: left;
+    font-family: 'Gotham SSm A', 'Gotham SSm B', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+}
+.article .thumbnail .header {
+    padding: 3px 0;
+    border-bottom: 1px solid #eee;
+}
+.article .thumbnail .h3 {
+    margin-top: 15px;
+    font-weight: 200;
+}
+.article .thumbnail a>img, .article .thumbnail>img {
+    width: 100%}
+.article .thumbnail p {
+    margin: 25px 0 0;
+    font-family: 'Open Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 400;
+}
+.policy-terms a, a.btn-orange {
+    font-family: 'Gotham SSm A', 'Gotham SSm B', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.article .bdr-bot {
+    border-color: #eee;
+}
+.article .bg-secondary .bdr-bot {
+    border-color: #bbb;
+}
+.article .thumbnail .form-section {
+    margin: 25px 0 0;
+}
+.article .social-links li a {
+    border-color: #b3b3b3;
+    color: #b3b3b3;
+}
+.article .social-links li a .fa {
+    vertical-align: text-top;
+}
+.article .sidebar {
+    margin-top: 55px;
+}
+.article .sidebar .list-group {
+    font-size: 14px;
+    margin-bottom: 55px;
+    border-bottom: 1px solid #eee;
+}
+.article .sidebar .list-group-item {
+    border-width: 1px 0 0;
+    border-color: #eee;
+}
+.article .sidebar .list-group .list-group-list {
+    padding: 0 15px;
+    transition: all .1s ease-in-out;
+}
+.article .sidebar .list-group .list-group-list.collapse.in {
+    padding-bottom: 10px;
+}
+.article .sidebar .list {
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+.article .sidebar .list li {
+    margin-bottom: 5px;
+}
+.article .section-bottom {
+    padding: 20px 0;
+}
+.article .section-bottom .thumbnail {
+    margin-bottom: 50px;
+}
+.article .section-bottom .thumbnail p {
+    margin-top: 10px;
+}
+.article .section-bottom .thumbnail .h3, .article .section-bottom-info .h3 {
+    margin: 0 0 10px;
+}
+.article .section-bottom-info .h3 {
+    margin-bottom: 0;
+}
+.article .section-bottom-info .bot-head {
+    margin: 30px 0 15px;
+}
+.article .section-bottom-info .h-separator {
+    margin-bottom: 20px;
+    padding-bottom: 4px;
+}
+.article .section-bottom-info .h-separator:after {
+    width: 50%}
+.ad-unit {
+    float: left;
+    width: 100%;
+    background-size: 100% auto;
+    padding: 15px;
+}
+.ad-unit .h3 {
+    font-size: 22px;
+    margin: 0;
+    font-weight: 200;
+}
+.ad-unit .h4 {
+    font-size: 18px;
+    font-weight: 200;
+    margin: 0;
+}
+.ad-unit .btn {
+    padding: 10px 18px;
+}
+.ad-unit .close {
+    position: absolute;
+    right: 3%;
+    top: 0;
+    font-size: 14px;
+    font-weight: 400;
+    opacity: 1;
+    text-decoration: underline;
+}
+.ad-unit .close .fa {
+    text-decoration: none;
+    margin-right: 6px;
+}
+.policy-terms .h5, .policy-terms a {
+    text-decoration: underline;
+}
+.ad-unit.ad-unit-sm {
+    background: url(//www.livecareer.com/images/uploaded/ad-unit-img1.png) 0 bottom no-repeat #e7ecf0;
+}
+.ad-unit.ad-unit-lg {
+    border-top: 4px solid #f60;
+    background: url(//www.livecareer.com/images/uploaded/ad-unit-img2.png) center bottom no-repeat #e7ebf2;
+    position: fixed;
+    bottom: 0;
+    padding: 30px 15px;
+    z-index: 1;
+}
+.ad-unit.ad-unit-lg .h3 {
+    font-size: 36px;
+}
+.ad-unit.ad-unit-lg .h4 {
+    font-size: 17px;
+    margin-bottom: 35px;
+}
+.modal-type-1 {
+    color: #646464;
+}
+.modal-type-1 .modal-body, .modal-type-1 .modal-footer, .modal-type-1 .modal-title {
+    position: relative;
+    z-index: 9;
+}
+.modal-type-1 .modal-body, .modal-type-1 .modal-footer, .modal-type-1 .modal-header {
+    margin: 0;
+    padding: 15px 35% 15px 6.3%}
+.modal-type-1 .modal-dialog {
+    width: 800px;
+    max-width: 90%;
+    top: 200px;
+    margin: 0 auto;
+}
+.modal-type-1 .modal-content {
+    border-radius: 0;
+}
+.modal-type-1 .modal-header {
+    border: none;
+}
+.modal-type-1 .modal-title {
+    font-size: 26px;
+    line-height: 130%;
+    margin: 6px 0;
+}
+.modal-type-1 .modal-title .strong {
+    font-weight: 600;
+}
+.modal-type-1 .modal-sub-title {
+    font-size: 20px;
+    margin: 30px 0 0;
+}
+.modal-type-1 .modal-footer {
+    border: none;
+    text-align: left;
+    margin-bottom: 35px;
+}
+.modal-type-1 .modal-skip {
+    font-size: 16px;
+    position: absolute;
+    right: 3%;
+    bottom: 20px;
+    z-index: 10;
+}
+.modal-type-1 .modal-skip, .modal-type-1 .modal-skip a {
+    color: inherit;
+}
+.modal-type-1 .modal-img {
+    position: absolute;
+    bottom: 0;
+    right: 4%;
+    display: inline-block;
+    width: 344px;
+    height: 286px;
+    background: url(//www.livecareer.com/images/uploaded/resume.png) no-repeat;
+    background-size: 100% 100%;
+    z-index: 5;
+}
+.fade0 {
+    opacity: 0;
+}
+@keyframes wiggle-out {
+    0% {
+    transform: rotate(10deg);
+}
+20% {
+    transform: rotate(-10deg);
+}
+40% {
+    transform: rotate(8deg);
+}
+60% {
+    transform: rotate(-6deg);
+}
+80% {
+    transform: rotate(4deg);
+}
+100% {
+    transform: rotate(-2deg);
+}
+}.modal-header .close:hover {
+    animation-name: wiggle-out;
+    animation-duration: .6s;
+    animation-fill-mode: both;
+}
+@keyframes fadeInUp {
+    0% {
+    opacity: 0;
+    transform: translate3d(0, 50%, 0);
+}
+100% {
+    opacity: 1;
+    transform: none;
+}
+}.fadeInUp {
+    animation-name: fadeInUp;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+@-webkit-keyframes fadeInLeft {
+    0% {
+    opacity: 0;
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
+}
+100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+}
+}@keyframes fadeInLeft {
+    0% {
+    opacity: 0;
+    -webkit-transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
+}
+100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+}
+}.fadeInLeft {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-name: fadeInLeft;
+    animation-name: fadeInLeft;
+}
+.policy-terms {
+    margin-bottom: 40px;
+}
+.policy-terms a {
+    color: #e36c0a;
+    font-size: 14px;
+    line-height: 22px;
+    font-weight: 700;
+}
+.policy-terms .h1, .policy-terms .h2, .policy-terms .h3, .policy-terms .h4, .policy-terms .h5, .policy-terms .h6 {
+    font-weight: 600;
+}
+.policy-terms .h1 {
+    font-size: 24px;
+    line-height: 30px;
+    margin: 20px 0;
+}
+.policy-terms .h2 {
+    font-size: 20px;
+    line-height: 26px;
+    margin-bottom: 10px;
+}
+.policy-terms p, .policy-terms ul {
+    font-size: 14px;
+    line-height: 20px;
+    color: #555;
+    font-weight: 200;
+}
+.policy-terms ul {
+    list-style: disc;
+    margin: 0 0 0 28px;
+}
+.policy-terms .policy-block {
+    margin-bottom: 15px;
+}
+.policy-terms .list-num {
+    display: inline-block;
+    width: 25px;
+}
+.policy-terms .para {
+    padding-left: 25px;
+}
+.icon-ARO, .icon-Con, .icon-DI, .icon-NRU, .icon-PIC, .icon-TTC, .icon-UR, .icon-YIC {
+    display: inline-block;
+    background: url(//www.livecareer.com/images/privacy-policy-sprite.png) no-repeat;
+    padding: 0 0 0 28px;
+}
+.icon-PIC {
+    background-position: 0 -154px;
+}
+.icon-TTC {
+    background-position: 0 -109px;
+}
+.icon-UR {
+    background-position: 0 -88px;
+}
+.icon-DI {
+    background-position: 0 0;
+}
+.icon-YIC {
+    background-position: 0 -66px;
+}
+.icon-ARO {
+    background-position: 0 -44px;
+}
+.icon-NRU {
+    background-position: 0 -131px;
+}
+.icon-Con {
+    background-position: 0 -21px;
+}
+.bannerWrapper {
+    background-color: #f2f2f2;
+}
+.bg01, .bg02 {
+    background-color: #f1f6fb;
+    box-shadow: none;
+}
+.bg03 {
+    background-color: #fff;
+}
+.bg04 {
+    background-color: #f8f8f8;
+}
+.bg06 {
+    background-color: #f2f2f2;
+}
+.breadcCrumb {
+    margin: 0 0 15px;
+}
+.breadcCrumb a:link, .breadcCrumb a:visited {
+    color: #333;
+    font-size: 11px;
+    text-decoration: underline;
+    text-transform: capitalize;
+}
+.breadcCrumb span.current {
+    color: #333;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+a.btn-orange {
+    display: inline-block;
+    vertical-align: top;
+    background: #f25c20;
+    text-decoration: none;
+    color: #fff!important;
+    text-shadow: 1px 1px rgba(0, 0, 0, .25)!important;
+    font-size: 20px;
+    padding: 12px 26px;
+    font-weight: 400;
+    -webkit-box-shadow: 0 -3px rgba(0, 0, 0, .25) inset;
+    -moz-box-shadow: 0 -3px rgba(0, 0, 0, .25) inset;
+    box-shadow: 0 -3px rgba(0, 0, 0, .25) inset;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+a.btn-orange:hover {
+    color: rgba(255, 255, 255, .925)!important;
+    text-decoration: none;
+    -webkit-box-shadow: 0 0 rgba(0, 0, 0, .25) inset;
+    -moz-box-shadow: 0 0 rgba(0, 0, 0, .25) inset;
+    box-shadow: 0 0 rgba(0, 0, 0, .25) inset;
+}
+a.btn-orange:active {
+    color: rgba(255, 255, 255, .85)!important;
+    text-decoration: none;
+    -webkit-box-shadow: 0 3px rgba(0, 0, 0, .25) inset;
+    -moz-box-shadow: 0 3px rgba(0, 0, 0, .25) inset;
+    box-shadow: 0 3px rgba(0, 0, 0, .25) inset;
+}
+.articleNavWrap .articleAuthor a, .prodCompWrap .articleBox:hover .articleTitle a {
+    color: #333;
+    text-decoration: underline;
+}
+.prodCompWrap {
+    margin: 30px 0 0;
+}
+.prodCompWrap h2.titleProdComp {
+    font-size: 18px;
+    color: #333;
+    border-bottom: 2px solid #333;
+    padding: 0 0 5px;
+    font-weight: 700;
+    margin: 0 0 20px;
+}
+.prodCompWrap .articleBox {
+    padding: 10px;
+    border: 0;
+    background-color: #fff;
+    border-radius: 4px;
+    transition: color .4s ease-in-out, background .4s ease-in-out, border-color .4s ease-in-out;
+}
+.prodCompWrap .articleBox:hover {
+    padding: 10px;
+    background-color: #eee;
+    cursor: pointer;
+    border: 0;
+}
+.prodCompWrap .articleBox h2.articleTitle {
+    font-size: 16px;
+    color: #333;
+    margin: 0;
+}
+.prodCompWrap .articleBox h2.articleTitle a {
+    color: #333;
+    display: block;
+    font-weight: 300;
+}
+.prodCompWrap .articleBox .articleImg {
+    float: left;
+    margin: 8px 10px 10px 0;
+}
+.prodCompWrap .articleBox .articleSnippet {
+    color: #333;
+    line-height: 24px;
+    font-size: 14px;
+    overflow: hidden;
+    min-height: 96px;
+}
+.articleNavWrap .articleBnrBottom, .articleNavWrap .articleBnrRT, .articleNavWrap .articleBnrTop {
+    margin: 0 0 20px;
+}
+.articleNavWrap .articlecontent p {
+    margin: 0 0 15px;
+    font-size: 14px;
+    color: #333;
+}
+.articleNavWrap .paraHeading {
+    margin: 0 0 15px;
+    font-size: 15px;
+    color: #333;
+}
+.articleNavWrap {
+    padding: 20px 0;
+}
+.articleNavWrap .articleNavWrapLT {
+    padding: 0 35px 0 5px;
+}
+.articleNavWrap .articleNavWrapLT h1 {
+    font-size: 34px;
+}
+.articleImgWrap {
+    height: auto;
+    margin: 12px 0;
+}
+.articleNavWrap .articleImgWrap {
+    margin: 0 0 20px;
+}
+.articleNavWrap .articleImgWrap img {
+    max-width: 425px;
+    width: 100%}
+.career-test .imgBtm, .chefCont .imgCont img, .resume-review .heroBannerImg img, .resume-types figure img, img {
+    max-width: 100%}
+.articleNavWrap .articleContentWrap {
+    padding: 25px 0;
+}
+.articleNavWrap .articleContentWrap p {
+    font-size: 14px;
+    color: #333;
+    margin: 0 0 20px;
+}
+.articleNavWrap .articleContentWrap .paraHeading {
+    margin: 0 0 15px;
+    font-size: 15px;
+    color: #333;
+}
+.articleNavWrap .articleAuthor a {
+    font-size: 14px;
+    font-weight: 400;
+}
+.articleNavWrap .articleNavWrapRT {
+    padding: 0 60px 0 20px;
+}
+.articleNavWrap .social-links {
+    margin: 0 0 40px;
+}
+.articleNavWrap .articleNavWrapRT h2 {
+    font-size: 18px;
+}
+.articleNavWrap .articleNavWrapRT .articleNavList {
+    border-top: 1px solid #999;
+    margin: 0 0 30px;
+    list-style: none;
+}
+.articleNavList {
+    display: block;
+    border-top: 1px solid #999;
+}
+.articleNavWrapRT .articleNavList>li>a {
+    display: block;
+    padding: 15px 10px;
+    font-size: 20px;
+    color: #333!important;
+    text-decoration: none;
+    border-bottom: 1px solid #999;
+    line-height: 25px;
+}
+.articleNavWrapRT .articleNavList>li>a.open, .articleNavWrapRT .articleNavList>li>a:hover {
+    color: #333;
+    background-color: #f2f2f2;
+}
+.articleNavWrapRT .articleNavList li ul {
+    display: none;
+    padding: 8px 0 0;
+    list-style: none;
+}
+.articleNavWrapRT .articleNavList li ul li a {
+    display: block;
+    padding: 5px 10px;
+    font-size: 14px;
+    color: #333!important;
+    line-height: 16px;
+}
+.articleNavWrapRT .articleNavList li ul li a:hover {
+    background-color: #fff;
+    text-decoration: underline;
+}
+.articleNavList ol li {
+    font-size: 13.5px;
+}
+.articleWrap .container {
+    padding-bottom: 60px;
+}
+.articleWrap .container h1 {
+    border-bottom: 4px solid #8e96a4;
+    color: #262c2c;
+    font-size: 31.5px;
+    font-weight: 400;
+}
+.articleWrap .container h2 {
+    color: #262c2c;
+    font-size: 24.5px;
+    font-weight: 400;
+}
+.article-list {
+    padding: 10px 0 0;
+}
+.article-list li {
+    line-height: 27px;
+    padding-right: 25px;
+    list-style: none;
+}
+.article-list li a {
+    color: #282c2c;
+    border-bottom: 1px solid #d7d7d7;
+    font-size: 14px;
+}
+.article-list li a:focus, .article-list li a:hover {
+    text-decoration: none;
+    border-bottom: 1px solid #999;
+}
+.article-nav {
+    border-top: 1px solid #ccc;
+    margin: 0 25px 0 0;
+}
+.article-nav>li {
+    border-bottom: 1px solid #ccc;
+    position: relative;
+    list-style: none;
+}
+.article-nav>li a {
+    color: #252727;
+    font-size: 16px;
+    line-height: 20px;
+    padding: 20px 34px 20px 12px;
+    display: block;
+    background: url(/images/lsr/nav-arrow-right.png) 93% 23px no-repeat;
+}
+.article-nav>li>ul:before, .article-nav>li>ul>li>ul:before {
+    content: ".";
+    font-size: 0;
+    height: 21px;
+}
+.article-nav>li a:hover, .article-nav>li.active>a, .article-nav>li.hover>a {
+    background: url(/images/lsr/nav-arrow-down.png) 93% 25px no-repeat #f2f2f2;
+    color: #000;
+    font-weight: 700;
+    text-decoration: none;
+}
+.article-nav>li>ul {
+    position: absolute;
+    top: 0;
+    left: 105%;
+    background: #f2f2f2;
+    box-shadow: -2px 0 2px #ccc;
+    -webkit-box-shadow: -2px 0 2px #ccc;
+    width: 140px;
+    display: none;
+    border-left: 1px solid #ccc;
+}
+.article-nav>li>ul:before {
+    background: url(/images/lsr/nav-arrow-shd.png) no-repeat;
+    display: block;
+    left: -17px;
+    position: absolute;
+    top: 21px;
+    width: 19px;
+}
+.article-nav>li>ul>li {
+    position: relative;
+}
+.article-nav>li>ul>li a {
+    background-image: none;
+    padding: 10px 34px 10px 10px;
+    display: block;
+}
+.article-nav>li>ul>li a:hover, .article-nav>li>ul>li.active>a, .article-nav>li>ul>li.hover>a {
+    background: url(/images/lsr/nav-arrow-right.png) 93% 13px no-repeat #fff;
+    font-weight: 400;
+}
+.article-nav>li>ul>li>ul {
+    position: absolute;
+    top: 0;
+    left: 110%;
+    background: #f2f2f2;
+    box-shadow: -2px 0 2px #ccc;
+    -webkit-box-shadow: -2px 0 2px #ccc;
+    width: 190px;
+    display: none;
+    border-left: 1px solid #ccc;
+}
+.article-nav>li>ul>li>ul:before {
+    background: url(/images/lsr/nav-arrow-shd.png) no-repeat;
+    display: block;
+    left: -17px;
+    position: absolute;
+    top: 13px;
+    width: 19px;
+}
+#smpl-ltr-rsm, .article-nav>li>ul>li>ul>li {
+    position: relative;
+}
+.article-nav>li>ul>li>ul>li a {
+    background-image: none;
+    padding: 10px 34px 10px 10px;
+    display: block;
+}
+.article-nav>li>ul>li>ul>li a:hover, .article-nav>li>ul>li>ul>li.active a, .article-nav>li>ul>li>ul>li.hover a {
+    background: #fff;
+    font-weight: 400;
+}
+.contentWrap {
+    padding: 30px 10px;
+}
+.contentWrap h1, .contentWrap h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #000;
+    margin: 0 0 15px;
+    line-height: normal;
+}
+.contentWrap h2 {
+    font-weight: 400;
+    color: #333;
+    text-align: center;
+}
+.contentWrap h2.smallHdng {
+    font-size: 18px;
+}
+.contentWrap h2.membersHdng {
+    float: left;
+    font-size: 26px;
+    font-weight: 400;
+    color: #000;
+    padding: 10px 0 0;
+}
+.twoColumn .contentWrap, .twoColumn ol {
+    padding: 0;
+}
+.contentWrap h3 {
+    font-size: 14px;
+    line-height: normal;
+    margin: 0 0 10px;
+    color: #000;
+    font-weight: 700;
+}
+.contentWrap p {
+    margin: 0 0 15px;
+    color: #000;
+    font-size: 13px;
+    line-height: 22px;
+}
+.twoColumn h1, .twoColumn h2 {
+    font-weight: 400;
+    line-height: normal;
+}
+.contentWrap img.ImgCRPW {
+    margin: 0 0 20px 20px;
+}
+.twoColumn h1 {
+    font-size: 30px;
+}
+.twoColumn h2 {
+    font-size: 24px;
+    margin: 0 0 15px;
+    color: #000;
+}
+.twoColumn h3 {
+    font-size: 13px;
+    margin: 0;
+    line-height: 22px;
+}
+.twoColumn p {
+    font-size: 13px;
+    line-height: 20px;
+}
+.twoColumn .rightColumn p {
+    font-size: 12px;
+}
+.twoColumn .contentWrap p.last {
+    margin: 0;
+}
+.twoColumn .ppContainer ul, .twoColumn ol {
+    margin-bottom: 15px;
+}
+.twoColumn ol li {
+    list-style: decimal;
+    margin-left: 15px;
+}
+.twoColumn li {
+    font-size: 13px;
+}
+.twoColumn a {
+    color: #e7562c;
+}
+.twoColumn .leftColumn {
+    padding: 30px 15px 30px 10px;
+    border-right: 1px solid #ddd;
+}
+.twoColumn .rightColumn {
+    padding: 30px 0 0;
+}
+.twoColumn .rightColumn a {
+    text-decoration: underline;
+}
+.twoColumn .rightColumn .isf a {
+    text-decoration: none;
+}
+.twoColumn .policy-subHead {
+    text-decoration: underline;
+    color: #000;
+    font-weight: 700;
+}
+.twoColumn .headingPP {
+    color: #000;
+    font-weight: 700;
+}
+.twoColumn .ppContainer ul li {
+    list-style: disc;
+    margin-left: 15px;
+    color: #000;
+}
+#smpl-ltr-rsm-cntnr .btn-cntnr {
+    margin: 40px 0;
+    text-align: center;
+}
+#smpl-ltr-rsm-cntnr .end {
+    font-size: 1.1em;
+    line-height: 1.5em;
+    margin: 0 0 15px;
+}
+#smpl-ltr-rsm-cntnr .end a {
+    text-decoration: underline;
+    color: #333;
+}
+#ctmz-rsm-popup .close a:hover, .resExampleBox h3 a, .resExampleBox h3 a:hover {
+    text-decoration: none;
+}
+#smpl-ltr-rsm {
+    border: 2px solid #7f7f7f;
+    padding: 20px 15px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+#smpl-ltr-rsm * {
+    margin: 0;
+    padding: 0;
+    line-height: 1.2em;
+}
+#smpl-ltr-rsm, #smpl-ltr-rsm p {
+    color: #333;
+    font-family: "Times New Roman", Times, serif, 'Microsoft YaHei';
+    font-size: 12px;
+}
+#smpl-ltr-rsm ul {
+    list-style: disc;
+    color: #000;
+    margin: 0 0 0 15px;
+    padding: 0 0 0 15px;
+}
+#smpl-ltr-rsm li {
+    color: #333;
+}
+#smpl-ltr-rsm .b {
+    font-weight: 700;
+}
+#smpl-ltr-rsm .fr {
+    float: right;
+}
+#smpl-ltr-rsm .section {
+    margin: 15px 0 0;
+}
+#smpl-ltr-rsm .name {
+    text-align: center;
+    font-size: 1.8em;
+    font-weight: 700;
+    border-bottom: 1px solid #404040;
+    margin: 0 0 1px;
+    padding: 0 0 5px;
+}
+#smpl-ltr-rsm .contact {
+    text-align: center;
+    border-top: 1px solid #404040;
+    margin: 0;
+    padding: 2px 0 0;
+}
+#smpl-ltr-rsm .sub-section {
+    margin: 10px 0 0;
+}
+#smpl-ltr-rsm .head {
+    margin: 0 0 5px;
+    font-size: 1.2em;
+    font-weight: 700;
+}
+#smpl-ltr-rsm .head+.sub-section {
+    margin-top: 0;
+}
+#smpl-ltr-rsm .col-50 {
+    float: left;
+    width: 50%}
+#smpl-ltr-rsm .col-33 {
+    float: left;
+    width: 33.33%}
+#ctmz-rsm-popup {
+    width: 600px;
+    padding-bottom: 10px;
+    border: 4px solid #a3bbdb;
+    position: absolute;
+    background: #fff;
+    text-align: center;
+    display: none;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.absWrap, .chooseBtn, .resImg, .resumeText, .table-content-link ul {
+    box-sizing: border-box;
+}
+#ctmz-rsm-popup .close {
+    font-weight: 700;
+    margin: 2px 5px 5px 0;
+    float: none;
+    text-align: right;
+}
+#ctmz-rsm-popup .close a {
+    color: #333;
+    font-weight: 700;
+}
+#ctmz-rsm-popup h3 {
+    color: #333;
+    font-weight: 700;
+    font-size: 32px;
+    letter-spacing: 0;
+    line-height: 1em;
+    margin: 0 0 8px;
+}
+#ctmz-rsm-popup h4 {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1em;
+    color: #f25c22;
+    margin: 0 0 30px;
+}
+#ctmz-rsm-popup .steps {
+    padding: 0 25px;
+    margin: 0 0 40px;
+}
+#ctmz-rsm-popup .steps li {
+    float: left;
+    margin-left: 40px;
+    list-style: none;
+}
+#ctmz-rsm-popup .steps li:first-child {
+    margin-left: 0;
+}
+#ctmz-rsm-popup .steps p {
+    font-weight: 600;
+    font-size: 18px;
+    margin: 7px 0 0;
+}
+#ctmz-rsm-popup .btn-orange {
+    padding: 10px 45px;
+}
+.modal-backdrop.in {
+    opacity: .8;
+}
+.si {
+    background: url() no-repeat;
+    display: inline-block;
+}
+.si_h100px {
+    background-image: url(//www.livecareer.com/images/uploaded/articles/sprite_icons_height_100px.png);
+}
+.si_h100px.icon-templates {
+    width: 145px;
+    height: 114px;
+}
+.si_h100px.icon-search-resume {
+    width: 89px;
+    height: 116px;
+    background-position: -145px 0;
+}
+.si_h100px.icon-download-print {
+    width: 144px;
+    height: 116px;
+    background-position: -234px 0;
+}
+.fo:after, .fo:before {
+    content: "";
+    display: table;
+}
+.resThumbnailWrapper {
+    padding: 40px 0 20px;
+}
+.resThumbWrap {
+    position: relative;
+    text-align: center;
+    margin: 0 auto 20px;
+    height: 375px;
+    width: 246px;
+}
+.resThumbWrap img {
+    margin: 0 0 10px;
+}
+.resThumbWrap span {
+    display: block;
+}
+.resHeading {
+    font-weight: 700;
+    color: #333;
+    font-family: 'Gotham SSm A', 'Gotham SSm B', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.resThumbWrap .resHeading {
+    margin: 0 0 5px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.3em;
+}
+.resThumbWrap .resSkin {
+    font-style: italic;
+    font-size: 14px;
+}
+.res-thumb-hero .hoverBox, .resThumbWrap .hoverBox {
+    display: none;
+    left: 0;
+    opacity: .75;
+    filter: alpha(opacity=70);
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=70)";
+    position: absolute;
+    top: 0;
+    background: #64c4b9;
+}
+.res-thumb-hero .hoverBoxImg, .resThumbWrap .hoverBoxImg {
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    width: 61px;
+    height: 61px;
+    background: url(//www.livecareer.com/images/lsr/thumbnail-zoom.png) no-repeat;
+    display: none;
+}
+.res-thumb-hero:hover .hoverBox, .res-thumb-hero:hover .hoverBoxImg, .resThumbWrap:hover .hoverBox, .resThumbWrap:hover .hoverBoxImg {
+    display: block;
+}
+.res-thumb-hero {
+    width: 360px;
+    height: 465px;
+    position: relative;
+}
+#resExampleCarousel #myCarousel_1 .carousel-control {
+    border: 0;
+    border-radius: 0;
+    background: 0 0;
+    top: -20%;
+    opacity: inherit;
+    width: 6%}
+.resExampleBox {
+    margin: 0 0 40px;
+}
+.resExampleBox h3 {
+    color: #333;
+    margin: 0 0 10px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: normal;
+    border-bottom: 2px solid #333;
+    padding: 0 0 5px;
+}
+.resExampleBox h3 a {
+    color: #333;
+}
+.resExampleBox ul li {
+    margin: 0 0 5px;
+}
+.resExampleBox ul li.spaceList {
+    height: 20px;
+}
+.resExampleBox ul li a {
+    color: #666;
+    font-size: 14px;
+    text-decoration: none;
+    -webkit-transition: color .2s ease-out;
+    -moz-transition: color .2s ease-out;
+    -o-transition: color .2s ease-out;
+    transition: color .2s ease-out;
+    font-weight: 400;
+}
+.resExampleBox ul li a:hover {
+    color: #333;
+    text-decoration: underline;
+}
+.resExampleBox ul li a:active {
+    color: #000;
+}
+.modalResBox {
+    width: auto;
+    border: 0;
+    border-radius: 0;
+    background-color: transparent;
+    box-shadow: none;
+    color: #fff;
+}
+.modalResBox .tou, .modalResBox .tou a {
+    color: #fff!important;
+}
+.modalResBox .modal-content {
+    background: 0 0;
+    box-shadow: none;
+    border: 0;
+    border-radius: 0;
+}
+.modalResBox .modal-footer {
+    display: none;
+    padding: 0;
+}
+.modalResBox .modal-header {
+    border: none;
+    padding: 0;
+}
+.modalResBox .modal-body {
+    max-height: none;
+    padding: 0;
+    min-height: 480px;
+    overflow: auto;
+    text-align: center;
+    background: #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+    border-radius: 6px;
+}
+.awardCol, .membershipContent, .wrapperMain, .wrapperRt {
+    overflow: hidden;
+}
+.modalResBox .close {
+    background: url(//www.livecareer.com/images/lsr/btn-close-resume-example-popup.png) no-repeat;
+    display: block;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    right: -20px;
+    top: 53px;
+    opacity: inherit;
+    text-shadow: none;
+}
+.career-test .heroBanner {
+    padding: 50px 0 25px;
+}
+.heroBannerContent h1 {
+    font-family: "Gotham SSm A", "Gotham SSm B", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 30px;
+    font-weight: 400;
+}
+.heroBannerContent .h1 {
+    font-size: 30px;
+    line-height: 40px;
+    font-weight: 500;
+    color: #555;
+}
+.heroBannerContent .h1 .h3, .heroBannerContent .h1 span {
+    display: block;
+    font-weight: 200;
+}
+.heroBannerContent .h5 {
+    color: #555;
+}
+.heroBannerContent p {
+    font-size: 14px;
+}
+.career-test .heroBannerContent ul {
+    list-style: disc;
+    margin: 25px 0 0 35px;
+}
+.career-test .heroBannerContent li {
+    font-size: 20px;
+    line-height: 32px;
+    padding-bottom: 10px;
+}
+.formSec {
+    padding-top: 28px;
+}
+.formSec .help-block {
+    font-size: 12px;
+    line-height: 18px;
+}
+.formSec .help-block>a {
+    color: inherit;
+    text-decoration: underline;
+}
+.controlZip .form-control {
+    float: left;
+    width: 50%}
+.controlCityState .useZip, .controlZip .useCityState {
+    float: left;
+    color: #1163af;
+    font-size: 14px;
+    line-height: 30px;
+    margin-left: 10px;
+}
+.salary-calc .heroBanner {
+    padding: 20px 0 25px;
+}
+.contWrap {
+    margin-bottom: 10px;
+}
+.contWrap p {
+    line-height: 30px;
+    margin-bottom: 0;
+}
+.contWrap .fa {
+    float: left;
+    color: #3298cc;
+    margin-right: 8px;
+}
+.resume-review .btnWrapBanner {
+    margin: 20px 0;
+}
+.resume-review .heroBanner {
+    padding-top: 20px;
+}
+.resume-review .heroBannerImg {
+    position: relative;
+    padding-top: 20px;
+}
+.resume-review .resReviewSample {
+    position: absolute;
+    color: #1163af;
+    font-weight: 700;
+    top: 180px;
+    left: 80px;
+}
+.resume-review .contentWrap .btn {
+    min-width: inherit;
+    margin-bottom: 20px;
+}
+.resume-review .resReviewWrap {
+    padding: 30px 15px;
+}
+.resume-review .live-help {
+    float: left;
+    margin: -8px 20px 0;
+}
+.resume-review .live-help .fa-inverse {
+    color: #e78611;
+}
+.resume-review .live-help .fa-flip-horizontal {
+    color: #ffac08;
+    left: 12px;
+    top: 15px;
+}
+.resume-review .live-help .text {
+    position: absolute;
+    left: 0;
+    top: 13px;
+    color: #fff;
+    font: 700 15px/17px Arial, Helvetica, sans-serif;
+}
+.cl-writing .bgCL {
+    background: url(//www.livecareer.com/images/uploaded/hero-img-cover-letter.jpg) center top no-repeat;
+    min-height: 553px;
+    margin-bottom: 60px;
+}
+.cl-writing .heroBoxCL {
+    background: rgba(0, 0, 0, .7);
+    color: #fff;
+    display: inline-block;
+    padding: 30px 40px;
+    margin-top: 30px;
+}
+.cl-writing .heroBoxCL .h1 {
+    color: inherit;
+    font-size: 34px;
+    line-height: 46px;
+    font-weight: 600;
+    margin: 0;
+}
+.cl-writing .heroBoxCL .btn {
+    min-width: inherit;
+    margin-top: 20px;
+}
+.cl-writing .productBox {
+    margin: 0 0 30px;
+    text-align: center;
+}
+.cl-writing .productBox img {
+    margin-bottom: 10px;
+}
+.cl-writing .productBox p {
+    color: #666;
+    font-size: 16px;
+    line-height: 24px;
+}
+.cl-writing .contentWrap a.txtLinkCL {
+    color: #ff6900;
+    font-size: 18px;
+    font-weight: 700;
+    font-family: 'Gotham SSm A', 'Gotham SSm B', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.border-left {
+    border-left: 1px solid #ccc;
+}
+.cl-writing .majorColumn {
+    padding: 15px 30px;
+}
+.cl-writing .majorColumn .linkVSL {
+    color: #aaa;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 26px;
+}
+.wrapBoxCL {
+    margin: 0 0 45px;
+}
+.wrapBoxCL h2 {
+    font-size: 22px;
+    margin: 0 0 25px;
+}
+.wrapBoxCL p {
+    color: #666;
+    font-size: 16px;
+    line-height: 26px;
+    margin: 0 0 5px;
+}
+.job-survey .container {
+    max-width: 940px;
+}
+.job-survey .bcrumb {
+    font-size: 11px;
+    padding: 0 0 10px 5px;
+}
+.job-survey .minor {
+    color: #666;
+    padding: 0;
+}
+.blockLt {
+    margin: 0 0 15px;
+}
+.blockLt .h5 {
+    background: url(//www.livecareer.com/cms/media/1888/bg_heading_lt.gif) repeat-x rgba(0, 0, 0, 0);
+    border-radius: 5px 5px 0 0;
+    padding: 10px;
+    margin: 0;
+    font-weight: 500;
+    font-size: 14px;
+}
+.blockContent {
+    border: 1px solid #e4e5e5;
+    border-radius: 0 0 5px 5px;
+    padding: 10px;
+}
+.blockContent ul, .contentWrapRt ul {
+    list-style: disc;
+    font-size: 14px;
+    line-height: 20px;
+    margin: 10px 0 10px 18px;
+}
+.blockContent p, .contentWrapRt p {
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 10px;
+}
+.blockContent a, .contentWrapRt a {
+    font-size: inherit;
+    font-weight: inherit;
+    color: #1163af;
+}
+.bnrJobSatifaction {
+    background: url(//www.livecareer.com/cms/media/2276/banner_job_satisfaction.jpg) no-repeat rgba(0, 0, 0, 0);
+    height: 472px;
+    margin: 0 0 10px;
+    width: 690px;
+    padding: 202px 20px 0;
+}
+.formWrapSB {
+    float: right;
+    padding: 0 0 0 10px;
+    width: 330px;
+}
+.formWrapSB ul {
+    padding: 0 0 0 18px;
+}
+.formWrapSB ul li {
+    color: #333;
+    font-size: 11px;
+    margin: 0 0 4px;
+}
+.formWrapSB input, .formWrapSB select {
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #c2c2c2;
+    padding: 2px 4px 2px 1px;
+    margin-bottom: 5px;
+}
+.formWrapSB input {
+    border: none;
+}
+.formWrapSB select {
+    color: #808285;
+    width: 300px;
+}
+.formWrapSB form .input1 {
+    background: 0 0;
+    border: none;
+}
+.formWrapSB p {
+    color: #333;
+    font-size: 11px;
+    line-height: 15px;
+    margin: 0;
+}
+.formWrapSB p a {
+    color: #1163af;
+}
+.wrapperRt {
+    color: #666;
+    border: 1px solid #e4e5e5;
+    border-radius: 6px 6px 5px 5px;
+    margin: 0 0 10px;
+}
+.contentWrapRt {
+    padding: 10px;
+}
+.contentWrapRt .h4 {
+    font-size: 18px;
+    margin: 0 0 10px;
+    font-weight: 600;
+}
+.bnrEduTest {
+    background: url(//www.livecareer.com/cms/media/2286/banner_education_test.jpg) no-repeat;
+    height: 521px;
+    margin: 0 0 10px;
+    width: 690px;
+    padding: 230px 20px 0;
+}
+.linkVRT {
+    background: url(//www.livecareer.com/cms/media/7095/imgtransparent01.png) no-repeat rgba(0, 0, 0, 0);
+    display: block;
+    float: left;
+    height: 25px;
+    margin: 227px 0 0 100px;
+    width: 111px;
+}
+.formWrapSB .btnSubmitSB {
+    background: url(//www.livecareer.com/cms/media/1903/button_lc.png) 0 -5px no-repeat rgba(0, 0, 0, 0);
+    border: none;
+    cursor: pointer;
+    display: block;
+    height: 42px;
+    margin: 0 0 0 60px;
+    width: 166px;
+}
+.bnrResumeGuide {
+    background: url(//www.livecareer.com/cms/media/2416/banner_resume_guide.jpg) no-repeat;
+    height: 376px;
+    margin: 0 0 10px;
+    width: 690px;
+}
+.formWrapResGuide {
+    float: right;
+    padding: 80px 20px 0;
+    width: 308px;
+}
+.formWrapResGuide ul {
+    margin: 0;
+}
+.formWrapResGuide ul li {
+    color: #333;
+    font-size: 11px;
+    line-height: normal;
+    margin: 0 0 5px;
+}
+.formWrapResGuide form .input2, .formWrapResGuide select {
+    border: none;
+    font-family: Tahoma;
+    font-size: 10pt;
+    font-weight: 400;
+    height: 24px;
+    text-align: left;
+}
+.formWrapResGuide form .input2 {
+    background: url(//www.livecareer.com/cms/media/2826/bgfielddidi.gif) left top no-repeat;
+    color: #808285;
+    line-height: 18pt;
+    padding-left: 5px;
+    vertical-align: top;
+    width: 100%;
+    margin-bottom: 10px;
+}
+.formWrapResGuide select {
+    background: url(//www.livecareer.com/images/bgfielddidi-1.gif) left top no-repeat rgba(0, 0, 0, 0);
+    margin-bottom: 6px;
+    padding: 3px 4px 4px 5px;
+    width: 260px;
+}
+.bnrStartBusiness {
+    background: url(//www.livecareer.com/cms/media/2281/banner_start_a_business.jpg) no-repeat rgba(0, 0, 0, 0);
+    height: 461px;
+    width: 690px;
+    padding: 226px 20px 0;
+}
+#lhnContainerDone, a#lhnHelpDone {
+    display: none!important;
+}
+.wrapperMain h1, .wrapperMain h2 {
+    font-size: 20px;
+    margin: 0 0 10px;
+    font-weight: 200;
+}
+.wrapperMain {
+    border: 1px solid #e4e5e5;
+    border-radius: 5px;
+    margin: 15px auto;
+    padding: 15px 19px;
+    width: 900px;
+    font-size: 14px;
+}
+.wrapperMain p strong {
+    font-family: 'Gotham SSm A', 'Gotham SSm B', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #333;
+}
+.wrapperMain p {
+    color: #555;
+}
+.prDate, .titlePR {
+    color: #333;
+    font-weight: 700;
+    font-family: 'Gotham SSm A', 'Gotham SSm B', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.awardCol {
+    margin: 0 0 25px;
+}
+.awardCol .awardImage {
+    float: left;
+    margin: 0 10px 5px 0;
+}
+.prDate {
+    float: left;
+    padding: 0 20px 0 0;
+    width: 230px;
+}
+.prDescription {
+    float: left;
+    width: 650px;
+}
+.prDescription a {
+    font-family: 'Gotham SSm A', 'Gotham SSm B', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.pressWrap {
+    float: left;
+    margin: 0 0 25px;
+    width: 900px;
+}
+.membershipWrap {
+    float: left;
+    margin: 15px 0;
+}
+.membershipDetailsCol {
+    border-bottom: 1px solid #e4e5e5;
+    margin: 0 0 25px;
+    padding: 0 0 15px;
+}
+.membershipDetailsCol.last01 {
+    border: none;
+}
+.membershipImgWrap {
+    float: left;
+    margin: 6px 15px 15px 0;
+    text-align: center;
+    width: 180px;
+}
+.membershipImgWrap img {
+    max-width: 100%;
+    height: auto;
+}
+.membershipImgWrap a.bbb {
+    background: url(//www.livecareer.com/cms/media/1300/accredited_business.png) no-repeat rgba(0, 0, 0, 0);
+    display: block;
+    height: 57px;
+    margin: 0 0 0 20px;
+    width: 150px;
+}
+.membershipImgWrap a strong {
+    display: none;
+}
+.membershipImgWrap a.bbb:hover {
+    background-position: -150px 0;
+}
+.spclTxt-01 {
+    color: #f49330;
+}
+.video-head {
+    margin-top: 2px;
+}
+.article .intwWrap h2, .mainVdoTitle strong {
+    color: #333;
+}
+.article .intwVdoSection a, .article .intwWrap ul li a {
+    color: #555;
+}
+.article .intwWrap ul li a span img {
+    margin-right: 10px;
+}
+.article .intwVdoSection {
+    font-size: 14px;
+    color: #555;
+}
+.article .intwVdoSection h2 {
+    color: #333;
+    font-size: 20px;
+    font-weight: 700;
+}
+#dvTitle, .intwVdoSection, .topVdoCarousel .carousel {
+    padding: 0;
+}
+.intwVdoSection audio, .intwVdoSection canvas, .intwVdoSection progress, .intwVdoSection video {
+    width: 100%}
+.bgVdoTitle, .popularQuesWrap, .termsVDO {
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+.vdo-signup-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+.vdo-signup-overlay .fade.in {
+    background-color: rgba(32, 32, 32, .5);
+}
+.vdo-signup-overlay .modal, .vdo-signup-overlay .modal-dialog {
+    position: static;
+}
+.vdo-signup-overlay .modal-dialog {
+    left: 0;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 99999;
+}
+.vdo-signup-overlay .modal-content {
+    background-color: rgba(32, 32, 32, .8);
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    height: 350px;
+}
+.vdo-signup-overlay h2 {
+    font-weight: 600;
+    color: #FFF;
+    font-size: 34px;
+    text-align: center;
+    margin: 25px 0 6px;
+    line-height: 40px;
+}
+.vdo-signup-overlay h3 {
+    font-weight: 400;
+    color: #FFF;
+    font-size: 18px;
+    text-align: center;
+    margin: 0 0 15px;
+}
+.vdo-signup-overlay .modal-footer {
+    border: none;
+}
+.input-bg {
+    background-color: #FFF;
+    border-radius: 4px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, .06);
+    width: 295px;
+    margin: 0 auto 12px;
+}
+.vdo-signup-overlay input {
+    height: 40px;
+    line-height: 40px;
+    padding: 10px;
+    border: none;
+    background-color: #F1F6FB;
+    font-size: 16px;
+    font-weight: 600;
+    color: #b9b9b9;
+}
+.vdo-signup-overlay .btn-lg {
+    font-size: 18px;
+    line-height: 24px;
+    min-width: 204px;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+.vdo-signup-overlay .help-block {
+    font-size: 12px;
+    color: #FFF;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 0;
+    line-height: 19px;
+}
+.vdo-signup-overlay .help-block.terms {
+    margin-top: 12px;
+}
+.vdo-signup-overlay .help-block a {
+    color: #2692FF;
+    font-weight: 400;
+    font-size: 12px;
+}
+.vdo-signup-overlay .help-block .frgt-pswd {
+    font-size: 14px;
+    font-weight: 600;
+    color: #FFF;
+}
+.vdo-signup-overlay .err-box {
+    margin: -4px auto 0;
+    width: 54%}
+.vdo-signup-overlay .icon-wrng-pswd {
+    background-color: #f85c37;
+    border-radius: 2px;
+    padding: 0 6px;
+    color: #FFF;
+    font-size: 12px;
+    margin-right: 8px;
+}
+.vdo-signup-overlay .bubble {
+    position: relative;
+    height: 35px;
+    padding: 7px 15px;
+    background: #FFF;
+    border: 1px solid #f85e37;
+    border-radius: 4px;
+    font-size: 14px;
+}
+.bubble:after, .bubble:before {
+    content: "";
+    left: 15px;
+    border-style: solid;
+    border-width: 0 12px 12px;
+    display: block;
+    width: 0;
+    position: absolute;
+}
+.bubble:after {
+    top: -12px;
+    border-color: #FFF transparent;
+    z-index: 1;
+}
+.bubble:before {
+    top: -13px;
+    border-color: #f85e37 transparent;
+    z-index: 0;
+}
+.spinner, .ui-loader {
+    display: none;
+}
+.thank-you {
+    padding-top: 70px;
+    text-align: center;
+}
+.thank-you .fa-times {
+    color: #FFF;
+    font-size: 20px;
+    opacity: inherit!important;
+}
+.thank-you .close {
+    opacity: inherit!important;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+}
+.thank-you p {
+    font-size: 18px;
+    color: #FFF;
+}
+.spinner {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 145px;
+    left: 320px;
+}
+.container1>div, .container2>div, .container3>div {
+    width: 10px;
+    height: 10px;
+    background-color: #f15f4c;
+    border-radius: 100%;
+    position: absolute;
+    -webkit-animation: bouncedelay 1.2s infinite ease-in-out;
+    animation: bouncedelay 1.2s infinite ease-in-out;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+.spinner .spinner-container {
+    position: absolute;
+    width: 100%;
+    height: 100%}
+.container2 {
+    -webkit-transform: rotateZ(45deg);
+    transform: rotateZ(45deg);
+}
+.container3 {
+    -webkit-transform: rotateZ(90deg);
+    transform: rotateZ(90deg);
+}
+.circle1 {
+    top: 0;
+    left: 0;
+}
+.circle2 {
+    top: 0;
+    right: 0;
+}
+.circle3 {
+    right: 0;
+    bottom: 0;
+}
+.circle4 {
+    left: 0;
+    bottom: 0;
+}
+.container2 .circle1 {
+    -webkit-animation-delay: -1.1s;
+    animation-delay: -1.1s;
+}
+.container3 .circle1 {
+    -webkit-animation-delay: -1s;
+    animation-delay: -1s;
+}
+.container1 .circle2 {
+    -webkit-animation-delay: -.9s;
+    animation-delay: -.9s;
+}
+.container2 .circle2 {
+    -webkit-animation-delay: -.8s;
+    animation-delay: -.8s;
+}
+.container3 .circle2 {
+    -webkit-animation-delay: -.7s;
+    animation-delay: -.7s;
+}
+.container1 .circle3 {
+    -webkit-animation-delay: -.6s;
+    animation-delay: -.6s;
+}
+.container2 .circle3 {
+    -webkit-animation-delay: -.5s;
+    animation-delay: -.5s;
+}
+.container3 .circle3 {
+    -webkit-animation-delay: -.4s;
+    animation-delay: -.4s;
+}
+.container1 .circle4 {
+    -webkit-animation-delay: -.3s;
+    animation-delay: -.3s;
+}
+.container2 .circle4 {
+    -webkit-animation-delay: -.2s;
+    animation-delay: -.2s;
+}
+.container3 .circle4 {
+    -webkit-animation-delay: -.1s;
+    animation-delay: -.1s;
+}
+@-webkit-keyframes bouncedelay {
+    0%, 100%, 80% {
+    -webkit-transform: scale(0);
+}
+40% {
+    -webkit-transform: scale(1);
+}
+}@keyframes bouncedelay {
+    0%, 100%, 80% {
+    transform: scale(0);
+    -webkit-transform: scale(0);
+}
+40% {
+    transform: scale(1);
+    -webkit-transform: scale(1);
+}
+}.resumeExmp h1 {
+    font-size: 40px;
+    font-weight: 300;
+    padding: 0;
+    color: #000;
+}
+.resumeExmp.contentWrap {
+    padding: 30px 0;
+}
+.hiw-image {
+    width: 91%}
+.hiw-text-1 {
+    text-align: left;
+    font-size: 14px;
+}
+.hiw-text-2, .hiw-text-3 {
+    text-align: center;
+    font-size: 14px;
+}
+.resThumbWrap.res-top {
+    height: 318px;
+    margin: 8px auto 20px;
+    position: relative;
+    text-align: center;
+    width: 246px;
+}
+.resThumbWrap.res-top .hoverBox {
+    height: 318px;
+    width: 246px;
+    left: 0;
+}
+.resThumbWrap img, .resumeExmp .resThumbWrap img {
+    border: 1px solid #999;
+}
+.resThumbWrap .hoverBox {
+    height: 320px;
+    width: 248px;
+}
+.res-thumb-hero .hoverBox {
+    height: 463px;
+    width: 358px;
+}
+.resumeExmp .carousel-control .fa {
+    top: 214px;
+}
+.resumeExmp .resThumbnailWrapper {
+    padding-top: 0;
+}
+.resumeExmp .resume-title {
+    color: #000;
+    font-weight: 300;
+    padding-bottom: 30px;
+    text-align: center;
+}
+.resumeExmp .modalResBox {
+    background: url(https://www.livecareer.com/images/uploaded/lca/lc-bg-pattern.png) rgba(0, 0, 0, 0);
+    min-width: inherit;
+    overflow: scroll;
+    box-shadow: 3px 3px 2px 1px rgba(0, 0, 0, .3);
+}
+.resumeExmp hr.hdng {
+    border-color: #000;
+    color: #000;
+    float: left;
+    margin-bottom: 44px;
+    padding: 0 15px;
+    width: 100px;
+}
+.left-cta .modal-button:hover, .right-cta .modal-button:hover {
+    background-color: #f3372b;
+    border-color: transparent;
+}
+.rsm-mbl-carousel {
+    color: #000;
+    display: none;
+}
+.rsm-mbl-carousel .item h3 {
+    font-size: 30px;
+    font-weight: 200;
+}
+.rsm-mbl-carousel .item hr {
+    border-color: #222;
+    margin-left: 0;
+    width: 88px;
+}
+.rsm-mbl-carousel .item p {
+    min-height: 75px;
+}
+.rsm-mbl-carousel .carousel-indicators {
+    margin: 60px auto 0;
+    transform: scale(.8) translateX(10px);
+}
+.rsm-mbl-carousel .carousel-indicators li {
+    background: rgba(0, 0, 0, 0);
+    border: 1px solid #d1dce6;
+}
+.rsm-mbl-carousel .carousel-indicators li.active {
+    background: #d1dce6;
+}
+.rsm-mbl-carousel .modal-button {
+    position: absolute;
+    top: 190px;
+    width: 100%;
+    z-index: 999;
+}
+.left-cta .modal-button, .right-cta .modal-button {
+    background-color: #f15f4c;
+    border-color: transparent;
+    border-radius: 3px;
+    color: #f1f6fb!important;
+    font-size: 18px;
+    font-weight: 700;
+    margin-top: 0;
+    padding: 10px 30px;
+    text-transform: uppercase;
+    font-family: 'Gotham SSm A', 'Gotham SSm B', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.resumeExmp .newOverlayBg .close {
+    background: 0 0;
+    color: #b1b3b8;
+    font-size: 35px;
+    height: 35px;
+    margin: 0;
+    opacity: 1;
+    position: absolute;
+    right: 55px;
+    top: 15px;
+    width: 35px;
+}
+.bottom-left-cta, .mid-right-cta {
+    margin-top: 200px;
+}
+.left-cta, .right-cta {
+    color: #222;
+    float: left;
+    padding: 0 20px 20px;
+    transition: all 1s ease 0s;
+    width: 25%;
+    position: relative;
+    z-index: 2;
+}
+.top-left-cta img {
+    left: 170px;
+    margin-bottom: -110px;
+    margin-left: 0;
+    position: relative;
+    width: 60%;
+    z-index: 99;
+}
+.left-cta hr, .right-cta hr {
+    border-color: #222;
+    margin-left: 0;
+    width: 88px;
+    text-align: right;
+}
+.bottom-left-cta img, .right-cta img {
+    margin-left: 0;
+    width: 60%;
+    position: relative;
+}
+.left-cta h3, .right-cta h3 {
+    font-size: 36px;
+    font-weight: 200;
+}
+.left-cta p, .right-cta p {
+    font-size: 16px;
+    padding-bottom: 10px;
+}
+.bottom-left-cta img {
+    bottom: 0;
+    left: 200px;
+    margin-bottom: -50px;
+    z-index: 99;
+}
+.right-cta img {
+    right: 120px;
+    margin-bottom: 0;
+}
+.modal.fade .left-cta {
+    transform: translate3d(-25%, 0, 0);
+}
+.modal.fade .right-cta {
+    transform: translate3d(25%, 0, 0);
+}
+.modal.fade .modal-dialog {
+    transform: translate3d(0, 25%, 0);
+}
+.modal.in .left-cta, .modal.in .modal-dialog, .modal.in .right-cta {
+    transform: translate3d(0, 0, 0);
+}
+.resumeExmp .newOverlayBg {
+    background: #f1f6fb!important;
+    display: table;
+    position: relative;
+    margin: auto;
+    padding: 60px 0;
+    width: 100%;
+    z-index: 9;
+}
+.resumeExmp .modal-dialog {
+    z-index: 1;
+    position: relative;
+    float: left;
+    margin: 0;
+    width: 50%!important;
+}
+.resumeExmp .modal-content {
+    width: 100%!important;
+}
+.resumeExmp .modal-body, .resumeExmp .modal-body img, .resumeExmp .modal-content {
+    width: inherit;
+}
+.resumeExmp .newOverlayBg .modal-header {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.resumeExmp .modal-body {
+    box-shadow: 0 3px 2px rgba(0, 0, 0, .2);
+    min-height: initial;
+}
+.resumeExmp .modal-body img {
+    width: 100%!important;
+}
+#dvRCWidget .intro-load p, #dvRCWidget .resume-check-widget {
+    margin: 0;
+}
+.article .articleTemplate .sidebar {
+    margin-top: 20px;
+}
+.article .articleTemplate .sidebar .list-group, .mb20 {
+    margin-bottom: 20px;
+}
+.article p.btnPad, .btnPad {
+    margin: 5px 0 55px;
+}
+.chefCont {
+    color: #333;
+}
+.chefCont h1 {
+    font-size: 34px;
+    font-weight: 300;
+    color: #333;
+}
+.chefCont .imgCont {
+    margin-bottom: 24px;
+}
+.chefCont .imgCont img {
+    display: block;
+    width: 100%}
+.chefCont .sub-head {
+    font-weight: 300;
+    font-size: 24px;
+    margin: 10px 0 20px;
+}
+.chefCont .sub-head strong, .chefCont p a, .chefCont p strong, .chefTable tr td:first-child {
+    font-weight: 600;
+}
+.chefCont .resThumbWrap {
+    height: 320px;
+}
+.chefTable {
+    margin: 16px 0 20px;
+}
+.chefTable tr td {
+    padding: 13px 15px;
+}
+.chefTable tr:nth-child(2n+1) {
+    background: #f1f6fb;
+}
+.chefOrderList {
+    list-style: decimal inside;
+    padding: 0;
+    margin: 23px 0 28px;
+}
+.linklist {
+    margin-bottom: 20px;
+}
+.isf-ad300 {
+    width: 300px;
+    height: 250px;
+    margin: 0 auto;
+    background: #fff;
+}
+.btn-ad300, .btnisf-ad300 {
+    height: 42px;
+    width: 260px;
+    border-radius: 9px;
+    text-align: center;
+    overflow: hidden;
+}
+.btn-ad300_area, .btn-ad300_areaisf {
+    margin-left: 20px;
+    padding-top: 1px;
+}
+.btn-ad300 {
+    background: url(//www.livecareer.com/images/uploaded/ads/bg.jpg) rgba(0, 0, 0, 0);
+    margin-top: 17px;
+}
+.btn-ad300 p {
+    color: #fff;
+    font-size: 17px;
+    font-weight: 700;
+    margin-top: 7px;
+    text-shadow: 1px 1px #000;
+}
+.btn-ad300:hover {
+    background: url(//www.livecareer.com/images/uploaded/ads/bg-blue.jpg);
+}
+div.isf-ad300 {
+    font-family: arial;
+    font-size: 14px;
+    background: #fff;
+}
+.btn-ad728 p, .btnisf-ad300 p {
+    font-size: 17px;
+    text-shadow: 1px 1px #000;
+    font-weight: 700;
+    color: #fff;
+}
+.btnisf-ad300 {
+    background: url(//www.livecareer.com/images/uploaded/ads/bg.jpg) rgba(0, 0, 0, 0);
+    margin-top: 17px;
+}
+.btnisf-ad300 p {
+    margin-top: 7px;
+}
+.btnisf-ad300:hover {
+    background: url(//www.livecareer.com/images/uploaded/ads/bg-blue.jpg);
+}
+.isf-ad728 {
+    width: 728px;
+    height: 90px;
+    margin: 0 auto;
+    background: #fff;
+}
+.btn_area-ad728 {
+    padding-top: 25px;
+}
+.btn-ad728 {
+    background: url(//www.livecareer.com/images/uploaded/ads/bg.jpg) rgba(0, 0, 0, 0);
+    border-radius: 9px;
+    float: left;
+    height: 60px;
+    overflow: hidden;
+    text-align: center;
+    width: 176px;
+    margin-left: 5px;
+}
+.btn-ad728 p {
+    margin-top: 3px;
+}
+.last-ad728 {
+    padding-top: 7px;
+}
+.btn-ad728:hover {
+    background: url(//www.livecareer.com/images/uploaded/ads/bg-blue.jpg);
+}
+div.isf-ad728 {
+    font-family: arial;
+    font-size: 14px;
+    background: #fff;
+}
+.btn-ad300 a, .btn-ad728 a, .btnisf-ad300 a {
+    font-weight: 700;
+    color: #fff;
+    text-decoration: none;
+}
+.btn-ad300 a:hover, .btn-ad300_areaisf a:hover, .btn-ad728 a:hover, .btnisf-ad300 a:hover, .twoColumn .btn-ad300 a, .twoColumn .btn-ad728 a, .twoColumn .btnisf-ad300 a {
+    text-decoration: none;
+}
+.intvw-ques {
+    font-size: 22px;
+    font-weight: 600;
+    padding: 20px 30px;
+    margin: 30px 0;
+}
+#jobSearchWidget {
+    height: 853px;
+    width: auto;
+}
+.sidebar .adunit {
+    padding-top: 135px;
+}
+.sidebar-icons-list {
+    float: left;
+    margin: 12px 0 0;
+    padding: 0;
+}
+.sidebar-icons-list>li {
+    margin-bottom: 20px;
+    padding: 0;
+}
+.sidebar-icons-list>li>a {
+    background: #f8f8f8;
+    border: 1px solid #e8e8e8;
+    color: #1aa9e4;
+    float: left;
+    line-height: 32px;
+    min-height: 52px;
+    padding: 8px 0;
+    width: 100%}
+.icons-images {
+    background: url(//www.livecareer.com/images/uploaded/icons.png) no-repeat;
+    border-right: 1px solid #e8e8e8;
+    float: left;
+    margin-right: 20px;
+    width: 85px;
+}
+.template-icon {
+    background-position: 28px 0;
+    height: 31px;
+}
+.resume-icon {
+    background-position: 28px -36px;
+    height: 34px;
+}
+.formatting-icon {
+    background-position: 28px -77px;
+    height: 32px;
+}
+.builder-icon {
+    background-position: 28px -110px;
+    height: 28px;
+}
+.contentWrap h2.article-interview, h1.article-interview {
+    color: #F05838;
+}
+.contentWrap h3.article-interview {
+    font-size: 18px;
+    color: #F05838;
+}
+.contentWrap ul.article-interview {
+    margin-bottom: 30px;
+}
+.rsmdivider {
+    border-bottom: 1px solid #bbb;
+    margin: -8px 0 15px 50px;
+    width: 290px;
+}
+.downloadResumeBx {
+    width: 394px;
+    text-align: center;
+    background: #fff;
+}
+.downloadResumeBx .lcrLogo {
+    margin: 45px 0 29px;
+}
+.downloadResumeBx p {
+    font-family: 'Gotham SSm A', 'Gotham SSm B', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #333;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 30px;
+    margin: 0 0 30px;
+}
+.downloadResumeBx span, .downloadResumeBxFtr p {
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.downloadResumeBx input {
+    width: 325px;
+    height: 45px;
+    padding: 12px;
+    margin: 0 0 15px;
+    border: 1px solid #d3d3d3;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+.downloadResumeBx a.downloadResume {
+    width: 324px;
+    height: 45px;
+    background: #f05f4c;
+    margin: 24px 0 10px;
+    border-radius: 3px;
+    text-align: center;
+    line-height: 45px;
+    color: #fff;
+    display: inline-block;
+}
+.downloadResumeBx span {
+    display: block;
+    font-size: 10px;
+    line-height: 30px;
+    color: #333;
+    margin-bottom: 35px;
+}
+.downloadResumeBx span a {
+    text-decoration: underline;
+}
+.downloadResumeBxFtr {
+    height: 58px;
+    line-height: 58px;
+    text-align: center;
+    background: #f9fafe;
+}
+.downloadResumeBxFtr p {
+    margin: 0;
+    padding: 0;
+    font-size: 15px;
+    color: #3c3d3f;
+    line-height: 30px;
+    font-weight: 400;
+}
+.downloadResumeBxFtr p a {
+    color: #1fabe8;
+}
+.downloadResumeBxLoginFtr {
+    height: 70px;
+    margin: 19px 0 0;
+    line-height: 67px;
+}
+.downloadResumeBxLoginFtr a span {
+    display: inline;
+    line-height: 0;
+    margin: 0;
+    color: #fff;
+    font-size: 16px;
+}
+.downloadIconBx {
+    width: 190px;
+    height: 190px;
+    text-align: center;
+    background: #fff;
+    display: none;
+    position: absolute;
+    z-index: 200;
+}
+.downloadIconBx img {
+    margin: 27px 0!important;
+}
+.downloadIconBxFtr {
+    height: 76px;
+    text-align: center;
+    background: #f9fafe;
+}
+.downloadIconBxFtr a {
+    margin: 23px 0 0!important;
+    display: inline-block;
+    line-height: 20px;
+    padding: 0;
+    font-size: 14px;
+    color: #333;
+    vertical-align: middle;
+    font-weight: 400;
+    font-family: 'Gotham SSm A', 'Gotham SSm B', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.blank {
+    margin: 20px;
+}
+.marginBt5 {
+    margin-bottom: 5px!important;
+}
+.marginTp10 {
+    margin-top: 10px!important;
+}
+.marginBt38 {
+    margin-bottom: 38px!important;
+}
+.marginBt25 {
+    margin-bottom: 25px!important;
+}
+.marginBt0 {
+    margin-bottom: 0!important;
+}
+.fontSize14 {
+    font-size: 14px!important;
+}
+.fontSize22 {
+    font-size: 22px!important;
+}
+.close {
+    opacity: 1!important;
+    margin: 15px;
+}
+.resumeDownloadFb, .resumeDownloadGmail {
+    width: 143px;
+    height: 41px;
+    text-align: center;
+    line-height: 41px;
+    color: #fff;
+    display: inline-block;
+    border-radius: 3px;
+    padding: 0 5px;
+}
+.resumeDownloadFb:hover, .resumeDownloadGmail:hover {
+    color: #fff;
+    text-decoration: none;
+}
+.resumeDownloadFb {
+    background: #395797;
+}
+.resumeDownloadGmail {
+    background: #d84a3c;
+}
+#downloadIconBxShadow {
+    top: 0;
+    left: 0;
+    position: absolute;
+    background: rgba(0, 0, 0, .5);
+    z-index: 100;
+}
+.bgLayer, .fixedWrap {
+    position: fixed;
+    top: 0;
+}
+.loackFa {
+    font-size: 30px!important;
+    padding: 40px 0!important;
+}
+#dvchklogin {
+    width: 81%;
+    margin: 0 auto;
+    text-align: left;
+    font-size: 14px;
+    padding-bottom: 27px;
+}
+#dvchklogin input[type=checkbox] {
+    width: 14px;
+    height: 14px;
+    float: left;
+    margin-right: 10px;
+}
+.downloadResumeBx span.fa {
+    display: inline-block;
+    color: #fff;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+}
+.fa-headphones:before {
+    background: url(//www.livecareer.com/images/uploaded/my-account-sprite.png) no-repeat;
+    width: 25px;
+    height: 25px;
+    content: ""!important;
+    display: inline-block;
+    vertical-align: middle;
+}
+.bg-res-example {
+    background: url(//www.livecareer.com/images/uploaded/resume-example-home/res-example-bg-v2.jpg) center center no-repeat #264756;
+    min-height: 645px;
+    padding-top: 170px;
+}
+.bg-res-example-sec {
+    min-height: 100px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.bg-res-example h1 {
+    color: #f3f9ff;
+    font-size: 40px;
+    font-weight: 300;
+    margin: 0 0 20px;
+}
+.bg-res-example p {
+    color: #fff;
+    font-size: 24px;
+    line-height: 29px;
+    margin-bottom: 30px;
+    font-weight: 300;
+}
+.res-build-steps-box {
+    width: 56%;
+    margin: 0 auto;
+}
+.res-build-steps-box div[class*=hiw-text] {
+    color: #3e3e3e;
+    font-weight: 200;
+    text-align: center;
+}
+.res-build-steps-box h2 {
+    font-size: 24px;
+    font-weight: 400;
+    color: #333;
+    margin-bottom: 25px;
+}
+.res-build-steps-box p {
+    color: #3e3e3e;
+    margin-bottom: 20px;
+}
+.res-build-steps-box .resumeLink {
+    margin-top: 35px;
+}
+.hiw-img-wrap {
+    margin: 0 auto;
+    width: 91%}
+.resumeExmp .more-res-txt {
+    width: 51%;
+    margin: 0 auto 25px;
+    text-align: center;
+}
+.only-mob-img {
+    display: none;
+    margin-bottom: 15px;
+}
+.res-sample-hero {
+    padding: 30px 0;
+}
+.res-sample-hero h1 {
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+.bg-res-example .btn-lg, .res-sample-hero .btn-lg {
+    font-size: 20px;
+    font-weight: 300;
+    min-width: 270px;
+    padding: 16px 22px;
+}
+.orange-red-color {
+    color: #f6765e;
+}
+.font-size13 {
+    font-size: 13px;
+}
+.font-weight300 {
+    font-weight: 300;
+}
+.resume-page-cntr {
+    color: #4A4A4A;
+}
+.step-jobwinning-banner p, .table-content-link ul li {
+    color: #5c5c5c;
+}
+.resume-page-cntr h1, .resume-page-cntr h2, .resume-page-cntr h3, .resume-page-cntr h4, .resume-page-cntr h5, .resume-page-cntr h6 {
+    font-weight: 700;
+}
+.step-jobwinning-banner {
+    background: #f8f8fe;
+    padding: 65px 0 60px;
+}
+.step-jobwinning-banner h1 {
+    margin-top: 0;
+    padding: 0;
+    font-size: 44px;
+}
+.step-jobwinning-banner p {
+    margin: 0 0 36px;
+    font-size: 20px;
+}
+.table-content-link {
+    text-align: right;
+}
+.table-content-link ul {
+    background: #fff;
+    padding: 40px 23px;
+    text-align: left;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .5);
+}
+.chooseBtn, .logoImg, .resImg {
+    text-align: center;
+}
+.table-content-link ul li:first-child {
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+.table-content-link ul li {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+.table-content-link ul li a {
+    color: #00b8e9;
+    text-decoration: underline;
+    font-weight: 400;
+}
+.steps-write-resumeskills {
+    padding-top: 60px;
+    padding-bottom: 60px;
+    border-bottom: 1px solid #ccc;
+}
+.steps-write-resumeskills:last-child {
+    border: 0;
+}
+.steps-write-resumeskills h2 {
+    margin-bottom: 30px;
+    margin-top: 0;
+}
+.resume-img-cntr, .steps-write-resumeskills p {
+    margin-bottom: 20px;
+}
+.bullets-list, .resume-page-cntr ol {
+    margin-bottom: 20px;
+    display: inline-block;
+}
+.bullets-list li {
+    padding-left: 10px;
+}
+.bullets-list li:before {
+    content: '\f111';
+    font-family: FontAwesome;
+    float: left;
+    margin-left: -10px;
+    font-size: 5px;
+}
+.resume-img-cntr {
+    float: left;
+    margin-right: 20px;
+}
+.steps-write-resumeskills .btn {
+    margin-top: 10px;
+    font-size: 16px;
+    line-height: 19px;
+    min-width: 260px;
+    padding: 14px 22px;
+    text-transform: uppercase;
+}
+.ordered-list ul, .panel-headng, .panel-sec p, .panel-sec ul:last-child {
+    margin: 0;
+}
+.panel-headng a {
+    background: #4f91b7;
+    padding: 15px 8px 15px 15px;
+    margin: 0;
+    display: block;
+    color: #fff;
+    font-weight: 700;
+    font-size: 16px;
+    text-decoration: none;
+}
+.panel-sec {
+    border-width: 0;
+    border-bottom: 2px solid #5fa4cc;
+    box-shadow: none;
+    border-radius: 0!important;
+}
+.panel-text-cntr {
+    background: #5fa4cc;
+    padding: 20px;
+    color: #fff;
+    font-size: 14px;
+}
+.panel-headng a strong {
+    width: 87%;
+    word-wrap: break-word;
+    display: inline-block;
+}
+.panel-headng a span:before {
+    content: "-";
+    font-size: 30px;
+    line-height: 15px;
+}
+.panel-headng a.collapsed span:before {
+    content: "+";
+    font-size: 30px;
+    line-height: 15px;
+}
+.panel-group .panel+.panel {
+    margin-top: 0;
+}
+.work-histroy-bullets-points {
+    margin: 0 auto;
+    width: 305px;
+}
+.bgLayer, .relWrap {
+    width: 100%;
+    height: 100%}
+.work-histroy-bullets-points .bullets-list {
+    min-width: 140px;
+    display: inline-block;
+    margin-right: 10px;
+}
+.absWrap, .fixedWrap {
+    right: 0;
+    margin: auto;
+    left: 0;
+    bottom: 0;
+}
+#lightBox, #lightBoxLayer {
+    display: none;
+}
+.bgLayer {
+    left: 0;
+    background: #000;
+    opacity: .7;
+    filter: alpha(opacity=70);
+    z-index: 1;
+}
+.fixedWrap {
+    z-index: 9999;
+    overflow: hidden;
+}
+.relWrap {
+    position: relative;
+    z-index: 10;
+}
+.absWrap, .crossBtn {
+    position: absolute;
+    top: 0;
+}
+.absWrap {
+    max-width: 600px;
+    height: 415px;
+    background: #fff;
+    border: 4px transparent;
+    border: 4px solid rgba(0, 155, 223, .5);
+    padding: 44px 100px 47px;
+}
+.contentPart {
+    cursor: pointer;
+}
+.resumeText {
+    font-family: 'Open Sans';
+    font-weight: 300;
+    font-size: 31px;
+    color: #000;
+    line-height: 38px;
+    padding: 15px 0 15px 5px;
+}
+.resImg {
+    padding: 10px 0;
+}
+.chooseBtn {
+    padding: 13px 0;
+}
+.chooseBtn a {
+    background: #e74c39;
+    font-family: 'Gotham SSm A', 'Gotham SSm B', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 75px;
+}
+.chooseBtn a.pd90 {
+    padding: 10px 90px;
+}
+.crossBtn {
+    right: 8px;
+    color: #8D8D8D;
+    cursor: pointer;
+    padding: 0 5px;
+}
+.popUpSprite {
+    background-image: url(https://www.livecareer.com/images/uploaded/lcletter.png);
+    background-repeat: no-repeat;
+    display: inline-block;
+}
+.sprite-livecareer {
+    width: 197px;
+    height: 27px;
+    background-position: -5px -5px;
+}
+.sprite-resume {
+    width: 140px;
+    height: 107px;
+    background-position: -212px -5px;
+}
+.res-tune-up-lc {
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 24px;
+    font-weight: 300;
+    color: #6f6f6f;
+    line-height: 1.42857;
+    padding-top: 96px;
+}
+.res-tune-up-lc h2, h3 {
+    margin: 0;
+}
+.res-tune-up-bnr {
+    background-color: #f9f9f9;
+}
+.ff-gotham {
+    font-family: "Gotham SSm A", "Gotham SSm B", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.res-tune-up-bnr img {
+    width: 100%}
+.bnr-content {
+    padding: 50px 0;
+}
+.res-tune-up-bnr h1 {
+    font-weight: 300;
+    font-size: 40px;
+    color: #000;
+    margin: 0 0 20px;
+}
+.res-tune-up-lc h2 {
+    font-weight: 300;
+    font-size: 36px;
+    color: #000;
+    margin: 0 0 30px;
+}
+.res-tune-up-lc .sub-title {
+    font-size: 24px;
+    font-weight: 300;
+    margin-bottom: 70px;
+    color: #6f6f6f;
+}
+.btn-tuneup-lc {
+    color: #fff;
+    font-size: 22px;
+    line-height: 26px;
+    font-weight: 500;
+    background: #f56523;
+    border: 0;
+    padding: 17px;
+    min-height: 60px;
+    -webkit-box-shadow: 0 0 4px -1px #000;
+    -moz-box-shadow: 0 0 4px -1px #000;
+    box-shadow: 0 0 4px -1px #000;
+}
+.sec-res-tune {
+    padding: 70px 0;
+}
+.list-tune-up {
+    margin: 40px 0 55px;
+    text-align: left;
+}
+.list-tune-up li:before {
+    content: '\f111';
+    font-family: FontAwesome;
+    float: left;
+    margin-left: -15px;
+    font-size: 5px;
+}
+.feat-list-sal-cal ul li, .wrapper-sal-calc {
+    font-family: 'Gotham SSm A', 'Gotham SSm B', 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.list-tune-up li {
+    color: #6f6f6f;
+    line-height: 31px;
+    margin-bottom: 10px;
+}
+.bg-light-gray {
+    background-color: #f9f9f9;
+}
+.res-tune-up-lc .hiw-box .icon {
+    margin-bottom: 30px;
+}
+.res-tune-up-lc .content {
+    font-size: 18px;
+}
+.font-s22 {
+    font-size: 22px;
+}
+.font-w400 {
+    font-weight: 400;
+}
+.pb0 {
+    padding-bottom: 0;
+}
+.mt60 {
+    margin-top: 60px;
+}
+.mb60 {
+    margin-bottom: 60px;
+}
+.bg-white {
+    background: #fff;
+}
+.bg-grey {
+    background: #f5f5f6;
+}
+.sec-cv-temp {
+    padding: 40px 0;
+}
+.hero-cv-temp {
+    background: url(https://www.livecareer.com/images/uploaded/lp/heroshot-cv-template-lp.jpg) center center/cover no-repeat;
+    padding: 105px 0;
+    min-height: 649px;
+    position: relative;
+}
+.overlay-cv-template-bnr {
+    opacity: 0;
+    background-color: #000;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    position: absolute;
+}
+.hero-cv-temp h1 {
+    font-size: 36px;
+    font-weight: 300;
+    color: #333;
+    line-height: 44px;
+}
+.hero-cv-temp .hero-txt {
+    font-size: 24px;
+    font-weight: 200;
+    color: #333;
+    line-height: 31px;
+}
+.brdr-rt {
+    border-right: 1px solid #CCC;
+}
+.cv-search-box {
+    padding: 0 60px;
+}
+.cv-search-box h2 {
+    font-size: 28px;
+    font-weight: 300;
+    margin-bottom: 30px;
+}
+.cv-search-box img {
+    margin-bottom: 30px;
+    display: inline-block;
+}
+.cv-search-box p {
+    font-size: 16px;
+    font-weight: 400;
+    color: #333;
+}
+.cv-search-box .btn-sm {
+    min-width: 260px;
+}
+.popular-cv-template h3, .popular-resume-sample h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+    border-bottom: 2px solid #333;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+.popular-cv-template .listing-jobs li a, .popular-resume-sample ul li a {
+    font-size: 18px;
+    font-weight: 400;
+    color: #333;
+}
+.popular-resume-sample ul li a {
+    color: #666;
+    font-size: 14px;
+}
+.btn-sal-cal {
+    font-size: 20px;
+    font-weight: 500;
+    background: #f2582f;
+    height: 53px;
+    line-height: 53px;
+    min-height: auto;
+    padding: 0;
+    min-width: 354px;
+}
+.icon-bnr-list-01, .icon-bnr-list-02, .icon-bnr-list-03, .icon-bnr-list-04 {
+    height: 35px;
+    position: absolute;
+}
+.bg-light-blue {
+    background-color: #f1f6fb;
+}
+.wrapper-sal-calc {
+    line-height: 1.42857;
+}
+.hero-shot-sal-cal {
+    font-size: 22px;
+    color: #FFF;
+    background: url(https://www.livecareer.com/images/uploaded/lca/sal/banner-salary-calulator-lp.png) top center no-repeat #333;
+    background-size: cover;
+    padding: 75px 0 100px;
+}
+.hero-shot-sal-cal h2 {
+    font-size: 44px;
+    color: #FFF;
+    margin-bottom: 30px;
+}
+.hero-shot-sal-cal h3 {
+    font-size: 54px;
+    color: #FFF;
+    font-weight: 500;
+    margin-bottom: 50px;
+}
+.feat-list-sal-cal h3 {
+    font-size: 30px;
+    color: #FFF;
+    font-weight: 500;
+    margin-bottom: 30px;
+}
+.feat-list-sal-cal {
+    padding-top: 35px;
+}
+.feat-list-sal-cal ul {
+    margin-bottom: 40px;
+}
+.feat-list-sal-cal ul li {
+    font-size: 22px;
+    font-weight: 500;
+    color: #FFF;
+    margin-bottom: 25px;
+    position: relative;
+    padding-left: 50px;
+}
+.resume-links li a, .resume-sample-text {
+    font-family: 'Open Sans', sans-serif;
+}
+.feat-icon-01, .feat-icon-02, .feat-icon-03, .icon-bnr-list-01, .icon-bnr-list-02, .icon-bnr-list-03, .icon-bnr-list-04 {
+    background: url(https://www.livecareer.com/images/uploaded/lca/sal/icon-salary-caluclator-lp.png) no-repeat;
+    display: inline-block;
+    vertical-align: middle;
+}
+.icon-bnr-list-01 {
+    background-position: 0 0;
+    width: 35px;
+    left: 0;
+}
+.icon-bnr-list-02 {
+    background-position: 0 -51px;
+    width: 35px;
+    left: 0;
+}
+.icon-bnr-list-03 {
+    background-position: 0 -102px;
+    width: 35px;
+    left: 0;
+}
+.icon-bnr-list-04 {
+    background-position: 0 -157px;
+    width: 35px;
+    left: 0;
+}
+.sal-cal-form {
+    padding: 25px 30px 35px;
+    background-color: #f2f2f2;
+}
+.sal-cal-form label {
+    color: #4a4a4a;
+    font-size: 12px;
+    font-weight: 400;
+    text-transform: uppercase;
+    margin-bottom: 0;
+}
+.sal-cal-form .form-control {
+    height: 35px;
+    background-color: #FFF;
+    border: 1px solid #FFF;
+    border-radius: 4px;
+    box-shadow: 0 0 4px rgba(188, 188, 188, .5);
+    -moz-box-shadow: 0 0 4px rgba(188, 188, 188, .5);
+    -webkit-box-shadow: 0 0 4px rgba(188, 188, 188, .5);
+}
+.sal-cal-form select.form-control {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: url(https://www.livecareer.com/images/uploaded/lca/sal/select-arrow-sc.png) 96% center no-repeat #FFF;
+}
+.sal-cal-form .form-group {
+    margin-bottom: 5px;
+}
+.js-toggle-city-link, .js-toggle-zip-link {
+    font-size: 11px;
+    text-decoration: underline;
+    color: #4a4a4a;
+    padding-top: 5px;
+}
+.suggestList {
+    background-color: #fff;
+    border: 1px solid #4a4a4a;
+    border-radius: 5px;
+    position: absolute;
+    box-shadow: 0 0 4px rgba(188, 188, 188, .5);
+    width: 100%;
+    margin: 0;
+    top: 60px;
+    max-height: 180px;
+    overflow-y: auto;
+    color: #000;
+    font-size: 13px;
+}
+.suggestList li {
+    margin-bottom: 1px;
+    padding: 4px 10px;
+    cursor: pointer;
+    line-height: 25px;
+}
+.section-sal-cal {
+    padding: 70px 0;
+}
+.feature-sc p {
+    color: #6f6f6f;
+    font-weight: 300;
+    font-size: 22px;
+}
+.feature-sc span {
+    margin-bottom: 35px;
+}
+.feat-icon-01 {
+    width: 84px;
+    height: 84px;
+    background-position: -43px 0;
+}
+.feat-icon-02 {
+    width: 85px;
+    height: 84px;
+    background-position: -130px 0;
+}
+.feat-icon-03 {
+    width: 85px;
+    height: 84px;
+    background-position: -37px -86px;
+}
+.section-sal-graphs h2 {
+    font-size: 36px;
+    color: #6f6f6f;
+    font-weight: 300;
+    margin-bottom: 30px;
+}
+.section-sal-graphs p {
+    font-size: 20px;
+    font-weight: 300;
+}
+.section-sal-graphs .img-graph {
+    display: inline-block;
+    margin: 45px 0;
+}
+.customer-review-cntr p em, .divider {
+    display: block;
+}
+.divider {
+    height: 1px;
+    margin: 60px auto;
+    width: 100%;
+    background-color: #979797;
+}
+.cust-rev-box {
+    padding: 40px 50px 25px 80px;
+    margin-bottom: 55px;
+    background-color: #FFF;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .35);
+    -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, .35);
+    -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, .35);
+    position: relative;
+}
+.cust-rev-box p {
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-style: italic;
+}
+.cust-rev-box .cust-name {
+    font-size: 18px;
+    font-weight: 500;
+    color: #f99800;
+}
+.section-cust-rev h2 {
+    font-size: 46px;
+    font-weight: 300;
+    color: #6f6f6f;
+    margin-bottom: 60px;
+}
+.img-circle {
+    position: absolute;
+    top: 22%;
+    left: -85px;
+}
+.review2 .img-circle {
+    top: 15%}
+.hero-res-template {
+    background: url(https://www.livecareer.com/images/uploaded/lp/heroshot-lp-ops-9618.jpg) center center no-repeat;
+    background-size: cover;
+    min-height: 642px;
+    padding: 120px 0;
+}
+.hero-res-template h1 {
+    font-size: 36px;
+    color: #333;
+    font-weight: 300;
+    margin: 0;
+}
+.hero-res-template .hero-txt {
+    color: #333;
+    font-size: 24px;
+    font-weight: 200;
+    line-height: 31px;
+    margin: 20px 0 0;
+}
+.resume-sample-widget {
+    text-align: center;
+    position: relative;
+}
+.border-right::after {
+    content: '';
+    position: absolute;
+    top: 79px;
+    right: 0;
+    width: 1px;
+    bottom: 0;
+    background: #ddd;
+}
+.resume-sample-text {
+    margin-top: 30px;
+    color: #333;
+    font-size: 16px;
+    padding: 0 24px;
+    line-height: 26px;
+    min-height: 220px;
+}
+.resume-links {
+    list-style: none;
+    padding: 0;
+}
+.resume-links li a {
+    color: #333;
+    font-size: 18px;
+    font-weight: 400;
+}
+.hero-banner-cntr h4, .lc-resume-advice, .resume-cntr h3, resume-cntr h4 {
+    font-family: "Open Sans", Helvetica, Arial, sans-serif;
+}
+.custom-offset a {
+    margin-left: 10%}
+.resume-samples {
+    padding: 45px 0;
+}
+.popular-resume-heading {
+    color: #333;
+    margin: 0 0 10px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: normal;
+    border-bottom: 2px solid #333;
+    padding: 0 0 5px;
+}
+.popular-links {
+    list-style: none;
+    padding-left: 0;
+}
+.popular-links li a {
+    font-size: 12px;
+    color: #666;
+    font-weight: 400;
+}
+.resume-types .btn-sm {
+    min-width: 260px;
+}
+.ptb45 {
+    padding-top: 45px;
+    padding-bottom: 45px;
+}
+.mtb20 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.mb25 {
+    margin-bottom: 25px;
+}
+.mt30 {
+    margin-top: 30px;
+}
+.mt40 {
+    margin-top: 40px;
+}
+.font42 {
+    font-size: 42px;
+}
+.font52 {
+    font-size: 52px;
+}
+.font62 {
+    font-size: 62px;
+}
+.bg-light-grey {
+    background-color: rgba(215, 215, 215, .6);
+}
+img {
+    height: auto;
+}
+.lc-resume-advice {
+    background-color: #fff;
+    letter-spacing: .59px;
+}
+.lc-resume-advice .btn-lg {
+    font-size: 16px;
+    min-width: 230px;
+}
+.lc-resume-advice h1, .lc-resume-advice h2, .lc-resume-advice h3, .lc-resume-advice h4 {
+    margin: 0;
+}
+.target-ratio-resize {
+    height: 760px;
+    background: url(https://www.livecareer.com/images/uploaded/lca/OPS-9933/hero-banner-big.jpg) center bottom no-repeat #F1F3F5;
+    background-size: auto 100%;
+    margin: 0 auto;
+    padding-top: 57px;
+}
+.hero-banner-cntr {
+    color: #000;
+}
+.hero-banner-cntr h4 {
+    margin: 22px 0 18px;
+}
+.hero-banner-cntr h4 span {
+    text-decoration: line-through;
+}
+.lc-resume-advice h2 {
+    font-size: 30px;
+    line-height: 32px;
+    font-weight: 200;
+}
+.lc-resume-advice .btn-lg, .lc-resume-advice h2 {
+    font-family: 'Gotham SSm A', 'Gotham SSm B', Helvetica, Arial, sans-serif;
+}
+.lc-resume-advice h3 {
+    font-size: 25px;
+    line-height: 27px;
+    font-weight: 600;
+}
+.optSampleLinks h2, .optScrlTop, .resume-example-header h2 {
+    font-weight: 400;
+    text-align: center;
+}
+.lc-resume-advice h4 {
+    font-size: 20px;
+    line-height: 22px;
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.resume-review-list p {
+    margin-bottom: 60px;
+}
+.resume-cntr .fa {
+    color: #ff9f19;
+    margin-bottom: 15px;
+}
+.customer-review-cntr .fa-quote-left {
+    color: #57b2a8;
+}
+.bg-color-grey-01 {
+    background-color: #f9f9f9;
+}
+.stickyElm {
+    position: fixed;
+    top: 0;
+}
+.resume-example-header {
+    background-color: #ecf3f7;
+    padding: 40px 0;
+}
+.resume-example-header h2 {
+    margin-bottom: 25px;
+    font-size: 24px;
+    color: #333;
+}
+.resume-example-header .contentWrap {
+    padding: 0;
+}
+.resume-example-header p {
+    font-size: 16px;
+    color: #333;
+    text-align: center;
+    padding: 0 100px;
+    margin: 0;
+}
+.padding45-tp-bt {
+    padding-bottom: 45px;
+    padding-top: 45px;
+}
+.pad-top-30 {
+    padding-top: 30px;
+}
+.pad-btm-30 {
+    padding-bottom: 30px;
+}
+.occupation-scrollFy-list ul {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+.occupation-scrollFy-list li {
+    line-height: 30px;
+    padding: 5px 0;
+}
+.js-scrollfy-bottom a, .occupation-scrollFy-list li a {
+    font-size: 14px;
+    font-family: 'Gotham SSm A', 'Gotham SSm B', 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+    color: #333;
+    position: relative;
+}
+.js-scrollfy-bottom a:hover, .occupation-scrollFy-list li a:hover {
+    color: #f15f4c;
+    text-decoration: none;
+}
+.js-scrollfy-bottom a:hover:before, .occupation-scrollFy-list li a:hover:before {
+    border-left-color: #f15f4c;
+}
+.js-scrollfy-bottom a:before, .occupation-scrollFy-list li a:before {
+    content: '';
+    display: inline-block;
+    border-left: 5px solid #fff;
+    position: absolute;
+    padding-top: 20px;
+    left: -10px;
+    top: -3px;
+}
+.js-scrollfy-bottom a.active, .occupation-scrollFy-list li a.active {
+    color: #f15f4c;
+    font-size: 16px;
+}
+.js-scrollfy-bottom a.active:before, .occupation-scrollFy-list li a.active:before {
+    border-left: 5px solid #f15f4c;
+}
+.js-scrollfy-bottom {
+    float: left;
+}
+.occupation-scrollFy .optThumbIcon {
+    display: block;
+    margin-bottom: 30px;
+    height: auto;
+    width: auto;
+}
+.occupation-scrollFy .optThumbIcon img {
+    width: 100%;
+    margin: 0;
+}
+.occupation-scrollFy .optThumbIcon .hoverBox {
+    height: 100%;
+    width: 100%}
+.occupation-scrollFy-list {
+    float: left;
+    width: 310px;
+}
+.js-scrollfy-bottom a {
+    padding: 5px 0;
+    display: block;
+    line-height: 30px;
+}
+.js-scrollfy-bottom a:before {
+    top: 9px;
+}
+.occupation-scrollFy h2 {
+    font-size: 24px;
+    border-bottom: 1px solid #ccc;
+    padding: 15px 0;
+    margin: 0;
+}
+.optJobCatgry {
+    margin-top: 38px;
+    margin-bottom: 77px;
+}
+.occupation-scrollFy-data p {
+    font-size: 14px;
+    color: #333;
+    line-height: 25px;
+}
+.small-visible {
+    display: none;
+}
+.inline-block {
+    display: inline-block;
+}
+.first-show {
+    display: block!important;
+}
+.occupation-scrollFy h2 span, .optSampleLinks .sample-table-list li strong, .optScrlTop {
+    display: none;
+}
+.bgWhite {
+    background: #fff;
+}
+.optScrlTop {
+    z-index: 999;
+    width: 50px;
+    height: 50px;
+    border-radius: 3px;
+    background: #a7a7a7;
+    font-size: 12px;
+    color: #fff;
+    position: fixed;
+    right: 2%;
+    bottom: 2%;
+    cursor: pointer;
+}
+.optScrlTop div {
+    font-size: 30px;
+}
+.optScrlTop span {
+    position: relative;
+    bottom: 7px;
+    text-transform: uppercase;
+}
+.optSampleLinks {
+    padding: 25px 0;
+    background: rgba(236, 243, 247, .5);
+}
+.optSampleLinks h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+.optSampleLinks .sample-table-list {
+    list-style-type: inherit;
+    padding: 0 40px;
+}
+.optSampleLinks .sample-table-list li {
+    line-height: 32px;
+}
+/* EDITOR PROPERTIES - PLEASE DON'T DELETE THIS LINE TO AVOID DUPLICATE PROPERTIES *//* EDITOR PROPERTIES - PLEASE DON'T DELETE THIS LINE TO AVOID DUPLICATE PROPERTIES *//* EDITOR PROPERTIES - PLEASE DON'T DELETE THIS LINE TO AVOID DUPLICATE PROPERTIES */
