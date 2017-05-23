@@ -91,12 +91,12 @@ social:
     desc: Fork me on GitHub
     share: false
 
-  - name: LinkedIn
-    icon: linkedin
-    username: Hang Hu
-    url: https://www.linkedin.com/in/hang-hu-112a1477/
-    desc: Connect with me on LinkedIn
-    share: true
+#  - name: LinkedIn
+#    icon: linkedin
+#    username: 
+#    url: 
+#    desc: Connect with me on LinkedIn
+#    share: true
 
   - name: Google+
     icon: google-plus
