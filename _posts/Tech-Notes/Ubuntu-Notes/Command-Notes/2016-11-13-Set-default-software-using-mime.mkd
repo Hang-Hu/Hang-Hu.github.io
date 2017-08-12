@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: ubuntu
+categories: command
 tags: Ubuntu Command 
 cover: 
 ---
@@ -17,4 +17,5 @@ right click the file, choose `properties`, click `open with`, choose a software 
 ```
 vim ~/.config/mimeapps.list
 ```
+
 Edit it to override system settings

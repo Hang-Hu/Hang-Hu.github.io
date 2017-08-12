@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: maven
 tags: Java Maven 
 cover: 
 ---
@@ -28,7 +28,9 @@ artifactId: ProcessMKD
 version: 1.0-SNAPSHOT
 package: com.huhang.process
 ```
+
 ## Open with idea:
+
 
 ```
 cd ProcessMKD/

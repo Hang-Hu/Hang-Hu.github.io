@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: intellij
 tags: Java Java-IDE Intellij 
 cover: 
 ---

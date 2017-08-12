@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: hibernate
 tags: Java Hibernate 
 cover: 
 ---
@@ -9,6 +9,7 @@ cover:
 ## Reason
 
 Hibernate mapping in `StudentEntity.hbm.xml` for `projectStudentByUser` is `set` while it's a List in `StudentEntity` class.
+
 ```
 <set name="projectStudentsByUser" inverse="true">
     <key>
@@ -17,12 +18,15 @@ Hibernate mapping in `StudentEntity.hbm.xml` for `projectStudentByUser` is `set`
     <one-to-many not-found="ignore" class="com.general.dao.entity.ProjectStudentEntity"/>
 </set>
 ```
+
 ```
 private List<ProjectStudentEntity> projectStudentsByUser;
 ```
+
 ## Solution
 
 Change List to Set in `StudentEntity` class.
+
 ```
 private Set<ProjectStudentEntity> projectStudentsByUser;
 ```

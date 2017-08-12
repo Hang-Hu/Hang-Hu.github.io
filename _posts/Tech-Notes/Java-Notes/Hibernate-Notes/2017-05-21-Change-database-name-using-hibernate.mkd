@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: hibernate
 tags: Java Hibernate 
 cover: 
 ---
@@ -16,11 +16,13 @@ database.jdbcUrl=jdbc:mysql://111.28.163.139/ECollaborationWeb
 database.user=root
 database.password=123
 ```
+
 ## 2. Database in the right->setting
 
 ## 3. *.hbm.xml
 
 `schema="ECollaborationWeb"` is the name of database.
+
 ```
 <class name="com.general.dao.entity.AccessEntity" table="Access" schema="ECollaborationWeb">
 ```

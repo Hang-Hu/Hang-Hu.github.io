@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: ubuntu
+categories: command
 tags: Ubuntu Command 
 cover: 
 ---
@@ -9,4 +9,5 @@ cover:
 ```
 cd /etc/apt/sources.list.d
 ```
+
 remove any ppa you don't want.

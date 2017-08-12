@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: springmvc
 tags: Java Spring-Framework SpringMVC 
 cover: 
 ---
@@ -14,37 +14,47 @@ However, I set DispatcherServlet to handle all request using `/*`, which also ca
 ## Solution1
 
 Change `/*` to `/`, so it handles request after JSP servlet catches its jsp request.
+
 ```
 <servlet-mapping>
 	<servlet-name>springmvc</servlet-name>
 	<url-pattern>/</url-pattern>
 </servlet-mapping>
 ```
+
 However, in this way interceptor in SpringMVC can't intercept request to jsp files and add header to response.
+
 ## Solution2
 
 Use `default-servlet-handler` to handle jsp request catched by DispatcherServlet.
+
 ```
 <mvc:default-servlet-handler/>
 ```
+
 ## More
 
 ### Use JSP servlet to handle html
 
 Add this in `web.xml`
+
 ```
 <servlet-mapping>
     <servlet-name>jsp</servlet-name>
     <url-pattern>*.html</url-pattern>
 </servlet-mapping>
 ```
+
 ### Use DispatcherServlet to handle static resources like images, css, js, html.  
 
 springmvc-servlet.xml
+
 ```
  <mvc:resources mapping="/static/**" location="/WEB-INF/static/" />
 ```
+
 demo.html
+
 ```
 <h1>Page with image</h1>
 <img src="/static/img/image.jpg"/>

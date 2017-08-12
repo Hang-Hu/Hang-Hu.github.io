@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: ubuntu
+categories: application
 tags: Ubuntu Application 
 cover: 
 ---
@@ -18,11 +18,14 @@ In order to make other files and directories to be synced, use soft link.
 ln -s /home/joanna/Music/Music/Animation/hunter02.mp3 /home/joanna/Dropbox/hunter.mp3
 ```
 
+
 ```
 ln -s /home/joanna/Documents/keyword/keyword.kdbx /home/joanna/Dropbox/keyword.kdbx
 ```
 
+
 ### Directory
+
 
 ```
 ln -s /path/to/folder/name_desired_folder/ ~/Dropbox/desired-folder

@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: servlet-jsp
 tags: Java JEE Servlet-JSP 
 cover: 
 ---
@@ -9,17 +9,22 @@ cover:
 #### servlet
 
 Instanciate a servlet based on a servlet class and give this servlet instance a name.
+
 ```
   <servlet>
   	<servlet-name>servletDemo1</servlet-name>
   	<servlet-class>com.huhang.servlet.ServletDemo1</servlet-class>
   </servlet>
 ```
+
 ##### load-on-startup
 
 Let servlet load on Tomcat startup instead of waiting someone to access its page to use it.
+
 That makes the first request faster.
+
 Smaller the number is, higher the priority this servlet is.
+
 ```
   <servlet>
   	<servlet-name>servletDemo1</servlet-name>
@@ -27,18 +32,22 @@ Smaller the number is, higher the priority this servlet is.
     <load-on-startup>2</load-on-startup>
   </servlet>
 ```
+
 #### servlet-mapping
 
 Map a servlet instance(according to its name) and a url.
+
 ```
   <servlet-mapping>
   	<servlet-name>servletDemo1</servlet-name>
   	<url-pattern>/demo1</url-pattern>
   </servlet-mapping>
 ```
+
 #### multiple mapping    
 
 Map one servlet to two url.
+
 ```
   <servlet-mapping>
     <servlet-name>servletDemo4</servlet-name>

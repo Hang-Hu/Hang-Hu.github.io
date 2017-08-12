@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: struts
 tags: Java Struts 
 cover: 
 ---

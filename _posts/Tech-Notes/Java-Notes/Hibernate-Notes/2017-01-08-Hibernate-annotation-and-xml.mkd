@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: hibernate
 tags: Java Hibernate 
 cover: 
 ---
@@ -9,6 +9,7 @@ cover:
 ## Annotation
 
 `Employee.java`
+
 ```
 @Entity
 @Table(name = "Employees")
@@ -25,11 +26,15 @@ public class Employee implements Serializable {
     //getters and setters
 }
 ```
+
 `springmvc-servlet.xml`
+
 ```
 <property name="packagesToScan" value="com.huhang.entity"/>
 ```
+
 `pom.xml`
+
 ```
 <resources>
     <resource>
@@ -37,9 +42,11 @@ public class Employee implements Serializable {
     </resource>
 </resources>
 ```
+
 ## XML
 
 `Employee.java`
+
 ```
 public class Employee implements Serializable{
     private long id;
@@ -49,7 +56,9 @@ public class Employee implements Serializable{
     //getters and setters
 }
 ```
+
 `Employee.hbm.xml`
+
 ```
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE hibernate-mapping PUBLIC
@@ -66,7 +75,9 @@ public class Employee implements Serializable{
     </class>
 </hibernate-mapping>
 ```
+
 `springmvc-servlet.xml`
+
 ```
 <property name="packagesToScan" value="com.huhang.entity"/>
 <property name="mappingLocations">
@@ -75,7 +86,9 @@ public class Employee implements Serializable{
     </list>
 </property>
 ```
+
 `pom.xml`
+
 ```
 <resources>
     <resource>

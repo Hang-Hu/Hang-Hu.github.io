@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: jackson
 tags: Java Java-Library Jackson 
 cover: 
 ---

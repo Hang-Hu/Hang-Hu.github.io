@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: ubuntu
+categories: command
 tags: Ubuntu Command 
 cover: 
 ---
@@ -11,10 +11,13 @@ cover:
 ```
 grep -rl ".metadata" ./
 ```
+
 ## Print the line which matches
 
 ```
 grep -r ".metadata" ./
 ```
+
 -r means recursively  
+
 -l means --files-with-matches 

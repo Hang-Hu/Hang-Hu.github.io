@@ -7,10 +7,13 @@ cover:
 ---
 
 Default character_set and collation is latin.
+
 ```
 vim /etc/mysql/mysql.conf.d/mysqld.cnf
 ```
+
 Add this
+
 ```
 ## For utf8
 
@@ -22,4 +25,5 @@ collation-server=utf8_general_ci
 
 init-connect='SET NAMES utf8'
 ```
+
 Then I get both server and database's latin changed to utf8.

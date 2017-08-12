@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: spring
 tags: Java Spring-Framework Spring 
 cover: 
 ---
@@ -9,9 +9,11 @@ cover:
 ## Reason
 
 `DriverManagerDataSource` indirectly implements `DataSource` in sql instead of `activiation`, my import of `activiation` makes it fails to find the right bean.
+
 ```
 import javax.activation.DataSource;
 ```
+
 ```
 public class AppConfig {
     @Bean(name="dataSource",autowire = Autowire.BY_TYPE)
@@ -26,9 +28,11 @@ public class AppConfig {
     //......
 }
 ```
+
 ## Solution
 
 Change `activation` to:
+
 ```
 import javax.sql.DataSource;
 ```

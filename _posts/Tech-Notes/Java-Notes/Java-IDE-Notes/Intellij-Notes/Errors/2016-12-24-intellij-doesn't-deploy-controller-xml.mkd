@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: intellij
 tags: Java Java-IDE Intellij 
 cover: 
 ---
@@ -15,6 +15,7 @@ move it to `src/main/resources`.
 ## Solution2
 
 Add this code to maven.
+
 ```
 <build>  
     <resources>  

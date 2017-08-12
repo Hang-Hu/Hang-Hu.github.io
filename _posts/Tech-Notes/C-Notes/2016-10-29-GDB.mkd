@@ -11,59 +11,84 @@ cover:
 ```
 x -0xc+$ebp
 ```
+
 ```
 i r
 info registers
 ```
+
 `stepi`:Execute one machine instruction, then stop and return to the debugger.
+
 It is often useful to do `display/i $pc` when stepping by machine instructions. This makes gdb automatically display the next instruction to be executed, each time your program stops.
+
 
 `finish`:Continue running until just after function in the selected stack frame returns. Print the returned value (if any). This command can be abbreviated as fin.
 
+
 Check what the array in this addr contains:
+
 ```
 x/6wd 0x804a5c0
 ```
+
 Check -0xc(%ebp)
+
 ```
 x/6wd $ebp-0xc
 ```
+
 Get address instead of decimals or strings:
+
 ```
 (gdb) x/w 0x804a728
 0x804a728 <n1+8>:	134522632
 ```
+
 Check 24 bit upward from 0x804a66c
+
 ```
 x/24 0x804a66c
 ```
+
 Check 40 bit upward from esp to ebp(if `sub $0x28,%esp`)
+
 ```
 x/40 $esp
 ```
+
 d is decimal:
+
 ```
 (gdb) x/6wd $ebp-0xc
 0xffffc8bc:	8	134523280	1	-14088
 0xffffc8cc:	134515491	134523280
 ```
+
 While x is hexdecimal:
+
 ```
 (gdb) x/6wx $ebp-0xc
 0xffffc8bc:	0x00000008	0x0804a990	0x00000001	0xffffc8f8
 0xffffc8cc:	0x08048b23	0x0804a990
 ```
+
 For strings: `x/s address`. So if I think there is a string at the address 0x476890 then I can specify that as the address parameter to x/s. The /s tells examine to print what it finds out as a string.  
+
 For hex: `x/x address`. Same as above except it will print out whatever is at the specified address in hex.  
+
 For words: `x/w address`. This is the same as /x except it shows you a word of memory.  
+
 For decimal: `x/d address`. This works the same as the prior two commands except that it prints out the value in memory in decimal.  
+
 NOTE: you can specify a number before the command to say you want to see a certain number of the things you're looking for. For example if I want to see 32 bytes with the hex command I use x/32x. Or if I want to see two strings I use x/2s. This is very useful.    
+
 #### Break at address
 
 ```
 (gdb) b *0x8048f67
 Breakpoint 1 at 0x8048f67
 ```
+
 #### Clear breakpoint
 
 ```

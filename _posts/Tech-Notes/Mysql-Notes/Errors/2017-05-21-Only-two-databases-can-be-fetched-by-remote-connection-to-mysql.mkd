@@ -16,6 +16,7 @@ Privileges to root for remote connection of those databases haven't been granted
 
 Grant privileges to root for remote connection of all databases' all tables.
 First * means all databases, second means all tables, and % means remote.
+
 ```
 mysql> grant all privileges on *.* to 'root'@'%' identified by '123';
 ```

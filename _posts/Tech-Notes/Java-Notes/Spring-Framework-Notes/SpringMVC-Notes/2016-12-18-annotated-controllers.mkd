@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: springmvc
 tags: Java Spring-Framework SpringMVC 
 cover: 
 ---
@@ -16,12 +16,15 @@ cover:
 <!-- HandlerAdapter -->
 <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter"></bean>
 ```
+
 ## <mvc:annotation-driven />
 
 Build RequestMappingHandlerMapping and RequestMappingHandlerAdapter on default, provide json support.
+
 ## RequestMapping
 
 Use `/user/save` to access save method in `UserController`.
+
 ```
 @RequestMapping（”/user”）
 UserController｛
@@ -40,6 +43,7 @@ ItemsController｛
 
     ｝
 ```
+
 ## pom.xml
 
 ```

@@ -1,19 +1,23 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: eclipse
 tags: Java Java-IDE Eclipse 
 cover: 
 ---
 
 Console in eclipse and tomcat logs both give such error information: 
+
 ```
 java.lang.NullPointerException  
 ```
+
 ## Reason
 
 url in url-pattern is `/ServletConfigDemo1`  
+
 Uppercase in initial character causes it.
+
 
 ## Solution
 

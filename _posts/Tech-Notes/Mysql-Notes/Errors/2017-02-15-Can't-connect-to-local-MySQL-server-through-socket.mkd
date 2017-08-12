@@ -12,6 +12,7 @@ MySQL is not running.
 ## Solution
 
 Start mysql service will solve it.
+
 ```
 service mysqld start
 ```

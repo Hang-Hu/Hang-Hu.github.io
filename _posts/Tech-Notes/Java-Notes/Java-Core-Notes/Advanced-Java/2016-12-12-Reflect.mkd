@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: java-core
 tags: Java Java-Core 
 cover: 
 ---
@@ -17,7 +17,9 @@ cover:
 Method method = clazz.getMethod("methodName", String.class);
 Object o = method.invoke(null, "whatever");
 ```
+
 In case the method is private use `getDeclaredMethod()` instead of getMethod(). And call `setAccessible(true)` on the method object.
+
 ### Invoke with a no-arg method
 
 ```

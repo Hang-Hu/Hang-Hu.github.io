@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: java-core
 tags: Java Java-Core 
 cover: 
 ---
@@ -29,9 +29,11 @@ private String invokeActionClassMethod(Action matchedAction,HttpServletRequest r
 	return resultString;
 }
 ```
+
 ## Improvement
 
 SimpleController-7-DI
+
 ```
 private Object contructObjectByReflection(String className) {
     Object obj=null;
@@ -48,6 +50,7 @@ private Object contructObjectByReflection(String className) {
     return obj;
 }
 ```
+
 ```
 /**
  *
@@ -67,6 +70,7 @@ private void setPropertyByReflection(Object object, String propertyName, UserBea
     }
 }
 ```
+
 ```
 private String invokeMethodByReflection(Object obj, String methodName,
                                     HttpServletRequest request, HttpServletResponse response){

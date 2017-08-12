@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: springmvc
 tags: Java Spring-Framework SpringMVC 
 cover: 
 ---
@@ -12,10 +12,13 @@ cover:
 public class AuthInterceptor implements HandlerInterceptor{
 }
 ```
+
 ## PreHandle
 
 Called before the handler execution, returns a boolean value, “true” : continue the handler execution chain; “false”, stop the execution chain and return it.
+
 >Add auth verification.
+
 ```
 @Override
 public boolean preHandle(javax.servlet.http.HttpServletRequest httpServletRequest, javax.servlet.http.HttpServletResponse httpServletResponse, Object o) throws Exception {
@@ -23,20 +26,26 @@ public boolean preHandle(javax.servlet.http.HttpServletRequest httpServletReques
     return true;
 }
 ```
+
 ## PostHandle
 
 Called after the handler execution, allow manipulate the ModelAndView object before render it to view page.
+
 >Add template engine processing work here if json is not used. 
+
 ```
 @Override
 public void postHandle(javax.servlet.http.HttpServletRequest httpServletRequest, javax.servlet.http.HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
     System.out.println("postHandle");
 }
 ```
+
 ## afterCompletion
 
 Called after the complete request has finished. Seldom use, cant find any use case.
+
 >Add CROS allow header.
+
 ```
 @Override
 public void afterCompletion(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response, Object o, Exception e) throws Exception {

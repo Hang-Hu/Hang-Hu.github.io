@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: ubuntu
+categories: command
 tags: Ubuntu Command 
 cover: 
 ---
@@ -11,6 +11,7 @@ cover:
 ```
 tr -c '[:alnum:]' '[\n*]' < test.txt | sort | uniq -c | sort -nr | head  -10
 ```
+
 
 ## Reference
 

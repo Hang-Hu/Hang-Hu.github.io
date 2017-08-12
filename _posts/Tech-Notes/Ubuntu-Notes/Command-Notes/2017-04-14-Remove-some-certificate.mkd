@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: ubuntu
+categories: command
 tags: Ubuntu Command 
 cover: 
 ---
@@ -9,11 +9,15 @@ cover:
 ```
 sudo vim /etc/ca-certificates.conf
 ```
+
 Add `!` to those you don't want
+
 ```
 sudo update-ca-certificates 
 ```
+
 Result:
+
 ```
 Updating certificates in /etc/ssl/certs...
 WARNING: Skipping duplicate certificate Go_Daddy_Class_2_CA.pem

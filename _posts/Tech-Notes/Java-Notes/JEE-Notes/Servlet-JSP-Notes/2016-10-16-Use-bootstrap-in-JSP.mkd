@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: servlet-jsp
 tags: Java JEE Servlet-JSP 
 cover: 
 ---
@@ -13,6 +13,7 @@ cover:
 5.Create include.jsp and other files include it to use bootstrap and jquery
 
 include.jsp
+
 ```
 <!DOCTYPE html>
 <html>
@@ -35,7 +36,9 @@ include.jsp
 </body>
 </html>
 ```
+
 register.jsp
+
 ```
 <!DOCTYPE html>
 <html>

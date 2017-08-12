@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: ubuntu
+categories: vpn
 tags: Ubuntu Vpn 
 cover: 
 ---
@@ -11,15 +11,20 @@ cover:
 ```
 sudo vim /etc/default/openvpn
 ```
+
 Change from `OPTARGS=""` to `OPTARGS="--log /var/log/openvpn.log"`
 
+
 ## Enable config
+
 
 ```
 sudo systemctl daemon-reload
 ```
 
+
 ## Log
+
 
 ```
 tail -f /var/log/openvpn.log

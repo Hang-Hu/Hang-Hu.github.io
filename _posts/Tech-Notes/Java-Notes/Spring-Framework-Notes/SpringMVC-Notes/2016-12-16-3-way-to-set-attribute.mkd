@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: springmvc
 tags: Java Spring-Framework SpringMVC 
 cover: 
 ---
@@ -11,6 +11,7 @@ mv.addObject("user", user);
 request.setAttribute("user", "Welcome!");
 mv.addObject("user", "Tom");
 ```
+
 ```
 <h1>
 <%

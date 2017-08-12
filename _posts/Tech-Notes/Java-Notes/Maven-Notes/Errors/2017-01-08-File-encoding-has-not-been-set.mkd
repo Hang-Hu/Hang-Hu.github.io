@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: maven
 tags: Java Maven 
 cover: 
 ---
@@ -12,6 +12,7 @@ This or a similar warning is emitted by a plugin that processes plain text files
 ## Solution
 
 This is as easy as adding the following property to your POM between existing project(or one of its parent POMs):
+
 ```
 <project>
   ...

@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: ubuntu
+categories: smplayer
 tags: Ubuntu Application Video-Player Smplayer 
 cover: 
 ---

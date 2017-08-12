@@ -9,6 +9,7 @@ cover:
 ```
 lsusb -v
 ```
+
 ```
 Bus 001 Device 031: ID 2717:0368  
 Device Descriptor:
@@ -25,4 +26,5 @@ Device Descriptor:
   iManufacturer           1 Xiaomi
   iProduct                2 MI 4LTE
 ```
+
 Here is the result: `idVendor 0x2717`

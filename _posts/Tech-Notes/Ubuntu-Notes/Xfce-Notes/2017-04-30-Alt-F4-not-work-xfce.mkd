@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: ubuntu
+categories: xfce
 tags: Ubuntu Xfce 
 cover: 
 ---

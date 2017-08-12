@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: ubuntu
+categories: application
 tags: Ubuntu Application 
 cover: 
 ---

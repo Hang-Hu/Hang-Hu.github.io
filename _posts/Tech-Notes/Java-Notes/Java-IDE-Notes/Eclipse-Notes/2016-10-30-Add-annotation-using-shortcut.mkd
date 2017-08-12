@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: eclipse
 tags: Java Java-IDE Eclipse 
 cover: 
 ---

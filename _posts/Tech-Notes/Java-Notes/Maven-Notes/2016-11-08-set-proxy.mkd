@@ -1,16 +1,19 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: maven
 tags: Java Maven 
 cover: 
 ---
 
 Edit your personal configuration file:
+
 ```
 vim ~/.m2/settings.xml
 ```
+
 Add this code between `<proxies></proxies>`
+
 ```
  <proxy>
    <active>true</active>

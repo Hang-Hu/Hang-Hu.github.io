@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: ubuntu
+categories: virtualbox
 tags: Ubuntu Application Virtual-Machine Virtualbox 
 cover: 
 ---

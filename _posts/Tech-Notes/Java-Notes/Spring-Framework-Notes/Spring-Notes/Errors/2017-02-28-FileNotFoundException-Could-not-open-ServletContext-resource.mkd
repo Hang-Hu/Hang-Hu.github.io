@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: spring
 tags: Java Spring-Framework Spring 
 cover: 
 ---

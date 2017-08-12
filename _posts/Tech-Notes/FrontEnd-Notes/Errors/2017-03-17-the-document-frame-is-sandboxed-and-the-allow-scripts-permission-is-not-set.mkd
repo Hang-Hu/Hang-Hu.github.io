@@ -17,6 +17,7 @@ If you have no control on the website.
 ```
 "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --args --allow-scripts
 ```
+
 ### Linux
 
 ```

@@ -12,6 +12,7 @@ bcompare may not installed.
 ## Solution
 
 Use vimdiff instead.
+
 ```
 git config --global merge.tool vimdiff
 ```

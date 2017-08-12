@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: springmvc
 tags: Java Spring-Framework SpringMVC 
 cover: 
 ---
@@ -17,6 +17,7 @@ public class WeekController {
 	}
 }
 ```
+
 ```
 public class User {
     @NotNull
@@ -27,7 +28,9 @@ public class User {
     @Min(18)
     private Integer age;
 ```
+
 ## Reason
 
 1. Parameters in json didn't match the `requirements` when using hibernate validator's `@Valid`, such as `@NotNull`, `@Min`.
+
 2. No getters and setters in class `User` when using `@Valid`

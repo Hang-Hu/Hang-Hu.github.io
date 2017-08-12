@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: springmvc
 tags: Java Spring-Framework SpringMVC 
 cover: 
 ---
@@ -9,6 +9,7 @@ cover:
 ##
 
 add.jsp, name="id" corresponds to Integer id in UserController.
+
 ```
 <form action="./receiveInt.do" method="post">
 	<label for="id">Id: </label>
@@ -16,7 +17,9 @@ add.jsp, name="id" corresponds to Integer id in UserController.
 	<input type="submit" />
 </form>
 ```
+
 One method in `UserController`
+
 ```
 @RequestMapping("receiveInt")
 public String receiveInt(Integer id){

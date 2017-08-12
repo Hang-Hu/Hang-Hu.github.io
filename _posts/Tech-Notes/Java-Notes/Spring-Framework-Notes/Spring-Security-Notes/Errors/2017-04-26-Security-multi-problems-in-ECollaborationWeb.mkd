@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: spring-security
 tags: Java Spring-Framework Spring-Security 
 cover: 
 ---

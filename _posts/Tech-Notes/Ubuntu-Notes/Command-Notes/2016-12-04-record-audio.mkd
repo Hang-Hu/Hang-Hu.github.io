@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: ubuntu
+categories: command
 tags: Ubuntu Command 
 cover: 
 ---
@@ -9,6 +9,7 @@ cover:
 ```
 arecord demo.wav
 ```
+
 ## Play it
 
 ```

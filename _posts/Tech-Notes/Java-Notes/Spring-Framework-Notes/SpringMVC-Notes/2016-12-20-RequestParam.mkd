@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: springmvc
 tags: Java Spring-Framework SpringMVC 
 cover: 
 ---
@@ -15,6 +15,7 @@ public String receiveInfo(Custom custom, @RequestParam(value="ho",required=true)
 	return "success";
 }
 ```
+
 ```
 @RequestMapping(value="",method=RequestMethod.GET)
 public ScheduleDTO getScheduleList(@RequestParam("week") int week,@RequestParam("page") int page){

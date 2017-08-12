@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: java-core
 tags: Java Java-Core 
 cover: 
 ---

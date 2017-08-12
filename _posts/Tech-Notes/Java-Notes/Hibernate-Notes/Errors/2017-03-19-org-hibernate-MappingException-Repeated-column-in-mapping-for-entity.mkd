@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: hibernate
 tags: Java Hibernate 
 cover: 
 ---
@@ -9,31 +9,39 @@ cover:
 ## Reason
 
 Column `leader` is mapped twice, the first time is referenced by `property`, the second is by `many-to-one`.
+
 ```
 <property name="leader" column="leader"/>
 <many-to-one name="studentByLeader" class="com.general.dao.entity.StudentEntity">
     <column name="leader"/>
 </many-to-one>
 ```
+
 It's ok to poplate one column to both `Integer leader` and `StudentEntity studentByLeader`. However, when TeamEntity's private leader which is actually user_id and studentByLeader's private user which is also user_id are both changed, which will be persist? Then you have to tell hibernate by config.
+
 ## Solution1-delete field
 
 Why do you need two properties mapped to the same column in the first place? If you need access to the leader, you can probably remove the leader property and instead do
+
 ```
 teamEntity.getStudentByLeader().getUser()
 ```
+
 ## Solution2-map with insert="false" update="false"
 
 `Property` lose the right to persist.
+
 ```
 <property name="leader" column="leader" insert="false" update="false"/>
 <many-to-one name="studentByLeader" class="com.general.dao.entity.StudentEntity">
     <column name="leader"/>
 </many-to-one>
 ```
+
 ### For id who don't have insert and update
 
 Do it in `many-to-one`.
+
 ```
 <id name="id" column="question"/>
 <many-to-one name="questionByQuestion" class="com.general.dao.entity.QuestionEntity"
@@ -41,9 +49,11 @@ Do it in `many-to-one`.
     <column name="question"/>
 </many-to-one>
 ```
+
 ## Annotation
 
 `Property` lose the ability to persist. Change it from:
+
 ```
 @Basic
 @Column(name = "username")
@@ -51,7 +61,9 @@ public String getUsername() {
     return username;
 }
 ```
+
 To:
+
 ```
 @Basic
 @Column(name = "username", insertable = false, updatable = false)

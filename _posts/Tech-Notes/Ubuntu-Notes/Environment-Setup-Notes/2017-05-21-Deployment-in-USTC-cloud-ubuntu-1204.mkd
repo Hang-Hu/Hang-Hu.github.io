@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: ubuntu
+categories: environment-setup
 tags: Ubuntu Environment-Setup 
 cover: 
 ---
@@ -11,6 +11,7 @@ cover:
 ```
 sudo apt-get install mysql-server mysql-client
 ```
+
 ## JDK deployment
 
 ```
@@ -18,6 +19,7 @@ sudo mkdir /usr/local/JDK
 tar xzvf jdk-8u91-linux-x64.tar.gz
 sudo cp -r jdk1.8.0_91/ /usr/local/JDK/
 ```
+
 ### Set Environment Variables
 
 #### Edit /etc/profile
@@ -25,6 +27,7 @@ sudo cp -r jdk1.8.0_91/ /usr/local/JDK/
 ```
 vim /etc/profile
 ```
+
 ```
 # for java environment
 
@@ -33,13 +36,16 @@ export JRE_HOME=${JAVA_HOME}/jre
 export CLASS_PATH=.:${JAVA_HOME}/lib/dt.jar:${JAVA_HOME}/lib/tools.jar:${JRE_HOME}/lib:$CLASSPATH
 export PATH=${JAVA_HOME}/bin:${JRE_HOME}/bin:$PATH
 ```
+
 `:$PATH` in the end of above lines means adding PATH defined before, if lost, will cause `vi command not found`.
+
 #### Source and test it
 
 ```
 source /etc/profile 
 java -version 
 ```
+
 ### Tomcat
 
 #### tar and move
@@ -48,6 +54,7 @@ java -version
 tar -zxvf apache-tomcat-8.0.37.tar.gz
 sudo mv apache-tomcat-8.0.37 /usr/local
 ```
+
 #### Set enviornmental variables
 
 ##### Edit /etc/profile
@@ -55,12 +62,14 @@ sudo mv apache-tomcat-8.0.37 /usr/local
 ```
 vim /etc/profile
 ```
+
 ```
 # set tomcat environment
 
 CATALINA_HOME=/usr/local/apache-tomcat-8.0.37
 export CATALINA_HOME
 ```
+
 ##### Edit catalina.sh
 
 ```

@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: ubuntu
+categories: application
 tags: Ubuntu Application 
 cover: 
 ---
@@ -9,18 +9,22 @@ cover:
 ## Install
 
 Download it in official website.
+
 ```
 tar xzvf navicat112_premium_en_x64.tar.gz 
 cd navicat112_premium_en_x64/
 ./start_navicat
 ```
+
 Then move file `navicat112_premium_en_x64` to `/usr/local/`.
+
 ## Desktop Start
 
 ```
 cd /usr/share/applications
 sudo vim navicat.desktop
 ```
+
 ```
 [Desktop Entry]
 Encoding=UTF-8
@@ -33,13 +37,17 @@ StartupNotify=true
 Type=Application
 Categories=Application;Development;
 ```
+
 ## Prolong
 
 Delete `system.reg` will make navicat collapsed.
+
 Delete `.navicat64` will work.
+
 ```
 rm -r /home/joanna/.navicat64
 ```
+
 ## Restore Font
 
 Tools->Option->Fonts, choose by clicking instead of typing for typing may leads to error.

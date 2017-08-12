@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: springmvc
 tags: Java Spring-Framework SpringMVC 
 cover: 
 ---
@@ -10,12 +10,15 @@ For finding controller.
 #### BeanNameUrlHandlerMapping
 
 BeanNameUrlHandlerMapping maps url with bean name.  
+
 ```
 <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"></bean>
 ```
+
 #### SimpleUrlHandlerMapping
 
 SimpleUrlHandlerMapping can map url with `key` in prop using `id` of bean for UserController.  
+
 ```
 <bean class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
 	<property name="mappings">
@@ -27,13 +30,16 @@ SimpleUrlHandlerMapping can map url with `key` in prop using `id` of bean for Us
 	</property>
 </bean>
 ```
+
 #### ControllerClassNameHandlerMapping
 
 ```
 <bean class=
 "org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"></bean>
 ```
+
 Access the class via its name with lowercase initial and .do.  
+
 ```
 http://localhost:8080/FirstSpringMVC/userController.do
 ```

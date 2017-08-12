@@ -9,4 +9,5 @@ cover:
 ```
 git reset
 ```
+
 This will unstage all files added after last commit.

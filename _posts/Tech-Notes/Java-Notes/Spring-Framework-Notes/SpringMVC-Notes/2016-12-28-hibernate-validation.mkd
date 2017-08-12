@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: springmvc
 tags: Java Spring-Framework SpringMVC 
 cover: 
 ---
@@ -15,10 +15,13 @@ cover:
     <version>5.3.4.Final</version>
 </dependency>
 ```
+
 ## First Edition
 
 Controller
+
 In this edition, 400 will be sent back if validation fails, and method won't be executed.
+
 ```
 @Controller
 public class WeekController {
@@ -30,7 +33,9 @@ public class WeekController {
 	}
 }
 ```
+
 Class User
+
 ```
 public class User {
     @NotNull
@@ -61,9 +66,11 @@ public class User {
     }
 }
 ```
+
 ## Second Edition
 
 In this edition, if validations fails, 400 won't be sent back as response, and method will be executed, what will be sent back depends on code in method. Error handling can be done within `if(bindingResult.hasErrors()){}`.
+
 ```
 @Controller
 public class WeekController {
@@ -78,9 +85,11 @@ public class WeekController {
 	}
 }
 ```
+
 ## Third Edition
 
 Handling errors in every controller is code duplication. Therefore, handle it in exception is a good idea. When the validation fails, `@Valid` throws a `MethodArgumentNotValidException`, then what to do is to write an `ExceptionHandler` for this specific exception. This time the method won't be executed and a custom Json response will back using `ResponseEntity`.
+
 ```
 @Controller
 public class WeekController {
@@ -107,6 +116,7 @@ public class WeekController {
     }
 }
 ```
+
 ```
 public class ErrorDTO {
     private String objectName;

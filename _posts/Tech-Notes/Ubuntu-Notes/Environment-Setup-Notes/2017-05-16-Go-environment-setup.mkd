@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: ubuntu
+categories: environment-setup
 tags: Ubuntu Environment-Setup 
 cover: 
 ---
@@ -9,28 +9,37 @@ cover:
 ## Download, tar and move
 
 Unzip it. 
+
 ```
 tar -xzf go1.4.linux-amd64.tar.gz
 sudo mv go /usr/local
 ```
 
+
 ## Environment variable
+
 
 ```
 sudo vim /etc/profile
 ```
+
 Add these lines in the end of file.
+
 ```
 # for Golang
 
 export PATH=$PATH:/usr/local/go/bin 
 export GOPATH=$HOME/Documents/CodeSpace/code4go                             
 ```
+
 Source it.
+
 ```
 source /etc/profile
 ```
+
 Get GOPATH:
+
 ```
 go env GOPATH
 ```

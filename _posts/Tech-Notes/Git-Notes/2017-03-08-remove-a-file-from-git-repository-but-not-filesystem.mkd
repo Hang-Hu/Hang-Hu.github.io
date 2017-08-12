@@ -11,6 +11,7 @@ cover:
 ```
 git rm --cached file1.txt
 ```
+
 ## Push changes to remote
 
 ```

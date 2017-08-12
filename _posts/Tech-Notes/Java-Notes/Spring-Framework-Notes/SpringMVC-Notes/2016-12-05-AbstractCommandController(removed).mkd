@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: springmvc
 tags: Java Spring-Framework SpringMVC 
 cover: 
 ---
@@ -11,6 +11,7 @@ cover:
 #### CommandController implements AbstractCommandController
 
 CommandController can pass mapped key and value to POJO `User`.
+
 ```
 public class CommandController extends AbstractCommandController{
 	public CommandController(){
@@ -27,10 +28,13 @@ public class CommandController extends AbstractCommandController{
 	}
 }
 ```
+
 Its configuration in springmvc.xml:
+
 ```
 <bean name="/command.do" class="com.huhang.controller.CommandController"></bean>
 ```
+
 #### register.jsp for passing values to CommandController
 
 ```
@@ -78,6 +82,7 @@ Its configuration in springmvc.xml:
 </body>
 </html>
 ```
+
 #### RegisterController to access register.jsp
 
 ```
@@ -90,10 +95,13 @@ public class RegisterController implements Controller{
 	}
 }
 ``` 
+
 Its configuration:
+
 ```
 <bean name="/register.do" class="com.huhang.controller.RegisterController"></bean>
 ```
+
 #### index.jsp for displaying the result
 
 ```
@@ -108,6 +116,7 @@ Its configuration:
 	}
 %>
 ```
+
 #### Different Date Format
 
 ```

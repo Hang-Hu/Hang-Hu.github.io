@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: ubuntu
+categories: ffmpeg
 tags: Ubuntu Application ffmpeg 
 cover: 
 ---
@@ -11,6 +11,7 @@ cover:
 ```
 ffmpeg -f x11grab -framerate 25 -r 25 -s 1024x768 -i :0.0 /tmp/output.mp4
 ```
+
 ## Full screen
 
 ```

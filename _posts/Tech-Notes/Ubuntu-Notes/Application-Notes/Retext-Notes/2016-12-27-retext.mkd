@@ -1,12 +1,13 @@
 ---
 layout: post
 author: Hang Hu
-categories: ubuntu
+categories: retext
 tags: Ubuntu Application Retext 
 cover: 
 ---
 Change it in `~/.config/ReText\ project/Retext.conf`  
 `retext.css` copy: `~/Documents/ConfigurationFile/Retext/retext.css`
+
 ```
 [General]
 defaultExt=md

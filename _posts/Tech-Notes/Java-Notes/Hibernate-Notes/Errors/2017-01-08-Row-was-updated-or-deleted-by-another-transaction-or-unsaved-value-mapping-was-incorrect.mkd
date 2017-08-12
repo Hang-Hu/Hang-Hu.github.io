@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: hibernate
 tags: Java Hibernate 
 cover: 
 ---
@@ -15,13 +15,17 @@ cover:
 update Employees
     -> set version=0;
 ```
+
 For new database use int as default.
+
 ## Reason2
 
 The font-end send Employee's multiple fields back except for version, then version is 0 by default, while version in database may be larger than 0.
+
 ## Solution
 
 Get version from database based on id and set it to employee which is to be uodated.
+
 ```
 int version=employeeService.getEmployee(employee.getId()).getVersion();
 employee.setVersion(version);

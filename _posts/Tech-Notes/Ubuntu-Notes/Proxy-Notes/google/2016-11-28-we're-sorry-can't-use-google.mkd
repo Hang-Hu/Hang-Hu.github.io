@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: ubuntu
+categories: proxy
 tags: Ubuntu Proxy 
 cover: 
 ---

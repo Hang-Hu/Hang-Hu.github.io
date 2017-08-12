@@ -17,6 +17,7 @@ INSERT INTO AUDIT VALUES(NEW.ID,NOW()); //NEW表示插入这行,NOW表示现在�
 END$
 DELIMITER ;//改回换行符
 ```
+
 ```
 BEGIN;
 DELETE FROM COMPANY WHERE AGE=25;//删除的使用，类似于select

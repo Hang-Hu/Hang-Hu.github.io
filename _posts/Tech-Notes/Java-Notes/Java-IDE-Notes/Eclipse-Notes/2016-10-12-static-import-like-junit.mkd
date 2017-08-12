@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: eclipse
 tags: Java Java-IDE Eclipse 
 cover: 
 ---
@@ -14,9 +14,11 @@ Enable use static imports
 
 Go to Favorites below  
 Click New Type  
+
 Type ```org.junit```  
 Click ok  
 ### Use
 
 Hold on ```Ctrl+Shift+O``` and you get all classes and static imports autocompleted.  
+
 Or wait for eclipse to ask you.

@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: jee
 tags: Java JEE 
 cover: 
 ---
@@ -17,6 +17,7 @@ If needed, give it a "" initiation to avoid NullPointerException
 ```
 String jsonstr=new Gson().toJson(records);
 ```
+
 #### Give it another name for serialization
 
 ```

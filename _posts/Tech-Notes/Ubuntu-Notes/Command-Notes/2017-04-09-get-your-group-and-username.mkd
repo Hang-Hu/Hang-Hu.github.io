@@ -1,16 +1,19 @@
 ---
 layout: post
 author: Hang Hu
-categories: ubuntu
+categories: command
 tags: Ubuntu Command 
 cover: 
 ---
 
 Get username
+
 ```
 users
 ```
+
 Get group
+
 ```
 groups
 ```

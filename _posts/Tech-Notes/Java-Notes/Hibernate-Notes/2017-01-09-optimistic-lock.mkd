@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: hibernate
 tags: Java Hibernate 
 cover: 
 ---
@@ -10,12 +10,14 @@ Note that pessimistic lock fails, try it again if you have time.
 ## Code calling it
 
 No difference from common code, note that `version` in entity must be equal to current `version` number in database, otherwise update will fail and throw an `Exception`. Way to handle it is to let front-end do it again based on new `version`.
+
 ```
 public <T> T update(final T entity){
     sessionFactory.getCurrentSession().update(entity);
     return entity;
 }
 ```
+
 ## Employee.java
 
 ```
@@ -65,9 +67,11 @@ public class Employee implements Serializable{
     }
 }
 ```
+
 ## Database
 
 Note that NULL as default for version may cause problem, use 0 instead.
+
 ```
 mysql> select * from Employees;
 +----+------+--------+--------+---------+

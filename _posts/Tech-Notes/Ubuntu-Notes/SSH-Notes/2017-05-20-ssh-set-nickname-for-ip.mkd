@@ -1,16 +1,19 @@
 ---
 layout: post
 author: Hang Hu
-categories: ubuntu
+categories: ssh
 tags: Ubuntu SSH 
 cover: 
 ---
 
 If no config in .ssh, create one.
+
 ```
 vim ~/.ssh/config
 ```
+
 Add this lines:
+
 ```
 Host EcollaborationWeb                                                      
 HostName 115.28.163.140

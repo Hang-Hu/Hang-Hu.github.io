@@ -17,10 +17,13 @@ Too many connections
 ```
 vim /etc/my.cnf
 ```
+
 Add max_connections below `[mysqld]`
+
 ```
 [mysqld]
 max_connections=250
 ```
+
 Then the exception stops.
 

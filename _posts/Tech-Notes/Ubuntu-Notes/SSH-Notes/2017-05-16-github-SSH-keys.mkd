@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: ubuntu
+categories: ssh
 tags: Ubuntu SSH 
 cover: 
 ---
@@ -9,27 +9,36 @@ cover:
 ## Local Config
 
 Make sure ssh-agent is running.
+
 ```
 ssh-agent
 ```
 
+
 Add private key in `~/.ssh` to ssh-agent.
+
 
 ```
 ssh-add ~/.ssh/id_rsa
 ```
 
+
 ## Github Config
+
 
 Copy corresponding `id_rsa.pub` to github account
 
+
 ## Test Connection
+
 
 ```
 ssh -T git@github.com
 ```
 
+
 Successful information:
+
 
 ```
 Hi Hang-Hu! You've successfully authenticated, but GitHub does not provide shell access.

@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: ubuntu
+categories: proxy
 tags: Ubuntu Proxy 
 cover: 
 ---
@@ -9,6 +9,7 @@ cover:
 ## Example:gPodder
 
 If you want to use a proxy for gPodder, but don't want to use a proxy for other applications, you can create a short shell script:
+
 ```
 # !/bin/sh
 

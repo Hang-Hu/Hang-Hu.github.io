@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: jdbc
 tags: Java Java-Library JDBC 
 cover: 
 ---
@@ -11,7 +11,9 @@ cover:
 ```
 Date date = new Date(resultSet.getTimestamp("Column").getTime());
 ```
+
 >Note that `getTime()` return long, which is the millisecond since January 1, 1970, 00:00:00 GMT.
+
 ## From Date to Timestamp
 
 ```

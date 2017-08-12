@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: servlet-jsp
 tags: Java JEE Servlet-JSP 
 cover: 
 ---
@@ -12,6 +12,7 @@ cover:
 ## Solution
 
 Add the `javax.servlet-api` to dependency.
+
 ```
 <dependency>
     <groupId>javax.servlet</groupId>

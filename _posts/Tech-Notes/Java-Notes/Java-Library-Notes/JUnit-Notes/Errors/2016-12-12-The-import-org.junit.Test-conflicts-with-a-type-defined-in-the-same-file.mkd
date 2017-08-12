@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: junit
 tags: Java Java-Library JUnit 
 cover: 
 ---

@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: springmvc
 tags: Java Spring-Framework SpringMVC 
 cover: 
 ---
@@ -15,12 +15,15 @@ cover:
 ### jar of Spring mvc
 
 <img src="/home/joanna/Pictures/CodePic/SpringMVC/springmvc-detail.png" width="100%">
+
 ```
 spring-webmvc-3.2.0.RELEASE
 ```
+
 ### Configure web.xml for DispatcherServlet and springmvc.xml
 
 ctrl+shift+T, type DispatcherServlet, enter and then copy the full name.  
+
 ```
   <servlet>
   	<servlet-name>springmvc</servlet-name>
@@ -35,10 +38,13 @@ ctrl+shift+T, type DispatcherServlet, enter and then copy the full name.
 	<url-pattern>*.do</url-pattern>
 </servlet-mapping>
 ```
+
 >Note that `init-param` for configuring `springmvc.xml` can be deleted if there is a `springmvc-servlet.xml` in `WEB-INF`.
+
 ### Configure Spring
 
 Create source folder named `config`, create springmvc.xml in it.
+
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
@@ -58,12 +64,15 @@ Create source folder named `config`, create springmvc.xml in it.
 		http://www.springframework.org/schema/tx/spring-tx.xsd">
 </beans>
 ```
+
 ### Configure HandlerMapping
 
 In springmvc.xml before, use this between beans to create an object for its class.
+
 ```
 <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"></bean>
 ```
+
 ### Write UserController implementing Controller
 
 ```
@@ -79,37 +88,47 @@ public class UserController implements Controller{
 	}
 }
 ```
+
 ### Create an object for controller using Spring
 
 In springmvc.xml, add this between beans.
+
 ```
 <bean id="userController" name="/index.do" class="com.huhang.controller.UserController"></bean>
 ```
+
 >Note that distributed systems need `id`.
+
 ### Configure HandlerAdapter which executes UserHandler
 
 ```
 <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"></bean>
 ```
+
 ### Create physical view in WEB-INF
 
 index.jsp:
+
 ```
 <body>
 <h1>${user}</h1>
 </body>
 ```
+
 ### Logical view instead of physical view
 
 ```
 //set logical view
 mv.setViewName("index");
 ```
+
 And ViewResolver is needed in springmvc.xml.
+
 ```
 <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 	<property name="prefix" value="/WEB-INF/"></property>
 	<property name="suffix" value=".jsp"></property>
 </bean>
 ```
+
 Then the logical view consists of `prefix+logical view+suffix`, which is `/WEB-INF/index.jsp`, the same as physical view written before.

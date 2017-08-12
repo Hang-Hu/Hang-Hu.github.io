@@ -1,13 +1,14 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: springmvc
 tags: Java Spring-Framework SpringMVC 
 cover: 
 ---
 
 Those websites which opens to outside require restful.
 In `UserController`
+
 ```
 @RequestMapping("update/{id}")
 public String update(@PathVariable Integer id){
@@ -15,14 +16,18 @@ public String update(@PathVariable Integer id){
 	return "redirect:/user/list.do";//redirect back to page who call update
 }
 ```
+
 In `web.xml`
+
 ```
 <servlet-mapping>
 	<servlet-name>springmvc</servlet-name>
 	<url-pattern>/rest/*</url-pattern>
 </servlet-mapping>
 ```
+
 In `list.jsp`
+
 ```
 <table>
 	<tr>

@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: ubuntu
+categories: vpn
 tags: Ubuntu Vpn 
 cover: 
 ---
@@ -9,10 +9,13 @@ cover:
 ```
 sudo cp ~/openvpn/ustc-dianxin.ovpn /etc/openvpn/ustc-dianxin.conf
 ```
+
 ```
 sudo  vim /etc/default/openvpn
 ```
+
 Uncomment `AUTOSTART="home office"` and change it to `AUTOSTART="ustc-dianxin"`.
+
 ```
 sudo service openvpn restart
 ```

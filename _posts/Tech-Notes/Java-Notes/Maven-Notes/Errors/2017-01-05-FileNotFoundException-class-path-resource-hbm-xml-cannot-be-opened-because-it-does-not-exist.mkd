@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: maven
 tags: Java Maven 
 cover: 
 ---
@@ -12,6 +12,7 @@ cover:
 ## Solution
 
 Add `resources` inside `build`, point one resource to `src/main/java` for `**/*.hbm.xml`.
+
 ```
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>

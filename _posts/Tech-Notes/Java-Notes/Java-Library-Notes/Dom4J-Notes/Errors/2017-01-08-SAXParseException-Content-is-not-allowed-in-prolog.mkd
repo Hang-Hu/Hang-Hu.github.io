@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: dom4j
 tags: Java Java-Library Dom4J 
 cover: 
 ---
@@ -12,6 +12,7 @@ cover:
 ## Solution
 
 Use Reader to read file before SAXReader, which turns this error into a `FileNotFoundException`.
+
 ```
 SAXReader saxReader=new SAXReader();
 Reader xmlReader=null;

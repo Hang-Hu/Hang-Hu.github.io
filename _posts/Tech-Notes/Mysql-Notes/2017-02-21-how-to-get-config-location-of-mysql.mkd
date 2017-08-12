@@ -7,10 +7,13 @@ cover:
 ---
 
 Type
+
 ```
 mysql --help
 ```
+
 Then you get many lines describing mysql, the below one is useful.
+
 ```
 Default options are read from the following files in the given order:
 /etc/my.cnf /etc/mysql/my.cnf /usr/local/mysql/etc/my.cnf ~/.my.cnf 

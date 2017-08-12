@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: ubuntu
+categories: command
 tags: Ubuntu Command 
 cover: 
 ---
@@ -9,5 +9,7 @@ cover:
 ```
 history | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl |  head -n10
 ```
+
 The command line above may looks complected, let me briefly explain it part by part. Awk is the most important part in line above, It simply store the command and count the occurrence in history ( column 2, $2), at the end of operation, it prints the result accordingly. Check out awk examples for more illustration on awk.
+
 With the result output it then passes to grep -v to filter out “./”, because ./something is not a linux command. After that, arrange the data in columns and sort it numerically. List only the top ten with numbers using head and nl.

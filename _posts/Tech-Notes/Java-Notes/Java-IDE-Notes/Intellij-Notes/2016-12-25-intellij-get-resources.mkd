@@ -1,12 +1,13 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: intellij
 tags: Java Java-IDE Intellij 
 cover: 
 ---
 
 Both works, and JavaEEHW.db should be located at `src/resources` or `test/resources`.
+
 ```
 String path=
 Thread.currentThread().getContextClassLoader().getResource("JavaEEHW.db").getPath();

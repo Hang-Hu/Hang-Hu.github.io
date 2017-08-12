@@ -7,9 +7,11 @@ cover:
 ---
 
 IMEI 866963020171395
+
 ```
 busybox vi /data/data/com.tencent.mm/shared_prefs/system_config_prefs.xml
 ```
+
 ```
 ?xml version='1.0' encoding='utf-8' standalone='yes' ?>
 <map>
@@ -23,5 +25,6 @@ busybox vi /data/data/com.tencent.mm/shared_prefs/system_config_prefs.xml
     <long name="recomended_update_ignore" value="1491538043" />
 </map>
 ```
+
 
 UNI 1085619761

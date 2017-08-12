@@ -55,34 +55,52 @@ p {
     font-family:monospace
   }
 ```
+
 ### import a google font Lobster
 
     <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
+
     h2{
+
         font-family:Lobster;
+
     }
+
 ### If Loster cannot found,degrad font to Monospace
 
     h2 {
+
       font-family: Lobster, Monospace;
+
      }
+
 ### image
 
 All image must have a alt attribute.
 
+
     <img src="https://bit.ly/fcc-relaxing-cat" alt="cat">
+
 ### width that controls element's width
 
     .smaller-image{
+
       width:100px;
+
     }
+
 ### border around element
 
     .thick-green-border{
+
       border-width:10px;
+
       border-color:green;
+
       border-style:solid;
+
      }
+
 ### border-radius for border's rounded corners 
 
 ```
@@ -93,6 +111,7 @@ All image must have a alt attribute.
     border-radius:10px;(or 50%)
   }
 ```
+
 ### anchor for links
 
 ```
@@ -100,6 +119,7 @@ All image must have a alt attribute.
   View more <a href="http://www.freecatphotoapp.com">cat photos</a>
 </p>
 ```
+
 ### dead links using hash symbol
 
     <p>Click here for <a href="# ">cat photos</a>.</p>
@@ -109,7 +129,9 @@ All image must have a alt attribute.
     <a href="# ">
 
         <img class="smaller-image thick-green-border" src="https://bit.ly/fcc-relaxing-cat" alt="A cute orange cat lying on its back. ">
+
     </a>
+
 ### unordered list
 
 ```
@@ -118,6 +140,7 @@ All image must have a alt attribute.
   <li>cheese</li>
 </ul>
 ```
+
 ### ordered list
 
 ```
@@ -126,16 +149,20 @@ All image must have a alt attribute.
   <li>Sylvester</li>
 </ol>
 ```
+
 ## Form
 
 ### text field
 
     <input type="text">
+
 ### placeholder text
 
 Your placeholder text is what appears in your text input before your user has input anything.
 
+
     <input type="text" placeholder="cat photo URL">
+
 ### action for the address that browser submit
 
 ```
@@ -143,40 +170,51 @@ Your placeholder text is what appears in your text input before your user has in
 <input type="text" placeholder="cat photo URL">
 </form>
 ```
+
 ### add submit button to a form
 
 ```
     <button type="submit">Submit</button>
 ```
+
 ### required field
 
 You can require specific form fields so that your user will not be able to submit your form until he or she has filled them out.
+
 ```
 <input type="text" placeholder="cat photo URL" required>
 ```
+
 ### radio button
 
 All related radio buttons should have the same name attribute.
+
 Each radio button should be nested within its own label  
+
 ```
   <label><input type="radio" name="indoor-outdoor">indoor</label>
   <label><input type="radio" name="indoor-outdoor">outdoor</label>
 ```
+
 ### checkbox
 
 Each of your checkboxes should be nested within its own label element.  
+
 All related checkbox inputs should have the same name attribute.  
+
 ```
   <label><input type="checkbox" name="personality">Loving</label>
   <label><input type="checkbox" name="personality">Honest</label>
   <label><input type="checkbox" name="personality">Friendly</label>
 ```
+
 ### check radio button and checkbox
 
 ```
   <label><input type="radio" name="indoor-outdoor" checked> Outdoor</label>
   <label><input type="checkbox" name="personality" checked> Energetic</label>
 ```
+
 ## Div and id
 
 ### nest many elements within div
@@ -185,6 +223,7 @@ All related checkbox inputs should have the same name attribute.
 <div>
 </div>
 ```
+
 ### give a class to div
 
 ```
@@ -194,14 +233,18 @@ All related checkbox inputs should have the same name attribute.
     <div class="silver-background">
     </div>
 ```
+
 ### id
 
 In addition to classes, each HTML element can also have an id attribute.  
+
 Each id must be unique to a specific element and used only once per page.  
+
 ```
 <form id="cat-photo-form" action="/submit-cat-photo">
 <h2 id="cat-photo-app">
 ```
+
 ### use id cat-photo-form style above form element
 
 ```
@@ -210,6 +253,7 @@ Each id must be unique to a specific element and used only once per page.
     background-color:green;
   }
 ```
+
 ## Padding and margin
 
 ### padding and margin
@@ -221,10 +265,13 @@ Each id must be unique to a specific element and used only once per page.
     margin: 20px;
   }
 ```
+
 ### negative margin
 
 If you set an element's margin to a negative value, the element will grow larger.  
+
 Change the margin of the green box to -15px, so it fills the entire horizontal width of the yellow box around it.  
+
 ```
   .green-box {
     background-color: green;
@@ -232,6 +279,7 @@ Change the margin of the green box to -15px, so it fills the entire horizontal w
     margin: -15px;
   }
 ```
+
 ### different padding to each side
 
 ```
@@ -243,6 +291,7 @@ Change the margin of the green box to -15px, so it fills the entire horizontal w
     padding-bottom:20px;
   }
 ```
+
 ### different margin to each side
 
 ```
@@ -254,6 +303,7 @@ Change the margin of the green box to -15px, so it fills the entire horizontal w
     margin-left:40px;
   }
 ```
+
 ### clockwise notation
 
 ```
@@ -266,9 +316,11 @@ Change the margin of the green box to -15px, so it fills the entire horizontal w
     margin: 20px 40px 20px 40px;
   }
 ```
+
 ### style body
 
 Remember, you can style your body element just like any other HTML element, and all your other elements will inherit your body element's styles.  
+
 ```
 <style>
   body{
@@ -276,11 +328,13 @@ Remember, you can style your body element just like any other HTML element, and 
   }
 </style>
 ```
+
 ## override
 
 ### class override body
 
 Class override the body element's color: green; CSS property
+
 ```
 <style>
   body {
@@ -294,9 +348,11 @@ Class override the body element's color: green; CSS property
 </style>
 <h1 class="pink-text">Hello World!</h1>
 ```
+
 ### subsequent class override previous one
 
 The order of the class declarations in the style section are what is important. The second declaration will always take precedence over the first.   
+
 ```
 <style>
   body {
@@ -313,6 +369,7 @@ The order of the class declarations in the style section are what is important. 
 </style>
 <h1 class="blue-text pink-text">Hello World!</h1>
 ```
+
 ### id override class
 
 ```
@@ -335,6 +392,7 @@ The order of the class declarations in the style section are what is important. 
 </style>
 <h1 id="orange-text" class="pink-text blue-text">Hello World!</h1>
 ```
+
 ### inline style override id
 
 ```
@@ -357,9 +415,11 @@ The order of the class declarations in the style section are what is important. 
 </style>
 <h1 id="orange-text" class="pink-text blue-text" style="color:white">Hello World!</h1>
 ```
+
 ### important override all
 
 class pink-text uses important,so it overrides all other styles.
+
 ```
 <style>
   body {
@@ -380,6 +440,7 @@ class pink-text uses important,so it overrides all other styles.
 </style>
 <h1 id="orange-text" class="pink-text blue-text" style="color: white">Hello World!</h1>
 ```
+
 ## color
 
 ### Hex
@@ -392,7 +453,9 @@ class pink-text uses important,so it overrides all other styles.
   }
 </style>
 ```
+
 Abbreviated Hex Code:
+
 ```
 <style>
   .red-text {
@@ -413,6 +476,7 @@ Abbreviated Hex Code:
   }
 </style>
 ```
+
 ### RGB
 
 ```
@@ -422,6 +486,7 @@ Abbreviated Hex Code:
   }
 </style>
 ```
+
 ### attribute=value selector
 
 ```
@@ -434,30 +499,50 @@ Abbreviated Hex Code:
 				input[type='password']{background-color: pink}
 			</style>
 ```
+
 ### element element selector
 
 Select and style every ```<p>``` element that is inside ```<div>``` elements:
 ```
+
 			<div id="d1">
+
 				<div class="dd1">
+
 					<span>span1-1</span>
+
 				</div>
+
 				<div class="dd2">
+
 					<span>span1-2</span>
+
 				</div>
+
 			</div>
+
 			<div id="d2">
+
 				<div class="dd1">
+
 					<span>span1-1</span>
+
 				</div>
+
 				<div class="dd2">
+
 					<span>span1-2</span>
+
 				</div>
+
 			</div>
+
 			<style>
+
 				# d1 .dd2 span{color:red}
 
 			</style>
+
 ```
 
 ### background-image
@@ -466,11 +551,17 @@ Select and style every ```<p>``` element that is inside ```<div>``` elements:
 
 background-repeat:repeat(default,repeat vertically and horizontally),no-repeat,repeat-y,repeat-x
 ```
+
 		body{
+
 			background-color: black;
+
 			background-image: url("images/dog.gif");
+
 			background-repeat: repeat-y;
+
 		}
+
 ```
 ###
 

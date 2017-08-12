@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: springmvc
 tags: Java Spring-Framework SpringMVC 
 cover: 
 ---
@@ -12,6 +12,7 @@ cover:
 ## Solution
 
 Use `String` instead of `ObjectNode`.
+
 ```
 @Controller
 public class WeekController {
@@ -30,7 +31,9 @@ public class WeekController {
 	}
 }
 ```
+
 Test of this controller
+
 ```
 curl -X POST 
 --data '{"page":"1","number":{"token":"3"}}' 
@@ -38,7 +41,9 @@ curl -X POST
 -H "Accept:application/json" 
 http://localhost:8080/weeks
 ```
+
 Console output
+
 ```
 weeks here.
 {"page":"1","number":{"token":"3"}}

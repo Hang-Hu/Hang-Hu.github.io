@@ -11,9 +11,12 @@ cover:
 ```
 ssh-keygen -t rsa -C "huhang600@126.com"
 ```
+
 Now id_rsa is the generated secret key and id_rsa.pub is the public key.
+
 ```
 joanna@JC:~/.ssh$ ls
 id_rsa  id_rsa.pub  known_hosts
 ```
+
 ###

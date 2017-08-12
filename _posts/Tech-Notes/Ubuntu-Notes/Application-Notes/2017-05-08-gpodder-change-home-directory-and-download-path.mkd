@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: ubuntu
+categories: application
 tags: Ubuntu Application 
 cover: 
 ---
@@ -10,12 +10,15 @@ cover:
 vim ~/.profile
 ```
 
+
 Add two lines in the end:
+
 
 ```
 export GPODDER_HOME=/home/joanna/ProgramFiles/gPodder/
 export GPODDER_DOWNLOAD_DIR=/home/joanna/Music/podcasts/
 ```
+
 
 ```
 source ~/.profile

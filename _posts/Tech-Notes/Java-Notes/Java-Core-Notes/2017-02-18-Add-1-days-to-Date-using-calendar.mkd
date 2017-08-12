@@ -1,12 +1,13 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: java-core
 tags: Java Java-Core 
 cover: 
 ---
 
 `Calendar.DATE` is the day and time(to second) today.
+
 ```
 Calendar calendar=new GregorianCalendar();
 calendar.add(Calendar.DATE, 1);

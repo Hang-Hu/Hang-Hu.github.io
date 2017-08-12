@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: ubuntu
+categories: proxy
 tags: Ubuntu Proxy 
 cover: 
 ---
@@ -24,6 +24,7 @@ copy data in XX-Net to newly downloaded XX-Net and use this new XX-Net to replac
 ### Set direct access 
 
 This method is describe in the following website.
+
 ```
 https://github.com/XX-net/XX-Net/issues/4326
 https://github.com/XX-net/XX-Net/issues/4207

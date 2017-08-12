@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: spring-security
 tags: Java Spring-Framework Spring-Security 
 cover: 
 ---
@@ -15,11 +15,14 @@ Caused by: java.lang.IllegalArgumentException: ROLE_ADMIN cannot start with ROLE
 ## Solution
 
 Change:
+
 ```
 authenticationManagerBuilder.inMemoryAuthentication().withUser("bill").password("123")
 .roles("ROLE_ADMIN");
 ```
+
 To:
+
 ```
 authenticationManagerBuilder.inMemoryAuthentication().withUser("bill").password("123")
 .roles("ADMIN");

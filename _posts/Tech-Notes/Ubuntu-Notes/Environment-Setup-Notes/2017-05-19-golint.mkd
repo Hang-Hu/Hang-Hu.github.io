@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: ubuntu
+categories: environment-setup
 tags: Ubuntu Environment-Setup 
 cover: 
 ---
@@ -12,7 +12,9 @@ cover:
 sudo apt install golint
 ```
 
+
 ## Usage
+
 
 ```
 golint menu.go 

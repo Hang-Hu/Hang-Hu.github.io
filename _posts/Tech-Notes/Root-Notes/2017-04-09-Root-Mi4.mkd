@@ -17,12 +17,15 @@ sudo fastboot flash recovery twrp-3.1.0-0-cancro.img
 sudo fastboot boot twrp-3.1.0-0-cancro.img
 ```
 
+
 ## Install SuperSu.zip in phone
 
 ```
 adb push SuperSU-v2.79-201612051815.zip /sdcard
 ```
+
 Reboot, then you are rooted.
+
 ## Reference
 
 `http://www.stechguide.com/root-and-install-twrp-recovery-on-xiaomi-mi-4/`

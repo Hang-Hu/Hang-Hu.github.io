@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: ubuntu
+categories: command
 tags: Ubuntu Command 
 cover: 
 ---
@@ -14,7 +14,9 @@ joanna@JC:~$ systemd-analyze blame
           1.187s apparmor.service
 ...
 ```
+
 Cancle one useless service.
+
 ```
 joanna@JC:~$ sudo systemctl disable sendmail.service
 ```

@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: hibernate
 tags: Java Hibernate 
 cover: 
 ---
@@ -17,7 +17,9 @@ No `id` `SingleAnswerQuestionEntity.hbm.xml` because it's generated from databas
 ## Solution
 
 Add `id` in `hbm.xml`:
+
 ```
 <id name="id" column="question"/>
 ```
+
 Add primary key in database.

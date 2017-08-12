@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: ubuntu
+categories: convert-formats
 tags: Ubuntu Application Convert-Formats 
 cover: 
 ---
@@ -9,4 +9,5 @@ cover:
 ```
 libreoffice --headless --invisible --convert-to pdf 0_Guide.ppt 
 ```
+
 Then `0_Guide.pdf` is generated.

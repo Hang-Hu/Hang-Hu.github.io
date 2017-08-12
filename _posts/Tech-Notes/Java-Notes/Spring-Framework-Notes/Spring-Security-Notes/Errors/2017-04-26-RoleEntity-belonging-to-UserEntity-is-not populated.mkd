@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: spring-security
 tags: Java Spring-Framework Spring-Security 
 cover: 
 ---
@@ -15,24 +15,31 @@ The UserEntity has no RoleEntity under debug while there is in database.
 There are some problems in Hibernate mapping file for enum type.
 
 >mysql
+
 ```
 `role` enum('ROLE_ADMIN','ROLE_STUDENT','ROLE_TUTOR')
 ```
+
 >Java code: RoleEnum.java
+
 ```
 public enum RoleEnum {
     ROLE_STUDENT,ROLE_TUTOR,ROLE_ADMIN
 }
 ```
+
 >RoleEntity.hbm.xml
+
 ```
 <property name="role" column="role">
 </property>
 ```
 
+
 ## Solution
 
 Change RoleEntity.hbm.xml to
+
 ```
 <property name="role" column="role">
     <type name="org.hibernate.type.EnumType">

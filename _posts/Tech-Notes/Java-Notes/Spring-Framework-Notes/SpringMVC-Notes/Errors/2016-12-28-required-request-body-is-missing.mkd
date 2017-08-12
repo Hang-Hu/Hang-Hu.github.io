@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: springmvc
 tags: Java Spring-Framework SpringMVC 
 cover: 
 ---
@@ -12,6 +12,7 @@ Dependency for jackson's databind is missing, which is required for `@RequestBod
 ## Solution
 
 Add this dependency.
+
 ```
 <dependency>
     <groupId>com.fasterxml.jackson.core</groupId>

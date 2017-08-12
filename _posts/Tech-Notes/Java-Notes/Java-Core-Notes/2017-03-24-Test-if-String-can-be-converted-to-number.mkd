@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: java-core
 tags: Java Java-Core 
 cover: 
 ---
@@ -33,8 +33,11 @@ public static boolean isInteger(String str) {
     return true;
 }
 ```
+
 ## Reference
 
 `
+
 http://stackoverflow.com/questions/237159/whats-the-best-way-to-check-to-see-if-a-string-represents-an-integer-in-java
+
 `

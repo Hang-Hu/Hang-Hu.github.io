@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: springmvc
 tags: Java Spring-Framework SpringMVC 
 cover: 
 ---
@@ -11,7 +11,9 @@ cover:
 ```
 import org.springframework.web.bind.annotation.RequestMapping;
 ```
+
 This line is lost but eclipse gives no error hint.
+
 ## Solution
 
 Use ctrl+shift+o or write it manually.

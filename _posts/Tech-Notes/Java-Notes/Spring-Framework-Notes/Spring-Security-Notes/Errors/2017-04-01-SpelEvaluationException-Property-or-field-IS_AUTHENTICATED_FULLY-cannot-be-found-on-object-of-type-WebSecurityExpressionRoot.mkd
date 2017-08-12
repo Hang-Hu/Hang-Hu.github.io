@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: spring-security
 tags: Java Spring-Framework Spring-Security 
 cover: 
 ---
@@ -9,12 +9,15 @@ cover:
 ## Reason
 
 `<http>` element has an attribute `use-expressions` which is `true` by default. In the default situation, you are required to use "security expressions" instead of role names. If you wish to use only role names in access= declarations, you need to turn off expressions with
+
 ```
 <http use-expressions="false"> ... </http>
 ```
+
 ## Solution
 
 Change `IS_AUTHENTICATED_FULLY` to  `isFullyAuthenticated()`.
+
 ## Reference
 
 `http://stackoverflow.com/questions/15157250/intercept-url-pattern-causing-404-error`

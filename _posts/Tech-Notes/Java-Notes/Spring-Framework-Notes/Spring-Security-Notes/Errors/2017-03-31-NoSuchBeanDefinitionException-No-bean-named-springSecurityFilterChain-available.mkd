@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: spring-security
 tags: Java Spring-Framework Spring-Security 
 cover: 
 ---
@@ -15,6 +15,7 @@ The securiy configuration isnot imported yet or there is no `<http>` in `securit
 ## Solution
 
 Add these in springmvc-servlet.xml.
+
 ```
 <!-- import security configuration-->
 <import resource="security.xml"/>

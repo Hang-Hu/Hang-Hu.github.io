@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: servlet-jsp
 tags: Java JEE Servlet-JSP 
 cover: 
 ---
@@ -21,6 +21,7 @@ Or a shorter one:
 `String path=
 Thread.currentThread().getContextClassLoader().getResource("controller.xml").getPath();`
 Use this path instead of 
+
 ```
 String path="src/controller.xml";
 ```

@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: ubuntu
+categories: smplayer
 tags: Ubuntu Application Video-Player Smplayer 
 cover: 
 ---
@@ -12,4 +12,5 @@ sudo add-apt-repository ppa:mc3man/mpv-tests
 sudo apt-get update
 sudo apt-get install mpv smplayer smtube smplayer-themes smplayer-skins youtube-dl
 ```
+
 General->Multimedia engine, then choose mpv

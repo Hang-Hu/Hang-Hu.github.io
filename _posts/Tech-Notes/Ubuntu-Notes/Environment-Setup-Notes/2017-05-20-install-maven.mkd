@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: ubuntu
+categories: environment-setup
 tags: Ubuntu Environment-Setup 
 cover: 
 ---
@@ -9,32 +9,43 @@ cover:
 ## Installation
 
 Download in official website, extract and move it to /usr/local
+
 ```
 tar -zxvf apache-maven-3.3.9-bin.tar.gz 
 mv ~/Downloads/apache-maven-3.3.9 /usr/local/
 ```
+
 Thus the directory of maven is :`/usr/local/apache-maven-3.3.9`
+
 ## Configuration
 
 Build soft link for future update:
+
 ```
 sudo ln -s apache-maven-3.3.9 apache-maven
 ```
+
 Adding environmental variables using `sudo vim /etc/profile`:
+
 ```
 # for Maven environment
 
 export M2_HOME=/usr/local/apache-maven
 export PATH=$PATH:$M2_HOME/bin
 ```
+
 Source it:
+
 ```
 source /etc/profile
 ```
+
 Test if maven is available:
+
 ```
 mvn -version
 ```
+
 ## For future update
 
 ```

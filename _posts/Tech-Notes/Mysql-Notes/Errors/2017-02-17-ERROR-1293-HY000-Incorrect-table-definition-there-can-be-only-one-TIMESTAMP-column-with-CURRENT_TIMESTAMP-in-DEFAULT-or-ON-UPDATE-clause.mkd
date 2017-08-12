@@ -19,6 +19,7 @@ http://dev.mysql.com/doc/relnotes/mysql/5.6/en/news-5-6-5.html
 ## Solution
 
 Install mysql whose version is higher than 5.6.5.
+
 ```
 sudo apt-get install mysql-client-core-5.6
 sudo apt-get install mysql-server-5.6

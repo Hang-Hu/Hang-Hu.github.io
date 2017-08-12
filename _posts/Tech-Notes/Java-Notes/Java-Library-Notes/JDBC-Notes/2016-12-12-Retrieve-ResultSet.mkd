@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: jdbc
 tags: Java Java-Library JDBC 
 cover: 
 ---
@@ -14,6 +14,7 @@ if(rs.next()){
 	deviceGroup.setName(rs.getString("name"));
 }
 ```
+
 ## Many Results
 
 ```

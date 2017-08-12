@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: ubuntu
+categories: proxy
 tags: Ubuntu Proxy 
 cover: 
 ---
@@ -15,6 +15,7 @@ Chrome has strict CROS security, so it won't allow you to do request from localh
 ## Solution
 
 Find no good way to enable CROS with my little front-end knowlege, find the code containing "Please check your browser proxy setting" in `~/XX-Net/code/default/gae_proxy/web_ui/status.html`. Then find it's from two method `test_http_proxy_setting()` and `test_https_proxy_setting()`. So change code, make all success and error return `OK`.
+
 ```
 function test_https_proxy_setting() {
     if (window.https_proxy_setting === "OK") {

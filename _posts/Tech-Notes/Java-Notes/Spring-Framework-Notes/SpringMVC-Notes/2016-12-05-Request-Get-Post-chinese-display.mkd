@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: springmvc
 tags: Java Spring-Framework SpringMVC 
 cover: 
 ---
@@ -14,6 +14,7 @@ In `server.xml` of `FirstSpringMVC-config` of `Servers`, add URIEncoding in line
 ## POST Chinese Display
 
 Add CharacterEncodingFilter in web.xml in this project.
+
 ```
 <filter>
 	<filter-name>characterEncoding</filter-name>

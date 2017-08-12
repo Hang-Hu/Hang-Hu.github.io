@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: reflection
 tags: Java Java-Core Reflection 
 cover: 
 ---
@@ -12,6 +12,7 @@ The field is private.
 ## Solution
 
 Use `setAccessible` before call method on `Field`.
+
 ```
 field.setAccessible(true);
 ```

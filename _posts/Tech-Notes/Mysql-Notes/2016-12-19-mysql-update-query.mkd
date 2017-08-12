@@ -12,6 +12,7 @@ mysql> update DeviceGroup
     -> where id=1
     -> ;
 ```
+
 ```
 mysql> update Device 
     -> set name='文件服务器'

@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: spring-security
 tags: Java Spring-Framework Spring-Security 
 cover: 
 ---
@@ -19,6 +19,7 @@ By default role should begin with prefix `ROLE_`.
 ## Further
 
 If you don't want to use `ROLE_` as prefix, change it in `spring-security.xml`.
+
 ```
 <!-- Configuring RoleVoter bean to use custom access roles, by default roles 
 		should be in the form ROLE_{XXX} -->

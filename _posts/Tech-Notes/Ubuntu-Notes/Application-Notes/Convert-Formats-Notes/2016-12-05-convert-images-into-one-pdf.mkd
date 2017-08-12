@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: ubuntu
+categories: convert-formats
 tags: Ubuntu Application Convert-Formats 
 cover: 
 ---
@@ -9,6 +9,7 @@ cover:
 ```
 convert img{0..19}.jpg merged.pdf
 ```
+
 ```
 convert $(ls *.jpg) merged.pdf
 ```

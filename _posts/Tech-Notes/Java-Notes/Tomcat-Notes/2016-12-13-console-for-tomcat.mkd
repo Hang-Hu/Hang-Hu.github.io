@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: tomcat
 tags: Java Tomcat 
 cover: 
 ---
@@ -11,6 +11,7 @@ cover:
 ```
 tail -f $CATALINA_HOME/logs/catalina.out
 ```
+
 ## View log
 
 ```

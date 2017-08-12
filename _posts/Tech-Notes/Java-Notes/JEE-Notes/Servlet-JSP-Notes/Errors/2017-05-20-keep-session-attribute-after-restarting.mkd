@@ -1,7 +1,7 @@
 ---
 layout: post
 author: Hang Hu
-categories: java
+categories: servlet-jsp
 tags: Java JEE Servlet-JSP 
 cover: 
 ---
@@ -12,6 +12,7 @@ simplebacked written before keep user after restarting, while SimpleController k
 ## Reason
 
 Class User doesn't implements `Serializable`. After implementing it, session attribute user can be kept after restarting.
+
 ```
 public class User implements Serializable{
 	private String username;
