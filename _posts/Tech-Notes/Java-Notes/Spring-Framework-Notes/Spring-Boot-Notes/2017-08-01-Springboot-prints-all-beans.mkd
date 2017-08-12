@@ -1,0 +1,28 @@
+---
+layout: post
+author: Hang Hu
+categories: spring-boot
+tags: Java Spring-Framework Spring-Boot 
+cover: 
+---
+
+```
+@SpringBootApplication
+@EnableScheduling
+public class GriffinWebApplication{
+    private static final Logger log = LoggerFactory.getLogger(GriffinWebApplication.class);
+    public static void main(String[] args) {
+        log.info("application start");
+        SpringApplication.run(GriffinWebApplication.class, args);
+    }
+    @Autowired
+    ApplicationContext applicationContext;
+    @Bean
+    public CommandLineRunner run(ApplicationContext applicationContext){
+      return args -> {
+        String[] beans=applicationContext.getBeanDefinitionNames();
+        Arrays.stream(beans).sorted().forEach(System.out::println);
+      };
+    }
+}
+```

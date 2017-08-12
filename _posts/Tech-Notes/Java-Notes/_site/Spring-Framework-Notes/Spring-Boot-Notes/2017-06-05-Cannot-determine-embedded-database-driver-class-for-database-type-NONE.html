@@ -1,0 +1,15 @@
+<h2 id="debug">Debug</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>java -jar FirstSpringBoot.jar --debug
+</code></pre>
+</div>
+
+<p>Make a breakpoint where error message is printed inside class <code class="highlighter-rouge">DataSourceProperties</code> and find no information about datasource has been loaded, showing the failure of loading of <code class="highlighter-rouge">application.properties</code>.</p>
+
+<h2 id="reason">Reason</h2>
+
+<p>I put <code class="highlighter-rouge">application.properties</code> in <code class="highlighter-rouge">src/main/java/com/huhang/config</code> while I don’t add it to resources in maven. Then it won’t be loaded.</p>
+
+<h2 id="solution">Solution</h2>
+
+<p>Either change <code class="highlighter-rouge">application.properties</code> to <code class="highlighter-rouge">src/main/resources</code> which has been added to resources in maven or add <code class="highlighter-rouge">src/main/java/com/huhang/config</code> to <code class="highlighter-rouge">pom.xml</code>.</p>

@@ -1,0 +1,14 @@
+<h2 id="details">Details</h2>
+
+<p>When I type <code class="highlighter-rouge">hive</code>, this error comes out.</p>
+
+<h2 id="solution">Solution</h2>
+
+<ol>
+  <li>
+    <p><code class="highlighter-rouge">rm /usr/local/hadoop-2.8.0/share/hadoop/yarn/lib/jline-0.9.94.jar</code></p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">export HADOOP_USER_CLASSPATH_FIRST=true</code></p>
+  </li>
+</ol>

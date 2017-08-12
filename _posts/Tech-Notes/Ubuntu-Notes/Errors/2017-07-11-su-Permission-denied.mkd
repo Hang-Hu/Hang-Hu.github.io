@@ -1,0 +1,13 @@
+---
+layout: post
+author: Hang Hu
+categories: Ubuntu
+tags: Ubuntu Errors 
+cover: 
+---
+
+## Solution
+
+```
+sudo su
+```

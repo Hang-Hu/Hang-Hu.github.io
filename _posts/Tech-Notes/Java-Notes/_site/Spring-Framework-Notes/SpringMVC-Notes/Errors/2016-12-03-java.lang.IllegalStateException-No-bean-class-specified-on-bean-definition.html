@@ -1,0 +1,21 @@
+<h2 id="reason">Reason</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;bean name="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"&gt;&lt;/bean&gt;
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">class</code> attribute is missed.</p>
+
+<blockquote>
+  <p>A bean definition essentially is a recipe for creating one or more objects. The container looks at the recipe for a named bean when asked, and uses the configuration metadata encapsulated by that bean definition to create (or acquire) an actual object.</p>
+</blockquote>
+
+<blockquote>
+  <p>If you use XML-based configuration metadata, you specify the type (or class) of object that is to be instantiated in the class attribute of the element. This class attribute, which internally is a Class property on a BeanDefinition instance, is usually mandatory.</p>
+</blockquote>
+
+<h2 id="solution">Solution</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"&gt;&lt;/bean&gt;
+</code></pre>
+</div>

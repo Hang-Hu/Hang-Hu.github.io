@@ -1,0 +1,31 @@
+---
+layout: post
+author: Hang Hu
+categories: environment-setup
+tags: Ubuntu Environment-Setup 
+cover: 
+---
+
+### Google chrome
+
+```
+/opt
+```
+
+Note that `/opt` belongs to `/` partition, which is the system partition, if you want to copy this system to a cloud server, don't tar this file, other your personal infomation may be at great risk.  
+
+You'd better move it to `/usr/local` and create a soft link in `/opt`.
+
+## Development software
+
+### Eclipse
+
+`/usr/local/`
+
+### Tomcat
+
+`/usr/local`
+
+### Maven
+
+`/usr/local`

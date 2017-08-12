@@ -1,0 +1,52 @@
+---
+layout: post
+author: Hang Hu
+categories: environment-setup
+tags: Ubuntu Environment-Setup 
+cover: 
+---
+
+## Download and install
+
+```
+java -version
+```
+
+
+Note that Java 7 is required for elasticsearch.
+
+
+```
+curl -L -O https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/tar/elasticsearch/2.4.5/elasticsearch-2.4.5.tar.gz
+tar -xvf elasticsearch-2.4.5.tar.gz
+cd elasticsearch-2.4.5/bin
+```
+
+
+## Initial setting
+
+
+```
+vim elasticsearch.yml
+```
+
+
+Add following lines:
+
+
+```
+network.host: 0.0.0.0
+http.cors.enabled: true
+http.cors.allow-origin: "*"
+```
+
+
+## Run
+
+
+Run using nohup:
+
+
+```
+nohup bin/elasticsearch &
+```

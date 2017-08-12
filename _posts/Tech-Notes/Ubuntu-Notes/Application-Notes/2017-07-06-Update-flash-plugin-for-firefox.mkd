@@ -1,0 +1,11 @@
+---
+layout: post
+author: Hang Hu
+categories: application
+tags: Ubuntu Application 
+cover: 
+---
+
+1. Open plugin page in firefox
+2. Click on update for `Shockwave Flash`
+3. Choose `APT Url` and click download

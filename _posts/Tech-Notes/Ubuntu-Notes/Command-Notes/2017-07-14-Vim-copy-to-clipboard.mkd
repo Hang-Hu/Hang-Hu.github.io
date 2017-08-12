@@ -1,0 +1,11 @@
+---
+layout: post
+author: Hang Hu
+categories: command
+tags: Ubuntu Command 
+cover: 
+---
+
+## Windows
+
+First use `yy` to copy text to vim cache, the click Esc, use `:"*dd` to copy it to windows clipboard.

@@ -1,0 +1,18 @@
+---
+layout: post
+author: Hang Hu
+categories: jackson
+tags: Java Java-Library Jackson 
+cover: 
+---
+
+## Details
+
+com.fasterxml.jackson.databind.JsonMappingException: No serializer found for class com.huhang.generate.bean.AvscBean$Field and no properties discovered to create BeanSerializer (to avoid exception, disable SerializationFeature.FAIL_ON_EMPTY_BEANS)
+
+
+## Solution
+
+```
+mapper.configure(SerializationConfig.Feature.FAIL_ON_EMPTY_BEANS, false);
+```

@@ -1,0 +1,43 @@
+---
+layout: post
+author: Hang Hu
+categories: environment-setup
+tags: Ubuntu Environment-Setup 
+cover: 
+---
+
+## Download and move scala
+
+```
+wget https://downloads.lightbend.com/scala/2.10.6/scala-2.10.6.tgz
+tar xzvf scala-2.10.6.tgz
+sudo mv scala-2.10.6 /usr/local/
+```
+
+
+## Config
+
+
+```
+sudo vim /etc/profile
+```
+
+
+Add the following lines in the end.
+
+
+```
+# for scala
+
+export SCALA_HOME=/usr/local/scala-2.10.6
+export PATH=$PATH:${SCALA_HOME}/bin
+```
+
+
+## Source and Test
+
+
+```
+source /etc/profile
+scala -version
+```

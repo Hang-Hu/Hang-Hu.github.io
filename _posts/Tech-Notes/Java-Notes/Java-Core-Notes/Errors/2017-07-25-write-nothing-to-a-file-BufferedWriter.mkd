@@ -1,0 +1,21 @@
+---
+layout: post
+author: Hang Hu
+categories: java-core
+tags: Java Java-Core 
+cover: 
+---
+
+## Reason
+
+`BufferedWriter` will only write when it's full, to be closed or flushed.
+
+## Solution
+
+Use `writer.close()` or `writer.flush()` if you don't want to close it.
+
+```
+writer = new BufferedWriter(new FileWriter(new File("text.txt")));
+writer.write(stringBuilder.toString());
+writer.close();
+```

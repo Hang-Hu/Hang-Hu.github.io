@@ -1,0 +1,28 @@
+---
+layout: post
+author: Hang Hu
+categories: Ubuntu
+tags: Ubuntu Errors 
+cover: 
+---
+
+## Reason
+
+```
+file jdk-8u131-linux-x64.tar.gz
+HTML document, ASCII text, with very long lines, with CRLF line terminators
+```
+
+
+The below results show that html is downloaded instead of the `tar.gz` I want.  
+
+
+## Solution
+
+
+You have to accept the terms by providing the header.
+
+
+```
+wget --no-cookies --headers "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.tar.gz
+```

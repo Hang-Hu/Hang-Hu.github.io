@@ -1,0 +1,16 @@
+---
+layout: post
+author: Hang Hu
+categories: Ubuntu
+tags: Ubuntu Errors 
+cover: 
+---
+
+## Description
+
+After windows10 important update, windows separate partition c to c and another 808MB partition, making /dev/sda in ubuntu all changed.
+<img src="new-partition-after-win10-update20160910.png" width="100%">
+## Solution
+
+Start win10 and then restart ubuntu, it suddenly starts successfully.
+Then I changed the /etc/fstab for new D partition

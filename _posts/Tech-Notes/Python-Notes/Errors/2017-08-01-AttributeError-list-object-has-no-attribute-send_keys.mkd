@@ -1,0 +1,15 @@
+---
+layout: post
+author: Hang Hu
+categories: python
+tags: Python 
+cover: 
+---
+
+## Reason
+
+`find_elements` will return a list due to `s`.
+
+## Solution
+
+Use `find_element_by_id` instead of `find_elements_by_id`.

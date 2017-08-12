@@ -18,7 +18,7 @@ Add following:
 
 ```
 Host DigitalOcean
-HostName 111.236.179.21
+HostName 111.236.179.20
 User root
 ```
 

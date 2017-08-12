@@ -1,0 +1,9 @@
+---
+layout: post
+author: Hang Hu
+categories: spring-boot
+tags: Java Spring-Framework Spring-Boot 
+cover: 
+---
+
+This interceptor only works for Spring MVC part, which is controllers specifically. When it comes to Spring-Data-Rest or static content, the interceptors won't work.

@@ -1,0 +1,22 @@
+---
+layout: post
+author: Hang Hu
+categories: java-core
+tags: Java Java-Core 
+cover: 
+---
+
+## int to char
+
+```
+result[l+1]=(char)(digit+'0');
+```
+
+
+
+## char to int
+
+
+```
+int digit=longer.charAt(l)-'0'+shorter.charAt(s)-'0'+carry;
+```

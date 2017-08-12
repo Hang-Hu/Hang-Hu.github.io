@@ -1,0 +1,20 @@
+---
+layout: post
+author: Hang Hu
+categories: command
+tags: Ubuntu Command 
+cover: 
+---
+
+First check it:
+
+```
+find . -name "2017-*.mkd" -type f
+```
+
+
+Then delete them:
+
+```
+find . -name "2017-*.mkd" -type f -delete
+```

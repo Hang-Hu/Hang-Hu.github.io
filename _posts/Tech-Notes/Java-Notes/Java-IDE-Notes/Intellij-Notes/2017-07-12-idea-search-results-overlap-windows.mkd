@@ -1,0 +1,21 @@
+---
+layout: post
+author: Hang Hu
+categories: intellij
+tags: Java Java-IDE Intellij 
+cover: 
+---
+
+## Reason
+
+The import setting caused this.
+
+## Solution
+
+1. The idea in `Search Windows` is 32 bit idea, you have to go to `C:\Program Files\ideaIU-2017.1.5.win\bin\idea64.exe` to open the 64 bit idea.
+
+2. Delete `C:\Users\hanhu\.IntelliJIdea2017.1` then restart idea.
+
+3. Choose not import setting.
+
+4. Re index the project.

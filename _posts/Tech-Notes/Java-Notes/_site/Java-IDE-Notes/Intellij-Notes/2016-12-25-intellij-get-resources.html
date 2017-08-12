@@ -1,0 +1,9 @@
+<p>Both works, and JavaEEHW.db should be located at <code class="highlighter-rouge">src/resources</code> or <code class="highlighter-rouge">test/resources</code>.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>String path=
+Thread.currentThread().getContextClassLoader().getResource("JavaEEHW.db").getPath();
+Or
+String path=
+Thread.currentThread().getContextClassLoader().getResource("").getPath()+"JavaEEHW.db";
+</code></pre>
+</div>

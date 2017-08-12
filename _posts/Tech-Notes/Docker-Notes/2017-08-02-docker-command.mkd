@@ -1,0 +1,63 @@
+---
+layout: post
+author: Hang Hu
+categories: docker
+tags: Docker 
+cover: 
+---
+
+## Get Container ID
+
+```
+docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                                                                                                                                                                                                                                                                                                                                                                                                                                         NAMES
+b36f595fd78c        griffin_demo        "/etc/bootstrap-al..."   2 hours ago         Up 2 hours          8030-8033/tcp, 10020/tcp, 19888/tcp, 49707/tcp, 50010/tcp, 50020/tcp, 50070/tcp, 50075/tcp, 50090/tcp, 0.0.0.0:32122->2122/tcp, 0.0.0.0:33306->3306/tcp, 0.0.0.0:36066->6066/tcp, 0.0.0.0:37077->7077/tcp, 0.0.0.0:38040->8040/tcp, 0.0.0.0:38042->8042/tcp, 0.0.0.0:38080->8080/tcp, 0.0.0.0:38088->8088/tcp, 0.0.0.0:38998->8998/tcp, 0.0.0.0:39000->9000/tcp, 0.0.0.0:39083->9083/tcp, 0.0.0.0:39200->9200/tcp, 0.0.0.0:37017->27017/tcp   griffin_demo
+```
+
+
+## Enter docker using Container ID
+
+
+```
+docker exec -it b36f595fd78c bash
+```
+
+
+## Copy files from host to docker
+
+
+```
+docker cp testEnum/  b36f595fd78c:/root/testEnum
+```
+
+
+## Show docker memory
+
+
+```
+docker stats
+```
+
+
+## Pull image
+
+
+```
+docker pull breakwa11/shadowsocksr
+```
+
+
+## Run image
+
+
+```
+docker run breakwa11/shadowsocksr
+```
+
+
+## Kill container
+
+
+```
+docker kill 2dfffcb5401a
+```

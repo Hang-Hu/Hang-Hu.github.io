@@ -1,0 +1,40 @@
+---
+layout: post
+author: Hang Hu
+categories: hadoop
+tags: Java Hadoop 
+cover: 
+---
+
+Make directory:
+
+```
+hadoop fs -mkdir -p /root/testEnum/t
+```
+
+
+Put file in specific directory:
+
+
+```
+hadoop fs -put -f ./test_src.avro /root/testEnum/t
+```
+
+
+List:
+
+
+```
+hadoop fs -ls /root/testEnum/t
+```
+
+
+> Note that hadoop use its own file system and you cannot use the relative path
+
+
+View content:
+
+
+```
+hadoop fs -cat <file>
+```

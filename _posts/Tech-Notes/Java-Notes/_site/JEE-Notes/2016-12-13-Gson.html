@@ -1,0 +1,27 @@
+<h4 id="a-better-usage-of-jsonstr">A better usage of jsonStr</h4>
+
+<p>If needed, give it a “” initiation to avoid NullPointerException
+` java.lang.NullPointerException
+        at org.apache.catalina.connector.CoyoteWriter.write(CoyoteWriter.java:180)
+`</p>
+<h4 id="usage">Usage</h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>String jsonstr=new Gson().toJson(records);
+</code></pre>
+</div>
+
+<h4 id="give-it-another-name-for-serialization">Give it another name for serialization</h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>@SerializedName("group_id")
+private int groupId;
+@SerializedName("group_name")
+private String groupName;
+@SerializedName("device_id")
+private int deviceId;
+@SerializedName("device_name")
+private String deviceName;
+private int status;
+@SerializedName("error_msg")
+private String errorMsg;
+</code></pre>
+</div>

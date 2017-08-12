@@ -11,3 +11,11 @@ Copy /root/cm-13.0-20160820-SNAPSHOT-ZNH5YAO0J0-cancro.zip from DigitalOcean to 
 ```
 scp DigitalOcean:/root/cm-13.0-20160820-SNAPSHOT-ZNH5YAO0J0-cancro.zip ~
 ```
+
+
+## With username specified
+
+
+```
+scp target/griffin-profile-1.0-SNAPSHOT-jar-with-dependencies.jar dku@10.149.247.156:/home/dku/testEnum
+```

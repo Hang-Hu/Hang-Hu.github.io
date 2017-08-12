@@ -1,0 +1,67 @@
+<h2 id="details">Details</h2>
+
+<p><code class="highlighter-rouge">
+java.sql.SQLException: Parameter index out of range (8 &gt; number of parameters, which is 7).
+</code></p>
+<h2 id="reason">Reason</h2>
+
+<p>I map team and member twice, Hibernate can’t handle this. In the insert it fails when counting the parameters. Each column should be mapped only once (except if one mapping is read only).</p>
+<h2 id="solution">Solution</h2>
+
+<p>Use <code class="highlighter-rouge">insert="false" update="false"</code> in two <code class="highlighter-rouge">many-to-one</code>, because id can’t be used with <code class="highlighter-rouge">insert="false" update="false"</code>.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;many-to-one name="teamByTeam" class="com.general.dao.entity.TeamEntity" insert="false" update="false"&gt;
+    &lt;column name="team"/&gt;
+&lt;/many-to-one&gt;
+&lt;many-to-one name="studentByMember" class="com.general.dao.entity.StudentEntity" insert="false" update="false"&gt;
+    &lt;column name="member"/&gt;
+&lt;/many-to-one&gt;
+</code></pre>
+</div>
+
+<h2 id="abandoned-solution">Abandoned Solution</h2>
+
+<p>This solution is abandoned because <code class="highlighter-rouge">team</code> and <code class="highlighter-rouge">member</code> disappears after change, while they are already used in code.</p>
+
+<p>Use <code class="highlighter-rouge">key-many-to-one</code> instead of <code class="highlighter-rouge">key-property</code> and <code class="highlighter-rouge">many-to-one</code>.</p>
+
+<h3 id="original">Original</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;class name="com.general.dao.entity.TeamStudentEntity" table="Team__Student" schema="ECollaborationWeb"&gt;
+    &lt;composite-id mapped="true" class="com.general.dao.entity.TeamStudentEntityPK"&gt;
+        &lt;key-property name="teamByTeam" class="com.general.dao.entity.TeamEntity" column="team"/&gt;
+        &lt;key-property name="studentByMember" class="com.general.dao.entity.StudentEntity" column="member"/&gt;
+    &lt;/composite-id&gt;
+    &lt;many-to-one name="teamByTeam" class="com.general.dao.entity.TeamEntity"&gt;
+        &lt;column name="team"/&gt;
+    &lt;/many-to-one&gt;
+    &lt;many-to-one name="studentByMember" class="com.general.dao.entity.StudentEntity"&gt;
+        &lt;column name="member"/&gt;
+    &lt;/many-to-one&gt;
+&lt;/class&gt;
+</code></pre>
+</div>
+
+<h3 id="change-to">Change to</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;class name="com.general.dao.entity.TeamStudentEntity" table="Team__Student" schema="ECollaborationWeb"&gt;
+    &lt;composite-id mapped="true" class="com.general.dao.entity.TeamStudentEntity"&gt;
+        &lt;key-many-to-one name="teamByTeam" class="com.general.dao.entity.TeamEntity" column="team"/&gt;
+        &lt;key-many-to-one name="studentByMember" class="com.general.dao.entity.StudentEntity" column="member"/&gt;
+    &lt;/composite-id&gt;
+&lt;/class&gt;
+</code></pre>
+</div>
+
+<h2 id="another-simpler-solution">Another simpler solution</h2>
+
+<p>Delete <code class="highlighter-rouge">many-to-one</code>, just leave ids. If you need team object, get it using teamId.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;class name="com.general.dao.entity.TeamStudentEntity" table="Team__Student" schema="ECollaborationWeb"&gt;
+    &lt;composite-id mapped="true" class="com.general.dao.entity.TeamStudentEntity"&gt;
+        &lt;key-property name="teamByTeam" class="com.general.dao.entity.TeamEntity" column="team"/&gt;
+        &lt;key-property name="studentByMember" class="com.general.dao.entity.StudentEntity" column="member"/&gt;
+    &lt;/composite-id&gt;
+&lt;/class&gt;
+</code></pre>
+</div>

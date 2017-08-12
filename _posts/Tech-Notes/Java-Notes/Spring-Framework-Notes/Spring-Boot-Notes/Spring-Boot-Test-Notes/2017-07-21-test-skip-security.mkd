@@ -1,0 +1,11 @@
+---
+layout: post
+author: Hang Hu
+categories: spring-boot-test
+tags: Java Spring-Framework Spring-Boot Spring-Boot-Test 
+cover: 
+---
+
+1. Put `@EnableAuthorizationServer` to a new class instead of `Application.java` that contains `@SpringBootApplication`, then it won't be loaded by unit test under `src/test/java/`.
+
+2. 

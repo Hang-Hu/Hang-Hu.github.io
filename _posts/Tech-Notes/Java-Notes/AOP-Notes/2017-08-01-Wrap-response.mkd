@@ -1,0 +1,93 @@
+---
+layout: post
+author: Hang Hu
+categories: aop
+tags: Java AOP 
+cover: 
+---
+
+## Purpose
+
+To wrap all response as custom response.
+
+> Response before being wrapped:
+
+```
+"0.1.0"
+```
+
+
+> Wrapped response:
+
+
+```
+{
+    "info": "CREATE_JOB_SUCCESS",
+    "data": "0.1.0"
+}
+```
+
+
+## Use @ControllerAdvice (half-success)
+
+
+```
+@ControllerAdvice
+public class ResponseWrappingAdvisor implements ResponseBodyAdvice {
+
+  @Override
+  public boolean supports(MethodParameter returnType, Class converterType) {
+    return true;
+  }
+
+  @Override
+  public Object beforeBodyWrite(Object body, MethodParameter returnType,
+      MediaType selectedContentType, Class selectedConverterType, ServerHttpRequest request,
+      ServerHttpResponse response) {
+    GriffinResponse griffinResponse = new GriffinResponse(GriffinOperationMessage.CREATE_JOB_SUCCESS, body);
+    ObjectMapper mapper=new ObjectMapper();
+    String result="";
+    try {
+      result=mapper.writeValueAsString(griffinResponse);
+    } catch (JsonProcessingException e) {
+      e.printStackTrace();
+    }
+    return result;
+  }
+}
+```
+
+
+It occurs cast exception when framework tries to convert modified body back to the original type of the response. However, when I convert it to json as String, the framework will handle the exception without throwing it out and I get the following result: 
+
+
+```
+"{\"info\":\"CREATE_JOB_SUCCESS\",\"data\":[\"eBay\"]}"
+```
+
+
+
+## Use AOP(fail)
+
+
+```
+@Aspect
+@Component
+public class ResponseWrappingAspect {
+
+  @Pointcut("within(@org.springframework.web.bind.annotation.RestController *)")
+  public void anyControllerPointcut() {
+  }
+
+  @Pointcut("execution(* *(..))")
+  public void anyMethodPointcut() {
+  }
+
+  @AfterReturning(value = "anyControllerPointcut() && anyMethodPointcut()", returning = "response")
+  public Object wrapResponse(Object response) {
+    GriffinResponse griffinResponse = new GriffinResponse(
+        GriffinOperationMessage.CREATE_JOB_SUCCESS, response);
+    return griffinResponse;
+  }
+}
+```

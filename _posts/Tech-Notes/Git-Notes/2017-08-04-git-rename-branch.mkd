@@ -1,0 +1,15 @@
+---
+layout: post
+author: Hang Hu
+categories: git
+tags: Git 
+cover: 
+---
+
+## Rename Local Branch
+
+rename `master` to `SublimeText3-Packages-User`.
+
+```
+git branch -m master SublimeText3-Packages-User
+```

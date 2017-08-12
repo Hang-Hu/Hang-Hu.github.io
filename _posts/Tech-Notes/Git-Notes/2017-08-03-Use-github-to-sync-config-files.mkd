@@ -1,0 +1,42 @@
+---
+layout: post
+author: Hang Hu
+categories: git
+tags: Git 
+cover: 
+---
+
+Create repository `Configuration` in github without any initialization.
+
+## Set branch for Sublime Text 3
+
+### Write gitignore
+
+```
+Package Control.last-run
+Package Control.ca-list
+Package Control.ca-bundle
+Package Control.system-ca-bundle
+Package Control.cache/
+Package Control.ca-certs/
+```
+
+
+### Create branch and push
+
+
+```
+git init
+git remote add origin https://github.com/Hang-Hu/Configuration.git
+git checkout -b SublimeText3-Packages-User
+git add .
+git commit -m 'sublime-text-3-config'
+git remote add SublimeText3-Packages-User https://github.com/Hang-Hu/Configuration.git
+git push --set-upstream origin SublimeText3-Packages-User
+```
+
+
+### Reference
+
+
+[https://packagecontrol.io/docs/syncing#dropbox-windows](https://packagecontrol.io/docs/syncing# dropbox-windows)

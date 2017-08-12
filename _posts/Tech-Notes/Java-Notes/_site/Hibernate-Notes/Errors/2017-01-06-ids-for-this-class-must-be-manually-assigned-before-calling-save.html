@@ -1,0 +1,17 @@
+<h2 id="reason">Reason</h2>
+
+<p>Id generator is forgotten.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;id name="id" column="id"/&gt;
+</code></pre>
+</div>
+
+<h2 id="solution">Solution</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;id name="id" column="id"&gt;
+    &lt;generator class="increment"&gt;&lt;/generator&gt;
+&lt;/id&gt;
+</code></pre>
+</div>
+
+<p>Which is similiar to @GeneratedValue(strategy=GenerationType.AUTO), and id in table is auto_increment.</p>

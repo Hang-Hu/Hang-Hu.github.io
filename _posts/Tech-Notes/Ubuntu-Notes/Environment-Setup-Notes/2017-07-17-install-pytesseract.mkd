@@ -1,0 +1,15 @@
+---
+layout: post
+author: Hang Hu
+categories: environment-setup
+tags: Ubuntu Environment-Setup 
+cover: 
+---
+
+```
+pip install numpy
+sudo apt install python-opencv
+pip install opencv-python
+sudo apt-get install tesseract-ocr
+sudo apt-get install tesseract-ocr-eng
+```

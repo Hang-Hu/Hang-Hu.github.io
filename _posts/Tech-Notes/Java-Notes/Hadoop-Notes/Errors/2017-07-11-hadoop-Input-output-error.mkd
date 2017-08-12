@@ -1,0 +1,35 @@
+---
+layout: post
+author: Hang Hu
+categories: hadoop
+tags: Java Hadoop 
+cover: 
+---
+
+## Detail
+
+```
+hadoop fs -mkdir /usr/hive/warehouse
+```
+
+
+```
+mkdir: `/usr/hive/warehouse': Input/output error
+```
+
+
+## Reason
+
+
+To make a directory under `/usr`, you have to own root privilege.
+
+
+## Solution
+
+
+Switch to root.
+
+
+```
+sudo su
+```

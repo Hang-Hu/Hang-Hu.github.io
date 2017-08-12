@@ -1,0 +1,21 @@
+---
+layout: post
+author: Hang Hu
+categories: chrome
+tags: Ubuntu Application Chrome 
+cover: 
+---
+
+```
+Local Extension Settings
+Local Storage
+```
+
+
+For most extensions, copy the backed `Local Extension Settings` is enough to restore settings.
+
+
+However, for extensions as `Block site`, you have to copy corresponding files in `Local Storage`.
+
+
+Search these files using extension ID `eiimnmioipafcokbfikbljfdeojpcgbh`

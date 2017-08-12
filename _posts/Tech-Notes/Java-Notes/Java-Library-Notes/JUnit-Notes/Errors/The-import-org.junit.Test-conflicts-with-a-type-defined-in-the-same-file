@@ -1,0 +1,5 @@
+#The import org.junit.Test conflicts with a type defined in the same file
+##Reason
+The class which uses junit test is named after `class Test`.
+##Solution
+Change the class name.

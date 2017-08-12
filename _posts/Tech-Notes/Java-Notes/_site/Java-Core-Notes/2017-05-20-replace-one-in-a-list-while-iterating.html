@@ -1,0 +1,16 @@
+<h2 id="idea">Idea</h2>
+
+<p>Use ListIterator’s <code class="highlighter-rouge">set()</code>.</p>
+
+<h2 id="example">Example</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>for (ListIterator&lt;String&gt; i = strings.listIterator(); i.hasNext(); ) {
+  String s = i.next();
+  if ((s.contains("Notes")) &amp;&amp; (s.equals("Tech-Notes") == false)) {
+    i.set(s.substring(0, s.lastIndexOf('-')));
+  } else {
+    i.remove();
+  }
+}
+</code></pre>
+</div>

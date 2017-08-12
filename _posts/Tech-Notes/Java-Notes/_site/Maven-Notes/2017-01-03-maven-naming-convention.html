@@ -1,0 +1,31 @@
+<p><code class="highlighter-rouge">groupId</code> will identify your project uniquely across all projects, so we need to enforce a naming schema. It has to follow the package name rules, what means that has to be at least as a domain name you control, and you can create as many subgroups as you want. Look at More information about package names.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>eg. org.apache.maven, org.apache.commons
+</code></pre>
+</div>
+
+<p>A good way to determine the granularity of the <code class="highlighter-rouge">groupId</code> is to use the project structure. That is, if the current project is a multiple module project, it should append a new identifier to the parent’s <code class="highlighter-rouge">groupId</code>.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>eg. org.apache.maven, org.apache.maven.plugins, org.apache.maven.reporting
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">artifactId</code> is the name of the jar without version. If you created it then you can choose whatever name you want with lowercase letters and no strange symbols. If it’s a third party jar you have to take the name of the jar as it’s distributed.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>eg. maven, commons-math
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">version</code> if you distribute it then you can choose any typical version with numbers and dots (1.0, 1.1, 1.0.1, …). Don’t use dates as they are usually associated with SNAPSHOT (nightly) builds. If it’s a third party artifact, you have to use their version number whatever it is, and as strange as it can look.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>eg. 2.0, 2.0.1, 1.3.1
+</code></pre>
+</div>
+
+<h2 id="my-example">My Example</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;groupId&gt;com.huhang.test.hibernate&lt;/groupId&gt;
+&lt;artifactId&gt;TestHibernate&lt;/artifactId&gt;
+&lt;version&gt;1.0&lt;/version&gt;
+</code></pre>
+</div>

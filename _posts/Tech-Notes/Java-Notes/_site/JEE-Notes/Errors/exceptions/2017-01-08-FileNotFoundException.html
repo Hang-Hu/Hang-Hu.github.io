@@ -1,0 +1,61 @@
+<h2 id="case1">Case1</h2>
+
+<h3 id="detail">Detail</h3>
+
+<p><code class="highlighter-rouge">java.io.FileNotFoundException: 
+/home/joanna/Documents/code4java/eclipse%20workspace/.metadata/.plugins/
+org.eclipse.wst.server.core/tmp0/wtpwebapps/SimpleController3-Interceptor/WEB-INF/classes/log.xml</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>cd ~/Desktop/Link to eclipse workspace/.metadata/.plugins/
+org.eclipse.wst.server.core/tmp0/wtpwebapps/
+</code></pre>
+</div>
+
+<h3 id="reason">Reason</h3>
+
+<p><code class="highlighter-rouge">path</code> fetched by this code can only write to <code class="highlighter-rouge">log.xml</code>, however, when I want to write to <code class="highlighter-rouge">log.xml</code> using this <code class="highlighter-rouge">path</code>, FileNotFoundException occurs.</p>
+
+<p>`</p>
+
+<p>String path=Thread.currentThread().getContextClassLoader().getResource(“log.xml”).getPath();</p>
+
+<p>`</p>
+
+<h3 id="solution">Solution</h3>
+
+<p>Code below can both read and write to log.xml without exception</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>String path=getServletContext().getRealPath("WEB-INF/classes/log.xml");
+</code></pre>
+</div>
+
+<p>Print <code class="highlighter-rouge">path</code>:</p>
+
+<p>`</p>
+
+<p>/home/joanna/Documents/code4java/eclipse workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/SimpleController3-Interceptor/WEB-INF/classes/log.xml</p>
+
+<p>`</p>
+
+<h3 id="a-better-one">A better one</h3>
+
+<p>You should never access web resources as <code class="highlighter-rouge">java.io.File</code> objects. In many application servers they will not exist independently in the file system.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>InputStream sourceInput=
+request.getServletContext().getResourceAsStream("WEB-INF/classes/log.xml");
+</code></pre>
+</div>
+
+<h2 id="case2">Case2</h2>
+
+<h3 id="reason-1">Reason</h3>
+
+<p>Go to deploy directory and find no <code class="highlighter-rouge">controller.xml</code> here.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>cd /usr/local/apache-tomcat-8.0.37/webapps/ROOT/WEB-INF/classes
+</code></pre>
+</div>
+
+<h3 id="solution-1">Solution</h3>
+
+<p>Delete war in idea’s Run-&gt;Server-&gt;Deployment, generate it again by maven.</p>

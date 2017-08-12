@@ -1,0 +1,23 @@
+---
+layout: post
+author: Hang Hu
+categories: hadoop
+tags: Java Hadoop 
+cover: 
+---
+
+## Reason
+
+Root or admin privilege is required.
+
+## Solution for Windows
+
+1. Open cmd in administrator mode.
+2. Run `etc\hadoop\hadoop-env.cmd`.
+3. Run `sbin\start-dfs.cmd`.
+4. Run `sbin\start-yarn.cmd`.
+5. Run my job.
+
+```
+bin\yarn jar share\hadoop\mapreduce\hadoop-mapreduce-examples-2.6.5.jar wordcount /LICENSE.txt /out
+```

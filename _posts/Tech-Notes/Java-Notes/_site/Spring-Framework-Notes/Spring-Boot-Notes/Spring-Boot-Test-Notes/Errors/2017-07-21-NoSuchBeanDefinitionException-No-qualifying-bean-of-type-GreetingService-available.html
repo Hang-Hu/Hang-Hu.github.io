@@ -1,0 +1,32 @@
+<h2 id="details">Details</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>@RunWith(SpringRunner.class)
+@WebMvcTest()
+public class WebMockMvcTest {
+  @Autowired
+  private MockMvc mockMvc;
+  @Test
+  public void shouldReturnDefaultMessage() throws Exception {
+    this.mockMvc.perform(get("/")).andDo(print()).andExpect(status().isOk())
+        .andExpect(content().string(containsString("Hello World")));
+  }
+}
+</code></pre>
+</div>
+
+<h2 id="reason">Reason</h2>
+
+<p>Note that <code class="highlighter-rouge">@WebMvcTest</code> only start web layer, leaving <code class="highlighter-rouge">@Service</code> and <code class="highlighter-rouge">@Repository</code> not initiated.</p>
+
+<p>If specific controller class is not assigned, all controllers will be initiated, rising this exception due to lack of bean greetingService.</p>
+
+<h2 id="solution">Solution</h2>
+
+<p>Recommended: Assign <code class="highlighter-rouge">HomeController</code> to <code class="highlighter-rouge">@WebMvcTest()</code>, use <code class="highlighter-rouge">@WebMvcTest(HomeController.class)</code> instead of <code class="highlighter-rouge">@WebMvcTest()</code>.</p>
+
+<p>Or inject GreetingService bean.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>@MockBean
+private GreetingService service;
+</code></pre>
+</div>

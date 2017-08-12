@@ -1,0 +1,27 @@
+---
+layout: post
+author: Hang Hu
+categories: c
+tags: C 
+cover: 
+---
+
+The instruction `leal (%edx, %edx, 4)`, `%eax` means: `eax = edx * 5` (which is a simplification of `eax = edx + edx * 4`). The `leal` instruction doesn't do memory references. It only performs arithmetic with registers.  
+
+
+```
+sall %cl, %edx
+testl %edx, %edx
+```
+
+
+`sall %cl, %edx` shifts `%edx` left by `%cl` bits. (`%cl`, for reference, is the low byte of `%ecx`.) The subsequent `testl` tests whether that shift zeroed out `%edx`.
+
+  
+
+The `jne` is called that because it's often used in the context of comparisons, which in ASM are often just subtractions. The flags would be set based on the difference; `ZF` would be set if the items are equal (since `x - x == 0`). It's also called `jnz` in Intel syntax; i'm not sure whether GNU allows that too.  
+
+
+
+`JG`:Jump if sign and overflow flags are the same and zero flag is clear (jump if "`not less or equal`" or "`greater`")
+

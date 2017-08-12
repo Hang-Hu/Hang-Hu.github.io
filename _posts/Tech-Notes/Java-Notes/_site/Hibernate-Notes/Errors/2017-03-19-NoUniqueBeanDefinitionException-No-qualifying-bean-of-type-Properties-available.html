@@ -1,0 +1,8 @@
+<h2 id="detail">Detail</h2>
+
+<p>Caused by: org.springframework.beans.factory.NoUniqueBeanDefinitionException: No qualifying bean of type ‘java.util.Properties’ available: expected single matching bean but found 2:  systemProperties, hibernateProperties</p>
+<h2 id="reason">Reason</h2>
+
+<h2 id="solution">Solution</h2>
+
+<p>Remove <code class="highlighter-rouge">@Bean</code> for <code class="highlighter-rouge">hibernateProperties</code>.</p>

@@ -5,6 +5,7 @@ categories: environment-setup
 tags: Ubuntu Environment-Setup 
 cover: 
 ---
+## Deployment in USTC cloud ubuntu
 
 ## Mysql
 
@@ -15,6 +16,8 @@ sudo apt-get install mysql-server mysql-client
 ## JDK deployment
 
 ```
+wget --no-cookies --headers "Cookie: oraclelicense=accept-securebackup-cookie http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.tar.gz"
+
 sudo mkdir /usr/local/JDK
 tar xzvf jdk-8u91-linux-x64.tar.gz
 sudo cp -r jdk1.8.0_91/ /usr/local/JDK/

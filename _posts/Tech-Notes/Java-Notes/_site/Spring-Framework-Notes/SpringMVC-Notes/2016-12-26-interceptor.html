@@ -1,0 +1,54 @@
+<h2 id="implements-handlerinterceptor">Implements HandlerInterceptor</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>public class AuthInterceptor implements HandlerInterceptor{
+}
+</code></pre>
+</div>
+
+<h2 id="prehandle">PreHandle</h2>
+
+<p>Called before the handler execution, returns a boolean value, “true” : continue the handler execution chain; “false”, stop the execution chain and return it.</p>
+
+<blockquote>
+  <p>Add auth verification.</p>
+</blockquote>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>@Override
+public boolean preHandle(javax.servlet.http.HttpServletRequest httpServletRequest, javax.servlet.http.HttpServletResponse httpServletResponse, Object o) throws Exception {
+    System.out.println("preHandle of Auth Interceptor.");
+    return true;
+}
+</code></pre>
+</div>
+
+<h2 id="posthandle">PostHandle</h2>
+
+<p>Called after the handler execution, allow manipulate the ModelAndView object before render it to view page.</p>
+
+<blockquote>
+  <p>Add template engine processing work here if json is not used.</p>
+</blockquote>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>@Override
+public void postHandle(javax.servlet.http.HttpServletRequest httpServletRequest, javax.servlet.http.HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
+    System.out.println("postHandle");
+}
+</code></pre>
+</div>
+
+<h2 id="aftercompletion">afterCompletion</h2>
+
+<p>Called after the complete request has finished. Seldom use, cant find any use case.</p>
+
+<blockquote>
+  <p>Add CROS allow header.</p>
+</blockquote>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>@Override
+public void afterCompletion(javax.servlet.http.HttpServletRequest request, javax.servlet.http.HttpServletResponse response, Object o, Exception e) throws Exception {
+    response.setHeader("Access-Control-Allow-Origin", "*");
+    response.setHeader("Access-Control-Allow-Headers", "X-Requested-With");
+    System.out.println("aferCompletion");
+}
+</code></pre>
+</div>

@@ -1,0 +1,12 @@
+---
+layout: post
+author: Hang Hu
+categories: command
+tags: Ubuntu Command 
+cover: 
+---
+
+```
+shopt -s globstar
+mv **/*.txt txt/
+```

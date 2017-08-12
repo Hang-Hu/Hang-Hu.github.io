@@ -1,0 +1,19 @@
+---
+layout: post
+author: Hang Hu
+categories: windows
+tags: Windows 
+cover: 
+---
+
+## Reason
+
+The website I download chrome is in Chinese, thus the app downloaded is Chinese only.
+
+## Solution
+
+1. Delete chrome together with user info.
+2. Change the region of system to En(US)
+3. Change the region of chrome website to En(US)
+4. Download and install chrome.
+

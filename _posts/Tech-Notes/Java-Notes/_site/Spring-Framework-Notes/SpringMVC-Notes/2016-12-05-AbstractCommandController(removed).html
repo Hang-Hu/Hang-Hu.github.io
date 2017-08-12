@@ -1,0 +1,125 @@
+<h4 id="userjava-in-comhuhangdomain">User.java in com.huhang.domain</h4>
+
+<h4 id="commandcontroller-implements-abstractcommandcontroller">CommandController implements AbstractCommandController</h4>
+
+<p>CommandController can pass mapped key and value to POJO <code class="highlighter-rouge">User</code>.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>public class CommandController extends AbstractCommandController{
+	public CommandController(){
+		this.setCommandClass(User.class);
+	}
+	@Override
+	protected ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object command,
+			BindException errors) throws Exception {
+		User user=(User)command;
+		ModelAndView mv=new ModelAndView();
+		mv.addObject("user", user);
+		mv.setViewName("index");
+		return mv;
+	}
+}
+</code></pre>
+</div>
+
+<p>Its configuration in springmvc.xml:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;bean name="/command.do" class="com.huhang.controller.CommandController"&gt;&lt;/bean&gt;
+</code></pre>
+</div>
+
+<h4 id="registerjsp-for-passing-values-to-commandcontroller">register.jsp for passing values to CommandController</h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="err">&lt;</span>%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%&gt;
+<span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+<span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;title&gt;</span>Insert title here<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"</span> <span class="na">integrity=</span><span class="s">"sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"</span> <span class="na">crossorigin=</span><span class="s">"anonymous"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+	<span class="nt">&lt;form</span> <span class="na">action=</span><span class="s">"./command.do"</span> <span class="na">method=</span><span class="s">"post"</span><span class="nt">&gt;</span>
+		<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"form-group"</span><span class="nt">&gt;</span>
+			<span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"username"</span><span class="nt">&gt;</span>User name:<span class="nt">&lt;/label&gt;</span>
+			<span class="nt">&lt;input</span> <span class="na">class=</span><span class="s">"form-control"</span> <span class="na">name=</span><span class="s">"name"</span><span class="nt">&gt;</span>
+		<span class="nt">&lt;/div&gt;</span>
+	    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"form-group"</span><span class="nt">&gt;</span>
+	    	<span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"password"</span><span class="nt">&gt;</span>Password:<span class="nt">&lt;/label&gt;</span>
+	    	<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"password"</span> <span class="na">class=</span><span class="s">"form-control"</span> <span class="na">name=</span><span class="s">"password"</span><span class="nt">&gt;</span>
+	    <span class="nt">&lt;/div&gt;</span>
+	    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"form-group"</span><span class="nt">&gt;</span>
+	    	<span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"repassword"</span><span class="nt">&gt;</span>Retype password:<span class="nt">&lt;/label&gt;</span>
+	    	<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"password"</span> <span class="na">class=</span><span class="s">"form-control"</span> <span class="na">name=</span><span class="s">"repassword"</span><span class="nt">&gt;</span>
+	    <span class="nt">&lt;/div&gt;</span>
+	    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"form-group"</span><span class="nt">&gt;</span>
+	    	<span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"age"</span><span class="nt">&gt;</span>Age:<span class="nt">&lt;/label&gt;</span>
+	    	<span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"number"</span> <span class="na">class=</span><span class="s">"form-control"</span> <span class="na">name=</span><span class="s">"age"</span><span class="nt">&gt;</span>
+	    <span class="nt">&lt;/div&gt;</span>
+	    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"form-group"</span><span class="nt">&gt;</span>
+	    	<span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"birthday"</span><span class="nt">&gt;</span>Birthday:<span class="nt">&lt;/label&gt;</span>
+	    	<span class="nt">&lt;input</span> <span class="na">class=</span><span class="s">"form-control"</span> <span class="na">name=</span><span class="s">"birthday"</span><span class="nt">&gt;</span>
+	    <span class="nt">&lt;/div&gt;</span>
+	    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"form-group"</span><span class="nt">&gt;</span>
+	    	<span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"address"</span><span class="nt">&gt;</span>Address:<span class="nt">&lt;/label&gt;</span>
+	    	<span class="nt">&lt;input</span> <span class="na">class=</span><span class="s">"form-control"</span> <span class="na">name=</span><span class="s">"address"</span><span class="nt">&gt;</span>
+	    <span class="nt">&lt;/div&gt;</span>
+	    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"checkbox"</span><span class="nt">&gt;</span>
+	    	<span class="nt">&lt;label&gt;&lt;input</span> <span class="na">type=</span><span class="s">"checkbox"</span><span class="nt">&gt;</span> Remember me<span class="nt">&lt;/label&gt;</span>
+	  <span class="nt">&lt;/div&gt;</span>
+	    <span class="nt">&lt;button</span> <span class="na">type=</span><span class="s">"submit"</span> <span class="na">class=</span><span class="s">"btn btn-default"</span><span class="nt">&gt;</span>Submit<span class="nt">&lt;/button&gt;</span>
+	<span class="nt">&lt;/form&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre>
+</div>
+
+<h4 id="registercontroller-to-access-registerjsp">RegisterController to access register.jsp</h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>public class RegisterController implements Controller{
+	@Override
+	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mv=new ModelAndView();
+		mv.setViewName("register");
+		return mv;
+	}
+}
+</code></pre>
+</div>
+
+<p>Its configuration:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;bean name="/register.do" class="com.huhang.controller.RegisterController"&gt;&lt;/bean&gt;
+</code></pre>
+</div>
+
+<h4 id="indexjsp-for-displaying-the-result">index.jsp for displaying the result</h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;%
+	if(request.getAttribute("user") instanceof User){
+		User user=(User)request.getAttribute("user");
+		if(user!=null){
+			out.print(user.getName()+" "+user.getAge()+" "+user.getBirthday()+" "+user.getAddress());
+		}
+	}else{
+		out.print(request.getAttribute("user"));
+	}
+%&gt;
+</code></pre>
+</div>
+
+<h4 id="different-date-format">Different Date Format</h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>@Override
+protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws Exception {
+	String birthday=request.getParameter("birthday");
+	boolean allowEmpty=true;
+	if(birthday.contains("/")){
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy/MM/dd"), allowEmpty));	
+	}else if(birthday.contains("-")){
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), allowEmpty));
+	}	
+}
+</code></pre>
+</div>

@@ -11,6 +11,8 @@ cover:
 1. Every title must have one line before and one line after
 2. Every title must have one space between `# ` and `Something`
 
+3. Category should be lowercased otherwise centrarium won't find URL for it because URL uses lowercase.
+4. More than one categories can be used but better not, otherwise it's meaningless to distinguish tags from category.
 
 ## Command
 

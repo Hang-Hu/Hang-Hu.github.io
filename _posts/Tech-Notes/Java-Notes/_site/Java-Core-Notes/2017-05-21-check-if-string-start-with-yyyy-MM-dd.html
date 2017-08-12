@@ -1,0 +1,12 @@
+<div class="highlighter-rouge"><pre class="highlight"><code>private static boolean startsWithDate(String str) {
+if(str.length()&lt;10)//doesn't start with date
+  return false;
+try {
+  new SimpleDateFormat("yyyy-MM-dd").parse(str.substring(0, 10));
+  return true;
+} catch (ParseException e) {
+  return false;
+}
+}
+</code></pre>
+</div>

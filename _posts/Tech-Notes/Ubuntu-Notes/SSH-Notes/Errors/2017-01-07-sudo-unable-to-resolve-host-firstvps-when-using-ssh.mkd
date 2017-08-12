@@ -1,0 +1,14 @@
+---
+layout: post
+author: Hang Hu
+categories: ssh
+tags: Ubuntu SSH 
+cover: 
+---
+
+## Reason
+
+The name of this vps machine is `firstvps`, but my nickname in `~/.ssh/config` is `FirstVPS`
+## Solution
+
+Change `Host` from `FirstVPS` to `firstvps`.

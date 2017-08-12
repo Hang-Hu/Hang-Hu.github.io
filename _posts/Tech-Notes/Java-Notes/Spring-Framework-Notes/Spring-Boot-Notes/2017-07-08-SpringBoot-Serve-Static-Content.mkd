@@ -1,0 +1,11 @@
+---
+layout: post
+author: Hang Hu
+categories: spring-boot
+tags: Java Spring-Framework Spring-Boot 
+cover: 
+---
+
+## The Easist Way
+
+Make directory `src/main/resources/static`, put `index.html` directly inside this directory.

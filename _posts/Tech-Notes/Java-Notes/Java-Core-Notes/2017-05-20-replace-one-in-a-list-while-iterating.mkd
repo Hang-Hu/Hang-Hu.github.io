@@ -1,0 +1,24 @@
+---
+layout: post
+author: Hang Hu
+categories: java-core
+tags: Java Java-Core 
+cover: 
+---
+
+## Idea
+
+Use ListIterator's `set()`.
+
+## Example
+
+```
+for (ListIterator<String> i = strings.listIterator(); i.hasNext(); ) {
+  String s = i.next();
+  if ((s.contains("Notes")) && (s.equals("Tech-Notes") == false)) {
+    i.set(s.substring(0, s.lastIndexOf('-')));
+  } else {
+    i.remove();
+  }
+}
+```

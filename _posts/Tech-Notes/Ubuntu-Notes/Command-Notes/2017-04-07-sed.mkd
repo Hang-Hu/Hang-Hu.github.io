@@ -15,7 +15,6 @@ s/ / whitespace
 g global,globally to a line, not to the first instance.
 ```
 
-也可以是：
 
 ```
 sed -i 's_ _\t_g' distros.txt

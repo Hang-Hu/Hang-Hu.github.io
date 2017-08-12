@@ -1,0 +1,41 @@
+---
+layout: post
+author: Hang Hu
+categories: environment-setup
+tags: Ubuntu Environment-Setup 
+cover: 
+---
+
+## Unzip and move
+
+```
+unzip livy-server-0.3.0.zip
+mv livy-server-0.3.0 /usr/local/
+```
+
+
+## Run livy server
+
+
+```
+bin/livy-server
+```
+
+
+Then I encountered this problem as followed.
+
+
+```
+java.io.IOException: Cannot write log directory /usr/local/livy-server-0.3.0/logs
+```
+
+
+The exception indicated no directory called `logs` in `/usr/local/livy-server-0.3.0`, after confirming it I created the directory by myself.
+
+
+```
+mkdir  /usr/local/livy-server-0.3.0/logs
+```
+
+
+Then it works.

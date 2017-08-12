@@ -1,0 +1,11 @@
+---
+layout: post
+author: Hang Hu
+categories: environment-setup
+tags: Ubuntu Environment-Setup 
+cover: 
+---
+
+### script path
+
+`/bin/idea`

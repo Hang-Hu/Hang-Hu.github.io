@@ -1,0 +1,20 @@
+---
+layout: post
+author: Hang Hu
+categories: git
+tags: Git 
+cover: 
+---
+
+## Reason
+
+No `upstram` set, specify which remote branch I want to track.
+
+## Solution
+
+```
+git pull origin SublimeText3-Packages-User
+```
+
+
+- `origin` is the name of a remote repo. 

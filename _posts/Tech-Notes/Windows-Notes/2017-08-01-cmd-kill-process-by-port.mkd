@@ -1,0 +1,18 @@
+---
+layout: post
+author: Hang Hu
+categories: windows
+tags: Windows 
+cover: 
+---
+
+```
+netstat -ano | findstr :4040
+
+  TCP    0.0.0.0:4040           0.0.0.0:0              LISTENING       11344
+  TCP    [::]:4040              [::]:0                 LISTENING       11344
+```
+
+```
+taskkill /PID 11344 /F
+```

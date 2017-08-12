@@ -1,0 +1,146 @@
+---
+layout: post
+author: Hang Hu
+categories: environment-setup
+tags: Ubuntu Environment-Setup 
+cover: 
+---
+
+## On ubuntu
+
+### Install ssh and rsync
+
+```
+sudo apt-get install ssh
+sudo apt-get install rsync  
+```
+
+
+### Config
+
+
+`vim /usr/local/hadoop-2.6.5/etc/hadoop/hadoop-env.sh`
+
+
+Add following lines:
+
+
+```
+# set to the root of your Java installation
+
+export JAVA_HOME=/usr/lib/JVM/jdk1.8.0_91
+```
+
+
+```
+vim /etc/profile
+```
+
+
+Set HADOOP_HOME.
+
+
+```
+# for hadoop
+
+export HADOOP_HOME=/usr/local/hadoop-2.8.0
+export PATH=$HADOOP_HOME/bin:$PATH
+export HADOOP_CONF_DIR=/etc/hadoop/conf
+```
+
+
+### Run hadoop
+
+
+Test if it's ok.
+
+
+```
+hadoop
+```
+
+
+### Standalone
+
+
+```
+mkdir input
+cp etc/hadoop/*.xml input
+bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.6.5.jar grep input output 'dfs[a-z.]+'
+cat output/*
+```
+
+
+### Pseudo-Distributed Operation
+
+
+etc/hadoop/core-site.xml:
+
+
+```
+<configuration>
+	<property>
+		<name>fs.defaultFS</name>
+		<value>hdfs://localhost:9000</value>
+	</property>
+</configuration>
+```
+
+
+etc/hadoop/hdfs-site.xml:
+
+
+```
+<configuration>
+	<property>
+		<name>dfs.replication</name>
+		<value>1</value>
+	</property>
+</configuration>
+```
+
+
+Check if I can log into localhost `id_rsa.pub`.
+
+
+```
+ssh localhost
+```
+
+
+```
+bin/hdfs namenode -format
+sbin/start-dfs.sh
+```
+
+
+NameNode web interface: `http://localhost:50070/`.
+
+
+```
+bin/hdfs dfs -mkdir -p /user/joanna
+bin/hdfs dfs -put ./etc/hadoop input
+```
+
+Check the result:
+
+
+```
+bin/hdfs dfs -ls /user/joanna
+Found 1 items
+drwxr-xr-x   - joanna supergroup          0 2017-07-25 09:48 /user/joanna/input
+```
+
+
+## Yarn
+
+
+
+
+## 
+
+## On Windows
+
+
+`https://wiki.apache.org/hadoop/Hadoop2OnWindows`
+

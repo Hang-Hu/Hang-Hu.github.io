@@ -1,0 +1,23 @@
+---
+layout: post
+author: Hang Hu
+categories: ubuntu
+tags: Ubuntu 
+cover: 
+---
+
+## Method 1
+
+```
+cd /home/joanna/Documents/Notes/Tech-Notes/; retext
+```
+
+Error `Failed to execute child process "cd" (No such file or directory)` appears because cd is a shell builtin. Write it in a '.sh' file will work.
+
+
+## Method 2
+
+
+```
+gnome-terminal --working-directory=/home/joanna/Documents/Notes/Tech-Notes/ -e 'retext'
+```

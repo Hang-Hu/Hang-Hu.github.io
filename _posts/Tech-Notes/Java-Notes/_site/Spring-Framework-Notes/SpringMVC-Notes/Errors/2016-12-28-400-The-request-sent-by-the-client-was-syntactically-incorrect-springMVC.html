@@ -1,0 +1,33 @@
+<h2 id="detail">Detail</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>@Controller
+public class WeekController {
+	@RequestMapping("/weeks")
+	@ResponseBody public WeekDTO getWeekList(@Valid @RequestBody User user){
+		return new WeekDTO();
+	}
+}
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>public class User {
+    @NotNull
+    private Integer id;
+    @NotNull
+    private String name;
+    @NotNull
+    @Min(18)
+    private Integer age;
+</code></pre>
+</div>
+
+<h2 id="reason">Reason</h2>
+
+<ol>
+  <li>
+    <p>Parameters in json didn’t match the <code class="highlighter-rouge">requirements</code> when using hibernate validator’s <code class="highlighter-rouge">@Valid</code>, such as <code class="highlighter-rouge">@NotNull</code>, <code class="highlighter-rouge">@Min</code>.</p>
+  </li>
+  <li>
+    <p>No getters and setters in class <code class="highlighter-rouge">User</code> when using <code class="highlighter-rouge">@Valid</code></p>
+  </li>
+</ol>

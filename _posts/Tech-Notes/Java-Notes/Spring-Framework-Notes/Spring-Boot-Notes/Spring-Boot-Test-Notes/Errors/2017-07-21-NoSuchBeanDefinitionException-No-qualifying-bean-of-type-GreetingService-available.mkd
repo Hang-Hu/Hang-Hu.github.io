@@ -1,0 +1,47 @@
+---
+layout: post
+author: Hang Hu
+categories: spring-boot-test
+tags: Java Spring-Framework Spring-Boot Spring-Boot-Test 
+cover: 
+---
+
+## Details
+
+```
+@RunWith(SpringRunner.class)
+@WebMvcTest()
+public class WebMockMvcTest {
+  @Autowired
+  private MockMvc mockMvc;
+  @Test
+  public void shouldReturnDefaultMessage() throws Exception {
+    this.mockMvc.perform(get("/")).andDo(print()).andExpect(status().isOk())
+        .andExpect(content().string(containsString("Hello World")));
+  }
+}
+```
+
+
+## Reason
+
+
+Note that `@WebMvcTest` only start web layer, leaving `@Service` and `@Repository` not initiated.
+
+
+If specific controller class is not assigned, all controllers will be initiated, rising this exception due to lack of bean greetingService.
+
+
+## Solution
+
+
+Recommended: Assign `HomeController` to `@WebMvcTest()`, use `@WebMvcTest(HomeController.class)` instead of `@WebMvcTest()`.
+
+
+Or inject GreetingService bean.
+
+
+```
+@MockBean
+private GreetingService service;
+```

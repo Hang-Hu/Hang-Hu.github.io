@@ -1,0 +1,24 @@
+# Install Python2.7 in Windows
+
+## Download Python 2.7
+
+[https://www.python.org/download/releases/2.7/](https://www.python.org/download/releases/2.7/)
+
+### Set Environment Variables
+
+Add location of Python 2.7 to Path: `C:\Programs\Python2.7`.
+
+## Install pip
+
+### Download get-pip.py
+
+[https://pip.pypa.io/en/stable/installing/#installing-with-get-pip-py](https://pip.pypa.io/en/stable/installing/#installing-with-get-pip-py)
+
+```
+python get-pip.py
+```
+
+Add location of pip `C:\Programs\Python2.7\Scripts` to `Path`.
+
+
+

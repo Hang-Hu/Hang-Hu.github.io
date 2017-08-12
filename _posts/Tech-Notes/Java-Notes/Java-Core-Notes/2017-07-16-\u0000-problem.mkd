@@ -1,0 +1,16 @@
+---
+layout: post
+author: Hang Hu
+categories: java-core
+tags: Java Java-Core 
+cover: 
+---
+
+## Reason
+
+`\u0000` is the default value of a char. You will get it when you don't initialize a char.
+
+```
+char a;
+```
+

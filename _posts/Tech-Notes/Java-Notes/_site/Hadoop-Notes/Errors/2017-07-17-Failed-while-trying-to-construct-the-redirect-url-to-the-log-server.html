@@ -1,0 +1,25 @@
+<h2 id="reason">Reason</h2>
+
+<p><code class="highlighter-rouge">yarn.log.server.url</code> in <code class="highlighter-rouge">yarn-site.xml</code> is not set at all.</p>
+
+<h2 id="solution">Solution</h2>
+
+<ol>
+  <li>
+    <p><code class="highlighter-rouge">vim /etc/gphd/hadoop/conf/yarn-site.xml</code></p>
+  </li>
+  <li>
+    <p>Add the following property into <code class="highlighter-rouge">yarn-site.xml</code>:</p>
+  </li>
+</ol>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;property&gt;
+    &lt;name&gt;yarn.log.server.url&lt;/name&gt;
+    &lt;value&gt;http://127.0.0.1:19888/jobhistory/logs&lt;/value&gt;
+&lt;/property&gt;
+</code></pre>
+</div>
+
+<h2 id="references">References</h2>
+
+<p>https://discuss.pivotal.io/hc/en-us/articles/216118908-PHD-Failed-while-trying-to-construct-the-redirect-URL-to-the-log-server-when-viewing-logs-in-Resource-Manager</p>

@@ -1,0 +1,20 @@
+---
+layout: post
+author: Hang Hu
+categories: hadoop
+tags: Java Hadoop 
+cover: 
+---
+
+## Reason
+
+1. winutils.exe is required in windows to execute hadoop.
+
+2. `HADOOP_HOME` and `PATH` are not set properly.
+
+## Solution
+
+1. Download hadoop-common-2.2.0-bin-master
+2. Put its files into C:\Users\hanhu\Downloads\hadoop-2.6.5\bin
+3. Set environment variables in windows. HADOOP_HOME C:\Users\hanhu\Downloads\hadoop-2.6.5. Then add `%HADOOP_HOME%\bin` to PATH
+

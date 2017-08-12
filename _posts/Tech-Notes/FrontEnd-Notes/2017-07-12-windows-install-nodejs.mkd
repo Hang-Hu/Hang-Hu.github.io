@@ -1,0 +1,14 @@
+---
+layout: post
+author: Hang Hu
+categories: frontend
+tags: FrontEnd 
+cover: 
+---
+
+1. Install nvm-windows: https://github.com/coreybutler/nvm-windows
+
+2. Run cmd as administrator
+3. Use proxy: `nvm proxy http://ip:port`
+4. `nvm install latest`
+5. `nvm use 8.1.4`

@@ -1,0 +1,15 @@
+<div class="highlighter-rouge"><pre class="highlight"><code>public static void getFilesInFolderReversily(final File folder, List&lt;File&gt; files) {
+for (final File file : folder.listFiles()) {
+  if (file.isDirectory()) {
+    getFilesInFolderReversily(file, files);
+  } else {
+    //System.out.println(file.getName());
+    if ((file.getName().endsWith(".mkd") &amp;&amp; (startsWithDate(file.getName()) == false))) {
+      System.out.println(file.getName());
+      files.add(file);
+    }
+  }
+}
+}
+</code></pre>
+</div>

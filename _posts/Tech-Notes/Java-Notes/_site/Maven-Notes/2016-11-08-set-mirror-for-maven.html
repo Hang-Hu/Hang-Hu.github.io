@@ -1,0 +1,16 @@
+<p>Edit your personal configuration file:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>vim ~/.m2/settings.xml
+</code></pre>
+</div>
+
+<p>Add this code between <code class="highlighter-rouge">&lt;mirrors&gt;&lt;/mirrors&gt;</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;mirror&gt;
+&lt;id&gt;uk&lt;/id&gt;
+&lt;name&gt;uk Central&lt;/name&gt;
+&lt;url&gt;http://uk.maven.org/maven2&lt;/url&gt;
+&lt;mirrorOf&gt;central&lt;/mirrorOf&gt;
+&lt;/mirror&gt;
+</code></pre>
+</div>

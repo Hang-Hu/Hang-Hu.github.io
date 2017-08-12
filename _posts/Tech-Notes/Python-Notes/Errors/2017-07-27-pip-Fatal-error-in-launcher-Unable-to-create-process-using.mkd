@@ -1,0 +1,15 @@
+---
+layout: post
+author: Hang Hu
+categories: python
+tags: Python 
+cover: 
+---
+
+## Solution
+
+Don't use `pip install markups`, use this line below.
+
+```
+python3 -m pip install markups
+```

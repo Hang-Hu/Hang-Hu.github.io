@@ -1,0 +1,36 @@
+---
+layout: post
+author: Hang Hu
+categories: ubuntu
+tags: Ubuntu 
+cover: 
+---
+
+To prevent that, edit config in the server:
+
+```
+vi /etc/ssh/sshd_config
+```
+
+
+Add following settings:
+
+
+```
+ClientAliveInterval 30
+ClientAliveCountMax 5
+```
+
+
+`ClientAliveInterval 30` means server will send a message to request response from  the client if no data has been received from client after 30 seconds. Server won't send message to the client to request its response by default.
+
+
+`ClientAliveCountMax 5` means if server sends 5 messages to client without receiving any response, then the server will close the connection.
+
+
+Restart sshd:
+
+
+```
+service sshd restart
+```

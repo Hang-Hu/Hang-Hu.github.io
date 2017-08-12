@@ -1,0 +1,13 @@
+---
+layout: post
+author: Hang Hu
+categories: java-core
+tags: Java Java-Core 
+cover: 
+---
+
+```
+if(Character.toLowerCase(s.charAt(i))!=Character.toLowerCase(s.charAt(j))){
+    return false;
+}
+```

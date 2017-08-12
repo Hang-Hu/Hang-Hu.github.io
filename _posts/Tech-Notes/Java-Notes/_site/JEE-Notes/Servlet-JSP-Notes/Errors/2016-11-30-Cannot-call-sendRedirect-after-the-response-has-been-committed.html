@@ -1,0 +1,9 @@
+<h2 id="full-exception-name">Full exception name</h2>
+
+<p>java.lang.IllegalStateException: Cannot call sendRedirect() after the response has been committed</p>
+<h2 id="reason">Reason</h2>
+
+<p>After calling <code class="highlighter-rouge">response.sendRedirect()</code> in POJO, I call another <code class="highlighter-rouge">sendRedirect()</code> in the servlet calling POJO.</p>
+<h2 id="solution">Solution</h2>
+
+<p>Delete the <code class="highlighter-rouge">sendRedirect()</code> in POJO.</p>

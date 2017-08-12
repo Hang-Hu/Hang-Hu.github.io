@@ -1,0 +1,11 @@
+---
+layout: post
+author: Hang Hu
+categories: command
+tags: Ubuntu Command 
+cover: 
+---
+
+```
+sudo dpkg -r atom
+```

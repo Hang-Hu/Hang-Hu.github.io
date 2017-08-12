@@ -1,0 +1,51 @@
+---
+layout: post
+author: Hang Hu
+categories: python
+tags: Python 
+cover: 
+---
+
+```
+def getcaptcha(driver):
+	path="./pics/"
+	datetime=time.strftime("%m-%d-%Y-%H-%M-%S")
+	print(datetime)
+	while True:
+		while True:
+		    driver.find_element_by_id("a_changeone").click()
+		    element=driver.find_element_by_id("imgVerifycode")
+		    location=element.location
+		    size=element.size
+		    time.sleep(1)
+		    driver.save_screenshot(path+datetime+"screenshot.png")
+		    image=Image.open(path+datetime+"screenshot.png")
+		    left=location['x']
+		    top=location['y']
+		    right=left+size['width']
+		    bottom=top+size['height']
+		    if left!=right:# test if this is a placeholder
+
+		        break
+		image=image.crop((left, top, right, bottom))
+		image.save(path+datetime+"-captcha_screenshot.png")
+		gimg=image.convert('L')
+		gimg.save(path+datetime+"-grey.png")
+		bimg=gimg.point(table, '1')
+		bimg.save(path+datetime+"-binary.png")
+		ocode=pytesseract.image_to_string(image, config="-c tessedit_char_whitelist=0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -psm 6")
+		gcode=pytesseract.image_to_string(gimg, config="-c tessedit_char_whitelist=0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -psm 6")
+		bcode=pytesseract.image_to_string(bimg, config="-c tessedit_char_whitelist=0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ -psm 6")
+		placeimg=cv2.imread("placeholder.png")
+		diff=cv2.subtract(cv2.imread(path+datetime+"-binary.png"), placeimg)
+		same=not numpy.any(diff)
+		if same is False:
+		    break;
+		else:
+		    print("Placeholder image! Reload.")
+
+	bimg.show()
+	newcode=pytesseract.image_to_string(bimg)
+	return newcode
+
+```

@@ -1,0 +1,87 @@
+<p>Note that pessimistic lock fails, try it again if you have time.</p>
+<h2 id="code-calling-it">Code calling it</h2>
+
+<p>No difference from common code, note that <code class="highlighter-rouge">version</code> in entity must be equal to current <code class="highlighter-rouge">version</code> number in database, otherwise update will fail and throw an <code class="highlighter-rouge">Exception</code>. Way to handle it is to let front-end do it again based on new <code class="highlighter-rouge">version</code>.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>public &lt;T&gt; T update(final T entity){
+    sessionFactory.getCurrentSession().update(entity);
+    return entity;
+}
+</code></pre>
+</div>
+
+<h2 id="employeejava">Employee.java</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>@Entity
+@Table(name="Employees")
+public class Employee implements Serializable{
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+    @Column
+    private String name;
+    @Column
+    private int age;
+    @Column
+    private float salary;
+    @Version
+    private int version;
+    public int getVersion() {
+        return version;
+    }
+    public void setVersion(int version) {
+        this.version = version;
+    }
+    public long getId() {
+        return id;
+    }
+    public void setId(long id) {
+        this.id = id;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public int getAge() {
+        return age;
+    }
+    public void setAge(int age) {
+        this.age = age;
+    }
+    public float getSalary() {
+        return salary;
+    }
+    public void setSalary(float salary) {
+        this.salary = salary;
+    }
+}
+</code></pre>
+</div>
+
+<h2 id="database">Database</h2>
+
+<p>Note that NULL as default for version may cause problem, use 0 instead.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>mysql&gt; select * from Employees;
++----+------+--------+--------+---------+
+| id | age  | name   | salary | version |
++----+------+--------+--------+---------+
+|  1 |   21 | Sum    | 1111.2 |       3 |
+|  3 |   40 | Sum    |  433.1 |       2 |
+|  4 |   31 | Tom    |   3000 |       0 |
+|  5 |   22 | Huhang |    100 |       0 |
++----+------+--------+--------+---------+
+mysql&gt; desc Employees;
++---------+--------------+------+-----+---------+----------------+
+| Field   | Type         | Null | Key | Default | Extra          |
++---------+--------------+------+-----+---------+----------------+
+| id      | bigint(20)   | NO   | PRI | NULL    | auto_increment |
+| age     | int(11)      | YES  |     | NULL    |                |
+| name    | varchar(255) | YES  |     | NULL    |                |
+| salary  | float        | YES  |     | NULL    |                |
+| version | int(11)      | YES  |     | NULL    |                |
++---------+--------------+------+-----+---------+----------------+
+</code></pre>
+</div>

@@ -1,0 +1,13 @@
+---
+layout: post
+author: Hang Hu
+categories: java-core
+tags: Java Java-Core 
+cover: 
+---
+
+```
+while(Character.isLetterOrDigit(c)==false{
+    //do something
+}
+```

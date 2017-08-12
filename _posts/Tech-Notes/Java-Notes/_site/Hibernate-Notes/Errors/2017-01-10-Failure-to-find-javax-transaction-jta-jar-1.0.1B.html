@@ -1,0 +1,14 @@
+<h2 id="reason">Reason</h2>
+
+<p>Can’t download <code class="highlighter-rouge">jta 1.0.1B</code> in current maven repository.</p>
+<h2 id="solution">Solution</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;dependency&gt;
+ &lt;groupId&gt;org.hibernate&lt;/groupId&gt;
+ &lt;artifactId&gt;hibernate&lt;/artifactId&gt;
+ &lt;version&gt;3.3.2.GA&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+</div>
+
+<p>It has a recommended dependency for JTA 1.1.</p>

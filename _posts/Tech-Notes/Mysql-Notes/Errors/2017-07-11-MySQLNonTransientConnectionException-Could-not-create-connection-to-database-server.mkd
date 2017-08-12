@@ -1,0 +1,54 @@
+---
+layout: post
+author: Hang Hu
+categories: mysql
+tags: Mysql 
+cover: 
+---
+
+## Reason
+
+## Summary
+
+`bind-address` for mysql should be changed to `0.0.0.0`. I change it but the restart command and config file I use doesn't work, which leads to `bind-address` remaining `127.0.0.1`.
+
+### Check proccess using specific port
+
+bind-address:   127.0.0.1
+
+```
+lsof -Pni :3306
+COMMAND   PID  USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
+mysqld  27561 mysql   28u  IPv4 157269      0t0  TCP 127.0.0.1:3306 (LISTEN)
+```
+
+
+bind-address:   0.0.0.0
+
+
+```
+lsof -Pni :3306
+COMMAND   PID  USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
+mysqld  27658 mysql   28u  IPv4 161403      0t0  TCP *:3306 (LISTEN)
+```
+
+
+## For restart
+
+
+`sudo service mysql start` won't restart mysql.  
+
+`/etc/init.d/mysql restart` works.  
+
+
+## For conig
+
+
+`/etc/my.cnf` won't work.  
+
+`/etc/mysql/mysql.conf.d/mysqld.cnf` works.  
+
+
+
+## Solution
+

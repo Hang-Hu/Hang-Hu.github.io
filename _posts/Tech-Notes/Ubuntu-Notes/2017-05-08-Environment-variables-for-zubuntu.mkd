@@ -1,0 +1,25 @@
+---
+layout: post
+author: Hang Hu
+categories: ubuntu
+tags: Ubuntu 
+cover: 
+---
+
+## local variables
+
+`~/.profile` is useful when `~/.pam_environment` is needed, even more practical than `/etc/environment`
+
+## variables for development
+
+```
+/etc/profile
+```
+
+
+## Variables for http_proxy
+
+
+```
+/etc/environment
+```

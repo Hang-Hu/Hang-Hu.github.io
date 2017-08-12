@@ -1,0 +1,19 @@
+<h2 id="update">Update</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sessionFactory.getCurrentSession().update(entity);
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">update</code> do update without any insertion, no relational entity be inserted.</p>
+
+<h2 id="save">Save</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>sessionFactory.getCurrentSession().save(entity);
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">save</code> do insert the entity itself, no relational entity will be saved cascadely by default. And <code class="highlighter-rouge">List</code> will fail.</p>
+
+<h2 id="cascade">Cascade</h2>
+
+<p>If you want to get the effect of cascade, declare it in <code class="highlighter-rouge">mapping file</code> or <code class="highlighter-rouge">annotation</code>.</p>

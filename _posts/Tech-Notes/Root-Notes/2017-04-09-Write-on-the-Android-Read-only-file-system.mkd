@@ -6,7 +6,7 @@ tags: Root
 cover: 
 ---
 
-First mount root file system with read and write priviledge.
+First mount root file system with read and write privilege.
 
 ```
 shell@cancro:/ $ mount                                                         

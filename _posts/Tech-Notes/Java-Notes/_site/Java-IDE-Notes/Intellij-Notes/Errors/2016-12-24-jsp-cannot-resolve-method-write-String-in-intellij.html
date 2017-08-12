@@ -1,0 +1,12 @@
+<h2 id="reason">Reason</h2>
+
+<p>You’ll have this problem with out, pageContext and jspContext because they use classes provided with the JSP api (not the servlet API).</p>
+<h2 id="solution">Solution</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;dependency&gt;
+    &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+    &lt;artifactId&gt;jsp-api&lt;/artifactId&gt;
+    &lt;version&gt;2.0&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+</div>

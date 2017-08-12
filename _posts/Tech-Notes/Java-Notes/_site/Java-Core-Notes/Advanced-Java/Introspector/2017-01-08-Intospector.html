@@ -1,0 +1,30 @@
+<div class="highlighter-rouge"><pre class="highlight"><code>/**
+ *
+ * @param object is the object which will be set property/field
+ * @param propertyName is the name of object's property/field
+ * @param propertyValue is the value of object's property/field
+ */
+private void setPropertyByIntrospector(Object object, String propertyName, 
+Object propertyValue) {
+    try {
+        BeanInfo beanInfo= Introspector.getBeanInfo(object.getClass());
+        System.out.println(beanInfo.toString());
+        for(PropertyDescriptor propertyDescriptor:beanInfo.getPropertyDescriptors()){
+            System.out.println(propertyDescriptor.getName());
+            if(propertyDescriptor.getName().equals(propertyName)){
+                Method setMethod=propertyDescriptor.getWriteMethod();
+                try {
+                    setMethod.invoke(object,propertyValue);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    } catch (IntrospectionException e) {
+        e.printStackTrace();
+    }
+}
+</code></pre>
+</div>

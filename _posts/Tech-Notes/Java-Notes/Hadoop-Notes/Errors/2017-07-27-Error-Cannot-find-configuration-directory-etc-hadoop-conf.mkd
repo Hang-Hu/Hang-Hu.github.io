@@ -1,0 +1,28 @@
+---
+layout: post
+author: Hang Hu
+categories: hadoop
+tags: Java Hadoop 
+cover: 
+---
+
+## Reason
+
+The default location of `HADOOP_CONF_DIR` is `/etc/hadoop/conf`, but I've downloaded hadoop directly from website, making the config file inside hadoop file, which is `/usr/local/hadoop-2.6.0/etc/hadoop/`.
+
+## Solution
+
+```
+vim hadoop-env.sh
+```
+
+
+Add this line
+
+
+```
+export HADOOP_CONF_DIR=/usr/local/hadoop-2.6.0/etc/hadoop/
+```
+
+
+I think set `HADOOP_CONF_DIR` in `/etc/profile` will also solve it.

@@ -1,0 +1,15 @@
+---
+layout: post
+author: Hang Hu
+categories: spark
+tags: Java Spark 
+cover: 
+---
+
+TimeoutException: Futures timed out after [10000 milliseconds]
+
+## Solution
+
+```
+spark-shell
+```

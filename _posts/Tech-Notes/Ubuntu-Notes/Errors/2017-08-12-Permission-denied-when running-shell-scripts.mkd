@@ -1,0 +1,19 @@
+---
+layout: post
+author: Hang Hu
+categories: Ubuntu
+tags: Ubuntu Errors 
+cover: 
+---
+
+```
+cd /path/to/target
+```
+
+
+To give the file "the_file_name" execute permission (if the file-system allows you with the RW rights):
+
+
+```
+chmod +x the_file_name
+```

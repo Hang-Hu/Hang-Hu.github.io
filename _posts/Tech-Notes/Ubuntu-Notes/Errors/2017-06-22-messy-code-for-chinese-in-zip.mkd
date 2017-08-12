@@ -1,0 +1,17 @@
+---
+layout: post
+author: Hang Hu
+categories: Ubuntu
+tags: Ubuntu Errors 
+cover: 
+---
+
+## Reason
+
+Zip regard GBK encoding as UTF8, so you have to point it out explicitly.
+
+## Solution
+
+```
+unzip -O cp936 SEVideos.zip 
+```  

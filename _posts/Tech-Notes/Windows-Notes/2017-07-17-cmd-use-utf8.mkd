@@ -1,0 +1,13 @@
+---
+layout: post
+author: Hang Hu
+categories: windows
+tags: Windows 
+cover: 
+---
+
+## Solution
+
+```
+chcp 65001
+```

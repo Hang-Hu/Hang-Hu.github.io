@@ -1,0 +1,28 @@
+---
+layout: post
+author: Hang Hu
+categories: spring-boot
+tags: Java Spring-Framework Spring-Boot 
+cover: 
+---
+
+## Debug
+
+```
+java -jar FirstSpringBoot.jar --debug
+```
+
+
+Make a breakpoint where error message is printed inside class `DataSourceProperties` and find no information about datasource has been loaded, showing the failure of loading of `application.properties`.
+
+
+## Reason
+
+
+I put `application.properties` in `src/main/java/com/huhang/config` while I don't add it to resources in maven. Then it won't be loaded.
+
+
+## Solution
+
+
+Either change `application.properties` to `src/main/resources` which has been added to resources in maven or add `src/main/java/com/huhang/config` to `pom.xml`.

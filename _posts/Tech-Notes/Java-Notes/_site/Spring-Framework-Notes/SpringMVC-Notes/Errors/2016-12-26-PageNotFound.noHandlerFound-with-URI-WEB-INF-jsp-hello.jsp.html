@@ -1,0 +1,54 @@
+<h2 id="reason">Reason</h2>
+
+<p>My access to <code class="highlighter-rouge">localhost/user/hello</code> calls UserController’s sayHello method and it returns “hello”, which is resolved to <code class="highlighter-rouge">/WEB-INF/jsp/hello.jsp</code> by ‘InternalResourceViewResolver’ set in springmvc-servlet.xml inside <code class="highlighter-rouge">WEB-INF</code>.<br />
+This issues another request, which will be handled the same as the first request. Yes, it will be handled by JSP servlet.<br />
+However, I set DispatcherServlet to handle all request using <code class="highlighter-rouge">/*</code>, which also catches jsp request to JSP servlet. Then DispatcherServlet finds no mapping for <code class="highlighter-rouge">/WEB-INF/jsp/hello.jsp</code> in its controllers.</p>
+<h2 id="solution1">Solution1</h2>
+
+<p>Change <code class="highlighter-rouge">/*</code> to <code class="highlighter-rouge">/</code>, so it handles request after JSP servlet catches its jsp request.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;servlet-mapping&gt;
+	&lt;servlet-name&gt;springmvc&lt;/servlet-name&gt;
+	&lt;url-pattern&gt;/&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+</code></pre>
+</div>
+
+<p>However, in this way interceptor in SpringMVC can’t intercept request to jsp files and add header to response.</p>
+
+<h2 id="solution2">Solution2</h2>
+
+<p>Use <code class="highlighter-rouge">default-servlet-handler</code> to handle jsp request catched by DispatcherServlet.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;mvc:default-servlet-handler/&gt;
+</code></pre>
+</div>
+
+<h2 id="more">More</h2>
+
+<h3 id="use-jsp-servlet-to-handle-html">Use JSP servlet to handle html</h3>
+
+<p>Add this in <code class="highlighter-rouge">web.xml</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;jsp&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;*.html&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+</code></pre>
+</div>
+
+<h3 id="use-dispatcherservlet-to-handle-static-resources-like-images-css-js-html">Use DispatcherServlet to handle static resources like images, css, js, html.</h3>
+
+<p>springmvc-servlet.xml</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code> &lt;mvc:resources mapping="/static/**" location="/WEB-INF/static/" /&gt;
+</code></pre>
+</div>
+
+<p>demo.html</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;h1&gt;Page with image&lt;/h1&gt;
+&lt;img src="/static/img/image.jpg"/&gt;
+</code></pre>
+</div>
+

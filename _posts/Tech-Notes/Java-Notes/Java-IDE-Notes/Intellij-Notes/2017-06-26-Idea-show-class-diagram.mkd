@@ -1,0 +1,12 @@
+---
+layout: post
+author: Hang Hu
+categories: intellij
+tags: Java Java-IDE Intellij 
+cover: 
+---
+
+1. Right click `com.huhang`
+2. Click Diagram -> Show Diagram
+3. Click on package and use `e` to expand them.
+4. Click the icon of f, m to show fields, methods.

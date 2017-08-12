@@ -1,0 +1,15 @@
+<h2 id="reason">Reason</h2>
+
+<p><code class="highlighter-rouge">&lt;http&gt;</code> element has an attribute <code class="highlighter-rouge">use-expressions</code> which is <code class="highlighter-rouge">true</code> by default. In the default situation, you are required to use “security expressions” instead of role names. If you wish to use only role names in access= declarations, you need to turn off expressions with</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;http use-expressions="false"&gt; ... &lt;/http&gt;
+</code></pre>
+</div>
+
+<h2 id="solution">Solution</h2>
+
+<p>Change <code class="highlighter-rouge">IS_AUTHENTICATED_FULLY</code> to  <code class="highlighter-rouge">isFullyAuthenticated()</code>.</p>
+
+<h2 id="reference">Reference</h2>
+
+<p><code class="highlighter-rouge">http://stackoverflow.com/questions/15157250/intercept-url-pattern-causing-404-error</code></p>

@@ -1,0 +1,46 @@
+<h2 id="detail">Detail</h2>
+
+<p>The UserEntity has no RoleEntity under debug while there is in database.</p>
+
+<h2 id="reason">Reason</h2>
+
+<p>There are some problems in Hibernate mapping file for enum type.</p>
+
+<blockquote>
+  <p>mysql</p>
+</blockquote>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>`role` enum('ROLE_ADMIN','ROLE_STUDENT','ROLE_TUTOR')
+</code></pre>
+</div>
+
+<blockquote>
+  <p>Java code: RoleEnum.java</p>
+</blockquote>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>public enum RoleEnum {
+    ROLE_STUDENT,ROLE_TUTOR,ROLE_ADMIN
+}
+</code></pre>
+</div>
+
+<blockquote>
+  <p>RoleEntity.hbm.xml</p>
+</blockquote>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;property name="role" column="role"&gt;
+&lt;/property&gt;
+</code></pre>
+</div>
+
+<h2 id="solution">Solution</h2>
+
+<p>Change RoleEntity.hbm.xml to</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;property name="role" column="role"&gt;
+    &lt;type name="org.hibernate.type.EnumType"&gt;
+        &lt;param name="enumClass"&gt;com.general.Enum.RoleEnum&lt;/param&gt;
+    &lt;/type&gt;
+&lt;/property&gt;
+</code></pre>
+</div>

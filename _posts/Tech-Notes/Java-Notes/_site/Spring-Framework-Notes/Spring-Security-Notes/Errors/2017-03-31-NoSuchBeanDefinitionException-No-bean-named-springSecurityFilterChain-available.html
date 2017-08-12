@@ -1,0 +1,14 @@
+<h2 id="details">Details</h2>
+
+<p>org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named ‘springSecurityFilterChain’ available</p>
+<h2 id="reason">Reason</h2>
+
+<p>The securiy configuration isnot imported yet or there is no <code class="highlighter-rouge">&lt;http&gt;</code> in <code class="highlighter-rouge">security.xml</code>.</p>
+<h2 id="solution">Solution</h2>
+
+<p>Add these in springmvc-servlet.xml.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;!-- import security configuration--&gt;
+&lt;import resource="security.xml"/&gt;
+</code></pre>
+</div>

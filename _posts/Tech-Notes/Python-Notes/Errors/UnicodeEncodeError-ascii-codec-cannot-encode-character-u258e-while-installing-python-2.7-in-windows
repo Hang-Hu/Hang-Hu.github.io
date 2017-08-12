@@ -1,0 +1,16 @@
+# UnicodeEncodeError: 'ascii' codec can't encode character u'\u258e' while installing python 2.7 in windows
+
+## Reason
+
+The encoding of cmd is `gbk` by default, causing this error.
+
+## Solution
+
+Make a new file `sitecustomize.py` in `C:\Programs\Python2.7\Lib\site-packages`.
+
+Then add following lines:
+
+```
+import sys
+sys.setdefaultencoding('UTF-8')
+```

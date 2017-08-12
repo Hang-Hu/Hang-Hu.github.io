@@ -1,0 +1,29 @@
+---
+layout: post
+author: Hang Hu
+categories: git
+tags: Git 
+cover: 
+---
+
+## Reason
+
+Remote branch and the common to be merged by `pull` don't share a common history, and `git merge` is not allowed to merge them by default.
+
+## Solution
+
+Add `--allow-unrelated-histories`.
+
+```
+git pull origin SublimeText3-Packages-User --allow-unrelated-histories
+```
+
+
+## Reference
+
+
+[ref: https://stackoverflow.com/questions/37937984/git-refusing-to-merge-unrelated-histories
+
+](ref: https://stackoverflow.com/questions/37937984/git-refusing-to-merge-unrelated-histories
+
+)

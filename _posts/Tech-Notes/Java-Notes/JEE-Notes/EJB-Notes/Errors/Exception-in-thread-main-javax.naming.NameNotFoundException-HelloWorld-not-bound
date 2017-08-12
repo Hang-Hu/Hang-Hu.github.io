@@ -1,9 +1,0 @@
-#Exception in thread "main" javax.naming.NameNotFoundException: HelloWorld not bound
-###Reason
-Not deploy it in JBoss
-在之前创建好的Server中，右击  Add and Remove … 添加这个项目，然后 Start即可
-对于4.2.1和4.2.3，这种部署方式都失败
-###Solution
-在工程上右键→【Export】→【EJB JAR file】 Destination处：→【Browse…】→ 选择JBoss服务器的部署目录：JBOSS_HOME/server/default/deploy→【完成】即可
-
-

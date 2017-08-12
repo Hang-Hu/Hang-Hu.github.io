@@ -1,0 +1,9 @@
+<h2 id="details">Details</h2>
+
+<p>com.fasterxml.jackson.databind.JsonMappingException: No serializer found for class com.huhang.generate.bean.AvscBean$Field and no properties discovered to create BeanSerializer (to avoid exception, disable SerializationFeature.FAIL_ON_EMPTY_BEANS)</p>
+
+<h2 id="solution">Solution</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>mapper.configure(SerializationConfig.Feature.FAIL_ON_EMPTY_BEANS, false);
+</code></pre>
+</div>

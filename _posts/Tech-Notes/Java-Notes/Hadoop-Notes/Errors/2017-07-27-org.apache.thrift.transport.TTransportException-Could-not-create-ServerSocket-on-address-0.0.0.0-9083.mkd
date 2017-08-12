@@ -1,0 +1,20 @@
+---
+layout: post
+author: Hang Hu
+categories: hadoop
+tags: Java Hadoop 
+cover: 
+---
+
+## Reason
+
+The port `9083` has already been used by another proccess.
+
+## Solution
+
+```
+netstat -nlp|grep 9083
+```
+
+
+Then kill this process using this port.

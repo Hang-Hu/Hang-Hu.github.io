@@ -1,0 +1,226 @@
+<h3 id="work-directory-for-jsp-java-and-class-files">work directory for jsp .java and .class files</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>/usr/local/apache-tomcat-8.0.37/work/Catalina/localhost/TestJSP/org/apache/jsp
+</code></pre>
+</div>
+
+<p>The above files(directories, .java, .class files) are generated when accessing according websites in the first time.</p>
+
+<p>And browser ask .jsp for .class to execute.</p>
+
+<p>Everytime .java is changed, accessing will make .jsp retranslation.</p>
+
+<h3 id="indexjsp-will-be-translated-into-a-servlet">index.jsp will be translated into a servlet</h3>
+
+<p>index.jsp-&gt;translation-&gt;index_jsp.java-&gt;compile-&gt;index_jsp.class</p>
+
+<p>index.jsp will be translated to class index_jsp which extends HttpJspBase, ans HttpJspBase extends HttpServlet.</p>
+
+<p>So index.jsp will be translated into a servlet.</p>
+
+<h3 id="write-html-tags-to-browser">write html tags to browser</h3>
+
+<p>All code in index.jsp:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="err">&lt;</span>%@ page language="java" import="java.util.Date" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%&gt;
+<span class="cp">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+<span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">"Content-Type"</span> <span class="na">content=</span><span class="s">"text/html; charset=UTF-8"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;title&gt;</span>Insert title here<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+	<span class="err">&lt;</span>%
+		Date date=new Date();
+		out.write(date.toLocaleString());
+	%&gt;
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre>
+</div>
+
+<p>Code snippet for presentation in _jspService(..) in index_jsp.java:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>out.write("\n");
+out.write("<span class="cp">&lt;!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\"&gt;</span>\n");
+out.write("<span class="nt">&lt;html&gt;</span>\n");
+out.write("<span class="nt">&lt;head&gt;</span>\n");
+out.write("<span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">\"Content-Type\"</span> <span class="na">content=</span><span class="s">\"text/html;</span> <span class="na">charset=</span><span class="s">UTF-8\"</span><span class="nt">&gt;</span>\n");
+out.write("<span class="nt">&lt;title&gt;</span>Insert title here<span class="nt">&lt;/title&gt;</span>\n");
+out.write("<span class="nt">&lt;/head&gt;</span>\n");
+out.write("<span class="nt">&lt;body&gt;</span>\n");
+out.write("\t");
+
+Date date=new Date();
+out.write(date.toLocaleString());
+
+out.write("\n");
+out.write("<span class="nt">&lt;/body&gt;</span>\n");
+out.write("<span class="nt">&lt;/html&gt;</span>");
+</code></pre>
+</div>
+
+<h3 id="predefined-variables">Predefined variables</h3>
+
+<ol>
+  <li>
+    <p>PageContext pageContext</p>
+  </li>
+  <li>
+    <p>HttpSession session</p>
+  </li>
+  <li>
+    <p>ServletContext application</p>
+  </li>
+  <li>
+    <p>ServletConfig config</p>
+  </li>
+  <li>
+    <p>JspWriter out.</p>
+  </li>
+</ol>
+
+<p>JspWriter extends Writer, which is what response.getWriter() returns.</p>
+
+<ol>
+  <li>Object page</li>
+</ol>
+
+<h3 id="parse-login-in-servlet">Parse login in servlet</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>String email=request.getParameter("email");
+String password=request.getParameter("pwd");
+if(("huhang600@126.com".equals(email))&amp;&amp;("admin".equals(password))){
+    //set attribute for session so home.jsp can use it.
+	request.getSession().setAttribute("email", email);
+	request.getRequestDispatcher("/success.jsp").forward(request, response);
+}else{
+    //set attribute for request(can't set attribute in response), then pass request and response to login.jsp
+	request.setAttribute("msg", "Incorrect email or password");
+	request.getRequestDispatcher("/login.jsp").forward(request, response);
+</code></pre>
+</div>
+
+<p>Code snippet in success.jsp</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;%
+	out.write(request.getParameter("email"));
+	//jump without passing request and response
+	response.setHeader("refresh","3;url=/TestJSP/home.jsp");
+%&gt;
+</code></pre>
+</div>
+
+<p>Code snippet in home.jsp:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;%
+	out.write((String)session.getAttribute("email"));
+%&gt;
+</code></pre>
+</div>
+
+<p>Code snippet in login.jsp:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;body&gt;
+	&lt;div class="container-fluid"  class="text-center"&gt;
+		&lt;div class="text-danger text-left"&gt;
+			&lt;label&gt;
+				&lt;%
+					String msg=(String)request.getAttribute("msg");
+					if(msg!=null)
+						out.write(msg);
+				%&gt;
+			&lt;/label&gt;
+		&lt;/div&gt;
+		&lt;form action="/TestJSP/ParseLoginServlet"&gt;
+			&lt;div class="form-group"&gt;
+				&lt;label for="email"&gt;Email Address:&lt;/label&gt;
+				&lt;input type="email" class="form-control" name="email"&gt;
+			&lt;/div&gt;
+		    &lt;div class="form-group"&gt;
+		    	&lt;label for="pwd"&gt;Password:&lt;/label&gt;
+		    	&lt;input type="password" class="form-control" name="pwd"&gt;
+		    &lt;/div&gt;
+		    &lt;div class="checkbox"&gt;
+		    	&lt;label&gt;&lt;input type="checkbox"&gt; Remember me&lt;/label&gt;
+		  &lt;/div&gt;
+		    &lt;button type="submit" class="btn btn-default"&gt;Submit&lt;/button&gt;
+		&lt;/form&gt;
+	&lt;/div&gt;
+&lt;/body&gt;
+</code></pre>
+</div>
+
+<h3 id="requestgetcontextpath">request.getContextPath()</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>response.sendRedirect("/TestJSP/login.jsp");
+</code></pre>
+</div>
+
+<p>The same as the following line. request.getContextPath() fetch “/TestJSP”.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>response.sendRedirect(request.getContextPath()+"/login.jsp");
+</code></pre>
+</div>
+
+<h2 id="section">#</h2>
+
+<h4 id="page">page</h4>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;%@ page language="java" import="java.util.Date" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%&gt;
+</code></pre>
+</div>
+
+<p>Can be written another way:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;%@ page language="java"%&gt;
+&lt;%@ page import="java.util.Date"%&gt;
+&lt;%@ page contentType="text/html; charset=UTF-8"%&gt;
+&lt;%@ page pageEncoding="UTF-8"%&gt;
+&lt;%@ page session="true"%&gt;   //true by default
+&lt;%@ page errorPage="/error.jsp"%&gt;
+Three packages will be imported by Tomcat automattically.
+</code></pre>
+</div>
+
+<p>import javax.servlet.*;</p>
+
+<p>import javax.servlet.http.*;</p>
+
+<p>import javax.servlet.jsp.*;</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>##### errorPage and isErrorPage
+
+Code snippet in pageWithError.jsp which jumps to error.jsp when this page occurs any exception:
+</code></pre>
+</div>
+
+<p>&lt;%@ page errorPage=”/error.jsp”%&gt;</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Code snippet in error.jsp which makes Tomcat declare exception:
+</code></pre>
+</div>
+
+<p>&lt;%@page isErrorPage=”true”%&gt;    //false by default</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>exception is declared in error_jsp.java:
+</code></pre>
+</div>
+
+<p>java.lang.Throwable exception = org.apache.jasper.runtime.JspRuntimeLibrary.getThrowable(request);</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>##### contextType
+
+Code snippet in *.jsp:
+</code></pre>
+</div>
+
+<p>&lt;%@page contentType=”text/html; charset=UTF-8”%&gt;</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Above code in *.jsp will be used to generate following code in _jspService(..) in *_jsp.java.  
+</code></pre>
+</div>
+
+<p>response.setContentType(“text/html; charset=UTF-8”);</p>
+
+<p>```</p>

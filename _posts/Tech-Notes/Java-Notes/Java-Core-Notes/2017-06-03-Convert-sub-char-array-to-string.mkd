@@ -1,0 +1,29 @@
+---
+layout: post
+author: Hang Hu
+categories: java-core
+tags: Java Java-Core 
+cover: 
+---
+
+## Description
+
+> String(char[] value, int offset, int count)
+
+> Allocates a new String that contains characters from a subarray of the character array argument.
+
+
+## Example
+
+> Full array
+
+```
+return new String(result);
+```
+
+
+> Sub array
+
+```
+return new String(result, 1, result.length-1);
+```

@@ -1,0 +1,9 @@
+---
+layout: post
+author: Hang Hu
+categories: spring-boot-test
+tags: Java Spring-Framework Spring-Boot Spring-Boot-Test 
+cover: 
+---
+
+Use `@Sql("/init.sql")`.

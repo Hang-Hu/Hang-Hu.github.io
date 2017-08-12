@@ -1,0 +1,40 @@
+---
+layout: post
+author: Hang Hu
+categories: java-core
+tags: Java Java-Core 
+cover: 
+---
+
+## import
+
+```
+import java.util.Stack;
+```
+
+
+## new
+
+
+```
+Stack<TreeNode> stack=new Stack<>();
+```
+
+
+## push and pop
+
+
+```
+stack.push(node);
+node=stack.pop();
+```
+
+
+## check if stack is empty
+
+
+```
+while(stack.empty()==false){
+    //...
+}
+```

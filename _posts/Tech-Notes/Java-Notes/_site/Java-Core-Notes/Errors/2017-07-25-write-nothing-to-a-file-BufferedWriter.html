@@ -1,0 +1,13 @@
+<h2 id="reason">Reason</h2>
+
+<p><code class="highlighter-rouge">BufferedWriter</code> will only write when it’s full, to be closed or flushed.</p>
+
+<h2 id="solution">Solution</h2>
+
+<p>Use <code class="highlighter-rouge">writer.close()</code> or <code class="highlighter-rouge">writer.flush()</code> if you don’t want to close it.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>writer = new BufferedWriter(new FileWriter(new File("text.txt")));
+writer.write(stringBuilder.toString());
+writer.close();
+</code></pre>
+</div>

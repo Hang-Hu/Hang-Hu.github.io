@@ -1,0 +1,29 @@
+---
+layout: post
+author: Hang Hu
+categories: python
+tags: Python 
+cover: 
+---
+
+## Reason
+
+Default encoding is gbk, making python unable to decode.
+
+## Solution
+
+Declare encoding as `uft-8` when opening file.
+
+Change from:
+
+```
+with open(desktop_file_path) as desktop_file:
+```
+
+
+To:
+
+
+```
+with open(desktop_file_path, encoding="utf-8") as desktop_file:
+```

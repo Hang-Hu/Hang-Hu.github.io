@@ -1,0 +1,12 @@
+---
+layout: post
+author: Hang Hu
+categories: windows
+tags: Windows 
+cover: 
+---
+
+1. Open regedit
+2. Open `HKEY_LOCAL_MACHINE\Software\Microsoft\Command Processor\`
+3. Right click-> New-> String Value
+4. Set name as `Autorun`, set value as `chcp 65001`.

@@ -1,0 +1,17 @@
+---
+layout: post
+author: Hang Hu
+categories: hadoop
+tags: Java Hadoop 
+cover: 
+---
+
+## Reason
+
+The space in location causes this problem.
+
+## Solution
+
+Change location from `C:\Program Files\Java\jdk1.8.0_131` to `C:\Java\jdk1.8.0_131`
+
+

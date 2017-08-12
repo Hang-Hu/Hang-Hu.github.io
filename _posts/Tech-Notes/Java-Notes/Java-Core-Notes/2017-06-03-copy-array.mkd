@@ -1,0 +1,21 @@
+---
+layout: post
+author: Hang Hu
+categories: java-core
+tags: Java Java-Core 
+cover: 
+---
+
+## Example
+
+```
+int[] longerArray=new int[digits.length+1];
+longerArray[0]=1;
+System.arraycopy(digits, 0, longerArray, 1, digits.length);
+```
+
+
+## Reference
+
+
+https://stackoverflow.com/questions/5785745/make-copy-of-array-java

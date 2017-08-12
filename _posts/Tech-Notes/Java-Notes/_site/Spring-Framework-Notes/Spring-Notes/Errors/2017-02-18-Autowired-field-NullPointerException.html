@@ -1,0 +1,14 @@
+<h2 id="reason">Reason</h2>
+
+<p>I new a <code class="highlighter-rouge">PlanServiceImpl</code>, the JVM instantiates a copy of the new object and hands to to me, while Spring know nothing about it because I didn’t tell Spring using <code class="highlighter-rouge">Autowired</code> or anything else. Then <code class="highlighter-rouge">Autowired</code> field in <code class="highlighter-rouge">PlanServiceImpl</code> won’t be instantiated, which cause a NullPointerException.</p>
+<h2 id="detailed-reason">Detailed Reason</h2>
+
+<p><code class="highlighter-rouge">
+The Spring Inversion of Control (IoC) container has three main logical components: a registry (called the ApplicationContext) of components (beans) that are available to be used by the application, a configurer system that injects objects' dependencies into them by matching up the dependencies with beans in the context, and a dependency solver that can look at a configuration of many different beans and determine how to instantiate and configure them in the necessary order.
+</code>
+`
+The IoC container isn’t magic, and it has no way of knowing about Java objects unless you somehow inform it of them. When you call new, the JVM instantiates a copy of the new object and hands it straight to you–it never goes through the configuration process. 
+`</p>
+<h2 id="solution">Solution</h2>
+
+<p>Don’t <code class="highlighter-rouge">new</code> class which has <code class="highlighter-rouge">Autowired</code> field, pass <code class="highlighter-rouge">Autowired</code> field using parameters.</p>

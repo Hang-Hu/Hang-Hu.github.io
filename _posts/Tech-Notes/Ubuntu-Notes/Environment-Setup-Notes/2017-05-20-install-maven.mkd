@@ -6,7 +6,7 @@ tags: Ubuntu Environment-Setup
 cover: 
 ---
 
-## Installation
+##
 
 Download in official website, extract and move it to /usr/local
 
@@ -16,8 +16,6 @@ mv ~/Downloads/apache-maven-3.3.9 /usr/local/
 ```
 
 Thus the directory of maven is :`/usr/local/apache-maven-3.3.9`
-
-## Configuration
 
 Build soft link for future update:
 

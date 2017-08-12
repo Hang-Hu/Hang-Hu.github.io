@@ -1,0 +1,32 @@
+<h2 id="difference-to-double">Difference to Double</h2>
+
+<p>Double is not precise and you may get <code class="highlighter-rouge">34.000001</code> instead of <code class="highlighter-rouge">34.0</code>. If you want to get the precise value, use BigDecimal instead of Double.</p>
+
+<h2 id="value">Value</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>BigDecimal.ZERO
+new BigDecimal(-1)
+BigDecimal.valueOf(-1000)
+</code></pre>
+</div>
+
+<h2 id="section">+-*/</h2>
+
+<p>Use <code class="highlighter-rouge">add()</code>, <code class="highlighter-rouge">substract</code>, <code class="highlighter-rouge">multiply()</code>, <code class="highlighter-rouge">divide()</code> to replace <code class="highlighter-rouge">+-*/</code>. However, BigDecimal calling these method won’t be changed and the returned BigDecimal will be the result.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>currentMoney = currentMoney.subtract(price);
+currentMoney = currentMoney.subtract(entry.getValue())).add(entry.getValue());
+</code></pre>
+</div>
+
+<h2 id="section-1">==, &gt;, &lt;</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>public int compareTo(@NotNull BigDecimal val)
+</code></pre>
+</div>
+
+<p>-1, 0, or 1 as this BigDecimal is numerically less than, equal to, or greater than val.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>currentMoney.compareTo(BigDecimal.ZERO) == -1
+</code></pre>
+</div>

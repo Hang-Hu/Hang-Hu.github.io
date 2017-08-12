@@ -1,0 +1,111 @@
+<h2 id="condition">Condition</h2>
+
+<ul>
+  <li>Thread wait or notify a thread on one object</li>
+  <li>synchronized() this object</li>
+</ul>
+
+<h2 id="example---number-charater-printing-problem">Example - Number Charater Printing Problem</h2>
+
+<blockquote>
+  <p>NumberPrinter.jaba</p>
+</blockquote>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>class NumberPrinter extends Thread{
+	private Message msg;
+	public NumberPrinter(Message msg){
+		this.msg=msg;
+	}
+	@Override
+	public void run(){
+		for(int i=1; i&lt;=52; i+=2){
+			synchronized(msg){
+				try{
+					while(msg.get().equals("Number")==false){
+						msg.wait();				
+					}
+					System.out.print(i+""+(i+1));
+					msg.set("Character");
+					msg.notifyAll();
+					msg.wait();
+				}catch(InterruptedException e){
+					Thread.currentThread().interrupt();
+					return;
+				}
+			}			
+		}
+	}
+}
+</code></pre>
+</div>
+
+<blockquote>
+  <p>CharacterPrinter.java</p>
+</blockquote>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>class CharacterPrinter extends Thread{
+	private Message msg;
+	public CharacterPrinter(Message msg){
+		this.msg=msg;
+	}
+	@Override 
+	public void run(){
+		for(int i=65; i&lt;=90; i++){
+			synchronized(msg){
+				try{
+					while(msg.get().equals("Character")==false){
+						msg.wait();
+					}
+					System.out.print((char)i);
+					msg.set("Number");
+					msg.notifyAll();
+					if(i==90){
+						System.out.println();
+						continue;
+					}
+					msg.wait();
+				}catch(InterruptedException e){
+					Thread.currentThread().interrupt();
+					return;
+				}
+			}
+		}
+	}
+}
+</code></pre>
+</div>
+
+<blockquote>
+  <p>Message.java</p>
+</blockquote>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>class Message{
+	private String msg;
+	public Message(String msg){
+		this.msg=msg;
+	}
+	public String get(){
+		return msg;
+	}
+	public void set(String msg){
+		this.msg=msg;
+	}
+}
+</code></pre>
+</div>
+
+<blockquote>
+  <p>TestDriver.java</p>
+</blockquote>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>class TestDriver{
+	public static void main(String[] args){
+		Message msg=new Message("Number");
+		NumberPrinter n=new NumberPrinter(msg);
+		CharacterPrinter c=new CharacterPrinter(msg);
+		n.start();
+		c.start();
+	}
+}
+</code></pre>
+</div>

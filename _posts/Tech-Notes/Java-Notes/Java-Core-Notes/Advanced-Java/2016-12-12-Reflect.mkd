@@ -6,10 +6,6 @@ tags: Java Java-Core
 cover: 
 ---
 
-###
-
-###
-
 ### Invoke a static method
 
 ```

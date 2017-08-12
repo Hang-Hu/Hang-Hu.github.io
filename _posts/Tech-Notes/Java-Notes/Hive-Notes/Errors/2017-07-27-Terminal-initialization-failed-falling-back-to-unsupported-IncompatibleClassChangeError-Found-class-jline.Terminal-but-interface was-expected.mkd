@@ -1,0 +1,17 @@
+---
+layout: post
+author: Hang Hu
+categories: hive
+tags: Java Hive 
+cover: 
+---
+
+## Details
+
+When I type `hive`, this error comes out.
+
+## Solution
+
+1.  `rm /usr/local/hadoop-2.8.0/share/hadoop/yarn/lib/jline-0.9.94.jar`
+
+2. `export HADOOP_USER_CLASSPATH_FIRST=true`

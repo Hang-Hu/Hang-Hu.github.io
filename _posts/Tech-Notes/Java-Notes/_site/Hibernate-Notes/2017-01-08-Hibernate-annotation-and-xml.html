@@ -1,0 +1,94 @@
+<h2 id="annotation">Annotation</h2>
+
+<p><code class="highlighter-rouge">Employee.java</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>@Entity
+@Table(name = "Employees")
+public class Employee implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO
+    private long id;
+    @Column
+    private String name;
+    @Column
+    private int age;
+    @Column
+    private float salary;
+    //getters and setters
+}
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">springmvc-servlet.xml</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;property name="packagesToScan" value="com.huhang.entity"/&gt;
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">pom.xml</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;resources&gt;
+    &lt;resource&gt;
+        &lt;directory&gt;src/main/resources&lt;/directory&gt;
+    &lt;/resource&gt;
+&lt;/resources&gt;
+</code></pre>
+</div>
+
+<h2 id="xml">XML</h2>
+
+<p><code class="highlighter-rouge">Employee.java</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>public class Employee implements Serializable{
+    private long id;
+    private String name;
+    private int age;
+    private float salary;
+    //getters and setters
+}
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">Employee.hbm.xml</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span>
+<span class="cp">&lt;!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"&gt;</span>
+<span class="nt">&lt;hibernate-mapping&gt;</span>
+    <span class="nt">&lt;class</span> <span class="na">name=</span><span class="s">"com.huhang.entity.Employee"</span> <span class="na">table=</span><span class="s">"Employees"</span> <span class="na">schema=</span><span class="s">"TestHibernate"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;id</span> <span class="na">name=</span><span class="s">"id"</span> <span class="na">column=</span><span class="s">"id"</span> <span class="nt">&gt;</span>
+            <span class="nt">&lt;generator</span> <span class="na">class=</span><span class="s">"increment"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;/id&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"name"</span> <span class="na">column=</span><span class="s">"name"</span><span class="nt">&gt;&lt;/property&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"age"</span> <span class="na">column=</span><span class="s">"age"</span><span class="nt">&gt;&lt;/property&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"salary"</span> <span class="na">column=</span><span class="s">"salary"</span><span class="nt">&gt;&lt;/property&gt;</span>
+    <span class="nt">&lt;/class&gt;</span>
+<span class="nt">&lt;/hibernate-mapping&gt;</span>
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">springmvc-servlet.xml</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;property name="packagesToScan" value="com.huhang.entity"/&gt;
+&lt;property name="mappingLocations"&gt;
+    &lt;list&gt;
+        &lt;value&gt;classpath:com/huhang/entity/Employee.hbm.xml&lt;/value&gt;
+    &lt;/list&gt;
+&lt;/property&gt;
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">pom.xml</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;resources&gt;
+    &lt;resource&gt;
+        &lt;directory&gt;src/main/resources&lt;/directory&gt;
+    &lt;/resource&gt;
+    &lt;resource&gt;
+        &lt;directory&gt;src/main/java/&lt;/directory&gt;
+        &lt;includes&gt;**/*.hbm.xml&lt;/includes&gt;
+    &lt;/resource&gt;
+&lt;/resources&gt;
+</code></pre>
+</div>

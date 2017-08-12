@@ -1,0 +1,12 @@
+---
+layout: post
+author: Hang Hu
+categories: frontend
+tags: FrontEnd 
+cover: 
+---
+
+```
+Show tabs and spaces        ctrl+A
+Convert tabs to spaces      lower right->Spaces: 4
+```

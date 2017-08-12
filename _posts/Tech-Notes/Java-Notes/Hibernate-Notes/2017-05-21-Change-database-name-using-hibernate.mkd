@@ -14,7 +14,7 @@ cover:
 database.driverClass=com.mysql.jdbc.Driver
 database.jdbcUrl=jdbc:mysql://111.28.163.139/ECollaborationWeb
 database.user=root
-database.password=123
+database.password=123s
 ```
 
 ## 2. Database in the right->setting

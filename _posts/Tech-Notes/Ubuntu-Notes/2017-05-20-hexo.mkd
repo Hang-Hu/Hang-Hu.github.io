@@ -1,0 +1,17 @@
+---
+layout: post
+author: Hang Hu
+categories: ubuntu
+tags: Ubuntu 
+cover: 
+---
+
+## Installation
+
+```
+npm install hexo-cli -g
+hexo init hexo-blog
+cd hexo-blog
+npm install
+hexo server
+```

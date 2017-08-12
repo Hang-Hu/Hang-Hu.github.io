@@ -1,0 +1,30 @@
+---
+layout: post
+author: Hang Hu
+categories: java-core
+tags: Java Java-Core 
+cover: 
+---
+
+## Detail
+
+```
+java.lang.UnsupportedOperationException
+```
+
+
+## Reason
+
+
+`Arrays.asList()` returns a fixed-size list, and thus `add()` or `remove()` is forbiddened.
+
+
+## Solution
+
+
+Wrap it with a LinkedList.
+
+
+```    
+List<String> strings = new LinkedList(Arrays.asList(canonicalPath.split("/")));
+```

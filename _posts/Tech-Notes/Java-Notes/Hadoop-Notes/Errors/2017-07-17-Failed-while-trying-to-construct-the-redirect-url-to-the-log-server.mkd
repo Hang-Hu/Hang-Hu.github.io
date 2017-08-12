@@ -1,0 +1,30 @@
+---
+layout: post
+author: Hang Hu
+categories: hadoop
+tags: Java Hadoop 
+cover: 
+---
+
+## Reason
+
+`yarn.log.server.url` in `yarn-site.xml` is not set at all.
+
+## Solution
+
+1. `vim /etc/gphd/hadoop/conf/yarn-site.xml`
+
+2. Add the following property into `yarn-site.xml`: 
+
+```
+<property>
+    <name>yarn.log.server.url</name>
+    <value>http://127.0.0.1:19888/jobhistory/logs</value>
+</property>
+```
+
+
+## References
+
+
+https://discuss.pivotal.io/hc/en-us/articles/216118908-PHD-Failed-while-trying-to-construct-the-redirect-URL-to-the-log-server-when-viewing-logs-in-Resource-Manager

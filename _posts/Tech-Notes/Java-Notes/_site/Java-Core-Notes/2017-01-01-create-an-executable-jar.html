@@ -1,0 +1,28 @@
+<h2 id="jar-without-entrance">Jar without entrance</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>jar cf myJar.jar myClass.class
+</code></pre>
+</div>
+
+<h2 id="jar-with-entrance">Jar with entrance</h2>
+
+<p>Additionally, if you want to make it executable, you need to indicate an entry point (i.e., a class with public static void main(String[] args)) for your application. This is usually accomplished by creating a manifest file that contains the Main-Class header (e.g., Main-Class: myClass).</p>
+
+<p>However, as Mark Peters pointed out, with JDK 6, you can use the e option to define the entry point:</p>
+
+<blockquote>
+  <p>Here TestQuickSort is where main() lies, and *.class is the class you want to put in jar.</p>
+</blockquote>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>jar cfe lab1.jar TestQuickSort  *.class 
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>c--create
+f--jarFileName
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>java -jar lab1.jar 
+</code></pre>
+</div>

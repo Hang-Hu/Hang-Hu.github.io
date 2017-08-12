@@ -1,0 +1,24 @@
+<h2 id="reason">Reason</h2>
+
+<p>Hibernate mapping in <code class="highlighter-rouge">StudentEntity.hbm.xml</code> for <code class="highlighter-rouge">projectStudentByUser</code> is <code class="highlighter-rouge">set</code> while it’s a List in <code class="highlighter-rouge">StudentEntity</code> class.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;set name="projectStudentsByUser" inverse="true"&gt;
+    &lt;key&gt;
+        &lt;column name="student"/&gt;
+    &lt;/key&gt;
+    &lt;one-to-many not-found="ignore" class="com.general.dao.entity.ProjectStudentEntity"/&gt;
+&lt;/set&gt;
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>private List&lt;ProjectStudentEntity&gt; projectStudentsByUser;
+</code></pre>
+</div>
+
+<h2 id="solution">Solution</h2>
+
+<p>Change List to Set in <code class="highlighter-rouge">StudentEntity</code> class.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>private Set&lt;ProjectStudentEntity&gt; projectStudentsByUser;
+</code></pre>
+</div>

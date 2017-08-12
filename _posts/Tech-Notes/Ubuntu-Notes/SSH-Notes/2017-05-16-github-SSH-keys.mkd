@@ -26,7 +26,12 @@ ssh-add ~/.ssh/id_rsa
 ## Github Config
 
 
-Copy corresponding `id_rsa.pub` to github account
+Copy corresponding `id_rsa.pub` to github account using xclip, copying with ctrl c won't succeed.
+
+
+```
+xclip -sel c < id_rsa.pub
+```
 
 
 ## Test Connection

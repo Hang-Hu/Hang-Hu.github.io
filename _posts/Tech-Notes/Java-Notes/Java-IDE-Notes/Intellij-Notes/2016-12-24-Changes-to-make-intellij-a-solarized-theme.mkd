@@ -16,9 +16,9 @@ Setting->Editor->Color&Fonts->General
 
 On the right choose Text->Default text, change background to `FDF6E3`.
 
-## Second change on default text color
+## Second change on default text color and bold
 
-On the right choose Text->Default text, change foreground to `657B83`.
+On the right choose Text->Default text, change foreground to `657B83` and select `bold`.
 
 ## Third change on current row
 

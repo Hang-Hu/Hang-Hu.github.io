@@ -1,0 +1,19 @@
+---
+layout: post
+author: Hang Hu
+categories: python
+tags: Python 
+cover: 
+---
+
+## Temporal Method
+
+```
+set PYTHONIOENCODING=UTF-8
+```
+
+
+## Permanent Method
+
+
+Add a environmant variable, key should be `PYTHONIOENCODING`s, value should be `UTF-8`.

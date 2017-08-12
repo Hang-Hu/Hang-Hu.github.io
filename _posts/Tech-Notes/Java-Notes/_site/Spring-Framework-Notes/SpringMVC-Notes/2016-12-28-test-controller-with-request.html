@@ -1,0 +1,41 @@
+<h3 id="basic-test">Basic test</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>curl -X POST 
+--data '{"page":"1","number":{"token":"3"}}' 
+-H "Content-Type:application/json" 
+-H "Accept:application/json" 
+http://localhost:8080/weeks
+</code></pre>
+</div>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>-X is followed by POST, GET, etc
+--data(or -d) is followed by request body
+-H means header
+</code></pre>
+</div>
+
+<h3 id="test-with-list">Test with list</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>curl -X 
+POST --data '{"page":"1","number":[{"token":"3"},{"token":"4"}]}' 
+-H "Content-Type:application/json" 
+-H "Accept:application/json" 
+http://localhost:8080/weeks
+</code></pre>
+</div>
+
+<h3 id="test-in-restful">Test in restful</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>curl -X PUT 
+--data '{"page":"1","number":{"token":"3"}}' 
+-H "Content-Type:application/json" 
+-H "Accept:application/json" 
+http://localhost:8080/applications/1
+</code></pre>
+</div>
+
+<h3 id="test-with-access-token">Test with access-token</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>curl -X GET --data '{"page":"1","number":{"token":"3"}}' -H "Content-Type:application/json" -H "Accept:application/json" -H "access-token:1111" http://localhost:8080/weeks
+</code></pre>
+</div>

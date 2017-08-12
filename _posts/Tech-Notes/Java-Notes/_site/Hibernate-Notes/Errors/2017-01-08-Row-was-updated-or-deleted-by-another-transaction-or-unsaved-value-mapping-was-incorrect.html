@@ -1,0 +1,25 @@
+<h2 id="reason1">Reason1</h2>
+
+<p><code class="highlighter-rouge">version</code> in database is NULL by default.</p>
+<h2 id="solution1">Solution1</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>update Employees
+    -&gt; set version=0;
+</code></pre>
+</div>
+
+<p>For new database use int as default.</p>
+
+<h2 id="reason2">Reason2</h2>
+
+<p>The font-end send Employee’s multiple fields back except for version, then version is 0 by default, while version in database may be larger than 0.</p>
+
+<h2 id="solution">Solution</h2>
+
+<p>Get version from database based on id and set it to employee which is to be uodated.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>int version=employeeService.getEmployee(employee.getId()).getVersion();
+employee.setVersion(version);
+employeeService.updateEmployee(employee);
+</code></pre>
+</div>

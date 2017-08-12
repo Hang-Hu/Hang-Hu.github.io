@@ -9,7 +9,7 @@ cover:
 ### Build with one command
 
 `
-joanna@JC:~/Documents/code4java/eclipse workspace$ mvn archetype:generate -DgroupId=imooc-arthur -DartifactId=spring-mvc-study -DarchetypeArtifactId=maven-archetype-webapp
+mvn archetype:generate -DgroupId=imooc-arthur -DartifactId=spring-mvc-study -DarchetypeArtifactId=maven-archetype-webapp
 `
 ### Import
 

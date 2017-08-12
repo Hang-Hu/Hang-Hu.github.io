@@ -1,0 +1,17 @@
+---
+layout: post
+author: Hang Hu
+categories: spring-boot
+tags: Java Spring-Framework Spring-Boot 
+cover: 
+---
+
+`incubator-griffin` has three `.properties` files:
+
+```
+application.properties
+application-dev.properties
+application-prod.properties
+```
+
+Use `-Dspring.profiles.active=dev` as `VM options` to specify config of SpringBoot as `application-dev.properties`.

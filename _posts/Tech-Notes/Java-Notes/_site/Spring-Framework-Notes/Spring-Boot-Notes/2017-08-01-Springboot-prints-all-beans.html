@@ -1,0 +1,20 @@
+<div class="highlighter-rouge"><pre class="highlight"><code>@SpringBootApplication
+@EnableScheduling
+public class GriffinWebApplication{
+    private static final Logger log = LoggerFactory.getLogger(GriffinWebApplication.class);
+    public static void main(String[] args) {
+        log.info("application start");
+        SpringApplication.run(GriffinWebApplication.class, args);
+    }
+    @Autowired
+    ApplicationContext applicationContext;
+    @Bean
+    public CommandLineRunner run(ApplicationContext applicationContext){
+      return args -&gt; {
+        String[] beans=applicationContext.getBeanDefinitionNames();
+        Arrays.stream(beans).sorted().forEach(System.out::println);
+      };
+    }
+}
+</code></pre>
+</div>

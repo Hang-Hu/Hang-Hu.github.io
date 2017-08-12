@@ -1,0 +1,17 @@
+<h2 id="reason">Reason</h2>
+
+<p>The default location of <code class="highlighter-rouge">HADOOP_CONF_DIR</code> is <code class="highlighter-rouge">/etc/hadoop/conf</code>, but I’ve downloaded hadoop directly from website, making the config file inside hadoop file, which is <code class="highlighter-rouge">/usr/local/hadoop-2.6.0/etc/hadoop/</code>.</p>
+
+<h2 id="solution">Solution</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>vim hadoop-env.sh
+</code></pre>
+</div>
+
+<p>Add this line</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>export HADOOP_CONF_DIR=/usr/local/hadoop-2.6.0/etc/hadoop/
+</code></pre>
+</div>
+
+<p>I think set <code class="highlighter-rouge">HADOOP_CONF_DIR</code> in <code class="highlighter-rouge">/etc/profile</code> will also solve it.</p>

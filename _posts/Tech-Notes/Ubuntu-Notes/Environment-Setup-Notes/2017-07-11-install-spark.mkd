@@ -1,0 +1,46 @@
+---
+layout: post
+author: Hang Hu
+categories: environment-setup
+tags: Ubuntu Environment-Setup 
+cover: 
+---
+
+## Download and move
+
+```
+wget https://d3kbcqa49mib13.cloudfront.net/spark-1.6.0-bin-hadoop2.6.tgz
+sudo mv spark-1.6.0-bin-hadoop2.6 /usr/local/
+```
+
+
+## Config
+
+
+```
+sudo vim /etc/profile
+```
+
+
+Add PATH:
+
+
+```
+# for spark
+
+export SPARK_HOME=/usr/local/spark-1.6.0-bin-hadoop2.6
+export PATH=$PATH:${SPARK_HOME}/bin
+```
+
+
+```
+source /etc/profile
+```
+
+
+## Run it to test
+
+
+```
+spark-shell
+```

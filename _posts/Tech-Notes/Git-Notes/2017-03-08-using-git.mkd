@@ -78,6 +78,14 @@ git push -u origin master
 Enter the username Hang-Hu and password then files will be pushed to github.
 
 
+Push to branch `apiChange`:
+
+
+```
+git push origin apiChange
+```
+
+
 ## ERRORS
 
 ### fatal: remote origin already exists

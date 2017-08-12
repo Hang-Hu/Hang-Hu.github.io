@@ -1,0 +1,25 @@
+---
+layout: post
+author: Hang Hu
+categories: java-core
+tags: Java Java-Core 
+cover: 
+---
+
+## Detail
+
+```
+java.util.ConcurrentModificationException
+```
+
+
+## Solution
+
+
+Use 'remove' on iterator:
+
+
+```
+i.remove();
+```
+

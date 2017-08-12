@@ -1,0 +1,114 @@
+<h2 id="description">Description</h2>
+
+<p>Given two binary trees, write a function to check if they are equal or not.</p>
+
+<p>Two binary trees are considered equal if they are structurally identical and the nodes have the same value.</p>
+
+<h2 id="ideas">Ideas</h2>
+
+<ul>
+  <li>Based on inorder traverse, do p inorder traverse and make q follow, if it fails, return false</li>
+  <li>When p enters while loop or if condition, check the status</li>
+  <li>When p quits while loop, check the status of q</li>
+  <li>If all passes, return true</li>
+</ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>//inorder traverse
+private void inorder(TreeNode node){
+    Stack&lt;TreeNode&gt; stack=new Stack&lt;&gt;();
+    stack.push(node);
+    while(node.left!=null){
+        node=node.left;
+        stack.push(node);
+    }
+    while(stack.empty()==false){
+        // pop before checking the right because it's inorder traverse
+        // and then this node won't be checked twice for the right
+        node=stack.pop();
+        // visit here
+        // check the right
+        if(node.right!=null){
+            node=node.right;
+            stack.push(node);
+            // check all the left for that right node
+            while(node.left!=null){
+                node=node.left;
+                stack.push(node);
+            }
+        }
+    }
+}
+</code></pre>
+</div>
+
+<h2 id="solution">Solution</h2>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>import java.util.Stack;
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+        if((p==null)&amp;&amp;(q==null)){
+            return true;
+        }else if((p==null)||(q==null))){
+            return false;
+        }
+        Stack&lt;TreeNode&gt; s1=new Stack&lt;&gt;();
+        Stack&lt;TreeNode&gt; s2 =new Stack&lt;&gt;();
+        s1.push(p);
+        s2.push(q);
+        while(p.left!=null){
+            if(q.left==null){
+                return false;
+            }
+            p=p.left;
+            q=q.left;
+            s1.push(p);
+            s2.push(q);
+        }
+        if(q.left!=null){
+            return false;
+        }
+        while(s1.empty()==false){
+            if(s2.empty()==true){
+                return false;
+            }
+            p=s1.pop();
+            q=s2.pop();
+            if(p.val!=q.val){
+                return false;
+            }
+            if(p.right!=null){
+                if(q.right==null){
+                    return false;
+                }
+                p=p.right;
+                q=q.right;
+                s1.push(p);
+                s2.push(q);
+                while(p.left!=null){
+                    if(q.left==null){
+                        return false;
+                    }
+                    p=p.left;
+                    q=q.left;
+                    s1.push(p);
+                    s2.push(q);
+                }
+            }
+        }
+        if(s2.empty()==false){
+            return false;
+        }
+        return true;
+    }
+}
+</code></pre>
+</div>

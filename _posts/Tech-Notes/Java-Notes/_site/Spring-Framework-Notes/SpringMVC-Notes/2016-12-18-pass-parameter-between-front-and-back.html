@@ -1,0 +1,21 @@
+<h1 id="section">#</h1>
+
+<p>add.jsp, name=”id” corresponds to Integer id in UserController.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;form action="./receiveInt.do" method="post"&gt;
+	&lt;label for="id"&gt;Id: &lt;/label&gt;
+	&lt;input type="text" name="id" /&gt;
+	&lt;input type="submit" /&gt;
+&lt;/form&gt;
+</code></pre>
+</div>
+
+<p>One method in <code class="highlighter-rouge">UserController</code></p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>@RequestMapping("receiveInt")
+public String receiveInt(Integer id){
+	System.out.println(id);
+	return "success";
+}
+</code></pre>
+</div>

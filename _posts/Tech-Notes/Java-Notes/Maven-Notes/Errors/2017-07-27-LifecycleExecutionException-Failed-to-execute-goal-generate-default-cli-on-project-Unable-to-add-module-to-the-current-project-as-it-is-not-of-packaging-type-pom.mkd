@@ -1,0 +1,16 @@
+---
+layout: post
+author: Hang Hu
+categories: maven
+tags: Java Maven 
+cover: 
+---
+
+
+## Reason
+
+`pom.xml` has already exsited, making it impossible to generate new maven peoject.
+
+## Solution
+
+Remove `pom.xml`.

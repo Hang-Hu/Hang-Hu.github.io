@@ -1,0 +1,25 @@
+---
+layout: post
+author: Hang Hu
+categories: concurrent
+tags: Java Java-Core Concurrent 
+cover: 
+---
+
+## On Notify
+
+### Reason
+
+`msg="Character"` will change this object `msg` points to. Then there is no thread waiting on this new object, making `msg.notify()` or `msg.notifyAll()` throw such exception.
+
+### Solution
+
+## On wait
+
+### Reason
+
+object.wait() must be in a synchronized block.
+
+### Solution
+
+Use `synchronized(object){}` to wrap `object.wait()`. If object is this, `synchronized` keyword before method name is also ok.

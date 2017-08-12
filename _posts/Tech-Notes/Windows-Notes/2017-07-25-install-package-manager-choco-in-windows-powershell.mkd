@@ -1,0 +1,50 @@
+---
+layout: post
+author: Hang Hu
+categories: windows
+tags: Windows 
+cover: 
+---
+
+## Open
+
+Run powershell as administrator.
+
+## Set ExecutionPolicy
+
+```
+Set-ExecutionPolicy -Scope CurrentUser
+RemoteSigned
+```
+
+
+Check it using `Get-ExecutionPolicy -List`.
+
+
+
+## Install Choco
+
+
+```
+$script = New-Object Net.WebClient
+$script | Get-Member
+$script.DownloadString("https://chocolatey.org/install.ps1")
+iwr https://chocolatey.org/install.ps1 -UseBasicParsing | iex
+choco upgrade chocolatey
+```
+
+
+## Install Vim
+
+
+```
+choco install -y vim
+```
+
+
+Refresh environment.
+
+
+```
+refreshenv
+```

@@ -1,0 +1,13 @@
+---
+layout: post
+author: Hang Hu
+categories: vps
+tags: Vps 
+cover: 
+---
+
+`firstvps` is the nickname for the vps set in `~/.ssh/config`
+
+```
+ssh-copy-id firstvps
+```

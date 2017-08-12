@@ -1,0 +1,95 @@
+---
+layout: post
+author: Hang Hu
+categories: environment-setup
+tags: Ubuntu Environment-Setup 
+cover: 
+---
+
+## Change privilege to root
+
+```
+sudo su
+```
+
+
+Source settings.
+
+
+```
+source /etc/profile
+```
+
+
+## Download and move
+
+
+```
+wget http://www.namesdir.com/mirrors/apache/hive/hive-1.2.2/apache-hive-1.2.2-bin.tar.gz
+tar xzvf apache-hive-1.2.2-bin.tar.gz
+mv apache-hive-1.2.2-bin /usr/local/
+```
+
+
+## Config
+
+
+```
+vim /etc/profile
+```
+
+
+Set `HIVE_HOME` and `PATH`.
+
+
+```
+# for hive
+
+export HIVE_HOME=/usr/local/apache-hive-1.2.2-bin
+export PATH=$HIVE_HOME/bin:$PATH
+```
+
+
+```
+source /etc/profile
+```
+
+
+## Preparation before creating tables
+
+
+Since `/tmp` already exists, I won't create it.
+
+```
+hadoop fs -mkdir -p /usr/hive/warehouse
+hadoop fs -chmod g+w /usr/hive/warehouse/
+hadoop fs -chmod g+w /tmp/
+```
+
+
+> `-p` means create directoies for parent path.
+
+
+## Run hive and create tables
+
+
+Run hive.
+
+
+```
+hive
+```
+
+
+Create a table.
+
+
+```
+hive> create table pokes(foo int, bar string);
+OK
+Time taken: 0.235 seconds
+
+hive> show tables;
+OK
+pokes
+```

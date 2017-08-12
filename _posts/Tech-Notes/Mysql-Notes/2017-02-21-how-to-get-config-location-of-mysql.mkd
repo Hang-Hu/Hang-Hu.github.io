@@ -19,3 +19,18 @@ Default options are read from the following files in the given order:
 /etc/my.cnf /etc/mysql/my.cnf /usr/local/mysql/etc/my.cnf ~/.my.cnf 
 The following groups are read: mysql client
 ```
+
+
+## Be cautious
+
+
+I've encountered a situation where mysql suggests that `/etc/my.cnf` is read while it isn't read by mysql at all.
+
+
+Finally I use `/etc/mysql/mysql.conf.d/mysqld.cnf` as the configuration file to solve the problem.
+
+
+That version is `mysql  Ver 14.14 Distrib 5.7.18, for Linux (x86_64) using  EditLine wrapper`.
+
+
+Check arguments after editing the config and restart mysql.

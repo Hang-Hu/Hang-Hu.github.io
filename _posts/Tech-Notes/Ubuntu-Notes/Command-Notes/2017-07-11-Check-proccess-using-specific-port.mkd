@@ -1,0 +1,13 @@
+---
+layout: post
+author: Hang Hu
+categories: command
+tags: Ubuntu Command 
+cover: 
+---
+
+```
+lsof -Pni :3306
+COMMAND   PID  USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
+mysqld  27561 mysql   28u  IPv4 157269      0t0  TCP 127.0.0.1:3306 (LISTEN)
+```

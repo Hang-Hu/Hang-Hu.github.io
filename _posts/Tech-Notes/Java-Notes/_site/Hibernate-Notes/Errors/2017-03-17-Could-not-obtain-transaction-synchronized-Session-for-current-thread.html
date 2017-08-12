@@ -1,0 +1,16 @@
+<h2 id="reason">Reason</h2>
+
+<p>Transaction support is not enabled yet.</p>
+<h2 id="solution">Solution</h2>
+
+<h3 id="spring-configuration">Spring Configuration</h3>
+
+<ol>
+  <li><code class="highlighter-rouge">&lt;tx:annotation-driven&gt;</code> in <code class="highlighter-rouge">springmvc.xml</code> or <code class="highlighter-rouge">@EnableTransactionManagement</code> in <code class="highlighter-rouge">AppConfig</code></li>
+  <li>Declare the transactionManager, don’t forget to give a sessionFactory to it.
+    <h3 id="dao-annotation">Dao Annotation</h3>
+  </li>
+</ol>
+
+<p>Add <code class="highlighter-rouge">@Transactional</code> along with <code class="highlighter-rouge">@Repository</code> for such Class as <code class="highlighter-rouge">UserDaoImpl</code>.</p>
+

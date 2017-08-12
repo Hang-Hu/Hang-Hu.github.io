@@ -1,0 +1,109 @@
+---
+layout: post
+author: Hang Hu
+categories: shadowsocks
+tags: Ubuntu Shadowsocks 
+cover: 
+---
+
+## Installation
+
+```
+sudo apt install shadowsocks
+```
+
+
+## Configuration
+
+
+### Original One:
+
+
+```
+{
+    "server":"104.236.179.20",
+    "server_port":80,
+    "local_address": "127.0.0.1",
+    "local_port":1080,
+    "password":"HHshadow..socks",
+    "timeout":300,
+    "method":"aes-256-cfb",
+    "fast_open": false
+}
+```
+
+### Shadowsocks Over Kcptun
+
+
+```
+{
+	    "server":"127.0.0.1",
+		"server_port":2333,
+	    "local_address": "127.0.0.1",
+	    "local_port":1080,
+	    "password":"HHshadow..socks",
+	    "timeout":300,
+		"method":"aes-256-cfb",
+		"fast_open": false
+}
+```
+
+
+## Autostart
+
+
+### Setting for Client
+
+
+```
+sudo vim /etc/init.d/shadowsocks
+```
+
+Change `DAEMON=/usr/bin/ssserver` to `DAEMON=/usr/bin/sslocal`
+
+
+### Configuration File for shadowsocks
+
+
+Look over the file and find that it will read configuration file from `/etc/default/$NAME`, which is `/etc/default/shadowsocks` in this case. Check `/etc/default/shadowsocks` and find `DAEMON_OPTS="-q -c /etc/shadowsocks/config.json"`, which indicates it will read `/etc/shadowsocks/config.json` as configuration.
+
+
+Copy `shadowsocks-kcptun.json` to `/etc/shadowsocks/config.json`.
+
+```
+sudo cp ~/shadowsocks/shadowsocks-kcptun.json /etc/shadowsocks/config.json 
+```
+
+### Start Shadowsocks as a Service
+
+
+```
+sudo systemctl daemon-reload
+sudo service shadowsocks restart
+```
+
+
+### Add this Service to Autostart
+
+
+```
+sudo update-rc.d shadowsocks defaults
+```
+
+
+## Usage
+
+
+### Show logs
+
+
+```
+tail -f /var/log/shadowsocks.log
+```
+
+
+
+
+
+
+

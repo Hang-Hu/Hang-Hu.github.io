@@ -1,0 +1,17 @@
+<h2 id="on-notify">On Notify</h2>
+
+<h3 id="reason">Reason</h3>
+
+<p><code class="highlighter-rouge">msg="Character"</code> will change this object <code class="highlighter-rouge">msg</code> points to. Then there is no thread waiting on this new object, making <code class="highlighter-rouge">msg.notify()</code> or <code class="highlighter-rouge">msg.notifyAll()</code> throw such exception.</p>
+
+<h3 id="solution">Solution</h3>
+
+<h2 id="on-wait">On wait</h2>
+
+<h3 id="reason-1">Reason</h3>
+
+<p>object.wait() must be in a synchronized block.</p>
+
+<h3 id="solution-1">Solution</h3>
+
+<p>Use <code class="highlighter-rouge">synchronized(object){}</code> to wrap <code class="highlighter-rouge">object.wait()</code>. If object is this, <code class="highlighter-rouge">synchronized</code> keyword before method name is also ok.</p>

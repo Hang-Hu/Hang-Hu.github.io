@@ -1,0 +1,31 @@
+---
+layout: post
+author: Hang Hu
+categories: ubuntu
+tags: Ubuntu 
+cover: 
+---
+
+## Dropbox
+
+No spped at all.
+
+## Dukto
+
+Small files only, stop when switch to other programs.
+
+## Google Drive
+
+Too slow.
+
+## Nutstore
+
+Once worked, but no speed now.
+
+## Email
+
+Faster, able to send 60M in 5 minites from 163 to 126 using Wangyi's client. However, each file is limited to 50 MB and I can't open thunderbird client.
+
+## Wire(Recommend)
+
+Most reliable and fast way, able to send files in seconds.

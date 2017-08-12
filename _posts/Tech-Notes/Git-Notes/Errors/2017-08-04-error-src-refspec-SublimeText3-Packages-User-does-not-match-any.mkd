@@ -1,0 +1,15 @@
+---
+layout: post
+author: Hang Hu
+categories: git
+tags: Git 
+cover: 
+---
+
+## Reason
+
+I don't have a local branch named after `SublimeText3-Packages-User`.
+
+## Solution
+
+Rename the `master` branch as `SublimeText3-Packages-User`.

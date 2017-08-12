@@ -1,0 +1,14 @@
+#Caused by: java.util.zip.ZipException: invalid LOC header (bad signature)
+##Reason
+Corrupted jars downloaded by maven.
+##Solution
+###Find which jar is corrupted
+1. Double shift, type ZipException and enter
+2. Add breakpoint in ZipException's two constructors
+3. Debug
+4. When it stops, click `Filter` to show all frames
+5. Click `getManifestFromReference()` in the stack trace and check attribute `name` to see the filename.
+<img src="/home/joanna/Pictures/CodePic/Errors/invalid-loc-header.png" width=100% />
+###Delete
+1. Delete it in `~/.m2/repository`
+2. `mvn clean install`

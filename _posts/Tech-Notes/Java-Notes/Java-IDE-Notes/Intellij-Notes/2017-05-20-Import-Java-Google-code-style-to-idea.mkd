@@ -1,0 +1,27 @@
+---
+layout: post
+author: Hang Hu
+categories: intellij
+tags: Java Java-IDE Intellij 
+cover: 
+---
+
+## Download
+
+https://github.com/google/styleguide
+
+```
+mv intellij-java-google-style.xml ~/.IntelliJIdea2016.2/config/codestyles
+```
+
+
+## Configuration
+
+
+Idea -> Setting -> Editor -> Code Style -> Scheme -> GoogleStyle
+
+
+## Usage
+
+
+Code -> Reformat Code

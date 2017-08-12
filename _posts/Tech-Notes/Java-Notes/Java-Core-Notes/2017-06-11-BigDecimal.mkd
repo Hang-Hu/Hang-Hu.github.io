@@ -1,0 +1,47 @@
+---
+layout: post
+author: Hang Hu
+categories: java-core
+tags: Java Java-Core 
+cover: 
+---
+
+## Difference to Double
+
+Double is not precise and you may get `34.000001` instead of `34.0`. If you want to get the precise value, use BigDecimal instead of Double.
+
+## Value
+
+```
+BigDecimal.ZERO
+new BigDecimal(-1)
+BigDecimal.valueOf(-1000)
+```
+
+
+## +-*/
+
+
+Use `add()`, `substract`, `multiply()`, `divide()` to replace `+-*/`. However, BigDecimal calling these method won't be changed and the returned BigDecimal will be the result.
+
+
+```
+currentMoney = currentMoney.subtract(price);
+currentMoney = currentMoney.subtract(entry.getValue())).add(entry.getValue());
+```
+
+
+## ==, >, <
+
+
+```
+public int compareTo(@NotNull BigDecimal val)
+```
+
+
+-1, 0, or 1 as this BigDecimal is numerically less than, equal to, or greater than val.
+
+
+```
+currentMoney.compareTo(BigDecimal.ZERO) == -1
+```

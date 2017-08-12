@@ -1,0 +1,21 @@
+---
+layout: post
+author: Hang Hu
+categories: command
+tags: Ubuntu Command 
+cover: 
+---
+
+## find `.txt` files recursively
+
+```
+find . -type f -iname '*.txt'
+```
+
+
+## find file without suffix
+
+
+```
+find . -type f ! -name '*.*'
+```

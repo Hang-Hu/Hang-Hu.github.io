@@ -1,0 +1,25 @@
+---
+layout: post
+author: Hang Hu
+categories: spring-boot-test
+tags: Java Spring-Framework Spring-Boot Spring-Boot-Test 
+cover: 
+---
+
+## Reason
+
+Unit test will search the class containing `@SpringBootApplication` and load this class as application context.
+
+> The search algorithm works up from the package that contains the test until it finds a @SpringBootApplication or @SpringBootConfiguration annotated class. As long as you’ve structure your code in a sensible way your main configuration is usually found.
+
+<http://docs.spring.io/spring-boot/docs/1.4.0.M3/reference/htmlsingle/# boot-features-testing-spring-boot-applications-detecting-config>
+
+## Solution
+
+Use `@SpringBootApplication` instead of:
+
+```
+@Configuration
+@EnableAutoConfiguration
+@ComponentScan
+```

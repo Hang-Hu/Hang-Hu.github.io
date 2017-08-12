@@ -1,0 +1,23 @@
+<h2 id="reason">Reason</h2>
+
+<p>.hbm.xml files aren’t deployed in this path in <code class="highlighter-rouge">war</code> by maven because they are not included in <code class="highlighter-rouge">resources</code>.</p>
+<h2 id="solution">Solution</h2>
+
+<p>Add <code class="highlighter-rouge">resources</code> inside <code class="highlighter-rouge">build</code>, point one resource to <code class="highlighter-rouge">src/main/java</code> for <code class="highlighter-rouge">**/*.hbm.xml</code>.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>	&lt;build&gt;
+		&lt;sourceDirectory&gt;src/main/java&lt;/sourceDirectory&gt;
+        &lt;resources&gt;
+            &lt;resource&gt;
+                &lt;directory&gt;src/main/resources&lt;/directory&gt;
+            &lt;/resource&gt;
+            &lt;resource&gt;
+                &lt;directory&gt;src/main/java&lt;/directory&gt;
+                &lt;includes&gt;
+                    &lt;include&gt;**/*.hbm.xml&lt;/include&gt;
+                &lt;/includes&gt;
+            &lt;/resource&gt;
+        &lt;/resources&gt;
+    &lt;build&gt;
+</code></pre>
+</div>
