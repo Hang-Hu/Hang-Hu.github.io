@@ -1,5 +1,0 @@
-#Convert ppt to pdf
-```
-libreoffice --headless --invisible --convert-to pdf 0_Guide.ppt 
-```
-Then `0_Guide.pdf` is generated.

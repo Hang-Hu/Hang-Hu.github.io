@@ -1,3 +1,0 @@
-#Cannot find the declaration of element 'beans'
-1. `XMLSchema` instead of `XMLschema`
-2.  xmlns="http://www.springframework.org/schema/beans" instead of xmlns="http://www.framework.org/schema/beans"

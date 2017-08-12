@@ -1,6 +1,0 @@
-#invalid LOC header (bad signature)
-##Reason
-Corrupt jars being downloaded.
-##Solution
-1. Delete this file which has such error in `~/.m2/repository`
-2. mvn clean install

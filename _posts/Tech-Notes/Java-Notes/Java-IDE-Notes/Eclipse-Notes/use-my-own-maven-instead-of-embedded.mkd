@@ -1,6 +1,0 @@
-#Use my own maven
-`preferences->maven->installation`
-
-Click add, and add the directory `/usr/local/apache-maven`
-
-Then choose it instead of EMBEDDED

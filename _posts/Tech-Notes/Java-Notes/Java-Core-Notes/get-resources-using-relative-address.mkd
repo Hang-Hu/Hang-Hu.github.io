@@ -1,4 +1,0 @@
-#get resources using relative address
-```
-String path=Thread.currentThread().getContextClassLoader().getResource("").getPath();
-```

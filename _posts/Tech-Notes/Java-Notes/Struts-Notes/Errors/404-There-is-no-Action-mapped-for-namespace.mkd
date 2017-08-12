@@ -1,5 +1,0 @@
-404 There is no Action mapped for namespace /
-##Reason
-The location of `struts.xml` is wrong.
-##Solution
-Put `struts.xml` directly in `src/main/resources`.

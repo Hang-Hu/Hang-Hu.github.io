@@ -1,8 +1,0 @@
-#The merge tool bc is not available as 'bcompare'
-##Reason
-bcompare may not installed.
-##Solution
-Use vimdiff instead.
-```
-git config --global merge.tool vimdiff
-```

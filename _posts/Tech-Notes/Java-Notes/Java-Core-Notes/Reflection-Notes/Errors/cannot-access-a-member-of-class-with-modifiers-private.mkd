@@ -1,8 +1,0 @@
-#cannot access a member of class with modifiers "private"
-##Reason
-The field is private.
-##Solution
-Use `setAccessible` before call method on `Field`.
-```
-field.setAccessible(true);
-```

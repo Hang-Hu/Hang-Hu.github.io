@@ -1,5 +1,0 @@
-#Create table occurs error, 1064(42000)
-##Reason
-Because `Group` is reserved.
-##Solution
-Change another name.

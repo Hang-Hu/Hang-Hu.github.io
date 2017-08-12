@@ -1,5 +1,0 @@
-#program doesn't terminate when reaching the end of main method
-##Reason
-One thread created by me is still running, so main will wait it. And the thread is `sessionFactory` which is static field.
-##Solution
-Close `sessionFactory` manually using static method.

@@ -1,7 +1,0 @@
-#Using trash instead of rm
-```
-trash-empty  
-trash-list   
-trash-put    
-trash-rm  
-```

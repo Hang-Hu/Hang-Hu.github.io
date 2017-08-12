@@ -1,7 +1,0 @@
-#deploy address
-```
-jdbc:sqlite:../webapps/ROOT/WEB-INF/classes/JavaEEHW.db
-```
-Yes, the first place for program to search is `/usr/local/apache-tomcat-8.0.37/bin`, to get JavaEEHW.db, I did such trick.
-
-However, eclipse deploy its program another way, its under `~/Documents/CodeSpace/code4java/eclipse-workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp1/wtpwebapps/ArchitectureLab`

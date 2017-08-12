@@ -1,9 +1,0 @@
-#Convert String to int
-```
-Integer x = Integer.valueOf(str);
-// or
-int y = Integer.parseInt(str);
-```
-There is a slight difference between these methods:  
-valueOf returns a new or cached instance of java.lang.Integer, parseInt returns primitive int.  
-The same is for all cases: Short.valueOf/parseShort, Long.valueOf/parseLong, etc.

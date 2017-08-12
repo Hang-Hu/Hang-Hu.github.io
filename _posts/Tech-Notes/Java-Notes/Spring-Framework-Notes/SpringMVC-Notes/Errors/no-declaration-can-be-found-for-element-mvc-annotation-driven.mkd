@@ -1,5 +1,0 @@
-#no declaration can be found for element 'mvc:annotation-driven' 
-##Reason
-Something is wrong in springmvc-servlet.xml, especially code on spring-mvc's xsd, but I didn't find where was wrongly typed.
-##Solution
-Copy a right one from crunchify's beginners' guide, which works well.

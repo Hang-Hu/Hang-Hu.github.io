@@ -1,7 +1,0 @@
-#Convert images into one pdf
-```
-convert img{0..19}.jpg merged.pdf
-```
-```
-convert $(ls *.jpg) merged.pdf
-```

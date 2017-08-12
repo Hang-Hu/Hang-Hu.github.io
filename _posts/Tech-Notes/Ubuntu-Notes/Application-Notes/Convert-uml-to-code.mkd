@@ -1,4 +1,0 @@
-#Convert uml to code
-```
-dia2code transfers Class-diagram.dia -t  java
-```

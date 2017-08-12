@@ -1,2 +1,0 @@
-#Add annotation using shortcut
-I have found that writing /**[enter] before a class or method will produce documentation comments in Eclipse. 

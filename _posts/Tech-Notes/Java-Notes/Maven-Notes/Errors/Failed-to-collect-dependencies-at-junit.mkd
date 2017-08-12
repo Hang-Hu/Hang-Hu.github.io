@@ -1,5 +1,0 @@
-#Failed to collect dependencies at junit
-##Reason
-Intellij downloads a corrupted junit file
-##Solution
-Delete it in maven repository and re-download it using terminal.

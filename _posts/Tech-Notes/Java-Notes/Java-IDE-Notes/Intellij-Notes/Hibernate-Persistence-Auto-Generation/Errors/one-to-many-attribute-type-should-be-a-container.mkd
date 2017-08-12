@@ -1,5 +1,0 @@
-#one to many attribute type should be a container
-##Reason
-One team has many `FinalFileEntityPk`s, so `Set` is needed.
-##Solution
-Use `Set<FinalFileEntityPK>` instead of `FinalFileEntityPK`

@@ -1,8 +1,0 @@
-#gitignore
-##Example
-```
-.idea/
-ECollaborationWeb.iml
-target/
-**/resources/application.properties
-```

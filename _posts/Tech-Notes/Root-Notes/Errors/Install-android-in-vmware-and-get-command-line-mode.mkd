@@ -1,6 +1,0 @@
-# Install android in vmware and get command line mode
-
-1. boot in debug mode
-2. `cd /mnt/grub`
-3. `vim menu.list`
-4. add `video=-16 vga=normal nomodeset xforcevesa` to the end of the first kernel line.

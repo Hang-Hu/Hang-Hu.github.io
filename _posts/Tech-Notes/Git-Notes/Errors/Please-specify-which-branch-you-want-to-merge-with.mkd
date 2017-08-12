@@ -1,5 +1,0 @@
-#Please specify which branch you want to merge with
-##Reason
-'git pull' doesn't specify what branch to pull.
-##Solution
-Use 'git pull origin master'.

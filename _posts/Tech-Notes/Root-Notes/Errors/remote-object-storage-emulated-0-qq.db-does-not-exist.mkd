@@ -1,4 +1,0 @@
-# remote object '/storage/emulated/0/qq.db' does not exist
-
-
-/storage/emulated/0/ is the name of file in android, if you want to get file from it, use `/sdcard` instead. Although `/sdcard` doesn't work in `adb shell`.

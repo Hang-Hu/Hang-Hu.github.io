@@ -1,5 +1,0 @@
-#IntelliJ - Convert a Java project/module into a Maven project/module
-
-1. Right-click on the module, select "Add framework support...", and check the "Maven" technology.
-
-2. This also creates a pom.xml, modify it.

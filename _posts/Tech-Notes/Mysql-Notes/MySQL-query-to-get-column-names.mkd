@@ -1,6 +1,0 @@
-#MySQL query to get column names
-```
-SELECT `COLUMN_NAME` 
-FROM `INFORMATION_SCHEMA`.`COLUMNS` 
-WHERE `TABLE_SCHEMA`='ECollaborationWeb' AND `TABLE_NAME`='User';
-```

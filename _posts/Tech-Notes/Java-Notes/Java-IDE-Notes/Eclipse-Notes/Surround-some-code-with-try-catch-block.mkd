@@ -1,2 +1,0 @@
-#Surround some code with try catch block
-select code->right click-> surround with->try catch block

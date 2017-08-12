@@ -1,5 +1,0 @@
-# ffmpeg convert avi to mp4
-
-```
-ffmpeg -i ITEnPPTexample-sliced.avi  revealJS.mp4
-```

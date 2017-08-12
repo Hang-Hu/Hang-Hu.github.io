@@ -1,5 +1,0 @@
-#DateConverter does not support default String to 'Date' conversion
-##Reason
-The data submitted by form is String, but corresponding data in Javabean where DataConverter is used to convert data to is Date.
-##Method
-Change Birthday in Javabean to type String instead of Date.

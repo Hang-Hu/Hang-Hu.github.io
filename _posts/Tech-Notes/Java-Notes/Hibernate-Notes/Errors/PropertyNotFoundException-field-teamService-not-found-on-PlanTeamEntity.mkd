@@ -1,5 +1,0 @@
-#org.hibernate.PropertyNotFoundException: field [teamService] not found on com.general.dao.entity.PlanTeamEntity
-##Reason
-Refactor change from `Team` to `TeamService` did change words in `PlanTeamEntity.hbm.xml` from `team` to `teamService` accidentally, so field in `PlanTeamEntity` doesn't corresponds to setting in `hbm.xml`.
-##Solution
-Replace `teamService` with `team` in `PlanTeamEntity.hbm.xml`.

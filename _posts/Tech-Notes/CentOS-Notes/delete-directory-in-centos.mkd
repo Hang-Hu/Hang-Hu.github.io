@@ -1,4 +1,0 @@
-#delete firectory in centos
-```
-rm -rf ECollaborationWebUpload/
-```
