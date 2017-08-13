@@ -7,5 +7,5 @@ cover:
 ---
 
 ```
-mysql -h 115.28.163.139 -P 3306 -u archiLab -p
+mysql -h 10.10.10.111 -P 3306 -u archiLab -p
 ```

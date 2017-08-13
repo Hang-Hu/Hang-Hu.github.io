@@ -16,6 +16,6 @@ Add this lines:
 
 ```
 Host EcollaborationWeb                                                      
-HostName 115.28.163.139
+HostName 10.10.10.111
 User root
 ```

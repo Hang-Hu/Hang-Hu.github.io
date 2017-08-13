@@ -21,11 +21,11 @@ sudo apt install shadowsocks
 
 ```
 {
-    "server":"104.236.179.20",
+    "server":"10.10.10.111",
     "server_port":80,
     "local_address": "127.0.0.1",
     "local_port":1080,
-    "password":"HHshadow..socks",
+    "password":"123456",
     "timeout":300,
     "method":"aes-256-cfb",
     "fast_open": false
@@ -41,7 +41,7 @@ sudo apt install shadowsocks
 		"server_port":2333,
 	    "local_address": "127.0.0.1",
 	    "local_port":1080,
-	    "password":"HHshadow..socks",
+	    "password":"123456",
 	    "timeout":300,
 		"method":"aes-256-cfb",
 		"fast_open": false
@@ -90,6 +90,11 @@ sudo service shadowsocks restart
 sudo update-rc.d shadowsocks defaults
 ```
 
+### Remove from Autostart
+
+```
+sudo update-rc.d shadowsocks disable
+```
 
 ## Usage
 

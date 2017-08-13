@@ -89,7 +89,7 @@ JspWriter extends Writer, which is what response.getWriter() returns.
 ```
 String email=request.getParameter("email");
 String password=request.getParameter("pwd");
-if(("huhang600@126.com".equals(email))&&("admin".equals(password))){
+if(("huhang600@gmail.com".equals(email))&&("admin".equals(password))){
     //set attribute for session so home.jsp can use it.
 	request.getSession().setAttribute("email", email);
 	request.getRequestDispatcher("/success.jsp").forward(request, response);

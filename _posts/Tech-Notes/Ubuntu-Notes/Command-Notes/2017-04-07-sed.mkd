@@ -65,7 +65,7 @@ sed -i "s/Entity\ {/Entity\ implements Entity{/g" *.java
 
 ## Use sed recursively
 
-This turns `package main.java.com.general.DTO` to `package com.general.DTO`
+This turns `package com.general.DTO` to `package com.general.DTO`
 
 ```
 find ./ -type f -print0 | xargs -0 sed -i "s/package\ main.java.com./package\ com./g" *.java 

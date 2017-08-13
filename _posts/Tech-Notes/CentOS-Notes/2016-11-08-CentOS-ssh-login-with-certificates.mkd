@@ -9,7 +9,7 @@ cover:
 ### Generate secret key and public key
 
 ```
-ssh-keygen -t rsa -C "huhang600@126.com"
+ssh-keygen -t rsa -C "huhang600@gmail.com"
 ```
 
 Now id_rsa is the generated secret key and id_rsa.pub is the public key.
