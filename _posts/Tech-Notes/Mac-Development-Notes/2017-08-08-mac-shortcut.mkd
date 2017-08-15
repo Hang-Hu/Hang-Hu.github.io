@@ -1,0 +1,12 @@
+---
+layout: post
+author: Hang Hu
+categories: mac-development
+tags: Mac-Development 
+cover: 
+---
+
+```
+switch in the same application			command+`
+
+```

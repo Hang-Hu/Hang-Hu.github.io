@@ -1,0 +1,59 @@
+---
+layout: post
+author: Hang Hu
+categories: spring-boot-test
+tags: Java Spring-Framework Spring-Boot Spring-Boot-Test 
+cover: 
+---
+
+## Example
+
+```
+@RunWith(SpringRunner.class)
+@PropertySource("classpath:application.properties")
+@DataJpaTest
+@Sql("classpath:test.sql")
+//@Transactional(propagation = Propagation.NOT_SUPPORTED)
+public class MeasureRepoTest {
+    @Autowired
+    private TestEntityManager testEntityManager;
+
+    @Autowired
+    private MeasureRepo measureRepo;
+
+
+    @Test
+    public void testFindOrganizations(){
+        Iterable<String> orgs=measureRepo.findOrganizations();
+        System.out.println(orgs);
+        for(String org:orgs){
+            assertThat(org).isEqualTo("eBay");
+        }
+
+    }
+}
+
+```
+
+
+`application.properties` is in `src/test/resources`. And I've add following lines to direct test `classpath` to `src/test/resources`.
+
+
+```
+<build>
+    <sourceDirectory>src/main/java</sourceDirectory>
+    <resources>
+        <resource>
+            <directory>src/main/resources</directory>
+        </resource>
+    </resources>
+    <testSourceDirectory>src/test/java</testSourceDirectory>
+    <testResources>
+        <testResource>
+            <directory>src/test/resources</directory>
+        </testResource>
+    </testResources>
+</build>
+```
+
+## 

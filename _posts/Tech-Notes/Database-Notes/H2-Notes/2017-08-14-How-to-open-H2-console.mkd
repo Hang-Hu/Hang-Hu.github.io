@@ -1,0 +1,44 @@
+---
+layout: post
+author: Hang Hu
+categories: h2
+tags: Database H2 
+cover: 
+---
+
+```
+@Test
+public void testGetAllNotes() {
+	try {
+	  Console.main();
+	} catch (SQLException e) {
+	  e.printStackTrace();
+	}
+	try {
+	  Thread.sleep(Long.MAX_VALUE);
+	} catch (InterruptedException e) {
+	  System.exit(0);
+	}
+}
+```
+
+
+The the console webpage will open automatically, change ip address to `127.0.0.1` if there is such an error.
+
+
+
+>Sorry, remote connections ('webAllowOthers') are disabled on this server.
+
+
+
+Configuration of H2 in `application.properties` in `src/test/resources`.
+
+
+```
+spring.datasource.driver-class-name=org.h2.Driver
+spring.datasource.url=jdbc:h2:mem:db;DB_CLOSE_DELAY=-1
+spring.datasource.username=sa
+spring.datasource.password=sa
+hibernate.dialect=org.hibernate.dialect.H2Dialect
+```
+

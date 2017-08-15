@@ -1,0 +1,11 @@
+---
+layout: post
+author: Hang Hu
+categories: mysql
+tags: Database Mysql 
+cover: 
+---
+
+```
+mysql> source /Users/hanhu/Documents/CodeSpace/gitRepository/Xiangrong-Chen/incubator-griffin/service/src/main/resources/Init_quartz.sql
+```

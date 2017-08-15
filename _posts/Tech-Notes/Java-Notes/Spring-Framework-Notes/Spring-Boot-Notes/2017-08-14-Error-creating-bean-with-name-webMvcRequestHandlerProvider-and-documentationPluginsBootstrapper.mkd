@@ -1,0 +1,42 @@
+---
+layout: post
+author: Hang Hu
+categories: spring-boot
+tags: Java Spring-Framework Spring-Boot 
+cover: 
+---
+
+## Details
+
+Error creating bean with name webMvcRequestHandlerProvider.
+
+Error creating bean with name documentationPluginsBootstrapper.
+
+NoSuchBeanDefinitionException: RequestMappingInfoHandlerMapping.
+
+## Reason
+
+Test in SpringBoot will search `@SpringBootApplication` in the module and load all annotation enabled in that class. And the class containing `@SpringBootApplication` also contains `@EnableSwagger2`. Then SpringContext for the repository test will also load swagger2 while it doesn't boot MVC layer beans, so there are errors complaining about creating swagger2's beans.
+
+## Solution
+
+Remove `@EnableSwagger2` in the class `GriffinWebApplication` containing `@SpringBootApplication` and create a new Java class named after `SwaggerConfig` in the same place of `GriffinWebApplication` to use swagger2.
+
+```
+@Configuration
+@EnableSwagger2
+public class SwaggerConfig {
+}
+```
+
+
+## Reference
+
+
+[spring Boot + Springbox swagger error](https://stackoverflow.com/questions/32449612/spring-boot-springbox-swagger-error)
+
+
+[How to run integration tests with spring and springfox?](https://github.com/springfox/springfox/issues/654)
+
+
+

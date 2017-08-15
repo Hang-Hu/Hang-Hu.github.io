@@ -1,0 +1,18 @@
+---
+layout: post
+author: Hang Hu
+categories: vim
+tags: Vim 
+cover: 
+---
+
+## About folders
+
+```
+Unfold all                             zR
+Fold all                               zM
+Open one fold under the cursor         zo
+Close one fold under the cursor        zc
+```
+
+

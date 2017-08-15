@@ -1,0 +1,15 @@
+---
+layout: post
+author: Hang Hu
+categories: mac-development
+tags: Mac-Development 
+cover: 
+---
+
+## brew cask
+
+List certain app:
+
+```
+brew cask list sublime-text
+```

@@ -1,0 +1,21 @@
+---
+layout: post
+author: Hang Hu
+categories: git
+tags: Git 
+cover: 
+---
+
+```
+git clone https://github.com/justACT/incubator-griffin.git
+git checkout -b apiChange origin/apiChange
+```
+
+
+Result: 
+
+
+```
+Branch apiChange set up to track remote branch apiChange from origin.
+Switched to a new branch 'apiChange'
+```

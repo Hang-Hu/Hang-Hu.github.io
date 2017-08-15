@@ -1,0 +1,13 @@
+---
+layout: post
+author: Hang Hu
+categories: mac-development
+tags: Mac-Development 
+cover: 
+---
+
+## Solution
+
+```
+lsof -i :8080
+```

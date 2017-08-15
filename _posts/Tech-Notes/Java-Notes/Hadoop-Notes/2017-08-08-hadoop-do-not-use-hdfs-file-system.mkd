@@ -1,0 +1,20 @@
+---
+layout: post
+author: Hang Hu
+categories: hadoop
+tags: Java Hadoop 
+cover: 
+---
+
+## Reason
+
+I use `brew install hive` to install hive but brew also installed `hadoop` for me. Then I am calling the `hadoop` brew installed instead of the one I've configured.
+
+## Solution
+
+```
+brew uninstall hive
+```
+
+
+Download `hive` and install it by myself.

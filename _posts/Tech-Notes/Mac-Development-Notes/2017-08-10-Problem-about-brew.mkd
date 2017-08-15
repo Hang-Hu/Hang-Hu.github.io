@@ -1,0 +1,17 @@
+---
+layout: post
+author: Hang Hu
+categories: mac-development
+tags: Mac-Development 
+cover: 
+---
+
+## python
+
+`brew install python` will install `python2` while remaining the default `python`.
+
+Use `sudo easy_install pip` to install pip for the default python.
+
+## hive
+
+`brew install hive` will also install hadoop, which will conflicts with the hadoop I installed.

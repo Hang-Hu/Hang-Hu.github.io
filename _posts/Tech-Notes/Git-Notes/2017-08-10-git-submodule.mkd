@@ -1,0 +1,46 @@
+---
+layout: post
+author: Hang Hu
+categories: git
+tags: Git 
+cover: 
+---
+
+## Initiate submodule
+
+```
+mkdir enum-profiling-sample
+cd enum-profiling-sample
+git pull https://github.com/justACT/griffin-profile-enum.git
+cd ..
+git submodule add https://github.com/justACT/griffin-profile-enum.git enum-profiling-sample
+```
+
+
+```
+vim .gitmodules
+```
+
+
+```
+[submodule "enum-profiling-sample"]
+            path = enum-profiling-sample
+            url = https://github.com/justACT/griffin-profile-enum.git
+```
+
+
+
+```
+git submodule update --init
+cd enum-profiling-sample/
+git remote add origin https://github.com/justACT/griffin-profile-enum.git
+git push --set-upstream origin master
+```
+
+
+## Clone repo with submodule 
+
+
+```
+git clone --recursive https://github.com/Hang-Hu/griffin-sample.git
+```

@@ -1,0 +1,15 @@
+---
+layout: post
+author: Hang Hu
+categories: mac-development
+tags: Mac-Development 
+cover: 
+---
+
+Some app opened using spotlight won't use the `PATH` of the terminal.
+
+Instead, you should use terminal or iterm to open app so that it will get the right `PATH`, such as
+
+```
+subl
+```

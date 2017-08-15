@@ -1,0 +1,11 @@
+---
+layout: post
+author: Hang Hu
+categories: git
+tags: Git 
+cover: 
+---
+
+```
+git remote set-url origin https://github.com/Hang-Hu/griffin-sample.git
+```

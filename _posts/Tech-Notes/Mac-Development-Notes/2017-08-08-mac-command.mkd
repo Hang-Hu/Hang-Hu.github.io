@@ -1,0 +1,21 @@
+---
+layout: post
+author: Hang Hu
+categories: mac-development
+tags: Mac-Development 
+cover: 
+---
+
+## merge directory
+
+```
+ditto -V hadoop-2.6.0/ ../hadoop-2.6.0
+```
+
+
+## Show path
+
+
+```
+pwd
+```

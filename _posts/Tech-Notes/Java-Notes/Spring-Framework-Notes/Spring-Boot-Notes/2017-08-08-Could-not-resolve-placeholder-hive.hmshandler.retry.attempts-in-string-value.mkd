@@ -1,0 +1,15 @@
+---
+layout: post
+author: Hang Hu
+categories: spring-boot
+tags: Java Spring-Framework Spring-Boot 
+cover: 
+---
+
+## Reason 
+
+Forget to change active profile to `application-dev.properties`, and the default one `application.properties` doesn't contains placeholder `hive.hmshandler.retry.attempts`
+
+## Solution
+
+Intellij -> Edit Configurations -> VM options: `-Dspring.profiles.active=dev`.

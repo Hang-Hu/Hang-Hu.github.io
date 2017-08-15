@@ -1,0 +1,52 @@
+---
+layout: post
+author: Hang Hu
+categories: git
+tags: Git 
+cover: 
+---
+
+## fatal: refusing to merge unrelated histories
+
+The two to be merged have different histories, but `git merge` offer to prohibit that in default. Therefore I have to allow it using `--allow-unrelated-histories`.
+
+```
+git pull --allow-unrelated-histories
+```
+
+
+## fatal: remote origin already exists.
+
+
+I have to set a new origin.
+
+
+```
+git remote set-url origin https://github.com/Hang-Hu/griffin-sample.git
+```
+
+
+## github cannot open submodule
+
+
+```
+git submodule update --init
+```
+
+
+## fatal: No url found for submodule path 'enum-profiling-sample' in .gitmodules
+
+
+```
+vim .gitmodules
+```
+
+
+Add following lines:
+
+
+```
+[submodule "enum-profiling-sample"]
+            path = enum-profiling-sample
+            url = https://github.com/justACT/griffin-profile-enum.git
+```

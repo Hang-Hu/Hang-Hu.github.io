@@ -1,0 +1,30 @@
+---
+layout: post
+author: Hang Hu
+categories: h2
+tags: Database H2 
+cover: 
+---
+
+```
+INSERT INTO `evaluate_rule` VALUES ('2', '2017-07-12 17:40:30', null, '$source[\'id\'] == $target[\'id\'] AND $source[\'age\'] == $target[\'age\'] AND $source[\'desc\'] == $target[\'desc\']', '0');
+```
+
+
+MySQL uses baskslash `\` as escape character, so it shows `\'id\'`.
+
+
+However, H2 uses single quote `'` as escape character, so it should be `'id'`, and the following lines are the converted result.
+
+
+```
+INSERT INTO `evaluate_rule` VALUES ('2', '2017-07-12 17:40:30', null, '$source[''id''] == $target[''id''] AND $source[''age''] == $target[''age''] AND $source[''desc''] == $target[''desc'']', '0');
+```
+
+
+## Reference
+
+
+[Exporting from MySQL to H2 
+
+](http://matthewcasperson.blogspot.com/2013/07/exporting-from-mysql-to-h2.html)

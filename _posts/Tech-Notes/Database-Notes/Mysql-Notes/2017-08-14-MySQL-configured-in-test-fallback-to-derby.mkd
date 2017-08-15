@@ -1,0 +1,47 @@
+---
+layout: post
+author: Hang Hu
+categories: mysql
+tags: Database Mysql 
+cover: 
+---
+
+## Reason
+
+I've configured mysql in `application.properties` in `src/test/resources`.
+
+```
+spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+spring.datasource.url= jdbc:mysql://localhost:3306/quartz?autoReconnect=true&useSSL=false
+spring.datasource.username =griffin
+spring.datasource.password =123456
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5Dialect
+```
+
+
+However, the database actually used is `derby`, and derby doesn't work well with `spring.jpa.hibernate.ddl-auto = create-drop`. It will print error `schema SA does not exist`.
+
+
+> So you will see the schema not exists error if your application tries to access the current schema before any objects have been created in it. Possibilities are you try to perform a DROP TABLE before creating it, or try to SELECT from a table to see if it should be created or not, or when there is a problem with the sql for the very first object you try to create in a particular schema and no explicit CREATE SCHEMA was issued.[Offitial Document of derby](http://db.apache.org/derby/faq.html)
+
+
+And the discussion [create-drop does not work with Apache Derby](https://github.com/spring-projects/spring-boot/issues/7706).
+
+
+Based on that, I find `drop table data_connector if exists` from `create-drop` strategy will run into the problem.
+
+
+## Solution
+
+
+I configure H2 as the database explicitly in `application.properties` in `src/test/resources`, and H2 works well with `create-drop`.
+
+
+```
+spring.datasource.driver-class-name=org.h2.Driver
+spring.datasource.url=jdbc:h2:mem:db;DB_CLOSE_DELAY=-1
+spring.datasource.username=sa
+spring.datasource.password=sa
+hibernate.dialect=org.hibernate.dialect.H2Dialect
+```
+

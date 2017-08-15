@@ -19,3 +19,11 @@ find . -type f -iname '*.txt'
 ```
 find . -type f ! -name '*.*'
 ```
+
+## find file by name
+
+Find file with name "vim" in current directory.
+
+```
+find ./ -name "*vim*"
+```

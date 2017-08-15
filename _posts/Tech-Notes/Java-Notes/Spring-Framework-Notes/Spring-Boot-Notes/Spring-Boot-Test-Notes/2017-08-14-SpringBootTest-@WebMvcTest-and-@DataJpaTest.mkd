@@ -1,0 +1,19 @@
+---
+layout: post
+author: Hang Hu
+categories: spring-boot-test
+tags: Java Spring-Framework Spring-Boot Spring-Boot-Test 
+cover: 
+---
+
+## @SpringBootTest
+
+`@SpringBootTest` will boot hive, hive metastore, quartz.
+
+## @WebMvcTest
+
+`@WebMvcTest` will start Spring MVC.
+
+## @DataJpaTest
+
+`@DataJpaTest` will only boot DAO layer.

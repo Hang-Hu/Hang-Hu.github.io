@@ -1,0 +1,27 @@
+---
+layout: post
+author: Hang Hu
+categories: git
+tags: Git 
+cover: 
+---
+
+```
+git log --committer="Hang-Hu" --since=10.days
+```
+
+
+Save the diff to log. `service/` is the path to show diff.
+
+
+```
+git diff  52c2ac64b195f273b2d78e9c677e2dff80792dc7 HEAD service/ > gitdiff.log
+```
+
+
+```
+vim gitdiff.log
+```
+
+
+Press `command` and hover over the file name, if it shows the underline, then click it to open the file in sublime. 
