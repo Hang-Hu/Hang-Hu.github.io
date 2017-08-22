@@ -5,6 +5,12 @@ categories: cache
 tags: Java Spring-Framework Cache 
 cover: 
 ---
+layout: post
+author: Hang Hu
+categories: cache
+tags: Java Spring-Framework Cache 
+cover: 
+---
 
 ## Reason
 
