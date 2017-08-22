@@ -1,0 +1,12 @@
+---
+layout: post
+author: Hang Hu
+categories: mysql
+tags: Database Mysql 
+cover: 
+---
+
+```
+DATABASE_NAME="quartz"
+mysql -Nse 'show tables' $DATABASE_NAME | while read table; do mysql -e "SET FOREIGN_KEY_CHECKS = 0; truncate table $table; SET FOREIGN_KEY_CHECKS = 1;" $DATABASE_NAME; done
+```

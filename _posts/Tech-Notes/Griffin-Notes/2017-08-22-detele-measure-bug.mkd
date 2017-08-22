@@ -27,5 +27,6 @@ if there are job protocol related to this measure, measure deletion will make qu
 
 1. When deleting measure with related jobs, webpage can pop up alert, deleting measure will also delete job related to this measure or cancel.
 
-2. Mark job related as deleted, unschedule all triggers to the job.
+2. Mark job related as deleted. Done.
+3. Unschedule all triggers to the job.
 
