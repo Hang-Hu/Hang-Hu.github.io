@@ -10,3 +10,7 @@ cover:
 switch in the same application			command+`
 
 ```
+
+## Edit shortcut
+
+System Preferences -> Keyboard -> Shortcuts

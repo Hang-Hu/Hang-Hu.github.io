@@ -1,0 +1,30 @@
+---
+layout: post
+author: Hang Hu
+categories: python
+tags: Python 
+cover: 
+---
+
+## string to datetime
+
+```
+startdatestr = "2017-08-07"
+date = datetime.datetime.strptime(startdatestr, dateformate).date()
+```
+
+
+## datetime to string
+
+
+```
+date = date.strftime("%Y-%m-%d")
+```
+
+
+## add 1 day to datetime
+
+
+```
+date = startdate + datetime.timedelta(days=1)
+```

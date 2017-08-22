@@ -1,0 +1,22 @@
+---
+layout: post
+author: Hang Hu
+categories: python
+tags: Python 
+cover: 
+---
+
+If apply() suceeds then break, otherwise retry.
+
+```
+while True:
+    try:
+        result = apply(date, driver)
+    except NoSuchWindowException as e:
+        driver = openbrowser()
+    except Exception as e:
+        logger.error("Exception occurs: " + e.__name__ + str(e))
+    else:
+        logger.info(date + " " + str(result))
+        break
+```

@@ -1,0 +1,15 @@
+---
+layout: post
+author: Hang Hu
+categories: cache
+tags: Java Spring-Framework Cache 
+cover: 
+---
+
+## Reason
+
+I forget to add `@Component` for `@CacheEvict` and  `@Scheduled` so that they can be discovered and managed by Spring.
+
+## Solution
+
+Add `@Component`.

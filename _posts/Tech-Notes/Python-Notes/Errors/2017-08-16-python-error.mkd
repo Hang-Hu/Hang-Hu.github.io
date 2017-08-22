@@ -1,0 +1,26 @@
+---
+layout: post
+author: Hang Hu
+categories: python
+tags: Python 
+cover: 
+---
+
+## UnicodeDecodeError: 'ascii' codec can't decode byte 0xe4 in position 0: ordinal not in range(128)
+
+### Reason
+
+Chinese is used while I have not changed the encoding to utf8.
+
+## Solution
+
+Set encoding to utf8.
+
+```
+import sys
+
+# set encoding=utf8  
+
+reload(sys)  
+sys.setdefaultencoding('utf8')
+```
