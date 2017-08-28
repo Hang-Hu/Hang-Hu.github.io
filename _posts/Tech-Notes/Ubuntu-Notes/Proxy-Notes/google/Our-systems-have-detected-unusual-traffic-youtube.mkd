@@ -1,0 +1,9 @@
+# Our systems have detected unusual traffic youtube
+
+## Reason
+
+I've used youtube-dl, maybe that's the reason.
+
+## Solution
+
+Use light to open one video, then switch to ssr, then I am able to open all videos.

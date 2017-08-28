@@ -1,8 +1,0 @@
-#java.lang.IllegalArgumentException: defaultTarget must start with '/' or with 'http(s)'
-##Reason
-```
-.logout().logoutSuccessUrl("login?logout")
-```
-`login?logout` doesn't start with `/`.
-##Solution
-Add `/` to `login?logout`.

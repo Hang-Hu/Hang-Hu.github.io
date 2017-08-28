@@ -1,0 +1,46 @@
+# Udemy front end notes
+
+## Basics
+
+HTML: nouns, content
+CSS: adjectives, styling
+Javascript: verbs, action
+
+## HTML
+
+In sublime, type html and click tab, then it finishes the html prototype for you.
+
+`command + /`: comment the line
+
+`<title></title>` has two functions:
+1. Show in the tab
+
+2. collected by google as title.
+
+block element:
+inline element:
+
+`strong` means a little bit more than `bold`.
+`em` emphasis means more than `i`.
+
+`ol`: ordered list. We have to provide `li` list item inside it.
+
+`ul`: unordered list.
+
+`div`: block level container
+
+`span`: inline container
+
+### Attributes
+
+Key value pair.
+
+MDN attribute reference
+
+`img`: self closing tag.
+
+relative path
+
+
+
+
