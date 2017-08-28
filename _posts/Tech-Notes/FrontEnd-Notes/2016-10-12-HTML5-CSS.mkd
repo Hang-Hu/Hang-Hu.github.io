@@ -122,7 +122,7 @@ All image must have a alt attribute.
 
 ### dead links using hash symbol
 
-    <p>Click here for <a href="# ">cat photos</a>.</p>
+    <p>Click here for <a href="#">cat photos</a>.</p>
 
 ### surround image with anchor to turn image into link
 
@@ -156,6 +156,8 @@ All image must have a alt attribute.
 
     <input type="text">
 
+`input` elements are self-closing.
+
 ### placeholder text
 
 Your placeholder text is what appears in your text input before your user has input anything.
@@ -166,8 +168,8 @@ Your placeholder text is what appears in your text input before your user has in
 ### action for the address that browser submit
 
 ```
-<<form action="/submit-cat-photo">
-<input type="text" placeholder="cat photo URL">
+<form action="/submit-cat-photo">
+  <input type="text" placeholder="cat photo URL">
 </form>
 ```
 
@@ -192,8 +194,8 @@ All related radio buttons should have the same name attribute.
 Each radio button should be nested within its own label  
 
 ```
-  <label><input type="radio" name="indoor-outdoor">indoor</label>
-  <label><input type="radio" name="indoor-outdoor">outdoor</label>
+  <label><input type="radio" name="indoor-outdoor" value="indoor">Indoor</label>
+  <label><input type="radio" name="indoor-outdoor" value="outdoor">Outdoor</label>
 ```
 
 ### checkbox
@@ -203,9 +205,9 @@ Each of your checkboxes should be nested within its own label element.
 All related checkbox inputs should have the same name attribute.  
 
 ```
-  <label><input type="checkbox" name="personality">Loving</label>
-  <label><input type="checkbox" name="personality">Honest</label>
-  <label><input type="checkbox" name="personality">Friendly</label>
+  <label><input type="checkbox" name="personality" value="loving"> Loving</label>
+  <label><input type="checkbox" name="personality" value="lazy"> Lazy</label>
+  <label><input type="checkbox" name="personality" value="energetic"> Energetic</label>
 ```
 
 ### check radio button and checkbox
@@ -216,6 +218,8 @@ All related checkbox inputs should have the same name attribute.
 ```
 
 ## Div and id
+
+The div element, also known as a division element, is a general purpose container for other elements.
 
 ### nest many elements within div
 
@@ -238,7 +242,7 @@ All related checkbox inputs should have the same name attribute.
 
 In addition to classes, each HTML element can also have an id attribute.  
 
-Each id must be unique to a specific element and used only once per page.  
+id attributes should be unique. Browsers won't enforce this, but it is a widely agreed upon best practice. So please don't give more than one element the same id attribute.
 
 ```
 <form id="cat-photo-form" action="/submit-cat-photo">
@@ -247,16 +251,20 @@ Each id must be unique to a specific element and used only once per page.
 
 ### use id cat-photo-form style above form element
 
-```
-  # cat-photo-form{
+Note that inside your style element, you always reference classes by putting a `.` in front of their names. You always reference ids by putting a `#` in front of their names.
 
-    background-color:green;
-  }
+```
+#cat-photo-form{
+  background-color:green;
+}
 ```
 
 ## Padding and margin
 
 ### padding and margin
+
+An element's padding controls the amount of space between the element and its border.
+
 
 ```
   .red-box {

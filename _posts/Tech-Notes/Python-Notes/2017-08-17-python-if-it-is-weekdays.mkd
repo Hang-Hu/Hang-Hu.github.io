@@ -1,0 +1,15 @@
+---
+layout: post
+author: Hang Hu
+categories: python
+tags: Python 
+cover: 
+---
+
+```
+if date.isoweekday() in range(1, 6):
+    logger.info(str(date) + "is a weekday")
+else:
+    logger.info(str(date) + " " + str(date.isoweekday()) +
+                " is not a weekday")
+```

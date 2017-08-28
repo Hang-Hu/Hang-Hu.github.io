@@ -11,3 +11,7 @@ switch in the same application			command+`
 view page source in chrome              command+option+u
 **
 ```
+
+## Edit shortcut
+
+System Preferences -> Keyboard -> Shortcuts

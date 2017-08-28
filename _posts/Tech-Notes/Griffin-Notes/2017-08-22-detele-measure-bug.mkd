@@ -1,0 +1,32 @@
+---
+layout: post
+author: Hang Hu
+categories: griffin
+tags: Griffin 
+cover: 
+---
+
+## Problem description
+
+if there are job protocol related to this measure, measure deletion will make quartz complain that measure cannot be found repeatedly because quartz are till scheduling job instances related to this measure.
+
+## Deal with measure
+
+- Add a column `deleted` in table measure to express whether this measure is deleted or not. When a measure is deleted, mark it as true. Done.
+- Cancle the `unique` attribute of measure name. When creating a measure, if any alive measure with the new name exist, return fail on duplication message. Done.
+- `getAllMeasures` is changed to `getAllAliveMeasures`. Done.
+- `getMeasureByName`, `deleteMeasureByName` are commented. Done.
+- `getAllMeasureNameByOwner` should be changed to get measures' name and id alive. Done.
+- `updateMeasure` should be changed to update measure by id instead of name. Done.
+- In `init` of `SparkSubmitJob`, change to find measure by id instead of name. Done.
+- In `JobServiceImpl`'s `setJobData` method, change `measureName` to `measureId`. Done.
+- Change `Name` in `jobInfoMap.put("measureName", jd.getJobDataMap().getString("measureName"));` to `Id`, this line is in `genJobInfoMap()` of `JobServiceImpl`. Done.
+- `addJob` in `JobController`, change `String measureName` to `Long measureId`. Done.
+- In `JobServiceImplTest`, change `String measureName` to `Long measureId`. Done.
+## Deal with jobs related to measure
+
+1. When deleting measure with related jobs, webpage can pop up alert, deleting measure will also delete job related to this measure or cancel.
+
+2. Mark job related as deleted. Done.
+3. Unschedule all triggers to the job.
+
