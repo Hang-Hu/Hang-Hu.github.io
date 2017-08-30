@@ -1,5 +1,0 @@
-#No qualifying bean of type 'com.huhang.util.HibernateUtil' available
-##Reason
-`@Repository` is required for class `HibernateUtil`
-##Solution
-Add `@Repository` before class `HibernateUtil`

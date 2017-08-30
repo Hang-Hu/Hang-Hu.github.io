@@ -1,0 +1,13 @@
+# Difference between StringBuilder and StringBuffer
+
+Simply use StringBuilder unless you really are trying to share a buffer between threads. StringBuilder is the unsynchronized (less overhead = more efficient) younger brother of the original synchronized StringBuffer class.
+
+StringBuffer came first. Sun was concerned with correctness under all conditions, so they made it synchronized to make it thread-safe just in case.
+
+StringBuilder came later. Most of the uses of StringBuffer were single-thread and unnecessarily paying the cost of the synchronization.
+
+If you are trying to share between threads, you can use StringBuffer, but consider whether higher-level synchronization is necessary, e.g. perhaps instead of using StringBuffer, should you synchronize the methods that use the StringBuilder.
+
+## Reference
+
+http://stackoverflow.com/questions/355089/difference-between-stringbuilder-and-stringbuffer

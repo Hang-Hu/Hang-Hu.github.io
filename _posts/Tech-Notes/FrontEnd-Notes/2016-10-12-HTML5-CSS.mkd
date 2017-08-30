@@ -360,7 +360,7 @@ Class override the body element's color: green; CSS property
 
 ### subsequent class override previous one
 
-The order of the class declarations in the style section are what is important. The second declaration will always take precedence over the first.   
+The order of the class declarations in the style section are what is important. The **last** declaration will always take precedence over the first.   
 
 ```
 <style>
@@ -427,6 +427,8 @@ The order of the class declarations in the style section are what is important. 
 
 ### important override all
 
+Remember that our pink-text class was overridden by subsequent class declarations, id declarations, and in-line styles.
+
 class pink-text uses important,so it overrides all other styles.
 
 ```
@@ -453,6 +455,12 @@ class pink-text uses important,so it overrides all other styles.
 ## color
 
 ### Hex
+
+In CSS, we can use 6 hexadecimal digits to represent colors, two each for the red (R), green (G), and blue (B) components.
+
+The digit 0 is the lowest number in hex code, and represents a complete absence of color.
+
+The digit F is the highest number in hex code, and represents the maximum possible brightness.
 
 ```
 <style>

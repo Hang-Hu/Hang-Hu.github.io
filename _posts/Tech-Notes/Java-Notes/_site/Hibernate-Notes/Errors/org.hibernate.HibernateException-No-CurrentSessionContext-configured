@@ -1,5 +1,0 @@
-#Exception in thread "main" org.hibernate.HibernateException: No CurrentSessionContext configured!
-##Reason
-I don't use Spring to manage sessionFactory or write configuration to manage CurrentSessionContext, so no CurrentSessionContext configured.
-##Solution
-Change `getCurrentSession()` to `openSession()`
