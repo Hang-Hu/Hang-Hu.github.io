@@ -106,13 +106,17 @@ Color class btn-danger for dangerous actions like delete
 
 ### bootstrap grid
 
+ Most of Bootstrap's classes can be applied to a div element.
+
 Bootstrap's grid contains 12 columns in a row.  
 
 Place columns in a row using class .row.  
 
 using .col-md-* or .col-xs-* for sequential column number(how wide the element should be).  
 
-md stands for medium,while sx stands for extra small.  
+md stands for medium,while xs stands for extra small.  
+
+<img src="https://i.imgur.com/FaYuui8.png" alt="Bootstrap Grid System">
 
 #### responsive button
 
@@ -199,13 +203,15 @@ block button:.btn and .btn-block
 
 ### Font Awesome
 
+Font Awesome is a convenient library of icons. These icons are vector graphics, stored in the .svg file format. These icons are treated just like fonts. You can specify their size using pixels, and they will assume the `font size` of their parent HTML elements.
+
 You can add Font Awesome to any app just by including it by adding the following code to the top of your HTML:  
 
 ```
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
 ```
 
-The i element was originally used to make other elements italic, but is now commonly used for icons. You add the Font Awesome classes to the i element to turn it into an icon, for example:  
+The `i` element was originally used to make other elements `italic`, but is now commonly used for `icons`. You add the Font Awesome classes to the i element to turn it into an icon, for example:  
 
 #### fa-thumbs-up:  
 

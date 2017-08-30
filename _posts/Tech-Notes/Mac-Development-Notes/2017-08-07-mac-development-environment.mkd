@@ -25,10 +25,10 @@ brew cask install docker
 brew install p7zip
 brew cask install squirrel
 brew cask install iterm2
-brew cask install sublime-text
 sudo easy_install pip
 ```
 
+Don't use `brew cask install sublime-text`, download it directly from the website and install.
 
 ## Check the availability
 

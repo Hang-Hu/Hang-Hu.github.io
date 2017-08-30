@@ -1,0 +1,27 @@
+# python read from json
+
+## Example
+
+puthon code snippet:
+
+```python
+def readSecret():
+    with open('secret.json') as secret_file:
+        secret = json.load(secret_file)
+
+    return secret["username"], secret["password"]
+```
+
+secret.json:
+
+```json
+{
+	"username": "I2430",
+	"password": "hu.hu.76hang"
+}
+```
+
+## Reference
+
+[Parsing values from a JSON file?
+](https://stackoverflow.com/questions/2835559/parsing-values-from-a-json-file)
