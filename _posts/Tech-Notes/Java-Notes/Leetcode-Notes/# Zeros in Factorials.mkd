@@ -1,0 +1,32 @@
+# Zeros in Factorials
+
+## Reference
+
+[Zeros in Factorials](https://www.youtube.com/watch?v=sT4yFjITtcE)
+
+### 100!
+
+Divide until you reach a number which is `less than 5`.
+
+100/5 -> 20/5 -> 4
+
+20+4 is the result, the number of trailing zeros in factorial one hundred.
+
+
+### 200!
+
+200/5 -> 40/5 -> 8/5 -> 1
+
+40+8+1=49 is the result.
+
+### 625!
+
+625/5 -> 125/5 -> 25/5 -> 5/5 -> 1
+
+125+25+5+1=156 is the result.
+
+### 1000!
+
+1000/5 -> 200/5 -> 40/5 -> 8/5 ->1
+
+200+40+8+1=249 is the result.

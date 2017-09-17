@@ -1,0 +1,68 @@
+# Oneplus install LineageOS
+
+Install the lastest oxygen to meet the firmware and modem requirements of LineageOS so that the installation won't exit throwing error 7.
+
+## Latest Oxygen recovery
+
+```
+adb devices
+adb reboot bootloader
+sudo fastboot devices
+sudo fastboot flash recovery OP5_recovery.img
+```
+
+## Latest Oxygen
+
+Boot into recovery mode using command or holding power and volume down.
+
+```
+adb reboot bootloader
+```
+
+Choose `Install from ADB`. A screen with “You are in sideload mode” will be displayed.
+
+```
+adb sideload OnePlus5Oxygen_23_OTA_015_all_1708252353_e6d7756780064352.zip
+```
+
+Reboot.
+
+## TWRP recovery
+
+```
+adb reboot bootloader
+sudo fastboot flash recovery twrp-3.1.1-1-cheeseburger.img
+```
+
+## LineageOS
+
+Enter recovery mode.
+
+```
+adb reboot bootloader
+adb push lineage-14.1-20170911-nightly-cheeseburger-signed.zip /sdcard/
+adb push open_gapps-arm64-7.1-full-20170909.zip /sdcard/
+adb push addonsu-14.1-arm64-signed.zip /sdcard/
+```
+
+Select Wipe and then Advanced Wipe, wipe System, Cache, Data and Dalvic Cache.
+
+Go back to return to main menu, then select Install.
+
+Navigate to /sdcard, and select the LineageOS .zip package, opengapps.zip and addonsu.zip, the install.
+
+Once installation has finished, return to the main menu, select Reboot, and then System.
+
+## Reference
+
+[Install LineageOS on cheeseburger
+](https://wiki.lineageos.org/devices/cheeseburger/install#get-assistance)
+
+
+[OnePlus 5 OxygenOS 4.5.10
+](http://downloads.oneplus.net/oneplus-5/oneplus_5_oxygenos_4.5.10/)
+
+
+[error 7 when trying to install lineage os on op3
+](https://forum.xda-developers.com/oneplus-3/help/error-7-trying-to-install-lineage-os-op3-t3554900)
+

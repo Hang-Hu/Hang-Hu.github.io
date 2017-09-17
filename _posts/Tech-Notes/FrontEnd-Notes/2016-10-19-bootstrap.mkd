@@ -36,7 +36,7 @@ Make sure all the content on your page is mobile-responsive,div them all with cl
 
 ```
 <div class="container-fluid">
-<h3 class="text-primary text-center">jQuery Playground</h3>
+  <h3 class="text-primary text-center">jQuery Playground</h3>
 </div>
 ```
 
@@ -82,7 +82,7 @@ By making them block elements with the additional class of btn-block, your butto
 
 ### btn-primary
 
-Color class btn-primary
+Color class btn-primary, it is useful for highlighting actions you want your user to take.
 
 ```
 <button class="btn btn-block btn-primary">Like</button>
@@ -90,7 +90,7 @@ Color class btn-primary
 
 ### btn-info
 
-Color class btn-info for additional information(optional actions)
+Color class btn-info for additional information(optional actions).
 
 ```
 <button class="btn btn-block btn-info">Info</button>
@@ -98,7 +98,7 @@ Color class btn-info for additional information(optional actions)
 
 ### btn-danger
 
-Color class btn-danger for dangerous actions like delete
+Color class btn-danger for dangerous actions like deletion.
 
 ```
 <button class="btn btn-block btn-danger">Delete</button>
