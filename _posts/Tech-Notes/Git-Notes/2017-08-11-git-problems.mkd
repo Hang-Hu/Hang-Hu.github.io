@@ -50,3 +50,15 @@ Add following lines:
             path = enum-profiling-sample
             url = https://github.com/justACT/griffin-profile-enum.git
 ```
+
+## this exceeds GitHub's file size limit
+
+The following code will undo 1 local commit. Undo your local commits until before the large file was included.
+
+```
+git reset HEAD~1
+```
+
+```
+git rm --cache path-to-big-file
+```

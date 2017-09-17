@@ -28,3 +28,9 @@ date = date.strftime("%Y-%m-%d")
 ```
 date = startdate + datetime.timedelta(days=1)
 ```
+
+## today string
+
+```
+datetime.datetime.today().strftime('%Y-%m-%d')
+```

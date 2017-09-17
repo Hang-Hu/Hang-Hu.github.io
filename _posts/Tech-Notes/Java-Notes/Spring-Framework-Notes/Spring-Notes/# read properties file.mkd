@@ -1,0 +1,6 @@
+# read properties file
+
+```
+Properties sparkJobProperties=new Properties();
+sparkJobProperties.load(new FileInputStream(new ClassPathResource("sparkJob.properties").getFile()));
+```

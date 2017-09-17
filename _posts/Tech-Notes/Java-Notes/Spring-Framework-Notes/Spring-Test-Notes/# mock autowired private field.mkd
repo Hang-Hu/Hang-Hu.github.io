@@ -1,0 +1,40 @@
+# mock autowired private field
+
+SparkSubmitJob is the object I want to use, however, its field is null because Spring doesn't inject, so I have to mock those fields instead.
+
+```
+@RunWith(SpringRunner.class)
+public class SparkSubmitJobTest{
+
+	@InjectMocks
+	private SparkSubmitJob ssj=new SparkSubmitJob();
+
+	@Mock
+	private MeasureRepo measureRepo;
+
+	@Mock
+	private Properties sparkJobProps;
+
+	@Mock
+	private RestTemplate restTemplate;
+}
+```
+
+```
+public class SparkSubmitJob implements Job {
+    @Autowired
+    private MeasureRepo measureRepo;
+
+    @Autowired
+    private Properties sparkJobProps;
+
+    private RestTemplate restTemplate = new RestTemplate();
+    
+    @Autowired
+    private JobInstanceRepo jobInstanceRepo;
+}
+```
+
+## Reference
+
+[Injecting @Autowired private field during testing](https://stackoverflow.com/questions/16426323/injecting-autowired-private-field-during-testing)
