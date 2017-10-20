@@ -1,0 +1,5 @@
+In chrome:
+
+```
+cmd + shift + R
+```
