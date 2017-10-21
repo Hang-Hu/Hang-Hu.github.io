@@ -1,0 +1,11 @@
+## Details
+error: insufficient permissions for device error
+
+## Solution
+
+```
+adb kill-server
+sudo adb start-server
+
+```
+
