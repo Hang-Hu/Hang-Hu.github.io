@@ -1,0 +1,26 @@
+---
+layout: post
+author: Hang Hu
+categories: git
+tags: Git 
+cover: 
+---
+
+```
+vim .git/config
+```
+
+
+Add the following lines:
+
+
+```
+[http]
+    proxy = http://127.0.0.1:8085
+    sslVerify = false
+[https]
+    proxy = http://127.0.0.1:8085
+    sslVerify = false
+    url = https://username@bitbucket.org/username/**.git
+    pushurl = https://username@bitbucket.org/username/**.git
+```

@@ -1,0 +1,32 @@
+---
+layout: post
+author: Hang Hu
+categories: video-player
+tags: Ubuntu Application Video-Player 
+cover: 
+---
+
+## Play music
+
+```
+mpv *.mp4 --no-video --loop
+```
+
+
+`--loop` to loop the playlist, `--loop-file` to loop playlist entries.
+
+
+## Shuffle
+
+
+```
+--shuffle
+```
+
+
+## Play all in the directory
+
+
+```
+mpv ./* --shuffle --loop --no-video
+```

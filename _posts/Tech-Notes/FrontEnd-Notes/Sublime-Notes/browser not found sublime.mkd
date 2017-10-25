@@ -1,6 +1,0 @@
-browser not found sublime
-
-
-## Solution
-
-Open Sublime Text -> Preferences -> Package Settings -> Side Bar -> Settings - User, set `default_browser` to `chrome`.

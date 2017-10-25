@@ -1,0 +1,15 @@
+---
+layout: post
+author: Hang Hu
+categories: proxy
+tags: Ubuntu Proxy 
+cover: 
+---
+
+## Reason
+
+I've used youtube-dl, maybe that's the reason.
+
+## Solution
+
+Use light to open one video, then switch to ssr, then I am able to open all videos.

@@ -1,0 +1,16 @@
+---
+layout: post
+author: Hang Hu
+categories: frontend
+tags: FrontEnd 
+cover: 
+---
+
+```
+setTimeout(function(){
+    exporter.killPool();
+    process.exit(1);
+}, 5000);
+
+```
+

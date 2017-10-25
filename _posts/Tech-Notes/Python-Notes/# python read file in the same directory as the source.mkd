@@ -1,7 +1,0 @@
-# python read file in the same directory as the source
-
-## Example
-
-```
-filename = os.path.join(os.path.dirname(__file__), 'secret.json'))
-```

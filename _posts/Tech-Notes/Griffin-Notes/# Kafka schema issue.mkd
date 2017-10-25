@@ -1,4 +1,0 @@
-# Kafka schema issue
-
-Condition: topic name
-Aim: the name or id of key schema and value schema of this topic

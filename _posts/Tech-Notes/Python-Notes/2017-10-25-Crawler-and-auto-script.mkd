@@ -1,0 +1,89 @@
+---
+layout: post
+author: Hang Hu
+categories: python
+tags: Python 
+cover: 
+---
+
+## Show current frame selenium py
+
+```
+currentframe = driver.execute_script("return self.name")
+if currentframe != "MainFrame":
+    switch_to_course_registration_frame(driver)
+```
+
+
+## Maximize window
+
+
+```
+from selenium.webdriver.chrome.options import Options
+
+def openbrowser():
+    options = Options()
+    options.add_argument("--start-maximized")
+    driver = webdriver.Chrome(chrome_options=options)
+    return driver
+```
+
+
+
+## Unable to locate element
+
+
+### Reason 1: Have to switch to iframe
+
+
+```
+iframe = driver.find_element_by_xpath('//*[@id="ext-gen84"]/iframe')
+driver.switch_to_frame(iframe)
+```
+
+
+### Reason 2: Sheltered
+
+
+Maximize window or scroll.
+
+
+```
+from selenium.webdriver.chrome.options import Options
+
+def openbrowser():
+    options = Options()
+    options.add_argument("--start-maximized")
+    driver = webdriver.Chrome(chrome_options=options)
+    return driver
+```
+
+
+
+### Reason 3: It takes time to respond
+
+
+```
+wait = ui.WebDriverWait(driver, 10)
+wait.until(lambda driver: driver.find_element_by_id("ext-gen138"))
+```
+
+
+The `wait` solution often fails, then you can use `time.sleep(1)` instead.
+
+
+### Reason 4: System skips login page
+
+
+Check if it's logged in before handling login page.
+
+
+```
+if "Hello" not in driver.page_source:
+    login_result = login(driver, wait)
+    if login_result is False:
+        logger.error("Login fails, check your username and password.")
+        return
+    else:
+        logger.info("Login sucessfully.")
+```

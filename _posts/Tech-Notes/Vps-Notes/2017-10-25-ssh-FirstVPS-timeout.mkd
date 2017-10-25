@@ -1,0 +1,13 @@
+---
+layout: post
+author: Hang Hu
+categories: vps
+tags: Vps 
+cover: 
+---
+
+1. `ssh cloud@172.16.1.77`
+2. Check your route: `traceroute 172.16.1.77`
+3. Check your name resolution; on your client and server run `dig <hostname>`
+4. Check your firewall; on your server run `iptables --list` (test ssh with your client firewall disabled as well)
+5. Restart the service: `service sshd restart`

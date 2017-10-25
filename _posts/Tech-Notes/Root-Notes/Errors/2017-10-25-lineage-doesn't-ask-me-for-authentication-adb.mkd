@@ -1,0 +1,16 @@
+---
+layout: post
+author: Hang Hu
+categories: root
+tags: Root 
+cover: 
+---
+
+
+## Solution
+
+1. Open root access for apps and adb in developer options.
+
+2. open `USB for file transfer`, select transfer files.
+
+Then the authorization window will be prompted.

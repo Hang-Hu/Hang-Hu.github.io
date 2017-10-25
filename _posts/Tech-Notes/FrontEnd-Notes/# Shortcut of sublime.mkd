@@ -1,5 +1,0 @@
-# Shortcut of sublime
-
-```
-Command+click           Edit multiple lines in the same time
-```

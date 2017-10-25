@@ -1,0 +1,29 @@
+---
+layout: post
+author: Hang Hu
+categories: highcharts
+tags: FrontEnd Highcharts 
+cover: 
+---
+
+Change `anomalies` points to marked format.
+
+```
+var data = [0.99, 23, 0.99, 0.9, 100, 0.99, 0.99, 0.99];
+var anomalies = [0, 3, 5];
+var color = 'red';
+for(i=0; i<anomalies.length; i++){
+    data[anomalies[i]] = {y: data[anomalies[i]], color: color};
+}
+```
+
+
+Use data.
+
+
+```
+series: [{
+    name: 'Installation',
+    data: data
+}]
+```

@@ -1,0 +1,13 @@
+---
+layout: post
+author: Hang Hu
+categories: python
+tags: Python 
+cover: 
+---
+
+## Example
+
+```
+filename = os.path.join(os.path.dirname(__file__), 'secret.json'))
+```

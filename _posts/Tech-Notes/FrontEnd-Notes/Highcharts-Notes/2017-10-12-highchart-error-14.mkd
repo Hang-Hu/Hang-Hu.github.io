@@ -1,0 +1,21 @@
+---
+layout: post
+author: Hang Hu
+categories: highcharts
+tags: FrontEnd Highcharts 
+cover: 
+---
+
+## Reason
+
+I pass a string as data point.
+
+## Solution
+
+Use `parseFloat`:
+
+```
+array=array.map(function(e){
+	return [parseFloat(e[0]), parseFloat(e[1])];
+});
+```
