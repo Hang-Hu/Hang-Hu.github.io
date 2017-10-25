@@ -1,0 +1,14 @@
+# $ is not defined
+
+## Reason
+
+jQuery is loaded before your custom js.
+
+## Solution
+
+Put jQuery before your custom js.
+
+```
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="chartdemo.js" type="text/javascript"></script>
+```

@@ -1,0 +1,7 @@
+# center a table
+
+```css
+table{
+	margin: auto;
+}
+```

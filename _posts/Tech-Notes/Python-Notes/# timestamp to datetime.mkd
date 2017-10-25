@@ -1,0 +1,8 @@
+# timestamp to datetime
+
+```
+import pandas as pd
+import datetime
+
+pd.to_datetime(datetime.datetime.fromtimestamp(timestamp / 1000).strftime('%Y-%m-%d %H:%M:%S'))
+```

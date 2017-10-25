@@ -1,0 +1,57 @@
+# es serach
+
+## Use Promise
+
+```
+client.search({
+    body: JSON.parse(fs.readFileSync('search-es.json', 'utf8'))
+}).then(function(response){
+    response['aggregations']['avg_over_time_slot']['buckets'].forEach(function(item){
+        for(i=0; i<metricNames.length; i++){
+            if(typeof metricNames == 'undefined'){
+                console.log('metricNames is undefined!');
+            }
+            metricValues[metricNames[i]]=metricValues[metricNames[i]] || [];
+            metricValues[metricNames[i]].push([item['key'], item[metricNames[i]]['aggregated']['value']]);//key is timestamp
+        }
+    });
+    console.log(metricValues);
+    callback && callback(metricValues);// instead of returning
+}, function(error){
+    console.trace(error.message);
+});
+```
+
+## Callback
+
+```
+client.search({
+    body: JSON.parse(fs.readFileSync('search-es.json', 'utf8'))
+}, function(err, res){
+    if(err){
+        throw err;
+    }
+    res['aggregations']['avg_over_time_slot']['buckets'].forEach(function(item){
+        for(i=0; i<metricNames.length; i++){
+            metricValues[metricNames[i]]=metricValues[metricNames[i]] || [];
+            metricValues[metricNames[i]].push([item['key'], item[metricNames[i]]['aggregated']['value']]);//key is timestamp
+        }
+    });
+    callback && callback(metricValues);// instead of returning
+});
+```
+
+## Proxy
+
+```
+\var youbiKey='vvvvccetkkhugnhgkikljhvvnlrtktteevrbbulgbfke';
+var proxyUrl='c2sproxy.vip.slc.ebay.com:8443';
+var readEndPoint='http://elastic:changeme@esmonitor-read-vip-lakgx.vip.stratus.slc.ebay.com:80';
+var nodeAgent=new proxy('https://hanhu:'+youbiKey+'@'+proxyUrl); 
+var client=new es.Client({
+    host: readEndPoint,
+    log: 'trace',
+    requestTimeout: 600000,
+    createNodeAgent: () => nodeAgent
+});
+```

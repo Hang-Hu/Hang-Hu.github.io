@@ -1,0 +1,8 @@
+# mockito when any String
+
+`anyString()` replaces ip address string, `any()` replaces one class.
+
+
+```
+when(restTemplate.getForEntity(anyString(), any())).thenReturn(new ResponseEntity<>(new String[2], HttpStatus.OK));
+```

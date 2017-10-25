@@ -1,0 +1,17 @@
+# plot time series
+
+```
+import matplotlib.pyplot as plt
+import numpy as np
+
+ts = OrderedDict()
+readFromCsv(ts)# (timestamp->value in ts dict)
+x = []
+for timestamp in ts.keys():
+    x.append(timestamp_to_datetime(int(timestamp)))
+y = ts.values()
+x = np.array(x)
+y = np.array(y)
+plt.plot(x, y)
+plt.show()
+```

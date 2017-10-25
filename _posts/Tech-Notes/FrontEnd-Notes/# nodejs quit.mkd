@@ -1,0 +1,15 @@
+# nodejs quit
+
+
+## Inspect the async operations that prevent the program from quiting
+
+```
+console.log(process._getActiveRequests());
+console.log(process._getActiveHandles())
+```
+
+## quit
+
+```
+process.exit(1);
+```

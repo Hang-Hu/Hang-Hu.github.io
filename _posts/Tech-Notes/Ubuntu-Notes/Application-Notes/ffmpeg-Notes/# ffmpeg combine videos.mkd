@@ -1,0 +1,26 @@
+# ffmpeg combine videos
+
+```
+ffmpeg -i NRTSearchDemoSH.mov -c copy -ss 00:00:23 -t 00:02:00 required-part1.mov
+
+ffmpeg -i NRTSearchDemoSH.mov -c copy -ss 00:02:50 -t 00:00:55 required-part2.mov
+ffmpeg -f concat -i list.txt -c copy required-combined.mov
+```
+
+In list.txt:
+
+```
+file 'required-part1.mov'
+file 'required-part2.mov'
+```
+
+## Speed up 1.5x
+
+```
+setpts=(2/3)*PTS    speed up video at a speed of 3/2
+atempo=1.5          speed up audio at a speed of 1.5
+```
+
+```
+ffmpeg -i required-combined.mov -filter_complex "[0:v]setpts=(2/3)*PTS[v];[0:a]atempo=1.5[a]" -map "[v]" -map "[a]" required-combined-speededUp.mov
+```

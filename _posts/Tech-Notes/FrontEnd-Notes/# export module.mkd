@@ -1,0 +1,21 @@
+# export module
+
+## Define Function
+
+```
+function cleanUp(input) {}
+```
+
+Or
+
+```
+var cleanUp = function(input) {}
+```
+
+## Export
+
+```
+module.exports = {
+	cleanUp: cleanUp
+}
+```

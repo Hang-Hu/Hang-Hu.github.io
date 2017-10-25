@@ -1,0 +1,10 @@
+# nodejs sleep
+
+```
+setTimeout(function(){
+    exporter.killPool();
+    process.exit(1);
+}, 5000);
+
+```
+

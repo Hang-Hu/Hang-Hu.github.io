@@ -1,0 +1,60 @@
+# Page Loading
+
+The webpage executes based on sequence in the html, from top to bottom.
+
+Therefore, when custom js is declared in `<head>`, it will be executed before `body`. If the js manipulate element in the `body`, it will throw error complaining element not found. You have to ensure `body` is executed before js manipulating it.
+
+There are many methods to ensure that.
+
+## jQuery 1
+
+```
+$(document).ready(function(){
+    //js manipulating element in body
+});
+```
+
+## jQuery 2
+
+
+```
+$(function(){
+    //js manipulating element in body
+});
+```
+
+## Javascript
+
+
+```
+document.addEventListener("DOMContentLoaded", function(){
+    //js manipulating element in body    
+});
+```
+
+## Sleep
+
+```
+function sleep(time) {
+    return new Promise((resolve) => setTimeout(resolve, time));
+}
+setTimeout(function() {
+    //js manipulating element in body    
+}, 2000);
+```
+
+## Location
+
+Put your js manipulating element in `body` after `body` then it will be loaded after elements in `body`.
+
+```
+</head>
+<body>
+    <div id="container"></div>
+</body>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="chartdemo.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="chartdemo.css">
+</html>
+```

@@ -1,0 +1,23 @@
+# python csv write split my string
+
+## Reason
+
+```
+with open('test.csv', 'wb') as f:
+    writer = csv.writer(f, delimiter=",")
+    for key, value in ts.iteritems():
+        writer.writerow(''.join((key, ', ', str(value))
+```
+
+`writerow` expects a sequence of strings, if given one string, it will be splitted into sequence of 1 character strings.
+
+## Solution
+
+Use tuple to turn string into a list.
+
+```
+with open('test.csv', 'wb') as f:
+    writer = csv.writer(f, delimiter=",")
+    for key, value in ts.iteritems():
+        writer.writerow([key, value])
+```
