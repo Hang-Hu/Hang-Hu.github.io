@@ -1,0 +1,24 @@
+---
+layout: post
+author: Hang Hu
+categories: frontend
+tags: FrontEnd 
+cover: 
+---
+
+## Reason
+
+You can't hook event listeners up to objects that don't yet exist, and thus `document.ready` is required.
+
+## Solution
+
+```
+$(document).ready(function(){
+	$('# detectChart').click(function(){
+
+		detectAnomaly('/static/data/test.csv', function(data){
+			console.log(data);
+		});
+	});
+});
+```

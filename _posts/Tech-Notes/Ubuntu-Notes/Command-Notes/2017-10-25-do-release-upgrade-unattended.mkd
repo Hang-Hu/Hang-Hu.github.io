@@ -1,0 +1,11 @@
+---
+layout: post
+author: Hang Hu
+categories: command
+tags: Ubuntu Command 
+cover: 
+---
+
+```
+nohup sudo do-release-upgrade -f DistUpgradeViewNonInteractive > upgrade.log &                                                                          
+```

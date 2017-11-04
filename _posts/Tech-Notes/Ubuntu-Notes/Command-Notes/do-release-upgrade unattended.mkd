@@ -1,5 +1,0 @@
-# do-release-upgrade unattended
-
-```
-nohup sudo do-release-upgrade -f DistUpgradeViewNonInteractive > upgrade.log &                                                                          
-```

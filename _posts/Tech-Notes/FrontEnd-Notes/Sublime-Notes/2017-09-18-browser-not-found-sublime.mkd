@@ -1,0 +1,12 @@
+---
+layout: post
+author: Hang Hu
+categories: sublime
+tags: FrontEnd Sublime 
+cover: 
+---
+
+
+## Solution
+
+Open Sublime Text -> Preferences -> Package Settings -> Side Bar -> Settings - User, set `default_browser` to `chrome`.

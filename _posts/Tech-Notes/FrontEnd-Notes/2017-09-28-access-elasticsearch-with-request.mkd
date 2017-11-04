@@ -1,0 +1,80 @@
+---
+layout: post
+author: Hang Hu
+categories: frontend
+tags: FrontEnd 
+cover: 
+---
+## access elasticsearch
+
+```
+const request=require('request');
+const fs=require('fs');
+var youbiKey='vvvvccetkkhurcgjvicvieefrehekkbbefchjejjhljj';
+var proxyUrl='c2sproxy.vip.slc.ebay.com:8443';
+var proxiedRequest= request.defaults({
+	'proxy': 'https://hanhu:'+youbiKey+'@'+proxyUrl,
+	'rejectUnauthorized':false
+});
+var body=JSON.parse(fs.readFileSync('search-es.json', 'utf8'));
+var esOptions={
+	method: 'post',
+	body: body,
+	json: true,
+	url: 'http://elastic:changeme@esmonitor-read-vip-lakgx.vip.stratus.slc.ebay.com/_search'
+}
+var metric_name_list = ["cluster_status","indices_search_rate" ,"indices_avg_get_time","docs_size"]
+var metric_values={};
+proxiedRequest(esOptions, function(error, response, body){
+	console.log('error:', error); // Print the error if one occurred
+	console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+	body['aggregations']['avg_over_time_slot']['buckets'].forEach(function(item){
+		for(i=0; i<metric_name_list.length; i++){
+			metric_values[metric_name_list[i]]=metric_values[metric_name_list[i]] || [];
+			metric_values[metric_name_list[i]].push(item[metric_name_list[i]]['aggregated']['value']);
+		}
+	})
+	console.log(metric_values);
+});
+```
+
+
+
+## Use elasticsearch.js
+
+
+```
+var metricValues = {};
+var youbiKey = 'vvvvccetkkhugtfdkgtvcbehehhgtbgknkirjjkfnieb';
+var proxyUrl = 'c2sproxy.vip.slc.ebay.com:8443';
+var readEndPoint = 'http://elastic:changeme@esmonitor-read-vip-lakgx.vip.stratus.slc.ebay.com:80';
+var nodeAgent = new proxy('https://hanhu:' + youbiKey + '@' + proxyUrl);
+//process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+var client = new es.Client({
+    host: readEndPoint,
+    log: 'trace',
+    requestTimeout: 300000,
+    createNodeAgent: () => nodeAgent
+});
+client.search({
+    body: JSON.parse(fs.readFileSync('search-es.json', 'utf8'))
+}, function(err, res) {
+    if (err) {
+        throw err;
+    }
+    res['aggregations']['avg_over_time_slot']['buckets'].forEach(function(item) {
+        for (i = 0; i < metricNames.length; i++) {
+            metricValues[metricNames[i]] = metricValues[metricNames[i]] || [];
+            metricValues[metricNames[i]].push([item['key'], item[metricNames[i]]['aggregated']['value']]); //key is timestamp
+        }
+    });
+    callback && callback(metricValues); // instead of returning
+});
+```
+
+
+## References
+
+
+[How should I pass json data in the request payload of http post request](https://stackoverflow.com/questions/16188137/how-should-i-pass-json-data-in-the-request-payload-of-http-post-request)

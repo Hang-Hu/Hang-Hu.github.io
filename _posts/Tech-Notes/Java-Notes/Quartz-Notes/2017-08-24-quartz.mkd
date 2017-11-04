@@ -1,0 +1,79 @@
+---
+layout: post
+author: Hang Hu
+categories: quartz
+tags: Java Quartz 
+cover: 
+---
+
+[QuartzScheduler api](http://www.quartz-scheduler.org/api/2.2.1/org/quartz/core/QuartzScheduler.html)
+
+## pause all triggers relating to a job
+
+This will set the TriggerState to `Paused`.
+
+```
+scheduler.pauseJob(jobKey);
+```
+
+
+[Quartz Reference on QuartzScheduler](http://www.quartz-scheduler.org/api/2.2.1/org/quartz/core/QuartzScheduler.html)
+
+
+## Unschedule all triggers relating to a job
+
+
+This will actually delete the triggers.
+
+
+```
+List<? extends Trigger> triggers = scheduler.getTriggersOfJob(jobKey);//get all triggers of one job
+for (Trigger trigger: triggers){//unschedule all triggers
+    scheduler.unscheduleJob(trigger.getKey());
+}
+```
+
+
+## pause all triggers relating to a job
+
+
+This will pause triggers instead of deleting them
+
+
+```
+scheduler.pauseJob(jobKey);
+```
+
+
+### Reference
+
+
+[how to suspend job in quartz scheduler?](https://stackoverflow.com/questions/7751973/how-to-suspend-job-in-quartz-scheduler)
+
+
+## Get all jobs
+
+
+```
+Set<JobKey> jobKeys = scheduler.getJobKeys(GroupMatcher.anyGroup());
+```
+
+
+## Update JobDataMap
+
+
+First set `deleted` in JobDataMap as `true`, then addJob with the `jobDetail` containing `JobDataMap`, note that `replace` is set `true`.
+
+
+```
+Scheduler scheduler = factory.getObject();
+JobDetail jobDetail=scheduler.getJobDetail(new JobKey(name, group));
+jobDetail.getJobDataMap().putAsString("deleted", true);
+scheduler.addJob(jobDetail, true);
+```
+
+
+### Reference
+
+
+[Quartz Scheduler - Updating only the JobDataMap, between jobs](https://stackoverflow.com/questions/15951731/quartz-scheduler-updating-only-the-jobdatamap-between-jobs)

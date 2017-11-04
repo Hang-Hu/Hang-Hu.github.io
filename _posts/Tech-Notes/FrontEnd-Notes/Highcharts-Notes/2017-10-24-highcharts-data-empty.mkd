@@ -1,0 +1,22 @@
+---
+layout: post
+author: Hang Hu
+categories: highcharts
+tags: FrontEnd Highcharts 
+cover: 
+---
+
+## Datails
+
+`chart.series[0].data` is empty.
+
+## Reason
+
+When data set is too larget, `chart.series[0].data` won't store all data.
+
+## Solution
+
+
+```
+chart.series[0].options.data
+```

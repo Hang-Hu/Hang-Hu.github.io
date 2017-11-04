@@ -1,0 +1,23 @@
+---
+layout: post
+author: Hang Hu
+categories: frontend
+tags: FrontEnd 
+cover: 
+---
+
+
+## Inspect the async operations that prevent the program from quiting
+
+```
+console.log(process._getActiveRequests());
+console.log(process._getActiveHandles())
+```
+
+
+## quit
+
+
+```
+process.exit(1);
+```

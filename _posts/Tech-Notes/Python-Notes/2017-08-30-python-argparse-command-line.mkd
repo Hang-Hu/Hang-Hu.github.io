@@ -1,0 +1,77 @@
+---
+layout: post
+author: Hang Hu
+categories: python
+tags: Python 
+cover: 
+---
+
+## Example
+
+`today` and `mul` are two sub commands, `-d` are `-l` are the required arguments for `mul`.
+
+```python
+def parArg():
+    parser = argparse.ArgumentParser(
+        description='Auto check in for eBay intern in Shanghai.')
+    '''action='version' is required for version function'''
+    parser.add_argument('-v', action='version', version='%(prog)s 1.0')
+    subparsers = parser.add_subparsers(help='sub-command help', dest='command')
+    mul_parser = subparsers.add_parser('mul',
+                                       help='Check in for multiple days.')
+    mul_parser.add_argument('-d', action='store', dest='startdate',
+                            help='The first day to be checked in, format is YYYY-mm-dd such as 2017-08-29.',
+                            required=True)
+    mul_parser.add_argument('-l', action='store', dest='length',
+                            help='The number of days to be checked in.',
+                            required=True)
+    today_parser = subparsers.add_parser('today', help='Check in for today.')
+    args = parser.parse_args()
+    if args.command == 'mul':
+        apply_more(args.startdate, int(args.length))
+    elif args.command == 'today':
+        apply_more(datetime.datetime.today().strftime('%Y-%m-%d'), 1)
+```
+
+
+
+## Result
+
+
+```
+python3 check-in.py -h
+usage: check-in.py [-h] [-v] {mul,today} ...
+
+Auto check in for eBay intern in Shanghai.
+
+positional arguments:
+  {mul,today}  sub-command help
+    mul        Check in for multiple days.
+    today      Check in for today.
+
+optional arguments:
+  -h, --help   show this help message and exit
+  -v           show program's version number and exit
+```
+
+
+
+```shell
+check-in.py today -h
+usage: check-in.py today [-h]
+
+optional arguments:
+  -h, --help  show this help message and exit
+```
+
+
+```shell
+python3 check-in.py mul -h
+usage: check-in.py mul [-h] -d STARTDATE -l LENGTH
+
+optional arguments:
+  -h, --help    show this help message and exit
+  -d STARTDATE  The first day to be checked in, format is YYYY-mm-dd such as
+                2017-08-29.
+  -l LENGTH     The number of days to be checked in.
+```

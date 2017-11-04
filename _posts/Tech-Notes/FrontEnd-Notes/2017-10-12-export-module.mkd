@@ -1,0 +1,31 @@
+---
+layout: post
+author: Hang Hu
+categories: frontend
+tags: FrontEnd 
+cover: 
+---
+
+## Define Function
+
+```
+function cleanUp(input) {}
+```
+
+
+Or
+
+
+```
+var cleanUp = function(input) {}
+```
+
+
+## Export
+
+
+```
+module.exports = {
+	cleanUp: cleanUp
+}
+```

@@ -1,0 +1,12 @@
+---
+layout: post
+author: Hang Hu
+categories: spring
+tags: Java Spring-Framework Spring 
+cover: 
+---
+
+```
+Properties sparkJobProperties=new Properties();
+sparkJobProperties.load(new FileInputStream(new ClassPathResource("sparkJob.properties").getFile()));
+```

@@ -1,0 +1,13 @@
+# Cannot find module highcharts-export-server
+
+## Reason
+
+When you use global install `npm install highcharts-export-server` indicated on the official reference, there is something wrong for nodejs to find it.
+
+## Solution
+
+Use local installation instead of global one.
+
+```
+npm install highcharts-export-server
+```

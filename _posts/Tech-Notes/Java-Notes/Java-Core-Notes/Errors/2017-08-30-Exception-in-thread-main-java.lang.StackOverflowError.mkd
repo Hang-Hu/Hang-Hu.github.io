@@ -1,0 +1,13 @@
+---
+layout: post
+author: Hang Hu
+categories: java-core
+tags: Java Java-Core 
+cover: 
+---
+
+It's possible that original recursion length is right but something gets wrong in code to make the infinite recursion.  
+
+I use left==right as return condition.  
+However, when at last only two number, then the two quickSort will gives out one left==right and one left>right.  
+So change the condition of return to left>=right will solve it.

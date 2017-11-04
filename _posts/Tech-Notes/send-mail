@@ -1,0 +1,52 @@
+
+```
+var nodemailer = require('nodemailer');
+var smtpTransport = require('nodemailer-smtp-transport');
+var transporter = nodemailer.createTransport(smtpTransport({
+    host: 'atom.corp.ebay.com', //smtp.gmail.com
+    // port: ,//25//465
+    // secure: true,
+    // auth: {
+    // 	user: 'huhang600',
+    // 	pass: ''
+    // }
+}));
+var send = function(images) {
+    var html = '<p>This is the alert from DL-eBay-elasticsearch-alerts!\n</p>';
+    for (var i = 0; i < images.length; i++) {
+        html += '<img src="cid:' + 'img' + i + '@DL-eBay-elasticsearch-alerts' + '"/>';
+        if (i % 2 != 0) {
+            html += '<br />';
+        }
+    }
+    var attachments = [];
+    for (var i = 0; i < images.length; i++) {
+        attachments.push({
+            filename: 'image' + i + '.png',
+            content: new Buffer(images[i], 'base64'),
+            cid: 'img' + i + '@DL-eBay-elasticsearch-alerts'
+        });
+    }
+    var mailList = [];
+    mailList.push('hanhu@ebay.com');
+    //mailList.push('fepan@ebay.com');
+    var mailOptions = {
+        from: 'DL-eBay-elasticsearch-alerts@ebay.com',
+        to: mailList.toString(),
+        subject: 'data chart',
+        //text: 'text, alert',
+        html: html,
+        attachments: attachments
+    };
+    transporter.sendMail(mailOptions, function(error, info) {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);
+        }
+    });
+}
+module.exports = {
+    send: send
+}
+```

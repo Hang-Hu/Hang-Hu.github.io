@@ -1,0 +1,11 @@
+---
+layout: post
+author: Hang Hu
+categories: leetcode
+tags: Java Leetcode 
+cover: 
+---
+
+## Tail should be assigned null
+
+When the tail of the linked list you returned points to a node in the list instead of null, the test method of leetcode may test it infinitely, causing an error memory limit exceeded.

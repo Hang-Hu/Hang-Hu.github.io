@@ -1,0 +1,33 @@
+---
+layout: post
+author: Hang Hu
+categories: python
+tags: Python 
+cover: 
+---
+
+## read
+
+```
+import csv
+
+ts = OrderedDict()
+with open('/Users/hanhu/Documents/ts.csv') as csvfile:
+    spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
+    for row in spamreader:
+        if row[3] != 'value':
+            ts[row[1]] = float(row[3])
+```
+
+
+## write
+
+
+```
+import csv
+
+with open('test.csv', 'wb') as f:
+    writer = csv.writer(f, delimiter=",")
+    for key, value in ts.iteritems():
+        writer.writerow([key, value])
+```

@@ -1,0 +1,16 @@
+---
+layout: post
+author: Hang Hu
+categories: proxy
+tags: Ubuntu Proxy 
+cover: 
+---
+
+
+## Reason
+
+Proxy problem, maybe google changes its logging in url and this new url is not proxied.
+
+## Solution
+
+Use global proxy in SwitchyOmega so that all url will go through proxy.
