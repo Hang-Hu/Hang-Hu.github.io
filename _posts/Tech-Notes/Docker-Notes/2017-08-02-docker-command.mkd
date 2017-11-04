@@ -61,3 +61,15 @@ docker run breakwa11/shadowsocksr
 ```
 docker kill 2dfffcb5401a
 ```
+
+## Remove container
+
+```
+docker rm CONTAINER_ID
+```
+
+## Restart container
+
+```
+docker start  `docker ps -q -l` # restart it in the background
+```

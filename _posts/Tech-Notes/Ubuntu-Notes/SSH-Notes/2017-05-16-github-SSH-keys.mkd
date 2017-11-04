@@ -33,6 +33,12 @@ Copy corresponding `id_rsa.pub` to github account using xclip, copying with ctrl
 xclip -sel c < id_rsa.pub
 ```
 
+Or
+
+```
+cat ~/.ssh/id_rsa.pub | pbcopy
+```
+
 
 ## Test Connection
 
