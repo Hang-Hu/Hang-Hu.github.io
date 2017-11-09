@@ -1,0 +1,11 @@
+# The font "SourceSansPro-ExtraLightIt" cannot be found.
+
+## Reason
+
+I have not installed the tex package including font `SourceSansPro-ExtraLightIt`.
+
+## Solution
+
+```
+sudo apt install texlive-fonts-extra 
+```

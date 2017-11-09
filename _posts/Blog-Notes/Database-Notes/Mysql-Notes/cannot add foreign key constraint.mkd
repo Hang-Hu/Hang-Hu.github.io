@@ -1,0 +1,9 @@
+# cannot add foreign key constraint
+
+## Reason
+
+If the `id` to be rederenced is unsigned, then the field referencing it should be unsigned.
+
+## Solution
+
+Use `unsigned` for foreign key.
