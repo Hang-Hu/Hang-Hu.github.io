@@ -1,0 +1,13 @@
+---
+layout: post
+author: Hang Hu
+categories: frontend
+tags: FrontEnd 
+cover: 
+---
+
+```
+var match = data[i][0].match(/^(\d+)-(\d+)-(\d+) (\d+)\:(\d+)\:(\d+)$/);
+var date = new Date(match[1], match[2] - 1, match[3], match[4], match[5], match[6]);
+data[i][0] = date.getTime();
+```

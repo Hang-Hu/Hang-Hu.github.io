@@ -1,0 +1,23 @@
+---
+layout: post
+author: Hang Hu
+categories: angularjs
+tags: FrontEnd AngularJS 
+cover: 
+---
+
+## Details
+
+```
+uiRoutes
+.when('/', {
+  templateUrl: "./templates/index.html",
+  controller: 'indexCtrl',
+});
+```
+
+
+## Solution
+
+
+Use `template: require('./templates/index.html')` instead of `templateUrl: "./templates/index.html"`.

@@ -21,3 +21,9 @@ grep -r ".metadata" ./
 -r means recursively  
 
 -l means --files-with-matches 
+
+## Exclude files
+
+```
+grep -rl --exclude-dir './/node_modules' 'script src=' ./
+```

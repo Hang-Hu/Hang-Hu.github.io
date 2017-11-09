@@ -1,0 +1,48 @@
+---
+layout: post
+author: Hang Hu
+categories: frontend
+tags: FrontEnd 
+cover: 
+---
+
+## Details
+
+```
+server.route({
+    path: '/api/anomalydetection/test.csv',
+    method: 'GET',
+    handler: {
+        file: '/Users/hanhu/Documents/CodeSpace/gitRepository/ProntoMailCharts/kibanaPlugin/plugin/server/routes/test.csv'
+    }
+});
+```
+
+
+## Reason
+
+
+`confine` - serve file relative to this directory and returns `403 Forbidden` if the path resolves outside the confine directory. Defaults to true which uses the `relativeTo` route option as the `confine`. Set to `false` to disable this security feature.
+
+
+The file I want to serve is outside the confine directory.
+
+
+## Solution
+
+
+Set `confine` to false.
+
+
+```
+server.route({
+    path: '/api/anomalydetection/abc',
+    method: 'GET',
+    handler: {
+        file: {
+            path: '/Users/hanhu/Documents/CodeSpace/gitRepository/ProntoMailCharts/kibanaPlugin/plugin/server/routes/test.csv',
+            confine: false
+        }
+    }
+});
+```

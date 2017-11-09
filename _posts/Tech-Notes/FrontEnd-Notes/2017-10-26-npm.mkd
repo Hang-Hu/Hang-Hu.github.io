@@ -1,0 +1,30 @@
+---
+layout: post
+author: Hang Hu
+categories: frontend
+tags: FrontEnd 
+cover: 
+---
+
+## Install my npm repo locally
+
+```
+cd /path/to/npmrepo
+npm install -g
+```
+
+
+## Add version to the last number
+
+
+```
+npm version patch
+```
+
+
+## Publish to npm registry
+
+
+```
+npm publish
+```

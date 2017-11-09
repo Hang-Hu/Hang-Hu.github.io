@@ -1,0 +1,17 @@
+---
+layout: post
+author: Hang Hu
+categories: highcharts
+tags: FrontEnd Highcharts 
+cover: 
+---
+
+## Reason
+
+Highcharts can't be imported in webpack using script in html, use `import...from...` syntax.
+
+## Solution
+
+```
+import Highcharts from 'highcharts/highstock';
+```

@@ -1,0 +1,13 @@
+---
+layout: post
+author: Hang Hu
+categories: frontend
+tags: FrontEnd 
+cover: 
+---
+
+```
+<button className="square" onClick={props.onClick} style={{backgroundColor: props.bgColor}}>
+	{props.value}
+</button>
+```
