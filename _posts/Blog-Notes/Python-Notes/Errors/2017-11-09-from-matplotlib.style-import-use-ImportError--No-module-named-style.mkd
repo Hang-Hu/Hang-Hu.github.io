@@ -1,0 +1,40 @@
+---
+layout: post
+author: Hang Hu
+categories: python
+tags: Python 
+cover: 
+---
+
+## Reason
+
+The `style` package was added to `matplotlib` since version 1.4.
+
+Check your `matplotlib` version:
+
+```
+pip freeze | grep matplotlib
+```
+
+
+## Solution
+
+
+```
+pip install --upgrade matplotlib --user -U  
+```
+
+
+Note you shouldn't use `sudo pip` in mac for the security mechanism OSX EI Captain uses.
+
+
+Use a virtual environment is encouraged.
+
+
+```
+cd ~  # Go to home directory
+
+virtualenv my-venv
+source my-venv/bin/activate
+pip install IPython
+```
