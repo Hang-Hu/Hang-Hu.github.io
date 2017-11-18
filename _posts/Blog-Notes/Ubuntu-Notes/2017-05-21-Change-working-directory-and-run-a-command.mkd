@@ -6,10 +6,16 @@ tags: Ubuntu
 cover: 
 ---
 
+Setting -> Keyboard -> Application Shortcuts
+
+Assign `/home/joanna/retext-start.sh` to command, assign Super+R to Shrtcut.
+
+In `/home/joanna/retext-start.sh`, use method 1.
+
 ## Method 1
 
 ```
-cd /home/joanna/Documents/Notes/Tech-Notes/; retext
+cd /home/joanna/Documents/Notes/Blog-Notes/; retext
 ```
 
 Error `Failed to execute child process "cd" (No such file or directory)` appears because cd is a shell builtin. Write it in a '.sh' file will work.
@@ -17,7 +23,8 @@ Error `Failed to execute child process "cd" (No such file or directory)` appears
 
 ## Method 2
 
+Terminal poped up using this method.
 
 ```
-gnome-terminal --working-directory=/home/joanna/Documents/Notes/Tech-Notes/ -e 'retext'
+gnome-terminal --working-directory=/home/joanna/Documents/Notes/Blog-Notes/ -e 'retext'
 ```
