@@ -1,0 +1,12 @@
+---
+layout: post
+author: Hang Hu
+categories: frontend
+tags: FrontEnd 
+cover: 
+---
+
+```
+npm init
+npm install --save react react-dom
+```

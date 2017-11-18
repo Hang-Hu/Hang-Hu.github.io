@@ -1,0 +1,17 @@
+---
+layout: post
+author: Hang Hu
+categories: frontend
+tags: FrontEnd 
+cover: 
+---
+
+```
+npm install -g avn avn-nvm
+avn setup
+__avn_debug
+```
+
+s
+
+If you encounter `__avn_debug: command not found`, `source ~/.bash_profile` or any other profiles set up for avn.

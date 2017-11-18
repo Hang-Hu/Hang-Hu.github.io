@@ -1,0 +1,11 @@
+---
+layout: post
+author: Hang Hu
+categories: angularjs
+tags: FrontEnd AngularJS 
+cover: 
+---
+
+## Solution
+
+Remove `ng-controller` in HTML.

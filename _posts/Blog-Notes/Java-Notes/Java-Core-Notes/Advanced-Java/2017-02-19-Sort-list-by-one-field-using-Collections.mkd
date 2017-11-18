@@ -6,6 +6,8 @@ tags: Java Java-Core
 cover: 
 ---
 
+## For List
+
 ```
 //sort planDTOs by deadline
 Collections.sort(planDTOs, new Comparator<PlanDTO>() {
@@ -13,6 +15,17 @@ Collections.sort(planDTOs, new Comparator<PlanDTO>() {
     public int compare(PlanDTO o1, PlanDTO o2) {
         //ascending order
         return o1.getDeadline().compareTo(o2.getDeadline());
+    }
+});
+```
+
+## For array
+
+```
+Arrays.sort(arr, new Comparator<Score>(){
+   @Override
+    public int compare(Score s1, Score s2){
+        return s2.val-s1.val;
     }
 });
 ```

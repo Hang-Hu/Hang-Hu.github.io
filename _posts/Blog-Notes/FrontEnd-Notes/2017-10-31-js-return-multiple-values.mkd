@@ -1,0 +1,23 @@
+---
+layout: post
+author: Hang Hu
+categories: frontend
+tags: FrontEnd 
+cover: 
+---
+
+```
+return {
+	winner: squares[a], 
+	list: list[i]
+};
+```
+
+
+```
+var res = calculateWinner(current);
+if(res){
+	var winner=res.winner;
+	var list=res.list;
+}
+```

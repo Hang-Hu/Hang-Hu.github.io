@@ -1,0 +1,21 @@
+---
+layout: post
+author: Hang Hu
+categories: python
+tags: Python 
+cover: 
+---
+
+## object to json
+
+```
+json.dumps(vars(anom))
+```
+
+
+## array to json
+
+
+```
+json.dumps({"anoms": array})
+```

@@ -1,0 +1,24 @@
+---
+layout: post
+author: Hang Hu
+categories: highcharts
+tags: FrontEnd Highcharts 
+cover: 
+---
+
+## Reason
+
+Following is what the `series.data` documentation says
+
+`data`
+
+Read only. An array with the series' data point objects. In case the series data length exceeds the cropThreshold, or if the data is grouped, series.data doesn't contain all the points. It only contains the points that have been created on demand. In these cases, all original X and Y values can be read from series.xData and series.yData. Additionally, series.options.data contains all configuration objects for the points, whether they be numbers, arrays or objects. Returns `Array`.
+
+## Solution
+
+Use `series.points` if you want the points that are currently visible
+Use `series.options.data` (or `series.options.xData` or  `series.options.yData`) to get all data (or xData array or yData array).
+
+## Reference
+
+[Can not get series data in Highcharts, Highstock](https://stackoverflow.com/questions/16485206/can-not-get-series-data-in-highcharts-highstock)
