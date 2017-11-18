@@ -1,0 +1,13 @@
+---
+layout: post
+author: Hang Hu
+categories: python
+tags: Python 
+cover: 
+---
+
+Use `json.loads` twice.
+
+```
+json.loads(json.loads(str))
+```

@@ -1,0 +1,13 @@
+---
+layout: post
+author: Hang Hu
+categories: frontend
+tags: FrontEnd 
+cover: 
+---
+
+Shallow copy, `slice()` copy the primitive value or reference of values in the array.
+
+ ```
+chartData = chart.series[0].options.data.slice();//shallow copy
+ ```

@@ -1,0 +1,12 @@
+---
+layout: post
+author: Hang Hu
+categories: python
+tags: Python 
+cover: 
+---
+
+```
+str = sys.stdin.readline()
+return json.loads(json.loads(str))
+```

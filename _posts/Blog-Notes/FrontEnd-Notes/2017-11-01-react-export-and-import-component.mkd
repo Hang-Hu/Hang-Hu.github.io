@@ -1,0 +1,22 @@
+---
+layout: post
+author: Hang Hu
+categories: frontend
+tags: FrontEnd 
+cover: 
+---
+
+## Export
+
+
+```
+export default Chart;
+```
+
+
+## Import
+
+
+```
+import Chart from './src/chart.js';
+```

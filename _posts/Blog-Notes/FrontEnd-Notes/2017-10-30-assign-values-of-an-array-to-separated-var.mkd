@@ -1,0 +1,11 @@
+---
+layout: post
+author: Hang Hu
+categories: frontend
+tags: FrontEnd 
+cover: 
+---
+
+```
+const [a, b, c] = list[i];
+```

@@ -1,0 +1,7 @@
+# sh: react-scripts: command not found
+
+## Solution
+
+```
+npm install
+```
