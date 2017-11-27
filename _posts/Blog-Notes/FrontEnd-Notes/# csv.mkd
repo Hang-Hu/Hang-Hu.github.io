@@ -1,0 +1,15 @@
+# csv
+
+
+## Process 2 rows csv separated by comma without library
+
+```
+var processCSV = function(data) {
+    var res = [];
+    var lines = data.split(/\r\n|\n/);
+    for (var i = 0; i < lines.length; i++) {
+        res.push(lines[i].split(','));
+    }
+    return res;
+}
+```
