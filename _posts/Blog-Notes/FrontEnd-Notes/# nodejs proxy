@@ -1,0 +1,16 @@
+# nodejs proxy
+
+```
+const es = require('elasticsearch');
+const proxy = require('https-proxy-agent');
+var youbiKey = 'vvvvccetkkhugtfdkgtvcbehehhgtbgknkirjjkfnieb';
+var proxyUrl = 'c2sproxy.vip.slc.ebay.com:8443';
+var readEndPoint = 'http://elastic:changeme@esmonitor-read-vip-lakgx.vip.stratus.slc.ebay.com:80';
+var nodeAgent = new proxy('https://hanhu:' + youbiKey + '@' + proxyUrl);
+var client = new es.Client({
+    host: readEndPoint,
+    log: 'trace',
+    requestTimeout: 600000,
+    createNodeAgent: () => nodeAgent
+});
+```

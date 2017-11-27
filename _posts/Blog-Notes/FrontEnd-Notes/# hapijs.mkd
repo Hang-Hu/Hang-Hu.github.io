@@ -1,0 +1,16 @@
+# hapijs
+
+## Serve file
+
+```
+server.route({
+	path: '/api/anomalydetection/test.csv',
+	method: 'GET',
+	handler: {
+		file: {
+			path: __dirname+'/../data/test.csv',
+			confine: false
+		}
+	}
+});
+```
