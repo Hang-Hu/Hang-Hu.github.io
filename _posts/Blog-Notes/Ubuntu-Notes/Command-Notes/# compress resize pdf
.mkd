@@ -1,0 +1,8 @@
+# compress/resize pdf
+
+3 levels: ebook, screen, printer
+
+```
+gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile=out.pdf 10.7M.pdf 
+
+```

@@ -1,0 +1,13 @@
+# markdown to doc
+
+## Example
+
+```
+pandoc -r markdown -w docx -o intern.doc recommendation-letter-intern.mkd 
+```
+
+## Reference
+
+[easily convert document formats linux](http://www.makeuseof.com/tag/easily-convert-document-formats-linux/)
+
+[pandoc getting started](https://pandoc.org/getting-started.html)
