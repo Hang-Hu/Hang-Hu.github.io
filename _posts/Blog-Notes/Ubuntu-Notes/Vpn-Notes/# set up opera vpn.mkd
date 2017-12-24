@@ -1,0 +1,39 @@
+# set up opera vpn
+
+## Set up proxy
+
+```
+sudo vim /usr/share/applications/opera.desktop 
+```
+
+Change command `opera` to command `proxychains opera`
+
+```
+[Desktop Entry]
+Version=1.0
+Name=Opera
+GenericName=Web browser
+Comment=Fast and secure web browser
+TryExec=proxychains opera
+Exec=proxychains opera %U
+Terminal=false
+Icon=opera
+Type=Application
+Categories=Network;WebBrowser;
+MimeType=text/html;text/xml;application/xhtml_xml;x-scheme-handler/http;x-scheme-handler/https;x-scheme-handler/ftp;application/x-opera-download;
+Actions=NewWindow;NewPrivateWindow;
+
+[Desktop Action NewWindow]
+Name=New Window
+Exec=proxychains opera --new-window
+TargetEnvironment=Unity
+
+[Desktop Action NewPrivateWindow]
+Name=New Private Window
+Exec=proxychains opera --private
+TargetEnvironment=Unity
+```
+
+## Set up vpn
+
+In opera setting, turn on vpn, change location to US.

@@ -77,3 +77,10 @@ Or use this:
 youtube-dl --proxy http://127.0.0.1:8087 --no-check-certificate -4 https://www.youtube.com/watch?v=aM3OP4gazWw | mplayer -
 
 `
+
+
+### Use USTC light VPN
+
+```
+youtube-dl --proxy http://huhang@mail.ustc.edu.cn:GLzQdc1j@light.ustclug.org:29979 --no-check-certificate -4 http://www.youtube.com/watch?v=FPvdcYJvN0I
+```
