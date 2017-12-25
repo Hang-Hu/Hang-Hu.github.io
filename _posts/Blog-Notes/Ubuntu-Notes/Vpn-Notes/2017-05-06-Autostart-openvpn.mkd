@@ -7,14 +7,14 @@ cover:
 ---
 
 ```
-sudo cp ~/openvpn/ustc-dianxin.ovpn /etc/openvpn/ustc-dianxin.conf
+sudo cp ~/openvpn/dianxin.ovpn /etc/openvpn/dianxin.conf
 ```
 
 ```
 sudo  vim /etc/default/openvpn
 ```
 
-Uncomment `AUTOSTART="home office"` and change it to `AUTOSTART="ustc-dianxin"`.
+Uncomment `AUTOSTART="home office"` and change it to `AUTOSTART="dianxin"`.
 
 ```
 sudo service openvpn restart

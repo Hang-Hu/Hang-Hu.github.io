@@ -5,7 +5,7 @@ categories: environment-setup
 tags: Ubuntu Environment-Setup 
 cover: 
 ---
-## Deployment in USTC cloud ubuntu
+## Deployment in cloud ubuntu
 
 ## Mysql
 

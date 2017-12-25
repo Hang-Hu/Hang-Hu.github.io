@@ -11,7 +11,7 @@ exclude:
 # Site settings
 title: Hang's Blog
 subtitle: ""
-email: huhang@mail.ustc.edu.cn
+email: huhang600@gmail.com
 name: Hang Hu
 description: >
   A simple yet classy theme for your Jekyll website or blog.
@@ -19,7 +19,7 @@ description: >
 # and never end with a slash. Set it to a blank value if hosting at the
 # root of your server.
 baseurl: "" # the subpath of your site, e.g. /blog/
-url: "http://hang-hu.github.io" # the base hostname & protocol for your site
+url: "http://blog.hanghu.me" # the base hostname & protocol for your site
 cover: "/assets/header_image.jpg"
 logo: "/assets/logo.png"
 
