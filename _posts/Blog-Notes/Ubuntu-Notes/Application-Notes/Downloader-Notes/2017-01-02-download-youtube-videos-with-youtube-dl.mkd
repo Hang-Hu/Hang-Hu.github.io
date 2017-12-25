@@ -79,8 +79,8 @@ youtube-dl --proxy http://127.0.0.1:8087 --no-check-certificate -4 https://www.y
 `
 
 
-### Use USTC light VPN
+### Use Light VPN
 
 ```
-youtube-dl --proxy http://huhang@mail.ustc.edu.cn:GLzQdc1j@light.ustclug.org:29979 --no-check-certificate -4 http://www.youtube.com/watch?v=FPvdcYJvN0I
+youtube-dl --proxy http://username:password@ip:port --no-check-certificate -4 http://www.youtube.com/watch?v=FPvdcYJvN0I
 ```

@@ -12,8 +12,8 @@ Email address and name is needed.
 ## Solution
 
 ```
-git config --global user.email "huhang@mail.ustc.edu.cn"
-git config --global user.name "HangHu"
+git config --global user.email "huhang600@gmail.com"
+git config --global user.name "Hang-Hu"
 ```
 
 ```

@@ -8,7 +8,7 @@ cover:
 
 ## Reason
 
-FTP protocol is blocked by ustc cloud
+FTP protocol is blocked by the cloud
 ## Solution
 
 Use SFTP to connect which uses 22 for port instead of 21 which is simply FTP
