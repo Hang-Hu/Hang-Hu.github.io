@@ -1,0 +1,24 @@
+# margin auto won't work for image
+
+## Reason
+
+Because `img` is an inline element.
+
+## Solution
+
+Change it to block element.
+
+```
+img {
+    display: block;
+	margin: auto;
+}
+```
+
+Or use `text-align` in the parent element, like `div`
+
+```
+div {
+	text-align: center;
+}
+```
