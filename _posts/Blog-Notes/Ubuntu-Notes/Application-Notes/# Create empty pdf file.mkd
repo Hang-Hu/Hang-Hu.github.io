@@ -1,0 +1,22 @@
+# Create empty pdf file
+
+## A4
+
+```
+convert xc:none -page A4 a.pdf
+```
+
+## B5
+
+```
+convert xc:none -page B5 a.pdf
+```
+
+## Custimized Size
+
+Right click jpg to get the height and width 842x595.
+
+```
+convert xc:none -page 842x595 a.pdf
+```
+
