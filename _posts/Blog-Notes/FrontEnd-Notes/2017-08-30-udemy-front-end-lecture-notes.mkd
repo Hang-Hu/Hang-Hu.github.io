@@ -42,6 +42,20 @@ inline element:
 
 `ul`: unordered list.
 
+```
+ul {
+  list-style-type: circle;
+}
+
+ol {
+  list-style-type: lower-roman;
+}
+```
+
+Of particular interest is `none`, which is commonly used when marking up **menu navigation** with a `<ul>` list. The `none` value allows the menu’s list items to be styled more like buttons.
+
+![menu structure]({{ site.url }}/assets/posts_img/list-items-for-menus-70abb2.png)
+
 `div`: block level container
 
 `span`: inline container
@@ -57,6 +71,14 @@ MDN attribute reference
 relative path
 
 thead and tbody.
+
+### `head`
+
+#### UTF-8 for international characters
+
+```
+<meta charset='UTF-8'/>
+```
 
 ## form, input and label
 
@@ -276,6 +298,96 @@ Two div Selected:
 </div>
 ```
 
+### more `nth-of-type()`
+
+`nth-of-type(odd)`/`nth-of-type(2n+1)`: select odd ones
+
+`nth-of-type(even)`/`nth-of-type(2n)`: select even ones
+
+`span:nth-of-type(6n+2)` selects every 6th instance of a `span`, starting from (and including) the second instance.
+
+
+### `last-of-type`
+
+`div:last-of-type` selects the last `div` in every element.
+
+
+### `:empty`
+
+Selects elements that don't have any other elements inside of them.
+
+`div:empty` selects all empty `div` elements.
+
+Select the empty bentos: `bento:empty`
+
+### Attribute Selector
+
+Select all elements that have a specific attribute
+
+`[attribute]`
+Attributes appear inside the opening tag of an element, like this: `<span attribute="value">`. An attribute does not always have a value, it can be blank!
+
+Examples
+
+`a[href]` selects all a elements that have a `href="anything"` attribute.
+`[type]` selects all elements that have a `type="anything"` attribute.
+
+```
+<div class="table">
+    <bento>
+        <apple class="small" />
+    </bento>
+    <apple for="Ethan" />
+    <plate for="Alice">
+        <pickle />
+    </plate>
+    <bento for="Clara">
+        <orange />
+    </bento>
+    <pickle />
+</div>
+```
+
+Select the items for someone: `[for]`
+
+Select the `plates` for someone: `plate[for]`
+
+Select Clara's meal: `[for="Clara"]`
+
+### Attribute Starts With Selector
+
+Select all elements with an attribute value that starts with specific characters
+
+`[attribute^="value"]`
+
+Examples
+
+`.toy[category^="Swim"]` selects elements with class toy and category that starts with "Swim".
+
+### Attribute Ends With Selector
+
+Select all elements with an attribute value that ends with specific characters
+
+`[attribute$="value"]`
+
+Examples
+
+`img[src$=".jpg"]` selects all images ending with `.jpg`.
+
+### Attribute Wildcard Selector
+
+Select all elements with an attribute value that **contains** specific characters anywhere
+
+`[attribute*="value"]
+
+`A useful selector if you can identify a common pattern in things like class, href or src attributes.
+
+Examples
+
+`img[src*="/thumbnails/"]` selects all image elements that show images from the "thumbnails" folder.
+
+`[class*="heading"]` selects all elements with "heading" in their class, like class="main-heading" and class="sub-heading"
+
 ## margin auto center
 
 ```
@@ -302,6 +414,29 @@ h1 {
 }
 
 ```
+
+```
+div#main {
+  width: 600px;
+  margin: 0 auto; 
+}
+```
+
+Setting the `width` of a block-level element will prevent it from stretching out to the edges of its container to the left and right. Then, you can set the left and right margins to `auto` to horizontally center that element within its container. The element will take up the width you specify, then the remaining space will be split evenly between the two margins.
+
+The only problem occurs when the browser window is narrower than the width of your element. The browser resolves this by creating a **horizontal scrollbar** on the page. Let's improve the situation...
+
+```
+div#main {
+  max-width: 600px;
+  margin: 0 auto; 
+}
+```
+
+
+Using `max-width` instead of `width` in this situation will improve the browser's handling of small windows. This is important when making a site usable on mobile. Resize this page to check it out!
+
+By the way, max-width is supported by all major browsers including IE7+ so you shouldn't be afraid of using it.
 
 ## use float to clear white space between images
 
@@ -380,7 +515,7 @@ body {
 
 ## em vs rem
 
-`em` is relative to the parent element.
+`em`(pronounced like the letter m) is relative to the parent element.
 
 
 ```
@@ -2042,9 +2177,14 @@ As you type in 9000:
 }
 ```
 
-### `width = 20%`
+### `width = 50%`/`height = 50%`
 
 TL;DR: "When you specify the height or width as a percentage, that's a percentage with respect to the element's parent."
+
+In the case of `width`, all block elements are, unless specified otherwise, as wide as their parent all the way back up to `<html>`; so, the `width` of a block element is **independent of its content** and saying `width: 50%` yields a well defined number of pixels.
+
+However, the `height` of a block element **depends on its content** unless you specify a specific height. So saying `height: 50%` doesn't yield a well defined value unless you break the feedback loop by giving the parent element **a specific height**.
+
 
 ### use margin 0 to remove white stripe
 
@@ -2155,5 +2295,133 @@ A website to fix transition automatically.
     -o-transition: background 0.5s;/*For Opera browser*/
     -ms-transition: background 0.5s;/*For Microsoft browser*/
 }
+```
+
+### `display`
+
+`display` is CSS's most important property for controlling layout. Every element has a default `display` value depending on what type of element it is. The default for most elements is usually `block` or `inline`. A `block` element is often called a block-level element. An `inline` element is always just called an inline element.
+
+`block`:
+
+`div` is the standard block-level element. A block-level element starts on a new line and stretches out to the left and right as far as it can. Other common block-level elements are `p` and `form`, and new in HTML5 are `header`, `footer`, `section`, and more.
+
+`inline`:
+
+`span` is the standard inline element. An inline element can wrap some text inside a paragraph `<span> like this </span>` without disrupting the flow of that paragraph. The `a` element is the most common inline element, since you use them for links.
+
+`none`:
+
+Another common `display` value is `none`. Some specialized elements such as `script` use this as their default. It is commonly used with JavaScript to hide and show elements without really deleting and recreating them.
+
+This is different from `visibility`. Setting `display` to `none` will render the page **as though the element does not exist**. `visibility: hidden;` will hide the element, but the element will **still take up the space it would if it was fully visible**.
+
+other display values:
+
+There are plenty of more exotic display values, such as `list-item` and `table`. Here is an exhaustive list. We'll discuss `inline-block` and `flex` later on.
+
+extra credit:
+
+As I mentioned, every element has a default `display` type. However, you can always **override** this! Though it wouldn't make sense to make an inline `div`, you can use this to customize the `display` of elements that have particular semantics. A common example is making inline `li` elements for horizontal menus.
+
+### the box model
+
+While we're talking about `width`, we should talk about `width`'s big caveat: the box model. When you set the `width` of an element, the element can actually appear bigger than what you set: the element's `border` and `padding` will stretch out the element beyond the specified `width`. Look at the following example, where two elements with the same width value end up different sizes in the result.
+
+```
+.simple {
+  width: 500px;
+  margin: 20px auto;
+}
+```
+
+Final width: 500px
+
+```
+.fancy {
+  width: 500px;
+  margin: 20px auto;
+  padding: 50px;
+  border-width: 10px;
+}
+```
+
+Final width: 500px + 50px + 10px =560px
+
+For generations, the solution to this problem has been extra **math**. CSS authors have always just written a smaller width value than what they wanted, subtracting out the padding and border. Thankfully, you don't have to do that anymore...
+
+#### `box-sizing`
+
+The original box model behavior was eventually considered unintuitive, so a new CSS property called `box-sizing` was created. When you set `box-sizing: border-box;` on an element, the `padding` and `border` of that element **no longer increase its width**. Here is the same example as the previous page, but with `box-sizing: border-box;` on both elements:
+
+```
+.simple {
+  width: 500px;
+  margin: 20px auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+```
+
+```
+.fancy {
+  width: 500px;
+  margin: 20px auto;
+  padding: 50px;
+  border: solid blue 10px;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+```
+
+Since this is so much better, some authors want all elements on all their pages to always work this way. Such authors put the following CSS on their pages:
+
+```
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+```
+
+This ensures that all elements are always sized in this more intuitive way.
+
+Since box-sizing is pretty new, you should use the `-webkit-` and `-moz-` prefixes for now, as I have in these examples. This technique enables experimental features in specific browsers. Also, keep in mind that this one is IE8+.
+
+### absolute, relative, and root-relative links
+
+#### 1. Absolute link
+
+```
+<a href='https://developer.mozilla.org/en-US/docs/Web/HTML'>Mozilla
+```
+
+#### 2. Relative link
+
+```
+<a href='misc/extras.html'>
+```
+
+```
+<a href='../../elsewhere.html'>
+```
+
+#### 3. Root-relative link
+
+That initial forward slash(`/`) represents the root of your site.
+
+```
+<a href='/images.html'>
+```
+
+### `target` in `a`
+
+`_self`: Load the URL into the same browsing context as the current one. This is the default behavior.
+
+`_blank:` Load the URL into a new browsing context. This is usually a tab, but users can configure browsers to use new windows instead.
+
+```
+<a href='https://developer.mozilla.org/en-US/docs/Web/HTML' target='_blank'>
 ```
 
