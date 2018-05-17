@@ -1,5 +1,0 @@
-# datetime.datetime to Y-m-dTH:M:S.000Z python
-
-```
-timestr = datetime_var.strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
-```

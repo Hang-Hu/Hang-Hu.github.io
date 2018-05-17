@@ -1,0 +1,22 @@
+---
+layout: post
+author: Hang Hu
+categories: command
+tags: Blog Ubuntu Command 
+cover: 
+---
+
+## Replace spaces in filenames or dirnames with `-` recursively
+
+```
+find ./ -depth -name "* *" -execdir rename 's/ /-/g' "{}" \;
+```
+
+
+## Replace `# -` in filenames or dirnames with blank recursively
+
+
+```
+find ./ -depth -name "#-*" -execdir rename 's/# -//g' "{}" \;
+
+```

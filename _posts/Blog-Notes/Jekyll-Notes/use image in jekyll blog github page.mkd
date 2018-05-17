@@ -1,0 +1,11 @@
+# jekyll github use image
+
+```
+![menu structure]({{ site.url }}/assets/posts_img/list-items-for-menus-70abb2.png)
+```
+
+`width` below doesn't work.
+
+```
+<img src="{{ site.url }}/assets/posts_img/list-items-for-menus-70abb2.png" alt="" width="120">
+```

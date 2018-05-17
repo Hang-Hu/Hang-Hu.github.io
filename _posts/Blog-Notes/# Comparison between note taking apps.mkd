@@ -1,0 +1,31 @@
+# Comparison between note taking apps
+
+## Github Pages(For tech notes)
+
+- Storage: Unlimited
+- Support blogging, markdown, code highlight
+
+## Bitbucket private repo(For non-tech notes in PC)
+
+- Storage: Unlimited
+- Support markdown, easy to sync, support markdown offline app
+
+## SimpleNote(For non-tech notes in PC)
+
+- Storage: No limitations, but not support image, video or audio
+- Support Markdown, Linux, syncing, viewing in mobile
+
+## Google Keep(For android input)
+
+- Storage: No limitations
+- Support OCR
+
+## Evernote
+
+- Storage: No limitations, but 50/60 MB per month to upload
+- Support OCR search, but no words displayed for paste
+
+## OneNote
+
+- Storage: Limited to OneDrive(5 GB free)
+- Support OCR?

@@ -1,10 +1,17 @@
-# Check my android cpu info with adb
+---
+layout: post
+author: Hang Hu
+categories: root
+tags: Blog Root 
+cover: 
+---
 
 Enable android debugging, assign root access to adb only in developer options.
 
 ```
 sudo adb shell cat /proc/cpuinfo
 ```
+
 
 ```
 Processor	: AArch64 Processor rev 4 (aarch64)

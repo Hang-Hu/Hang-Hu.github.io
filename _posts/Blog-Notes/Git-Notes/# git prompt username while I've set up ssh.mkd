@@ -1,5 +1,0 @@
-# git prompt username while I've set up ssh
-
-## Solution
-
-Change the url from `HTTPS` to `SSH`, then it works well.

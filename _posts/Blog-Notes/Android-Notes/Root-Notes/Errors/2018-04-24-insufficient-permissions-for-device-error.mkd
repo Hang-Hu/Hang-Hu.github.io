@@ -1,4 +1,12 @@
+---
+layout: post
+author: Hang Hu
+categories: root
+tags: Blog Root 
+cover: 
+---
 ## Details
+
 error: insufficient permissions for device error
 
 ## Solution

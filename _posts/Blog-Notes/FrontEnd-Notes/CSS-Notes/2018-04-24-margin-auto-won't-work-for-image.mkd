@@ -1,4 +1,10 @@
-# margin auto won't work for image
+---
+layout: post
+author: Hang Hu
+categories: css
+tags: Blog FrontEnd CSS 
+cover: 
+---
 
 ## Reason
 
@@ -15,7 +21,9 @@ img {
 }
 ```
 
+
 Or use `text-align` in the parent element, like `div`
+
 
 ```
 div {

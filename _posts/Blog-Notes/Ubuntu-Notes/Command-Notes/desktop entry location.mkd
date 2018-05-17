@@ -1,5 +1,0 @@
-# desktop entry location
-
-```
-/usr/share/applications
-```
