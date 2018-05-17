@@ -1,0 +1,11 @@
+---
+layout: post
+author: Hang Hu
+categories: command
+tags: Blog Ubuntu Command 
+cover: 
+---
+
+```
+/usr/share/applications
+```

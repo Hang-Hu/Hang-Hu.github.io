@@ -1,0 +1,9 @@
+# Install apk in android x86 in VirtualBox with adb
+
+Change network of VirtualBox to host-only.
+
+```
+adb connect 192.168.56.101
+adb devices
+adb install opera-vpn.apk
+```

@@ -1,4 +1,10 @@
-# set up opera vpn
+---
+layout: post
+author: Hang Hu
+categories: vpn
+tags: Blog Ubuntu Vpn 
+cover: 
+---
 
 ## Set up proxy
 
@@ -6,7 +12,9 @@
 sudo vim /usr/share/applications/opera.desktop 
 ```
 
+
 Change command `opera` to command `proxychains opera`
+
 
 ```
 [Desktop Entry]
@@ -34,6 +42,8 @@ Exec=proxychains opera --private
 TargetEnvironment=Unity
 ```
 
+
 ## Set up vpn
+
 
 In opera setting, turn on vpn, change location to US.

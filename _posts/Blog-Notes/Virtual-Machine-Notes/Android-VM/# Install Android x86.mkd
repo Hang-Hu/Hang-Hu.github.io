@@ -1,0 +1,26 @@
+# Install Android x86
+
+## Initialize vmware or virtual box
+
+1. Linux 64 bit in VirtualBox, FreeBSD in vmware
+2. 4GB memory, memory too small will cause it to stuck in ANDROID logo page
+3. 20 GB Disk
+4. Seperate files
+5. Dynamic allocate
+
+## Installation
+
+1. Choose `Installation - Install Android-86 to harddisk`
+2. Create/Modify partitions
+3. No GPT
+4. New, all size, Primary, Bootable, Write, Quit
+5. Choose sda1, format to ext4
+6. Install boot loader GRUB by choosing `Yes`
+7. Install `/system` directory as read-write by choose `Yes`
+
+
+## First Boot Configuration
+
+1. Disconnect network in vmware or VirtualBox
+2. Skip WIFI
+3. Since network is disabled, checking network is skipped, then it's date, name and google service configuration.

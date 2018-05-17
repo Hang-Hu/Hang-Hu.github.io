@@ -1,0 +1,15 @@
+---
+layout: post
+author: Hang Hu
+categories: mysql
+tags: Blog Database Mysql 
+cover: 
+---
+
+## Reason
+
+If the `id` to be rederenced is unsigned, then the field referencing it should be unsigned.
+
+## Solution
+
+Use `unsigned` for foreign key.

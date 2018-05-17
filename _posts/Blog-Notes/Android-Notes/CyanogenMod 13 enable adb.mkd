@@ -1,0 +1,7 @@
+# CyanogenMod 13 enable adb
+
+
+1. click settings -> about tablet -> build number 6 times
+
+2. settings -> developer options -> 
+root access -> apps and adb, turn on adb debugging, turn adb over network

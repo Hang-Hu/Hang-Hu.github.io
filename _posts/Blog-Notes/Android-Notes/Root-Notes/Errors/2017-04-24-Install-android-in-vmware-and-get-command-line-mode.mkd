@@ -1,0 +1,13 @@
+---
+layout: post
+author: Hang Hu
+categories: root
+tags: Root 
+cover: 
+---
+
+1. boot in debug mode
+2. `cd /mnt/grub`
+3. `vi menu.list`
+4. Upon the first line which starts with string `kernel`, add `video=-16 vga=normal nomodeset xforcevesa`.
+5. `reboot -f`

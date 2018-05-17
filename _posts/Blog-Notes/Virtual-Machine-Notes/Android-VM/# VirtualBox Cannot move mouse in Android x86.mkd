@@ -1,0 +1,5 @@
+# VirtualBox Cannot move mouse in Android x86
+
+## Solution
+
+Click Input, close Mouse Integration.

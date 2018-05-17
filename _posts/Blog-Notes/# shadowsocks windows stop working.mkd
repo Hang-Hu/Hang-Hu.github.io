@@ -1,0 +1,9 @@
+# shadowsocks windows stop working
+
+## Reason
+
+shadowsocks windows is implemented in C#, which require .NET higher than V4.6.
+
+## Solution
+
+Install .NET framework V4.6
