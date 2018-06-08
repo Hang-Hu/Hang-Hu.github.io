@@ -9,3 +9,9 @@ cover:
 ```
 cmd + shift + R
 ```
+
+Or
+
+```
+ctrl + shift + R
+```

@@ -6,22 +6,23 @@ tags: FrontEnd
 cover: 
 ---
 
+## Description
+
+A callback function is executed after the current effect is 100% finished.
+
 ## Example
 
 ```
 function do_a(callback){
-  // simulate a time consuming function
   setTimeout( function(){
     console.log( '`do_a`: this takes longer than `do_b`' );
-    callback && callback();
   }, 1000 );
+  callback && callback();
 }
  
 function do_b(){
   console.log( '`do_b`: this is supposed to come out after `do_a` but it comes out before `do_a`' );
 }
  
-do_a(function(){
-    do_b();
-});
+do_a(do_b);
 ```
