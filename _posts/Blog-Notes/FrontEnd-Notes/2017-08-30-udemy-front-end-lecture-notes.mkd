@@ -1065,6 +1065,20 @@ Everything Else Is Truthy
 ```
 
 
+NaN: not a number
+
+```
+typeof NaN//"number"
+```
+
+```
+typeof undefined//"undefined"
+```
+
+```
+typeof null//object
+```
+
 ## string
 
 ```
@@ -2097,6 +2111,8 @@ Notice that `addEventListener` is the mordern method, which is preferred.
 
 Event will generate the corresponding event object, such as `MouseEvent`, which is passed to the event handler.
 
+Event object is passed in even no parameter, but we use `eventObj/event/e` to catch it.
+
 If the event handler has no parameter, it will follow the rule of "more arguments than parameters", which is ignoring them.
 
 If the event handler has at least one parameter, you can use the event object.
@@ -2118,6 +2134,20 @@ Want
 6. clientY: Want to know how far from the top of the browser window the user clicked? Use me.
 7. touches: Using a touch device? Then use me to find out how many fingers are touching the screen.
 
+### Map Game
+
+```
+addEventListener("load", init);
+function init(){
+    var map = document.querySelector("img");
+    map.addEventListener("mousemove", displayCoordinates);
+}
+function displayCoordinates(eventObj){
+    document.querySelector("span").textContent = eventObj.clientX;
+    document.querySelector("span:nth-of-type(2)").textContent = eventObj.clientY;
+}
+```
+
 ### Image from blur to clear by clicking
 
 ```
@@ -2131,19 +2161,20 @@ function init(){
 function useClearImage(eventObj){
     var clickedImageElement = eventObj.target;
     clickedImageElement.setAttribute("src", clickedImageElement.getAttribute("id") + ".png");
-    setTimeout(blurImage, 3000, clickedImageElement);
+    setTimeout(blurImage, 3000, clickedImageElement);//clickedImageElement is argument of function blurImage
 }
 function blurImage(imageElement){
     imageElement.setAttribute("src", imageElement.getAttribute("id") + "Blur.png");
 }
 ```
 
-In fact, since `addEventListener` is called by `image` element object, the event handler `useClearImage` is called `image` as well. `eventObj.target` and `this` refers to the same object.
+In fact, since `addEventListener` is called by `image` element object, the event handler `useClearImage` is called by `image` as well. `eventObj.target` and `this` refers to the same object.
 
 ```
 function useClearImage(){
     var clickedImageElement = this;
     clickedImageElement.setAttribute("src", clickedImageElement.getAttribute("id") + ".png");
+    setTimeout(blurImage, 3000, clickedImageElement);
 }
 ```
 
@@ -2215,6 +2246,16 @@ In the case of `width`, all block elements are, unless specified otherwise, as w
 
 However, the `height` of a block element **depends on its content** unless you specify a specific height. So saying `height: 50%` doesn't yield a well defined value unless you break the feedback loop by giving the parent element **a specific height**.
 
+### padding with percentage
+
+The size of the `padding` as a percentage, relative to the `width` of the containing block.
+
+```
+.square{
+    width: 30%;
+    padding: 15% 0;    
+}
+```
 
 ### use margin 0 to remove white stripe
 
@@ -2274,17 +2315,6 @@ div#stripe {
 }
 ```
 
-
-### padding with percentage
-
-The size of the `padding` as a percentage, relative to the `width` of the containing block.
-
-```
-.square{
-    width: 30%;
-    padding: 15% 0;    
-}
-```
 
 ### Remove white space between box and make div an inline element
 
@@ -2457,6 +2487,83 @@ That initial forward slash(`/`) represents the root of your site.
 <a href='https://developer.mozilla.org/en-US/docs/Web/HTML' target='_blank'>
 ```
 
+### print object properties recursively
+
+```
+function prettyPrint(obj){
+    traverseObj(obj).forEach(function(item){
+        console.log(item);
+    });
+}
+function traverseObj(obj){
+    var strList = [];
+    for(var prop in obj){
+        if(typeof obj[prop] === "object"){
+            strList.push(prop+ ": "+ traverseObj(obj[prop]));
+        }else{
+            strList.push(prop + ": " + obj[prop]);  
+        }
+    }
+    return strList;
+}
+prettyPrint({name: "Rusty", species: "dog", breed: "mutt", friends: [{name: "Bob", age: 21, schools: ["NKU", "USTC"]}, {name: "Alice", age: 22}]});
+```
+
+### Most frequent char
+
+```
+String.prototype.mostFreqChar = function(){
+    var map = {};// (character, frequency)
+    for(var i=0; i<this.length; i++){
+        if(map[this[i]] === undefined){
+            map[this[i]] = 1;
+        }else{
+            map[this[i]]++;
+        }
+    }
+    var max = {
+        char: "",
+        freq: 0
+    };
+    for(var prop in map){
+        if(map[prop] > max.freq){
+            max.freq = map[prop];
+            max.char = prop;
+        }
+    }
+    console.log(max.char);
+    return max.char;    
+}
+
+"HELLO".mostFreqChar();
+"abbbcc".mostFreqChar();
+"www.dog.com".mostFreqChar();
+```
+
+### char count
+
+```
+charCount("hello");
+charCount("AaBbC")
+
+
+function charCount(str){
+    var map = {};// (character, frequency)
+    for(var i=0; i<str.length; i++){
+        if(map[str[i].toLowerCase()] === undefined){
+            map[str[i].toLowerCase()] = 1;
+        }else{
+            map[str[i].toLowerCase()]++;
+        }
+    }
+    console.log("{");
+    for(var prop in map){
+        console.log("\"" + prop + "\": " + map[prop] + ",");
+    }
+    console.log("}");
+}
+```
+
 ### Closure
 
 A closure is a function that **makes use of variables defined in outer functions**.
@@ -2564,7 +2671,7 @@ var increaseAndGetCount1 = counter();
 increaseAndGetCount1();//1
 increaseAndGetCount1();//2
 var increaseAndGetCount2 = counter();
-increaseAndGetCount2();//2
+increaseAndGetCount2();//1
 count //Uncaught ReferenceError: count is not defined
 ```
 
@@ -2846,9 +2953,9 @@ Choose what we want the context of 'this' to be using call, apply or bind
 
 ```
 NAME OF METHOD  PARAMETERS                  INVOKE IMMEDIATELY?
+Call            thisArg, a, b, c, d , ...   Yes
 Apply           thisArg, [a,b,c,d, ...]     Yes
 Bind            thisArg, a, b, c, d , ...   No
-Call            thisArg, a, b, c, d , ...   Yes
 ```
 
 #### `call`
@@ -3038,9 +3145,9 @@ var colt = {
 colt.sayHi(); // Hi undefined
 ```
 
-`.bind(this)` is the argument of `window.setTimeout`, therefore `this` inside `.bind(this)` refers to object `colt`. 
+`.bind(this)` is belongs to the first argument of `window.setTimeout`, therefore `this` inside `.bind(this)` refers to object `colt`. 
 
-After using `bind` to set the correct context of `this`, `this` inside `this.firstName` now refers to object `colt`.
+After using `bind` to set the correct context of `this`, `this` inside `this.firstName` now refers to object `colt`, and it just returns a new setTimeout function whose `this` is object `colt`.
 
 ```
 var colt = {
@@ -3055,3 +3162,4609 @@ colt.sayHi(); // Hi Colt
 ```
 
 
+### `arguments`
+
+The arguments object is an Array-like object corresponding to the arguments passed to a function.
+
+```
+function func1() {
+  console.log(arguments[0], arguments[1], arguments[2], arguments[3]);
+}
+func1(1, 2, 3);// 1 2 3 undefined
+```
+
+
+### Exercise of closure, call, apply, and bind
+
+```
+/*
+Write a function called arrayFrom which converts an array-like-object into an array.
+
+Examples:
+    var divs = document.getElementsByTagName('divs');
+    divs.reduce // undefined
+    var converted = arrayFrom(divs);
+    converted.reduce // function(){}....
+*/
+
+function arrayFrom(arrayLikeObject){
+    return [].slice.call(arrayLikeObject);
+}
+
+/* 
+// Write a function called sumEvenArguments which takes all of the arguments passed to a function and returns the sum of the even ones.
+
+Examples:
+    sumEvenArguments(1,2,3,4) // 6
+    sumEvenArguments(1,2,6) // 8
+    sumEvenArguments(1,2) // 2
+*/
+
+function sumEvenArguments(){
+    var sum = 0;
+    var argArray = Array.prototype.slice.call(arguments);
+    argArray.forEach(function(arg){
+        if(arg%2 === 0){
+            sum += arg;
+        }
+    });
+    return sum;
+}
+
+/* 
+Write a function called invokeMax which accepts a function and a maximum amount. invokeMax should return a function that when called increments a counter. If the counter is greater than the maximum amount, the inner function should return "Maxed Out"
+
+Examples:
+
+    function add(a,b){
+        return a+b
+    }
+
+    var addOnlyThreeTimes = invokeMax(add,3);
+    addOnlyThreeTimes(1,2) // 3
+    addOnlyThreeTimes(2,2) // 4
+    addOnlyThreeTimes(1,2) // 3
+    addOnlyThreeTimes(1,2) // "Maxed Out!"
+
+*/
+
+function invokeMax(fn, num){
+    return function(){
+        num--;
+        if(num<0){
+            return "Maxed Out!";
+        }
+        return fn.apply(this, [].slice.call(arguments));// here arguments also works well, which is return fn.apply(this, arguments);
+    };
+}
+
+/* 
+Write a function called once which accepts two parameters, a function and a value for the keyword 'this'. Once should return a new function that can only be invoked once, with the value of the keyword this in the function set to be the second parameter.
+
+Examples:
+
+    function add(a,b){
+        return a+b
+    }
+
+    var addOnce = once(add, this);
+    addOnce(2,2) // 4
+    addOnce(2,2) // undefined
+    addOnce(2,2) // undefined
+    
+    function doMath(a,b,c){
+        return this.firstName + " adds " + (a+b+c)
+    }
+    
+    var instructor = {firstName: "Elie"}
+    var doMathOnce = once(doMath, instructor);
+    doMathOnce(1,2,3) // "Elie adds 6"
+    doMathOnce(1,2,3) // undefined
+    
+
+*/
+function once(fn, thisArg){
+    var invokeNum = 1;
+    return function(){
+        invokeNum--;
+        if(invokeNum<0){
+            return undefined;
+        }
+        return fn.apply(thisArg, [].slice.call(arguments));
+    };
+}
+
+
+// BONUSES! 
+
+/* 
+Write a function called bind which accepts a function and a value for the keyword this. Bind should return a new function that when invoked, will invoke the function passed to bind with the correct value of the keyword this. HINT - if you pass more than two parameters to bind, those parameters should be included as parameters to the inner function when it is invoked. You will have to make use of closure!
+
+Examples:
+
+    function firstNameFavoriteColor(favoriteColor){
+        return this.firstName + "'s favorite color is " + favoriteColor
+    }
+    
+    var person = {
+        firstName: 'Elie'
+    }
+    
+    var bindFn = bind(firstNameFavoriteColor, person);
+    bindFn('green') // "Elie's favorite color is green"
+    
+    var bindFn2 = bind(firstNameFavoriteColor, person, 'blue');
+    bindFn2('green') // "Elie's favorite color is blue" 
+    
+    function addFourNumbers(a,b,c,d){
+        return a+b+c+d;
+    }
+
+    bind(addFourNumbers,this,1)(2,3,4) // 10
+    bind(addFourNumbers,this,1,2)(3,4) // 10
+    bind(addFourNumbers,this,1,2,3)(4) // 10
+    bind(addFourNumbers,this,1,2,3,4)() // 10
+    bind(addFourNumbers,this)(1,2,3,4) // 10
+    bind(addFourNumbers,this)(1,2,3,4,5,6,7,8,9,10) // 10
+
+*/
+
+function bind(fn, thisArg){
+    var argArray = [];
+    for(var i=2; i<arguments.length; i++){
+        argArray.push(arguments[i]);
+    }
+    return function(){
+        [].slice.call(arguments).forEach(function(arg){
+            argArray.push(arg);
+        });
+        return fn.apply(thisArg, argArray);
+    };
+}
+
+// better bind
+
+function bind(fn, thisArg){
+    var outerArgs = [].slice.call(arguments, 2);
+    return function(){
+        var innerArgs = [].slice.call(arguments);
+        var allArgs = outerArgs.concat(innerArgs);
+        return fn.apply(thisArg, allArgs);
+    };
+}
+
+/* 
+Write a function called flip which accepts a function and a value for the keyword this. Flip should return a new function that when invoked, will invoke the function passed to flip with the correct value of the keyword this and all of the arguments passed to the function REVERSED. HINT - if you pass more than two parameters to flip, those parameters should be included as parameters to the inner function when it is invoked. You will have to make use of closure! 
+
+Flip should return a new function that when invoked takes the correct number of required arguments to that function which are then reversed. HINT - you will need to use the .length property on functions to figure out the correct amount of arguments. For example:
+
+flip(subtractFourNumbers,this,11,12,13,14,15)(1,2,3,4,5,6,7,8,9,10) 
+
+
+
+
+Examples:
+
+    function personSubtract(a,b,c){
+        return this.firstName + " subtracts " + (a-b-c);
+    }
+    
+    var person = {
+        firstName: 'Elie'
+    }
+    
+    var flipFn = flip(personSubtract, person);
+    flipFn(3,2,1) // "Elie subtracts -4"
+    
+    var flipFn2 = flip(personSubtract, person, 5,6);
+    flipFn2(7,8). // "Elie subtracts -4"
+    
+    function subtractFourNumbers(a,b,c,d){
+        return a-b-c-d;
+    }
+
+    flip(subtractFourNumbers,this,1)(2,3,4) // -2
+    flip(subtractFourNumbers,this,1,2)(3,4) // -2
+    flip(subtractFourNumbers,this,1,2,3)(4) // -2
+    flip(subtractFourNumbers,this,1,2,3,4)() // -2
+    flip(subtractFourNumbers,this)(1,2,3,4) // -2
+    flip(subtractFourNumbers,this,1,2,3)(4,5,6,7) // -2
+    flip(subtractFourNumbers,this)(1,2,3,4,5,6,7,8,9,10) // -2
+    flip(subtractFourNumbers,this,11,12,13,14,15)(1,2,3,4,5,6,7,8,9,10) // -22
+
+*/
+
+
+function flip(fn, thisArg){
+    var argArray = [];
+    for(var i=2; i<arguments.length; i++){
+        argArray.push(arguments[i]);
+    }
+    return function(){
+        for(var i=0; i< arguments.length; i++){
+            argArray.push(arguments[i]);
+        }
+        argArray = argArray.slice(0, fn.length);
+        argArray.reverse();
+        return fn.apply(thisArg, argArray);
+    }
+}
+```
+
+### `this` 4 - The `new` keyword
+
+`new` can change the context of `this`. 
+
+```
+function Person(firstName, lastName){
+    this.firstName = firstName;
+    this.lastName = lastName;
+    console.log(this);
+}
+var elie = new Person("Elie", "Schoppik"); //Person {firstName: "Elie", lastName: "Schoppik"}
+Person("Elie", "Schoppik"); //window
+elie.firstName; // "Elie"
+elie.lastName; // "Schoppik"
+```
+
+### OOP in Javascript
+
+But JavaScript does not have "classes" built into it - so what do we do?
+
+We use functions and objects!
+
+### Constructor Functions
+
+```
+function House(bedrooms, bathrooms, numSqft){
+    this.bedrooms = bedrooms;
+    this.bathrooms = bathrooms;
+    this.numSqft = numSqft;
+}
+```
+
+Important: capitalization of the function name is a convention.
+
+```
+var firstHouse = House(2,2,1000);
+firstHouse // undefined
+```
+
+Why is it not working?
+
+1. We are not returning anything from the function so our `House` function returns `undefined`
+2. We are not explicitly binding the keyword `this` or placing it inside a declared object. This means the value of the keyword `this` will be the ***global object***, which is not what we want!
+
+### `new` keyword
+
+```
+var firstHouse = new House(2,2,1000);
+firstHouse.bedrooms; // 2
+firstHouse.bathrooms; // 2
+firstHouse.numSqft; // 1000
+```
+
+So what does the new keyword do?
+
+1. It first creates an empty object
+2. It then sets the keyword `this` to be that empty object
+3. It adds the line `return this` to the end of the function, which follows it
+4. It adds a property onto the empty object called `__proto__`, which links the `prototype` property on the constructor function to the empty object
+
+```
+Person.prototype === person1.__proto__
+//true
+```
+
+```
+function Dog(name, age){
+    this.name = name;
+    this.age = age;
+    this.bark = function(){
+        console.log(this.name + " just barked!");
+    }
+}
+dog1.bark(); // Rusty just barked!
+```
+ 
+### Refactor Car and Motorcycle
+
+```
+function Car(make, model, year){
+    this.make = make;
+    this.model = model;
+    this.year = year;
+    this.numWheels = 4;
+}
+function Motorcycle(make, model, year){
+    this.make = make;
+    this.model = model;
+    this.year = year;
+    this.numWheels = 2;
+}
+```
+
+Solution:
+
+```
+function Car(make, model, year){
+    this.make = make;
+    this.model = model;
+    this.year = year;
+    this.numWheels = 4;
+}
+```
+
+```
+function Motorcycle(make, model, year){
+    Car.call(this, make, model, year)
+    this.numWheels = 2;
+}
+//Or
+function Motorcycle(make, model, year){
+    Car.apply(this, [make,model,year]);
+    this.numWheels = 2;
+}
+//Or
+function Motorcycle(){ 
+    Car.apply(this, arguments);
+    this.numWheels = 2;
+}
+```
+
+Here `call`/`apply` set `this` inside `Car` to `this` inside `Motorcycle`.
+And `new` can set `this` to new created object. As for `return this` and `__proto__`, we don't need the functions here. The function of `new` can be replaced here by `call`/`apply`.
+
+### Prototype
+
+Circle for function, and square for object.
+
+![prototype diagram]({{ site.url }}/assets/posts_img/prototype-diagram.png)
+
+Every constructor function has a property on it called "prototype", which is an object
+The prototype object has a property on it called "constructor", which points back to the constructor function
+Anytime an object is created using the 'new' keyword, a property called `__proto__` gets created, linking the object and the prototype property of the constructor function
+
+```
+function Person(name){   
+    this.name = name;
+}
+var elie = new Person("Elie")
+elie.__proto__ === Person.prototype; // true
+Person.prototype.constructor === Person; // true
+```
+
+### Prototype Chain
+
+```
+Person.prototype.isInstructor = true;
+elie.isInstructor; // true
+colt.isInstructor; // true
+```
+
+How does JavaScript find methods and properties?
+
+First search in its object, then traverse prototype, until no `__proto__`.
+
+```
+arr -> Array prototype -> Object prototype -> null
+```
+
+Objects created by the same constructor have a ***shared*** `prototype`.
+
+### assign function to prototype to be more efficient
+
+```
+function Person(name){
+    this.name = name;
+    this.sayHi = function(){
+        return "Hi " + this.name; 
+    }
+}
+elie = new Person("Elie");
+elie.sayHi(); // Hi Elie
+```
+
+The code works, but it is inefficient.
+
+Every time we make an object using the new keyword we have to redefine the sayHi function!
+
+```
+function Person(name){
+    this.name = name;
+}
+Person.prototype.sayHi = function(){
+    return "Hi " + this.name; 
+}
+elie = new Person("Elie");
+elie.sayHi(); // Hi Elie
+```
+
+### Exercise - Prototype
+
+```
+
+// 1 - Implement your own version of Array.prototype.map. The function should accept a callback and return a new array with the result of the callback for each value in the array. 
+Array.prototype.map = function(callback){
+    var res = [];
+    this.forEach(function(ele, i, arr){
+        res.push(callback(ele, i, arr));
+    });
+    return res;
+}
+
+/* 2 - Implement a function called reverse that reverses a string and place it on the String.prototype
+
+Examples:
+    "test".reverse() // "tset"
+    "tacocat".reverse() // "tacocat"
+*/
+String.prototype.reverse = function(){
+    var res = "";
+    for(var i=this.length-1; i>=0; i--){
+        res+=this[i];
+    }
+    return res;
+}
+```
+
+### Prototypal Inheritance
+
+The passing of methods and properties from one class to another
+
+```
+function Person(firstName, lastName){
+    this.firstName = firstName;
+    this.lastName = lastName;
+}
+
+Person.prototype.sayHi = function(){
+    return "Hello " + this.firstName + " " + this.lastName;
+}
+function Student(firstName, lastName){
+    Person.apply(this, arguments);
+}
+
+Student.prototype.sayHi = function(){
+    return "Hello " + this.firstName + " " + this.lastName;
+}
+var s1 = new Student()
+```
+
+We have to define `sayHi` in `Student.prototype` otherwise `s1.sayHi is not a function`.
+
+#### What about use `Student.prototype = Person.prototype`?
+
+```
+Student.prototype.getStudentInfo = function(){
+    console.log("Student info: ...");
+}
+var p1 = new Person();
+p1.getStudentInfo(); // Student info: ...
+```
+
+Then we find `Person` can access `Student`'s function in prototype, however, what we want is `Student` to inheritant `Person`. `Person` shouldn't have properties from `Student` prototype.
+
+We can't assign one object to another - it will just create a reference!
+
+This means if we change the Student.prototype, it will affect the Person.prototype!
+
+We still want all of the methods and properties from the Parent.prototype, but we want two totally separate objects - not a reference!
+
+### `Object.create`
+
+The `Object.create()` method creates a new object, using an existing object to provide the newly created object's `__proto__` .
+
+```
+Student.prototype = Object.create(Person.prototype);
+Student.prototype.status;
+/*ƒ (){
+    console.log("status");
+}*/
+Person.prototype.status; //undefined
+```
+
+```
+var s = new Student();
+console.log(s);
+```
+
+```
+Student {firstName: undefined, lastName: undefined}
+firstName: undefined
+lastName: undefined
+__proto__: Person
+    __proto__: Object
+```
+
+`Person` now won't be influenced by `Student`'s new function, `Student` can have access to `Person`'s new function.
+
+```
+Person.prototype.funcPer = function(){
+    console.log("funcPer");
+}
+Student.prototype.funcStu = function(){
+    console.log("funcStu");
+}
+
+Person.prototype;
+/*
+{sayHi: ƒ, funcPer: ƒ, constructor: ƒ}
+funcPer: ƒ ()
+sayHi: ƒ ()
+constructor: ƒ Person(firstName, lastName)
+__proto__: Object
+*/
+
+Student.prototype;
+/*
+Person {constructor: ƒ, funcStu: ƒ}
+constructor: ƒ Student(firstName, lastName)
+funcStu: ƒ ()
+__proto__: 
+    funcPer: ƒ ()
+    sayHi: ƒ ()
+    constructor: ƒ Person(firstName, lastName)
+    __proto__: Object
+*/
+```
+
+### Why not `new`
+
+```
+function Student(firstName, lastName){
+    Person.apply(this, arguments);
+}
+Student.prototype = new Person;
+```
+
+This will do almost the same thing, but add additional unnecessary properties on the prototype object (since it is creating an object with undefined properties just for the prototype).
+
+```
+var s = new Student();
+console.log(s);
+```
+
+```
+Student {firstName: undefined, lastName: undefined}
+firstName: undefined
+lastName: undefined
+__proto__: Person
+    firstName: undefined // redundant property
+    lastName: undefined // redundant property
+    __proto__: Object
+```
+
+### Reset the constructor
+
+```
+//previously Person because of Object.create, has to be set back to Student
+Student.prototype.constructor = Student;
+```
+
+### Two parts of inheritance
+
+Set the prototype to be an object created with another prototype
+
+Reset the constructor property
+
+```
+function Person(firstName, lastName){
+    this.firstName = firstName;
+    this.lastName = lastName;
+}
+Person.prototype.sayHi = function(){
+    return "Hello " + this.firstName + " " + this.lastName;
+}
+function Student(firstName, lastName){
+    Person.apply(this, arguments);
+}
+Student.prototype = Object.create(Person.prototype);
+Student.prototype.constructor = Student;
+```
+
+### Recap OOP
+Every time the new keyword is used, a link between the object created and the prototype property of the constructor is established - this link can be accessed using `__proto__`
+
+The prototype object contains a property called constructor, which points back to the constructor function
+
+To share properties and methods for objects created by a constructor function, place them in the prototype as it is the most efficient
+
+To pass methods and properties from one prototype object to another, we can use inheritance which involves setting the prototype property to be a newly created object using Object.create and reseting the constructor property
+
+### jQuery
+
+Why Use jQuery?
+- Fixes "broken" DOM API
+- Brevity and Clarity
+- Ease of use
+- Cross-Browser Support
+- AJAX
+- Lot's of people use jQuery!
+
+Why Not Use jQuery?
+- The DOM API is no longer "broken"
+- It doesn't do anything you can't do on your own
+- It's an unnecessary dependency
+- Performance
+- Lot's of people are moving away from jQuery!
+
+#### Adding jQuery
+
+Download jQuery and link to it locally:
+
+```
+<script type="text/javascript" src="jquery.js"></script>
+```
+
+OR
+
+Link to a CDN(a hosted copy)
+
+```
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+```
+
+#### Select `$("selector")`
+
+```
+//to select all img tags
+$("img")  
+
+//to select all elements with class 'sale'
+$(".sale") 
+
+//to select element with id "bonus"
+$("#bonus") 
+
+//to select all a tags inside of li's
+$("li a")  
+```
+
+#### `.css(property, value)`
+
+```
+$("li").css("color", "yellow");
+$(".big").css("border", "1px dashed orange");
+```
+
+#### Create style object
+
+```
+var style1 = {
+    fontSize: "22px",
+    border: "solid 1px black"
+}
+$("p a").css(style1)
+```
+
+Or code object inside `.css()`.
+
+```
+$("p").css({
+    fontSize: "22px",
+    border: "solid 1px black"
+});
+```
+
+#### Style all `p`s
+
+```
+$("p").css(style1)
+$("p").css("color", "yellow")
+```
+
+#### `.text()` works like `textContent`
+
+```
+$("h1").text();//"jQuery Demo"
+$("h1").text("XXXXX");//h1 changed to "XXXXX"
+$("div").text("Div !!");//loop through div to make the textContent "Div !!"
+```
+
+#### `.html()` works like innerHTML
+
+```
+$("ul").html();
+/*
+"
+            <li>Dog</li>
+            <li>Cat</li>
+        "
+*/
+$("li").html("<strong>Hack<strong>");//loop through li to make the innerHTML "<strong>Hack<strong>"
+```
+
+#### `.attr()` works like get `getAttribute` and `setAttribute`
+
+```
+$("img").attr("src");
+"https://images.unsplash.com/photo-1526364060191-dde130491ec8?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=11ddea0835059bc5276769a80c40fbcf&auto=format&fit=crop&w=1048&q=80"
+
+$("img").attr({
+    width: "300px",
+    src: "https://images.unsplash.com/photo-1526364060191-dde130491ec8?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=11ddea0835059bc5276769a80c40fbcf&auto=format&fit=crop&w=1048&q=80"
+});
+```
+
+#### `.val()` works like `value`
+
+```
+<select name="country" id="">
+    <option value="German">German</option>
+    <option value="France">France</option>
+    <option value="Canada">Canada</option>
+</select>
+$("select").val();//"France"
+$("select").val("German");//set selected value to "German"
+$("select").val("US");//set selected value to null, because no "US" in option
+```
+
+#### `.addClass()` works like `.classList.add()`, `.removeClass()` works like `.classList.remove()`, `.toggleClass()` works like `.classList.toggle()`
+
+
+```
+$("li").addClass("done")
+$("li").removeClass("done")
+```
+
+### jQuery Event
+
+#### `.click(function)` works like `.addEventListener("click", function)`
+
+```
+document.querySelector("h1").addEventListener("click", function(){
+    alert("click h1");
+});
+```
+
+```
+$("h1").click(function(){
+    alert("click h1");
+});
+```
+
+```
+$("h1").click(function(){
+    $(this).css("background-color", "red");
+});
+```
+
+`$(this)` is the jQuery wrapper of `this`.
+
+#### `.keypress(function)` equals `.addEventListener("keypress", function)`
+
+```
+window.addEventListener("keypress", function(eventObj){
+    console.log(eventObj.key)
+});
+```
+
+```
+$("input").keypress(function(eventObj){
+    console.log(eventObj.key);
+});
+```
+
+Use `keyCode` to recognize key stroke `Enter`.
+
+```
+$("input").keydown(function(eventObj){
+    if(eventObj.keyCode === 13){
+        alert("enter!");
+    }
+});
+```
+
+#### Official solution for support of key, keyCode
+
+```
+window.addEventListener("keydown", function (event) {
+  if (event.defaultPrevented) {
+    return; // Should do nothing if the default action has been cancelled
+  }
+
+  var handled = false;
+  if (event.key !== undefined) {
+    // Handle the event with KeyboardEvent.key and set handled true.
+  } else if (event.keyIdentifier !== undefined) {
+    // Handle the event with KeyboardEvent.keyIdentifier and set handled true.
+  } else if (event.keyCode !== undefined) {
+    // Handle the event with KeyboardEvent.keyCode and set handled true.
+  }
+
+  if (handled) {
+    // Suppress "double action" if event handled
+    event.preventDefault();
+  }
+}, true);
+```
+
+### `.on()` works like `.addEventListener()`
+
+- `.addEventListener()` only adds listeners for existing elements
+- `.on()` will add listeners for all potential future elements
+
+```
+document.querySelector("h1").addEventListener("click", function(){
+    this.style.color = "red";
+})
+```
+
+```
+$("h1").on("click", function(){
+    $(this).css("color", "red");
+});
+```
+
+
+
+#### hover bold effect with `mouseenter` and `mouseleave`
+
+```
+$("button").on("mouseenter", function(){
+    $(this).css("font-weight", "bold");
+});
+$("button").on("mouseleave", function(){
+    $(this).css("font-weight", "normal");
+});
+```
+
+#### Difference between `click(function)` and `on('click', function)`
+
+- click() only adds listeners for existing elements
+- on() will add listeners for all potential future elements
+
+
+### `fadeOut()`
+
+The `.fadeOut()` method reduces the `opacity` of the matched elements. Once the opacity reaches 0, the `display` style property is set to `none`.
+
+
+```
+$("#fadeOutDivs").on("click", function(){
+    $("div").fadeOut();
+});
+```
+
+`.fadeOut()` is an asynchronous function.
+
+```
+$("#fadeout").on("click", function(){
+    $("div").fadeOut(1000);//4s
+    console.log("Fade out completed.");// this one happens before fadeOut finished, because JS won't wait for fadeOut function to complete
+});
+```
+
+To ensure console.log is executed after fadeOut is done, but here we get 4 "Fade out completed." because there are 4 `div`s.
+
+```
+$("#fadeout").on("click", function(){
+    $("div").fadeOut(1000, function(){
+        console.log("Fade out completed.");
+    });//4s
+});
+```
+
+Remove all the `div`s after fadeOut
+
+```
+$("#fadeout").on("click", function(){
+    $("div").fadeOut(1000, function(){
+        $(this).remove();
+    });
+});
+```
+
+### `fadeIn()`
+
+```
+div {
+    display: none;
+}
+```
+
+```
+$("button#fadeIn").on("click", function(){
+    $("div").fadeIn(1000);
+});
+```
+
+### `fadeToggle()`
+
+Display or hide the matched elements by animating their opacity depending on their current status.
+
+```
+$("button#fadeout").on("click", function(){
+    $("div").fadeToggle();
+});
+```
+
+### `slideDown()`, `slideUp()`, `slideToggle()`
+
+#### `.slideDown()`
+
+***Display*** the matched elements with a sliding motion.(`display: none`)
+
+```
+$("button#slide").on("click", function(){
+    $("div").slideDown();
+});
+```
+
+#### `.slideUp()`
+
+***Hide*** the matched elements with a sliding motion.(`display: block`))
+
+```
+$("button#slide").on("click", function(){
+    $("div").slideUp();
+});
+```
+
+#### `.slideToggle()`
+
+slide also has `callback`.
+
+```
+$("button#slide").on("click", function(){
+    $("div").slideToggle(1000, function(){
+        console.log("slide is done.");//printed 4 times
+    });
+});
+```
+
+### Center element vertically and horizontally with flexbox
+
+```
+.box{
+    display: flex;
+    justify-content: center;/*horizontally*/
+    align-items: center;/*vertically*/
+}
+```
+
+### Convert string to number
+
+```
+Number("123");//123
+Number("12.4");//12.4
+```
+
+### there is no way to stop/break forEach() other than throwing an exception
+
+Even `return` won't return and terminate, `forEach` always returns `undefined`.
+
+There is no way to stop or break a `forEach()` loop other than by throwing an exception. If you need such behavior, the `forEach()` method is the wrong tool.
+
+Early termination may be accomplished with:
+
+A simple loop
+A for...of loop
+`Array.prototype.every()`
+`Array.prototype.some()`
+`Array.prototype.find()`
+`Array.prototype.findIndex()`
+
+The other Array methods: `every()`, `some()`, `find()`, and `findIndex()` test the array elements with a predicate returning a truthy value to determine if further iteration is required.
+
+### Remove bullet in `li`
+
+```
+li {
+    list-style-type: none;    
+}
+```
+
+### `li` menu with `span` delete icon and `span` text all stretched to the max and centered using `display`
+
+```
+li {
+    display: flex;/*make sure icon and text are in one line*/
+    list-style-type: none;
+    height: 40px;
+}
+li span:nth-of-type(1) {/*delete icon*/
+    display: flex;/*together with align-items and justify-content for centering*/
+    align-items: center;/*vertical*/
+    justify-content: center;/*horizontal*/
+    width: 20px;
+}
+li span:nth-of-type(2) {/*text*/
+    display: flex;/*together with align-items for centering*/
+    align-items: center;/*vertical*/
+    width: 100%;
+    padding-left: 20px;
+}
+```
+
+
+### position element `i` right while text remains left
+
+```
+div#header > i {
+    float: right;
+}
+```
+
+### transition not work in display
+
+`display:none;` removes a block from the page as if it were never there. A block cannot be partially displayed; it’s either there or it’s not. The same is true for `visibility`; you can’t expect a block to be half  hidden which, by definition, would be visible! Fortunately, you can use `opacity` for fading effects instead.
+
+### Use `opacity` and `transition` instead of `display:none;`
+
+```
+plusIcon.addEventListener("click", function(){
+    if(todoInput.style.opacity && Number(todoInput.style.opacity) === 0){
+        todoInput.style.height = null;
+        todoInput.style.padding = null;
+        todoInput.style.opacity = null;
+    }else{
+        todoInput.style.opacity = 0;
+        todoInput.style.height = 0;
+        todoInput.style.padding = 0;
+    }
+});
+```
+
+```
+input#todoInput {
+    transition: all 0.3s;
+}
+```
+
+### delete style set by `element.style`
+
+```
+element.removeAttribute("style");
+```
+
+Or
+
+Use `null` for number:
+
+```
+element.style.height = null;
+```
+
+Use `""` for string:
+
+```
+element.style.backgroundColor = "";
+```
+
+### DOM - Event Bubbling
+
+First alert li, then ul, then div, finally body.
+
+```
+document.querySelector("li").addEventListener("click", function(){
+    alert("li");
+});
+document.querySelector("ul").addEventListener("click", function(){
+    alert("ul");
+});
+document.querySelector("div").addEventListener("click", function(){
+    alert("div");
+});
+document.querySelector("body").addEventListener("click", function(){
+    alert("body");
+});
+```
+
+#### Use `eventObj.stopPropagation()` to stop event bubbling
+
+Now only alert li.
+
+```
+document.querySelector("li").addEventListener("click", function(eventObj){
+    alert("li");
+    eventObj.stopPropagation();
+});
+document.querySelector("ul").addEventListener("click", function(){
+    alert("ul");
+});
+document.querySelector("div").addEventListener("click", function(){
+    alert("div");
+});
+document.querySelector("body").addEventListener("click", function(){
+    alert("body");
+});
+```
+
+### Make use of event bubbling and `eventObj.target`
+
+`eventObj.target` is the ***first*** element interacted with.
+
+`mouseover`: A pointing device is moved ***onto the element*** that has the listener attached or ***onto one of its children***. If `ul` is the element, then when a pointing device is moved onto `ul`/`li`, the event is triggered, and the `eventObj.target` is corresponding `li`.
+
+`mouseenter`: A pointing device is moved ***onto the element*** that has the listener attached. If `ul` is the element, then only when a pointing device is moved onto `ul`, the event is triggered, and the `eventObj.target` is this `ul`.
+
+
+#### element type
+
+```
+document.querySelector("li").nodeName; // "LI"
+```
+
+#### Problem encountered in Todo List
+
+Note that a pointing device ***can jump***, not always being continuous.
+
+1. 1st floor i to 2nd floor right span(mouseover), since 1st floor left span != 2nd floor right span, trigger left span to extend.
+2. right span(mouseout) to left i, since right span != left span(the parent of left i), trigger left span to shrink.
+3. left i to right span(mouseover), since left span(the parent of left i) != right span, trigger left span to extend.
+4. go back to 2.
+
+### eventObj.fromElement, eventObj.toElement
+
+`fromElement` at first can be `null`.
+
+### jQuery `.on()` that listens for all potential element
+
+`$("li").on("click", function)` won't work on potential element, you have to listen on `ul`.
+
+Listen to `click` event on `ul`'s `span`.
+
+```
+$("ul").on("click", "span", function(){
+    $(this).parent().fadeOut(500, function(){
+        $(this).remove();    
+    });  
+});
+```
+
+### check if element is inside another
+
+```
+function isDescendant(parent, child){
+    if(child === null){
+        return false;
+    }
+    if(child === parent){
+        return true;
+    }
+    return isDescendant(parent, child.parentElement);
+}
+```
+
+### return li which contains child, endNode contains li
+
+Since endNode contains li, when child === endNode, it's time to end the regression and return null(no li found).
+
+```
+function liParent(child, endNode){//endNode is exclusive
+    if(child === null){
+        return null;
+    }
+    if(child === endNode){
+        return null;
+    }
+    if(child.nodeName === "LI"){
+        return child;
+    }
+    return liParent(child.parentElement);
+}
+```
+
+
+### Make use of event bubbling
+
+Listen on `ul` instead of `li` so that you only bind once for all existing and potential `li`.
+
+Adv: bind once.
+
+Dis: more difficult logic.
+
+```
+// listen to event on ul's li
+ulDisplay.addEventListener("mouseover", function(eventObj){
+    // if fromElement and toElement belongs to the same li, return
+    // otherwise, execute
+    var fromParent = liParent(eventObj.fromElement, this);
+    var toParent = liParent(eventObj.toElement, this);
+    /*
+        null -> null,   not execute 
+        null -> sth,    execute
+        sth -> null,    execute
+        sth -> sth,     the same li parent, not exeute; otherwise execute
+    */
+    if(fromParent === toParent){
+        return;
+    }
+    var span = liParent(eventObj.target, this).querySelector("span:nth-of-type(1)");
+    span.style.backgroundColor = "red";
+    span.style.width = "40px";
+});
+// listen to event on ul's li
+ulDisplay.addEventListener("mouseout", function(eventObj){
+    var fromParent = liParent(eventObj.fromElement, this);
+    var toParent = liParent(eventObj.toElement, this);
+    if(fromParent === toParent){
+        return;
+    }
+    var span = liParent(eventObj.target, this).querySelector("span:nth-of-type(1)");
+    span.style.backgroundColor = "";
+    span.style.width = "";
+});
+ulDisplay.addEventListener("click", function(eventObj){
+    var target = eventObj.target;
+    var liParentEle = liParent(target, this);
+    if(target.classList.contains('taskName')){//text
+        var task = activeTaskManager.taskList[activeTaskManager.findIndex(liParentEle.id)];
+        task.completed = !task.completed;
+        target.classList.toggle("completed");
+    }
+    if(isDescendant(liParentEle.querySelector("span:nth-of-type(1)"), target)){// left span
+        var removedTask = activeTaskManager.removeTask(liParentEle.id);
+        console.log(liParentEle.id, removedTask);
+        trashTaskManager.addTask(removedTask);
+        liParentEle.remove();
+    }
+});
+```
+
+#### Original Code
+
+Bind event directly onto every `li` and `li`'s child spans. However, once a new `li` is created and appended to `ul`, you have to bind event for `it`.
+
+Adv: easy logic.
+
+Dis: bind multiple times.
+
+```
+liDisplays.forEach(function(liDisplay){
+    addELToLi(liDisplay);
+});
+todoInput.addEventListener("keydown", function(eventObj){
+    if(eventObj.keyCode === 13 || eventObj.key === "Enter"){
+        var task = activeTaskManager.createTask(this.value);
+        var li = document.createElement("li");
+        li.setAttribute("id", task.id);
+        li.innerHTML += '<span><i class="far fa-trash-alt"></i></span>'
+                      + '<span class="taskName">' + task.name + '</span>';
+        ulDisplay.appendChild(li);
+        this.value = "";
+        addELToLi(li);
+    }
+});
+function addELToLi(liDisplay){
+    liDisplay.addEventListener("mouseover", function(eventObj){
+        var span = this.querySelector("span:nth-of-type(1)");
+        span.style.backgroundColor = "red";
+        span.style.width = "40px";
+    });
+    liDisplay.addEventListener("mouseout", function(){
+        var span = this.querySelector("span:nth-of-type(1)");
+        span.style.backgroundColor = "";
+        span.style.width = "";
+    });
+    liDisplay.querySelector("span:nth-of-type(1)").addEventListener("click", function(){
+        var removedTask = activeTaskManager.removeTask(this.parentElement.id);
+        console.log(this.parentElement.id, removedTask);
+        trashTaskManager.addTask(removedTask);
+        this.parentElement.remove();
+    });
+    liDisplay.querySelector(".taskName").addEventListener("click", function(){
+        var task = activeTaskManager.taskList[activeTaskManager.findIndex(this.parentElement.id)];
+        task.completed = !task.completed;
+        this.classList.toggle("completed");
+    });
+}
+```
+
+### :focus
+
+The `:focus` CSS pseudo-class represents an element (such as a form `input`) that has received focus. It is generally triggered when the user clicks or taps on an element or selects it with the keyboard's "tab" key.
+
+```
+input:focus {
+  color: red;
+}
+```
+
+
+### set `color` the same as `background-color`
+
+```
+div#todoList > ul > li i {
+    color: transparent;
+}
+```
+
+### Use css to implement hover effect on `li`
+
+Use `li:hover span` and `li:hover i` to change style of span and i when li is hovered.
+
+```
+div#todoList > ul > li:hover span:nth-of-type(1) {
+    width: 40px;
+    background-color: red;
+}
+
+div#todoList > ul > li:hover i {
+    color: white;
+}
+```
+
+### Use Javascript to implement hover effect on `li`
+
+```
+// listen to event on ul's li
+ulDisplay.addEventListener("mouseover", function(eventObj){
+    // if fromElement and toElement belongs to the same li, return
+    // otherwise, execute
+    var fromParent = liParent(eventObj.fromElement, this);
+    var toParent = liParent(eventObj.toElement, this);
+    /*
+        null -> null,   not execute 
+        null -> sth,    execute
+        sth -> null,    execute
+        sth -> sth,     the same li parent, not exeute; otherwise execute
+    */
+    if(fromParent === toParent){
+        return;
+    }
+    var span = liParent(eventObj.target, this).querySelector("span:nth-of-type(1)");
+    span.style.backgroundColor = "red";
+    span.style.width = "40px";
+    var trashIcon = span.querySelector("i");
+    trashIcon.style.color = "white";
+});
+// listen to event on ul's li
+ulDisplay.addEventListener("mouseout", function(eventObj){
+    var fromParent = liParent(eventObj.fromElement, this);
+    var toParent = liParent(eventObj.toElement, this);
+    if(fromParent === toParent){
+        return;
+    }
+    var span = liParent(eventObj.target, this).querySelector("span:nth-of-type(1)");
+    span.style.backgroundColor = "";
+    span.style.width = "";
+    var trashIcon = span.querySelector("i");
+    trashIcon.style.color = "";
+});
+```
+
+### Center element horizontally and vertically with position
+
+```
+.box {
+    position: absolute;
+    top: 50%;  /* position the top  edge of the element at the middle of the parent */
+    left: 50%; /* position the left edge of the element at the middle of the parent */
+    transform: translate(-50%, -50%); /* This is a shorthand of
+                                         translateX(-50%) and translateY(-50%) */
+}
+```
+
+Adding `top`/`left` of `50%` moves the `top`/`left` margin ***edge*** of the element to the middle of the parent, and `translate()` function with the (negative) value of `-50%` moves the element by the ***half of its size***. Hence the element will be positioned at the middle.
+
+This is because a percentage value on `top`/`left` properties is relative to the height/width of the parent element (which is creating a containing block).
+
+While a percentage value on `translate()` transform function is relative to width/height of the element itself (Actually it refers to the size of bounding box).
+
+For unidirectional alignment, go with `translateX(-50%)` or `translateY(-50%)`instead.
+
+### Bottom footer
+
+```
+footer {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+```
+
+### 97 -> a
+
+```
+String.fromCharCode(97);// "a"
+```
+
+### canvas width and height
+
+Use `window.innerWidth` and `window.innerHeight`.
+
+```
+(new paper.Path.Circle(new paper.Point(window.innerWidth, window.innerHeight), 50)).fillColor = "blue";
+```
+
+Or `paper.view.size.height` and `paper.view.size.width` in Paper.js.
+
+
+### Http server
+
+```
+http-server 'path/to/your/directory' -o
+```
+
+```
+cd path/to/your/directory
+http-server . -o
+```
+
+### Failed to load `file://.mp3:` Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, https.
+
+Use http server
+
+### callback
+
+A callback function is a function that is passed into another function as a parameter then invoked by that other function.
+
+```
+function callback(){
+    console.log("coming from callback");
+}
+function higherOrder(fn){
+    console.log("to call callback");
+    fn();
+    console.log("callback has been invoked");
+}
+higherOrder(callback);
+
+console.js:35 to call callback
+console.js:35 coming from callback
+console.js:35 callback has been invoked
+```
+
+### A higher order function is...
+
+a function that accept a callback as a parameter
+
+#### What are callbacks used for?
+
+- Advanced Array Methods
+- Browser events
+- AJAX Requests
+- React Development
+
+Duplicate Code Without Callbacks
+
+```
+function sendMessageConsole(message) {
+  console.log(message);
+}
+
+function sendMessageAlert(message) {
+  alert(message);
+}
+
+function sendMessageConfirm(message) {
+  return confirm(message);
+}
+
+sendMessageAlert("Hi");
+```
+
+Code Reuse With Callbacks
+
+
+```
+function sendMessage(callback, message){
+    return callback(message);
+}
+sendMessage(console.log, "Hi");
+sendMessage(alert, "Hi");
+var answer = sendMessage(confirm, "Do you accept?");
+```
+
+Callbacks With Function Declarations
+
+```
+function greet(name, formatter){
+    console.log("Hello, " + formatter(name));
+}
+function upperCase(name){
+    return name.toUpperCase();
+}
+greet("elie", upperCase);//Hello, ELIE
+```
+
+Callbacks With Anonymous Functions
+
+```
+function greet(name, formatter){
+    console.log("Hello, " + formatter(name));
+}
+greet("elie", function(name){
+    name.toUpperCase();
+});
+// Hello, undefined
+greet("elie", function(name){
+    return name.toUpperCase();
+});
+// Hello, ELIE
+greet("elie", function(name){
+    return name + "!";
+});
+// Hello, elie!
+```
+
+### myForEach
+
+```
+Array.prototype.myForEach = function(fn){
+    for(var i=0; i<this.length; i++){
+        fn(this[i], i, this); // item, index, array
+    }
+};
+var sum = 0;
+[1,3,4,1].myForEach(function(num, i){
+    console.log(i);
+    sum+=num;
+});
+console.log(sum);//9
+```
+
+`fn` is also known as `callback`, the below code's effect is the same as the previous one.
+
+```
+Array.prototype.myForEach = function(callback){
+    for(var i=0; i<this.length; i++){
+        callback(this[i], i, this);// item, index, array
+    }
+};
+var sum = 0;
+[1,3,4,1].myForEach(function(num, i){
+    console.log(i);
+    sum+=num;
+});
+console.log(sum);//9
+```
+
+```
+var strings = ["my", "forEach", "example"];
+var result = "";
+strings.myForEach(function(str, index, array) {  
+  if (array.length - 1 !== index){
+    result += str + " ";
+  } else {
+    result += str + ".";
+  }
+});
+console.log(result);//"my forEach example."
+```
+
+`return` / `break` won't work in forEach, because it breaks the execution of callback function. Specifically, it returns to callback(), never influencing the execution of for loop. If you want to stop the execution of for loop, use simple `for`.
+
+### findIndex
+
+Definition: returns the index of the first element in the array for which the callback returns a truthy value.  -1 is returned if the callback never returns a truthy value.
+
+```
+Array.prototype.myFindIndex = function(callback){
+    for(var i=0; i<this.length; i++){
+        if(callback(this[i], i, this)){// item, index, array
+            return i;
+        }
+    }
+    return -1;
+};
+```
+
+```
+[21,323,5,21,12,3].myFindIndex(function(item){
+    if(item<5){
+        return true;
+    }else{
+        return false;
+    }
+}); // 5
+```
+
+### Stack and Heap
+
+Whenever you invoke a function, the details of the invocation are saved to the top of the stack (pushed to the top)
+
+Whenever a function returns, the information about the invocation is taken off the top of the stack (popped off of the top)
+
+```
+1  function multiply(x, y) {
+2    return x * y;
+3  }
+4 
+5  var res = multiply(3,5);
+```
+
+Stack:
+```
+2  function: multiply
+5  function: main
+```
+
+#### Stack Frame Contents
+
+- The function that was invoked
+
+- The parameters that were passed to the function
+
+- Current line number
+
+#### Stack Definition
+
+An ordered set of stack frames
+
+Most recently invoked function is on the top of the stack
+
+The bottom of the stack is the first function invoked
+
+The stack is processed from top to bottom
+
+#### Heap
+
+An area in memory where the your data is stored
+
+```
+// The object is created in the heap. obj is a reference to the object.
+var obj = {firstName: "Tim", lastName: "Garcia"};
+// New data is not created, only a copy of the reference
+var referenceCopy = obj;
+```
+
+### `setTimeout` and `clearTimeout(timerId)`
+
+```
+var timerId = setTimeout(function(){
+    alert("Run in 30s.");
+}, 30000);
+setTimeout(function(){
+    console.log("Canceling the first setTimeout", timerId);
+    clearTimeout(timerId);
+}, 1000);
+```
+
+### `setInterval` and `clearInterval(intervalId)`
+
+This works because `setInterval()` is executed and returns to intervalId earlier than the callback, which will be executed every coming second.
+
+```
+var time = 0;
+var intervalId = setInterval(function(){
+    time++;
+    console.log("time: " + time);
+    if(time >= 10){//clearInterval when time >= 10
+        clearInterval(intervalId);
+    }
+}, 1000);// execute every second
+```
+
+```
+time: 1
+time: 2
+time: 3
+time: 4
+time: 5
+time: 6
+time: 7
+time: 8
+time: 9
+time: 10
+```
+
+Or
+
+```
+var time = 0;
+var intervalId = setInterval(function(){
+    time++;
+    console.log("time: " + time);
+}, 1000);// execute every second
+setTimeout(function(){
+    clearInterval(intervalId);
+}, 10000);//clearInterval after 10s
+```
+
+```
+time: 1
+time: 2
+time: 3
+time: 4
+time: 5
+time: 6
+time: 7
+time: 8
+time: 9
+time: 10
+```
+
+### Assignment: Exercise: countDown Function
+
+Your goal is to implement a function called countDown.  The function will accept 1 parameter which is a time in seconds for the count down.  The function should console.log the time remaining every second.  Once the timer gets to 0, the timer should be stopped and you should console.log "Ring Ring Ring!!!".
+
+```
+function countDown(time){
+    var intervalId = setInterval(function(){
+        time--;
+        if(time <= 0){
+            console.log("Ring Ring Ring!!!");
+            clearInterval(intervalId);
+        }else{
+            console.log("Timer: " + time);
+        }
+    }, 1000);
+}
+countDown(3);
+```
+
+```
+Timer: 2
+Timer: 1
+Ring Ring Ring!!!
+```
+
+### The Queue
+
+An ordered list of functions waiting to be placed on the stack
+
+Functions in the queue are processed on a first in, first out basis (FIFO)
+
+### The Event Loop
+
+Functionality in the JavaScript runtime that checks the queue when the stack is empty.
+
+If the stack is empty, the front of the queue is placed in the stack.
+
+#### Example 1
+
+```
+1 setTimeout(function() {
+2   console.log("Hello World");
+3 }, 0);
+```
+
+Stack
+```
+?  function: setTimeout
+1  function: main
+```
+
+Queue:
+
+```
+callback function()
+```
+
+1. `function: main` placed in the stack and called
+2. `function: setTimeout` placed in the stack and called
+3. `function: setTimeout` takes the `callback function()` to the Queue
+4. `function: setTimeout` ends and is popped
+5. `function: main` ends and is popped
+6. Stack is empty, event loop check the queue, and places `callback function()` in the stack
+7. `callback function()` is called
+8. `callback function()` ends and is popped
+9. Stack empty and queue empty
+
+When `setTimeout(callback, 0);` is executed, it takes the `callback` to the Queue.
+
+When stack is empty, event loop will check the queue and see if anything there.
+
+#### Example 2
+
+```
+1 function square(n) {
+2   return n * n;
+3 }
+4 setTimeout(function() {
+5   console.log("Callback was placed",
+                "on the queue");
+6 }, 0);
+7 console.log(square(2));
+```
+
+```
+4
+Callback was placed on the queue
+```
+
+1. `4 function: main` is placed on the stack
+2. `function: setTimeout` is placed on the stack
+3. `function: setTimeout` is called, which places `function: callback` to the queue
+4. `function: setTimeout` ends and is popped off
+5. it's now `7 function: main`
+6. `function: square` is placed on the stack
+7. `function: square` is called, which returns 4
+8. `function: square` ends and is popped off
+9. `function: console.log` is placed on the stack
+10. `function: console.log` is called, which prints 4
+11. `function: console.log` ends and is popped off
+12. `7 function: main` ends and is popped off
+13. Stack is empty now, Event Loop checks the queue, and puts `function: callback` in the stack
+14. `function: callback` is called
+15. `function: console.log` is called, printing "Callback was placed on the queue"
+16. `function: console.log` ends and is popped off
+17. Stack empty and queue empty
+
+#### Key point
+
+Although delay is set 0 in setTimeout, the callback won't be executed immediately. It's executed, after Stack is empty, Event loop moves it from the queue to the Stack.(As placed on the Stack, since Stack is empty before, it's now the only frame in the stack, so it will be executed right now)
+
+### JavaScript is Single Threaded
+
+Single Threaded: Code execution is linear.  Code that is running cannot be interrupted by something else going on in the program.
+
+So the callback, though whose delay is 0, cannot be run right now, not until other work finishes(Stack empty).
+
+```
+setTimeout(function() {
+   console.log("Hello from the timeout");
+ }, 0);
+
+for (var i = 0; i < 1000000000; i++) {
+var x = i * 2;
+}
+console.log("Done with loop");
+```
+
+```
+Done with loop
+Hello from the timeout
+```
+
+Though delay is 0, callback won't run until `for` loop and `console.log` finish.
+
+### Promise
+
+A one time guaranteed return of some future value
+
+When that value is figured out - the promise is resolved/fulfilled or rejected
+
+Friendly way to refactor callback code
+
+Libraries have implemented Promises for a while, ES2015 is a little late to the game
+
+#### Story time
+You're hungry - so you go to McDonalds
+
+You place your order and get a ticket (a promise)
+
+After some time, you either get your food and the promise is resolved or you do not get your food and the promise is rejected
+
+If you want another order - you need a new Promise!
+
+#### Where have you seen promises before?
+jQuery implemented its own version of a promise called a deferred. jQuery version 3 now supports native promises.
+
+Many JavaScript libraries and frameworks (Node, Angular) use popular promise libraries like q and bluebird
+
+#### We can now create our own promises!
+Created using the new keyword
+Every promise constructor accepts a callback function which contains two parameters, resolve and reject
+You can call these parameters whatever you like, resolve and reject are most common
+These parameters are both functions to be run if the promise is resolved or rejected
+
+#### Returning promises
+Since a promise always returns something that has a .then (thenable) - we can chain promises together and return values from one promise to another!
+
+```
+var years = [];
+$.getJSON('https://omdbapi.com?t=titanic&apikey=thewdb')
+.then(function(movie){
+    years.push(movie.Year);
+    return $.getJSON('https://omdbapi.com?t=shrek&apikey=thewdb');  
+})
+.then(function(movie){
+    years.push(movie.Year);
+    console.log(years);
+})
+console.log('ALL DONE!');
+
+// "ALL DONE!"
+// ["1997", "2001]
+```
+
+A `promise` is an object that represents a task that will be completed in the future.
+
+Analogy: taking a number at a government office before you can get helped. The piece of paper is like your `promise`. The help you get at the counter is like the invocation of your `callback`.
+
+```
+var p1 = new Promise(function(resolve, reject) {
+    resolve([1,2,3,4]);// when resolve is called, [1,2,3,4] is passed to data in then's callback and the callback is executed
+});
+
+p1.then(function(data) {
+    console.log("Promise p1 resolved with data:", data);
+});
+```
+
+```
+Promise p1 resolved with data: (4) [1, 2, 3, 4]
+```
+
+```
+var p1 = new Promise(function(resolve, reject) {
+   reject("Error");// when reject is called, "Error" is passed to data in catch's callback and the callback is executed
+ });
+ p1.then(function(data) {
+   console.log("Promise p1 resolved with data:", data);
+ }).catch(function(data){
+    console.log("Promise p1 rejected with data:", data);
+});
+```
+
+```
+Promise p1 rejected with data: Error
+```
+
+1. when resolve is called, [1,2,3,4] is passed to data in then's callback and the callback is executed.
+2. when reject is called, "Error" is passed to data in catch's callback and the callback is executed.
+
+
+```
+var p1 = new Promise(function(resolve, reject){
+    var num = Math.random();
+    if(num < 0.5){
+        resolve(num);
+    }else{
+        reject(num);
+    }
+});
+p1.then(function(data){
+    console.log("Success: " + data);
+}).catch(function(data){
+    console.log("Error: " + data);
+});
+```
+
+```
+Error: 0.8415900841407606
+```
+
+
+```
+var promise = new Promise(function(resolve, reject) {
+setTimeout(function() {
+    var randomInt = Math.floor(Math.random() * 10);
+    resolve(randomInt);
+}, 4000);
+});
+promise.then(function(data) {
+    console.log("Random int passed to resolve:", data);
+});
+```
+
+```
+Random int passed to resolve: 4
+```
+
+### Promise Chaining
+
+Hard to read Nested Async Callbacks(One callback depends on the another).
+
+```
+var counter = 0;
+setTimeout(function() {
+    counter++;
+    console.log("Counter:", counter);
+    setTimeout(function() {
+        counter++;
+        console.log("Counter:", counter);
+        setTimeout(function() {
+            counter++;
+            console.log("Counter:", counter);
+        }, 3000);
+    }, 2000);
+}, 1000);
+514
+```
+
+```
+Counter: 1
+Counter: 2
+Counter: 3
+```
+
+- The code is hard to read
+- Logic is difficult to reason about
+- The code is not modular
+
+### Promise Chaining: Returning a Promise
+
+`promise.then` wait for `Promise` p1 to finish, next then waits for the new `Promise` returned to finish.
+
+```
+var promise = new Promise(function(resolve, reject){
+    var counter = 0;
+    console.log("ASAP0");
+    setTimeout(function(){
+        counter++;
+        console.log("Counter: " + counter);
+        resolve(counter);
+    }, 1000);
+});
+promise
+.then(function(counter){
+    return new Promise(function(resolve, reject){
+        console.log("ASAP1");
+        setTimeout(function(){
+            counter++;
+            console.log("Counter: " + counter);
+            resolve(counter);
+        }, 2000);
+    });
+})
+.then(function(counter){
+    return new Promise(function(resolve, reject){
+        console.log("ASAP2");
+        setTimeout(function(){
+            counter++;
+            console.log("Counter: " + counter);
+            resolve(counter);
+        }, 3000);
+    });
+})
+.then(function(counter){})
+.catch(function(data){
+    console.log("Error: " + data);
+});
+console.log("last line");
+```
+
+```
+ASAP0
+last line
+Counter: 1 //after 1 s
+ASAP1      //after 1 s
+Counter: 2 //after 1+2 s
+ASAP2      //after 1+2 s
+Counter: 3 //after 1+2+3 s
+```
+
+### Promise Chaining: Returning Data
+
+```
+var promise = new Promise(function(resolve, reject){
+    resolve(3);
+});
+promise
+.then(function(data){
+    return data*2;
+})
+.then(function(data){
+    return data + 10;
+})
+.then(function(data){
+    console.log(data)
+})
+.catch(function(data){
+    console.log("Error: " + data);
+});;
+```
+
+```
+16
+```
+
+### Refactor Nested Callback
+
+```
+function incCounter(){
+    counter++;
+    console.log("Counter: " + counter);
+}
+function runLater(callback, delay){
+    return new Promise(function(resolve, reject){
+        setTimeout(function(){
+            var res = callback();
+            resolve(res);
+        }, delay);
+    });
+}
+var counter = 0;
+var promise = runLater(incCounter, 1000);
+promise
+.then(function(counter){
+    return runLater(incCounter, 2000);
+})
+.then(function(counter){
+    return runLater(incCounter, 3000)
+})
+.then(function(counter){})// the final .then is not necessary
+.catch(function(error){
+    console.log("Error: " + error);
+});
+```
+
+### `.then()` is asynchronous
+
+```
+console.log('script0');
+setTimeout(function(){
+    console.log('setTimeout0')
+}, 10);
+
+new Promise(function(resolve) {
+    console.log('promise1')
+    resolve();
+}).then(function() {
+    console.log('promise2');
+});
+console.log('script1');
+```
+
+```
+script0
+promise1
+script1
+promise2
+setTimeout0
+```
+
+### Promise.all
+Accepts an array of promises and resolves all of them or rejects once a single one of the promises has been first rejected (fail fast).
+
+If all of the passed-in promises fulfill, Promise.all is fulfilled with an array of the values from the passed-in promises, in the same order as the promises passed in.
+
+You may have seen something like this when $.when in jQuery or Q
+
+The promises don't resolve sequentially, but Promise.all waits for them to resolve.
+
+All promises are passed in as an array, and the result is also an array.
+
+```
+function getMovie(title){
+    return $.getJSON(`https://omdbapi.com?t=${title}&apikey=thewdb`);
+}
+
+var titanicPromise = getMovie('titanic');
+var shrekPromise = getMovie('shrek');
+var braveheartPromise = getMovie('braveheart');
+Promise.all([titanicPromise, shrekPromise, braveheartPromise]).then(function(movies){
+    return movies.forEach(function(value){
+        console.log(value.Year);
+    });
+});
+
+// 1997
+// 2001
+// 1995
+```
+
+
+### Promise exercises
+
+
+```
+1. Write a function called getMostFollowers, which accepts a variable number of arguments. You should then make an AJAX call to the Github User API (https://developer.github.com/v3/users/#get-a-single-user) to get the name and number of followers of each argument. The function should return a promise, which when resolved, returns a string which displays the username who has the most followers. 
+
+Hint - Try to use Promise.all to solve this and remember that the jQuery AJAX methods ($.getJSON, $.ajax, etc.) return a promise.
+
+getMostFollowers('elie','tigarcia','colt').then(function(data){
+    console.log(data)
+});
+ 
+"Colt has the most followers with 424" 
+```
+
+Use `return new Promise` because Promise.all is asynchronous, things after it will be executed earlier, just like `setTimeout`.
+
+```
+function getMostFollowers(...args){
+    var promiseArr = [];
+    args.forEach(username => promiseArr.push($.getJSON(`https://api.github.com/users/${username}`)));
+    return Promise.all(promiseArr)
+    .then(function(users){
+        var max = users[0];
+        for(var i=1; i<users.length; i++){
+            if(Number(users[i].followers) > Number(max.followers)){
+                max = users[i];
+            }
+        }
+        return `${max.login} has the most followers with ${max.followers}`;
+    });
+}
+```
+
+
+```
+2. Write a function called starWarsString, which accepts a number. You should then make an AJAX call to the Star Wars API (https://swapi.co/ ) to search for a specific character by the number passed to the function. Your function should return a promise that when resolved will console.log the name of the character.
+
+starWarsString(1).then(function(data){
+    console.log(data)
+})
+ 
+"Luke Skywalker"
+```
+
+```
+function starWarsString(num){
+    return $.getJSON(`https://swapi.co/api/people/${num}`)
+    .then(function(response){
+        return `${response.name}`;
+    });
+}
+```
+
+```
+Bonus 1 -  Using the data from the previous AJAX call above, make another AJAX request to get the first film that character is featured in and return a promise that when resolved will console.log the name of the character and the film they are featured in 
+
+starWarsString(1).then(function(data){
+    console.log(data)
+})
+ 
+"Luke Skywalker is featured in The Empire Strikes Back, directed by Irvin Kershner"
+```
+
+```
+function starWarsString(num){
+    return $.getJSON(`https://swapi.co/api/people/${num}`)
+    .then(function(response){
+        return $.getJSON(response.films[0])
+        .then(function(filmRes){
+            return [response.name, filmRes.title, filmRes.director];
+        });            
+    }).then(function([name, title, director]){
+        return `${name} is featured in ${title}, directed by ${director}`;
+    });
+}
+```
+
+```
+Bonus 2 -  Using the data from Bonus 1 - make another AJAX call to get the information about the first planet that the film contains. Your function should return a promise that when resolved will console.log the name of the character and the film they are featured in and the name of the planet. 
+
+starWarsString(1).then(function(data){
+    console.log(data)
+})
+ 
+"Luke Skywalker is featured in The Empire Strikes Back, directed by Irvin Kershner and it takes place on Hoth"
+```
+
+```
+function starWarsString(num){
+    return $.getJSON(`https://swapi.co/api/people/${num}`)
+    .then(function(response){
+        return $.getJSON(response.films[0])
+        .then(function(filmRes){
+            return $.getJSON(filmRes.planets[0]).then(function(planetRes){
+                return [response.name, filmRes.title, filmRes.director, planetRes.name];
+            });
+        });            
+    }).then(function([name, title, director, planet]){
+        return `${name} is featured in ${title}, directed by ${director} and it takes place on ${planet}`;
+    });
+}
+```
+
+Use `res` to contains string, and refractor code to be better arranged.
+
+```
+function starWarsString(num){
+    var res = ``;
+    return $.getJSON(`https://swapi.co/api/people/${num}`)
+    .then(function(response){
+        res += `${response.name} is featured in `;
+        return $.getJSON(response.films[0])
+    })
+    .then(function(filmRes){
+        res += `${filmRes.title}, directed by ${filmRes.director} `;
+        return $.getJSON(filmRes.planets[0]);
+    })
+    .then(function(planetRes){
+        res += `and it takes place on ${planetRes.name}`;
+        return res;
+    });
+}
+```
+
+### AJAX: Asynchronous JavaScript and XML
+
+AJAX IS NOT...
+A Library
+A Framework
+A Technology
+
+AJAX IS... an approach
+
+HTML, JavaScript, The DOM, CSS, XMLHTTP Requests
+
+"Hey wait a minute, all the pieces are here for us to make web apps that can update without ***refreshing***!"
+
+[http://adaptivepath.org/ideas/ajax-new-approach-web-applications/](ajax model)
+
+With AJAX, websites can send and request data from a server in the background without disturbing the current page, leading to Today's Single Page Apps.
+
+How does Pinterest keep loading new content forever?!(AJAX)
+
+Compare that with Reddit...(Not AJAX) you have to click next button.
+
+JavaScript: "The user scrolled to the bottom!"
+
+JavaScript: "Quick, send a request to the server and get more content!"
+
+Server: yeah, yeah here you go
+
+JavaScript: "Now I'll just append the new data to the bottom of the page"
+
+### XML and JSON
+
+API's don't respond with HTML. API's respond with pure data, not structure.
+
+They use more efficient data formats like XML and JSON
+
+XML: Extended Markup Language
+
+XML is syntacticly similar to HTML, but it does not describe presentation like HTML does
+
+```
+<pin>
+  <title>Adorable Maine Coon</title>
+  <author>Cindy S</author>
+  <num-saves>1800</num-saves>
+</pin>
+```
+
+JSON: JavaScript Object Notation
+
+JSON looks (almost) exactly like JavaScript objects
+
+```
+'pin': {
+  'title': 'Adorable Maine Coon',
+  'author': 'Cindy S',
+  'num-saves': 1800
+}
+```
+
+### Making Requests with JavaScript:
+1. XMLHTTP Request
+2. The Fetch API
+3. 3rd Party Libraries: jQuery, Axios, etc.
+
+#### XMLHTTP Request: also known as XHR
+
+```
+var XHR =new XMLHttpRequest();//readyState: 0(UNSENT)
+XHR.addEventListener("readystatechange", function(){
+    if(this.readyState === 4){//DONE
+        if(this.status === 200){//200
+            console.log(this.responseText);
+        }else{//other status
+            console.log("A problem occurred.");
+        }
+    }
+});
+XHR.open("GET", "https://api.github.com/zen");//(type, url) readyState: 1(OPENED)
+XHR.send();// readyState: 2(HEADERS_RECEIVED), 3(LOADING), 4(DONE)
+```
+
+### XMLHttpRequest and Promise
+
+```
+function getBTCData(){
+    var p = new Promise(function(resolve, reject){
+        var XHR = new XMLHttpRequest();
+        XHR.addEventListener("readystatechange", function(){
+            if(this.readyState === 4){
+                if(XHR.status === 200){
+                    var data = JSON.parse(XHR.responseText);
+                    resolve(data);
+                }else{
+                    console.log("There was somthing wrong.")
+                }
+            }
+        });
+        XHR.open("GET", "https://api.coindesk.com/v1/bpi/currentprice.json");
+        XHR.send();
+        refreshButton.disabled = true;
+    });
+    p
+    .then(function(data){
+        rateDisplay.textContent = data.bpi[currency].rate;
+        codeDisplay.textContent = data.bpi[currency].code;
+        refreshButton.disabled = false;
+    })
+    .catch(function(err){
+        console.log(err);
+    });
+}
+```
+
+### PROBLEMS WITH XHR
+Ugly, Bulky Syntax
+It's 16 Years Old
+No Streaming
+
+### fetch
+
+`fetch(url)` returns a `Promise`.
+
+```
+var url = "https://api.coindesk.com/v1/bpi/currentprice.json";
+fetch(url)
+.then(function(data){
+    console.log(data);
+})
+.catch(function(err){
+    console.log("ERROR: " + err);
+});
+```
+
+`response.json()` returns a Promise because it takes time to generate JSON from response
+
+You can add `.then` after `return response.json()` because `.then` can be used on `Promise`, and `response.json()` returns a Promise object. Being used after the `.then(function(response){})` also works, because `.then(function(response){})` also returns the Promise object(`return response.json()`).
+
+Putting `.then` outside is better for it prevents nested callback.
+
+```
+fetch(url)
+.then(function(response){
+    return response.json().then(function(data){
+        console.log(data);
+    });
+});
+```
+
+### fetch solution
+
+```
+fetch(url)
+.then(function(response){
+    return response.json();
+})
+.then(function(data){
+    console.log(data);
+});
+```
+
+### fetch options
+
+You can use string directly, `JSON.stringify` is not required. However, it's better to use `JSON.stringify` so that you don't have to convert object to string ***manually***, worrying about double/single quotes, etc
+
+```
+fetch(url, {  
+    method: 'POST',// by default GET
+    body: JSON.stringify({
+        name: 'blue',
+        login: 'bluecat',
+    })
+})    
+.then(function (data) {  
+  //do something 
+})  
+.catch(function (error) {  
+  //handle error 
+});
+```
+
+response.json() is a Promise, which takes time to generate JSON from response
+
+```
+fetch(url, {
+    method: "POST",
+    body: "This is body."
+})
+.then(function(response){
+    return response.json();
+})
+.then(function(data){
+    console.log(data.bpi.USD.rate);
+});
+```
+
+In Request Playload below Request Headers, you can see "This is body."
+
+```
+fetch(url, {
+    method: "POST",
+    body: JSON.stringify({
+        name: "colt",
+        login: "123"
+    })
+})
+.then(function(response){
+    return response.json();
+})
+.then(function(data){
+    console.log(data.bpi.USD.rate);
+});
+```
+
+```
+Request Playload
+{name: "colt", login: "123"}
+    login: "123"
+    name: "colt"
+```
+
+### Handling Fetch Errors
+
+`catch` works when internet is off, or credentials problem. It does nothing with status code like 404.
+
+The `ok` read-only property of the `Response` interface contains a Boolean stating whether the response was successful (status in the range ***200-299***) or not.
+
+coltdadfasa doesn't exist.
+
+Error thrown inside Promise can be caught by `.catch()`. 
+
+```
+var url = "https://api.github.com/users/coltdadfasa";
+fetch(url)
+.then(function(response){
+    if(!response.ok){
+        throw Error(response.status);
+    }else{
+        return response;
+    }
+})
+.then(function(response){
+    return response.json();
+})
+.then(function(data){
+    console.log(data);
+})
+.catch(function(err){
+    console.log(err);
+});
+```
+
+```
+Error: 404
+```
+
+If it's network problem, `TypeError: Failed to fetch`.
+
+### Final solution: `.catch(callback)` + `.json()`
+
+use function `handleErrors` to handle status errors.
+
+```
+function handleErrors(response){
+    if(!response.ok){
+        throw Error(response.status);
+    }else{
+        return response;
+    }
+}
+
+var url = "https://api.github.com/users/coltsasasa";
+fetch(url)
+.then(handleErrors)
+.then(function(response){
+    return response.json();
+})
+.then(function(data){
+    console.log(data);
+})
+.catch(function(err){
+    console.log(err);
+});
+```
+
+```
+ fetch(url)
+  .then(handleErrors)
+  .then(parseJSON)
+  .then(updateProfile)
+  .catch(printError);
+```
+
+```
+function parseJSON(response){
+    return response.json();
+}
+```
+
+Note that `this` in function `handleErrors`/`parseJSON`/`updateProfile`/`printError` are all `window`.
+
+### image and info in one line
+
+26%+73% = 99%. Note if the two add up to 100%, it may exceed.
+
+```
+<img src="https://randomuser.me/api/portraits/women/11.jpg" alt="">
+<div id="info">
+    <span class="block" id="name">rachel petit</span>
+    <span class="block" id="username">orangelion610</span>
+    <span class="block">
+        <span>Email: </span><span id="email">rachel.petit@example.com</span>
+    </span>
+    <span class="block">
+        <span>City: </span><span id="city">montreuil</span>
+    </span>
+</div>
+```
+
+```
+img {
+    display: inline-block;
+    border-radius: 50%;
+    width: 26%;
+    margin: 0;
+}
+```
+
+```
+#info {
+    display: inline-block;
+    width: 73%;
+    padding-left: 10%;
+    margin: 0;
+}
+```
+
+### wait cursor when button is disabled
+
+```
+button:disabled {
+    cursor: wait;
+}
+```
+
+### THE ONLY PROBLEM of fetch
+
+Browser compatibility, no support for IE.
+
+### jQuery AJAX Methods
+
+`$.ajax`, `$.get`, `$.post`, `$.getJSON`
+
+`$.get`, `$.post`, `$.getJSON` are convenient Shorthand Methods of `$.ajax`.
+
+What passed to `.done` callback as argument is Javacript object, you don't have to parse JSON by yourself.
+
+jQuery `$.ajax` returns a promise, use you alse can use `.then()` and `.catch()`.
+
+```
+$.ajax({
+    method: "GET",
+    url: "https://baconipsum.com/api/?type=meat-and-filler"
+})
+.done(function(response){
+    console.log(response);
+})
+```
+
+```
+$.ajax({
+    method: "GET",
+    url: "https://baconipsum.com/api/?type=meat-and-filler"
+})
+.then(function(response){
+    console.log(response);
+})
+```
+
+
+```
+var years = [];
+$.getJSON('https://omdbapi.com?t=titanic&apikey=thewdb')
+.then(function(movie){
+    years.push(movie.Year);
+    return $.getJSON('https://omdbapi.com?t=shrek&apikey=thewdb');  
+})
+.then(function(movie){
+    years.push(movie.Year);
+    console.log(years);
+})
+console.log('ALL DONE!');
+```
+
+[https://github.com/jquery/jquery/blob/master/src/ajax/xhr.js?source=cc](inplement ajax with xhr, source code in github)
+
+### ajax error handling
+
+ajax's fail responds to network problem, and ***404***. if `dataType` not given, jQuery will use intelligent guessing.
+
+```
+$.ajax({
+    method: "GET",
+    url: "https://api.github.com/users/coltsasa",
+    dataType: "json"
+})
+.done(function(response){
+    console.log(response);
+})
+.fail(function(response){
+    console.log("Error: " + response.status + " " + response.statusText);
+});
+```
+
+```
+Error: 404 Not Found
+```
+
+### `$.get`/`jQuery.get()`
+
+method: "GET" by default.
+
+```
+$.get("https://api.github.com/users/colt")
+.done(function(response){
+    console.log(response);
+})
+.fail(function(response){
+    console.log("Error: " + response.status + " " + response.statusText);
+});
+```
+
+This is a shorthand Ajax function, which is equivalent to:
+
+```
+$.ajax({
+  url: url,
+  data: data,
+  success: success,
+  dataType: dataType
+});
+```
+
+### `$.post`/`jQuery.post()`
+
+```
+$.post("https://api.github.com/users/colt", {
+    name: "Charlie",
+    city: "Florence"
+})
+.done(function(response){
+    console.log(response);
+})
+.fail(function(response){
+    console.log("Error: " + response.status + " " + response.statusText);
+});
+```
+
+F12 -> Network -> Headers -> Form Data
+
+```
+name: Charlie
+city: Florence
+```
+
+`$.post` equals:
+
+```
+$.ajax({
+  type: "POST",
+  url: url,
+  data: data,
+  success: success,
+  dataType: dataType
+});
+```
+
+### `$.getJSON`/`jQuery.getJSON()`
+
+method: GET + dataType: "json"
+
+This is a shorthand Ajax function, which is equivalent to:
+
+```
+getJSON: function( url, data, callback ) {
+    return jQuery.get( url, data, callback, "json" );
+},
+```
+
+```
+$.getJSON("https://api.github.com/users/colt")
+.done(function(response){
+    console.log(response.login);
+})
+.fail(function(response){
+    console.log("Error: " + response.status + " " + response.statusText);
+});
+```
+
+[https://github.com/jquery/jquery/blob/master/src/ajax.js](Source Code in github)
+
+### AXIOS
+
+`response` is json.
+
+CDN:
+
+```
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+```
+
+```
+axios.get(url)
+.then(function(res){
+  console.log(res.data);
+})
+.catch(function(e){
+  console.log(e);
+})
+```
+
+### Handling Errors With Axios
+
+The effect of `params` is the same as `https://jsonplaaskjldceholder.typicode.com/comments?postId=1`
+
+```
+axios.get("https://jsonplaaskjldceholder.typicode.com/comments", {
+    params: {
+      postId: 1
+    }
+})
+.then(function(response){
+    //...    
+})
+.catch(handleErrors)
+```
+
+`err.response`: 404, like `https://jsonplaaskjldceholder.typicode.com/commentssasda`
+
+`err.request`: Problem With Request!, like `https://sadadjsonplaaskjldceholder.typicode.com/comments`
+
+```
+if (err.response) {
+  console.log("Problem With Response");
+} else if (err.request) {
+  console.log("Problem With Request!");
+} else {
+  console.log('Error', err.message);
+}
+```
+
+### Axios final solution
+
+```
+axios.get(url)
+.then(function(response){
+    return response.data;//return JSON data
+})
+.then(updateQuote)
+.catch(function(error){
+    console.log(error.message);
+    enableAllButtons();
+});
+```
+
+### 99.5% for width?
+
+### shrink margin
+
+```
+* {
+    margin: 0.8%;
+}
+```
+
+### put an element by X Y
+
+```
+greenBox.style.position = "absolute";// or relative
+greenBox.style.left = 471.00481; //x, can be relative to parent or absolute
+greenBox.style.top = 25; //y, can be relative to parent or absolute
+```
+
+Or
+
+```
+greenBox.style.left = redBox.offsetLeft - redBox.offsetWidth + greenBox.offsetWidth + gBBorder;
+greenBox.style.top = mousemoveEventObj.clientY - (redBox.offsetTop - redBox.offsetHeight/2);
+```
+
+### offsetLeft, offsetTop, offsetWidth, offsetHeight
+
+Element's absolute/positive X, absolute/positive Y, width, height.
+
+If you don't specify 
+
+### get element's border
+
+```
+getComputedStyle(greenBox).borderWidth
+```
+
+### text unselectable
+
+```
+#distanceText {
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+```
+
+
+### "Click" and hold event
+
+Use greenBox's `mousedown`, window's `mouseup`(use window because even mouse leaves redBox, it continues to drag greenBox) to determine when click and hold starts and ends. Use `mousemove` to track the mouse and use function `handleGreenBoxMouseMove` to change position of greenBox while the mouse moves. In function `handleGreenBoxMouseUp`, since click and hold ends, remove `mousemove` and `mouseup` event listeners to stop this round of listening.
+
+`which === 1` happens when left mouse is down(pressed). `click` event is mouse pressed and also ***released***. When right mouse is down/up, `which` is 3.
+
+```
+greenBox.addEventListener("mousedown", function(eventObj){
+    if(eventObj.which === 1){
+        //startDragging
+        greenBox.style.position = "";
+        window.addEventListener("mousemove", handleGreenBoxMouseMove);
+        //stopDragging
+        window.addEventListener("mouseup", handleGreenBoxMouseUp);
+
+    }
+});
+```
+
+
+```
+function handleGreenBoxMouseUp(eventObj){
+    if(eventObj.which === 1){
+        window.removeEventListener("mousemove", handleGreenBoxMouseMove);
+        window.removeEventListener("mouseup", handleGreenBoxMouseUp);
+    }
+}
+```
+
+The page is divided to 9 areas, deal with them by whether greenBox's x or y changes, if not change, which line it should be adjacent.
+
+```
+function handleGreenBoxMouseMove(mousemoveEventObj){
+    var x = mousemoveEventObj.clientX;
+    var y = mousemoveEventObj.clientY;
+    var xL = xLeft(x);
+    var xR = xRight(x);
+    var yT = yTop(y);
+    var yB = yBottom(y);
+    
+    if(xL && !yT && !yB){//case 1
+        greenBox.style.left = redBox.offsetLeft - redBox.offsetWidth + greenBox.offsetWidth + gBBorder;
+        greenBox.style.top = mousemoveEventObj.clientY - (redBox.offsetTop - redBox.offsetHeight/2);
+    }else if(xL && yB){//2
+        greenBox.style.left = redBox.offsetLeft - redBox.offsetWidth + greenBox.offsetWidth + gBBorder;
+        greenBox.style.top = redBox.offsetHeight - greenBox.offsetHeight/2 - 2 * gBBorder;
+    }else if(yB && !xL && !xR){//3
+        greenBox.style.left = x - (redBox.offsetLeft - redBox.offsetWidth/2);
+        greenBox.style.top = greenBox.offsetHeight/2 + redBox.offsetHeight - greenBox.offsetHeight -2 * gBBorder;
+    }else if(xR && yB){//4
+        greenBox.style.left = redBox.offsetLeft - redBox.offsetWidth + redBox.offsetHeight -gBBorder;
+        greenBox.style.top = redBox.offsetHeight - greenBox.offsetHeight/2 - 2 * gBBorder;
+    }else if(xR && !yT && !yB){//5
+        greenBox.style.left = redBox.offsetLeft - redBox.offsetWidth + redBox.offsetHeight -gBBorder;
+        greenBox.style.top = y - (redBox.offsetTop - redBox.offsetHeight/2);
+    }else if(xR && yT){//6
+        greenBox.style.left = redBox.offsetLeft - redBox.offsetWidth + redBox.offsetHeight -gBBorder;
+        greenBox.style.top = greenBox.offsetHeight/2;
+    }else if(yT && !xL && !xR){//7
+        greenBox.style.left = x - (redBox.offsetLeft - redBox.offsetWidth/2);
+        greenBox.style.top = greenBox.offsetHeight/2;
+    }else if(yT && xL){//8
+        greenBox.style.left = redBox.offsetLeft - redBox.offsetWidth + greenBox.offsetWidth + gBBorder;
+        greenBox.style.top = greenBox.offsetHeight/2;
+    }else if(!xL && !xR && !yT && !yB){//9
+        greenBox.style.left = x - (redBox.offsetLeft - redBox.offsetWidth/2);
+        greenBox.style.top = y - (redBox.offsetTop - redBox.offsetHeight/2);
+    }else{
+        console.log("Error in dividing 9 slots in function handleGreenBoxMouseMove(mousemoveEventObj).");
+    }
+    //update distance between center of greenBox and center of redBox
+    if((xL && yB) || (xR && yB) || (xR && yT) || (yT && xL)){
+        //if case 2,4,6,8, no update
+    }else{// otherwise, update
+        distanceDisplay.textContent = calcDistance();   
+    }
+    
+}
+```
+
+
+### const vs var
+
+```
+var name = "Colt";
+name = "Elie";
+```
+
+You can't assign new value to a const or redeclare a const.
+
+```
+const name2 = "Colt";
+name2 = "Elie"; //Uncaught TypeError: Assignment to constant variable.
+const name2 = "Colt";//Uncaught SyntaxError: Identifier 'name2' has already been declared
+```
+
+Can change content inside any object, but can't change primitive. Because if arr points to an object, arr is just the reference/address to that object. As long as the address keeps the same, you can edit content in that address as you like. But primitive is what arr contains directly and immutable, so arr can't be changed means primitive can't be mutated.
+
+```
+const arr = [1,3,1];
+arr.push(10);
+console.log(arr);//(4) [1, 3, 1, 10]
+```
+
+### difference between var and Java's int/double/boolean/etc
+
+```
+class TestInt{
+public static void main(String[] args){
+    {                                          
+        int x=1;
+    }
+    System.out.println(x);
+}
+```
+
+```
+//cannot find symbol
+//        System.out.println(x);
+```
+
+```
+class TestInt{
+    public static void main(String[] args){
+        for(int i=0; i<5; i++){
+            int z=1;
+        }
+        System.out.println(i);
+        System.out.println(z);
+    }
+}
+```
+
+```
+TestInt.java:6: error: cannot find symbol
+        System.out.println(i);
+                           ^
+  symbol:   variable i
+  location: class TestInt
+TestInt.java:7: error: cannot find symbol
+        System.out.println(z);
+                           ^
+  symbol:   variable z
+  location: class TestInt
+2 errors
+```
+
+```
+for(var i=0; i<5; i++){
+    var z=1;
+}
+i;//5
+z;//1
+```
+
+### let
+
+Three scopes: Global scope, function scope and block scope.
+
+let can be re-assigned a new value, but cannot be re-declared.
+
+#### Block scope with `let`
+
+if, for, while, do, try, catch and {} is block.
+
+We cannot access variables outside which is declared in a block with `let`.
+
+```
+{
+    let x=1;
+}
+console.log(x);//Uncaught ReferenceError: x is not defined
+```
+
+### Hoist
+
+Conceptually, for example, a strict definition of hoisting suggests that variable and function declarations are physically moved to the top of your code, but this is not in fact what happens. Instead, the variable and function declarations are put into memory during the compile phase, but stay exactly where you typed them in your coding.
+
+#### hoist with `var`
+
+You might think `hello()` will produce ReferenceError because elie is not defined.
+
+```
+function hello(){
+    return elie;
+    var elie = "Elie";
+}
+hello();//undefined
+```
+
+But what happens underhood is Javascript hoists var elie in the top and assign value in the third line, as below.
+
+```
+function hello(){
+    var elie;
+    return elie;
+    elie = "Elie";
+}
+hello();//undefined
+```
+
+#### Only declarations are hoisted
+
+```
+num = 1;
+console.log(num); // 1
+var num = 0;
+console.log(num); // 0
+```
+
+Equals
+
+```
+var num;
+num = 1;
+console.log(num); // 1
+num = 0;
+console.log(num); // 0
+```
+
+[https://developer.mozilla.org/en-US/docs/Glossary/Hoisting](Hoisting MDN Reference)
+
+#### hoist with `function`
+
+Even though we call the function in our code first, before the function is written, the code still works. This is because of how context execution works in JavaScript.
+
+Hoisting works well with other data types and variables. The variables can be initialized and used before they are declared.
+
+```
+catName("Chloe");
+
+function catName(name) {
+  console.log("My cat's name is " + name);
+}
+```
+
+Equals
+
+```
+function catName(name) {
+  console.log("My cat's name is " + name);
+}
+
+catName("Chloe");
+```
+
+#### hoist with function 2
+
+```
+console.log(catName);
+catName("Chloe");
+
+var catName = function(name) {
+  console.log("My cat's name is " + name);
+}
+```
+
+```
+undefined
+Uncaught TypeError: catName is not a function
+```
+
+Equals
+
+```
+var catName;
+console.log(catName);
+catName("Chloe");
+
+var catName = function(name) {
+  console.log("My cat's name is " + name);
+}
+```
+
+#### Hoist with `let`
+
+`let` does hoist, but we cannot access the value because it's in a Temporal Dead Zone(TDZ).
+
+```
+function hello(){
+    return elie;
+    let elie = "Elie";
+}
+hello();//Uncaught ReferenceError: elie is not defined
+```
+
+### Block scope with `let`: Usage
+
+Useful in async environment.
+
+```
+for(var i=0; i<5; i++){
+    setTimeout(function(){
+        console.log(i);
+    }, 1000);
+}
+// 5 (five times)
+```
+
+```
+for(var i=0; i<5; i++){
+    (function(j){
+        setTimeout(function(){
+            console.log(j);
+        }, 1000)
+    })(i);
+}
+// 0
+// 1
+// 2
+// 3
+// 4
+```
+
+Or use `let` to ultilize block scope, each setTimeout uses `i` in its own block scope.
+
+```
+for(let i=0; i<5; i++){
+    setTimeout(function(){
+        console.log(i);
+    }, 1000);
+}
+// 0
+// 1
+// 2
+// 3
+// 4
+```
+
+### Template Strings
+
+Make your code easy to read.
+
+Make sure you use backticks in Template Strings.
+
+```
+var firstName = "Elie";
+
+var lastName = "Schoppik";
+
+console.log("Hello " + firstName + " " + lastName); // error prone!
+```
+
+```
+console.log(`Hello ${firstName} ${lastName}`); // Much nicer!
+```
+
+#### Multiline string with template strings
+
+```
+console.log(
+"
+Hello
+"
+);
+//Uncaught SyntaxError: Invalid or unexpected token
+```
+
+```
+console.log(
+`
+Hello
+`
+);
+//Hello
+
+
+console.log(
+`
+Hello
+Multiline
+Strings
+`
+);
+/*
+Hello
+Multiline
+Strings
+*/
+```
+
+### Arrow Functions
+
+`Arrow function` is an alternative to using the word `function`.
+
+```
+var add = function(a, b){
+    return a + b;
+}
+```
+
+- ***Replace*** keyword `function` with `=>`(equal sign and greater-than sign)
+- `=>` be placed after the parameters
+- If only ***one parameter***, remove the parenthesis `()` around this parameter as well.
+- If no `=` between function name and parameter, add `=`.
+- delete `;` if inside object or `()`
+- 
+
+```
+var add = (a, b) => {
+    return a + b;
+}
+```
+
+```
+[1,2,3].map(function(value){
+    return value * 2;
+});
+```
+
+```
+[1,2,3].map(value => {
+    return value * 2;
+});
+```
+
+### One-line arrow functions
+
+To put arrow functions on one line,  ***omit*** the ***return keyword*** as well as ***curly braces*** `{}`
+
+```
+var add = function(a, b){
+    return a + b;
+}
+```
+
+To
+
+```
+var add = (a, b) => a+b;
+```
+
+```
+[1,2,3].map(function(value){
+    return value * 2;
+});
+```
+
+To
+
+```
+[1,2,3].map(value => value * 2);
+```
+
+```
+function doubleAndFilter(arr){
+    return arr.map(function(value){
+        return value * 2;
+    }).filter(function(value){
+        return value % 3 === 0;
+    })
+};
+```
+
+To
+
+```
+var doubleAndFilter = arr => arr.map(value => value * 2).filter(value => value%3 === 0);
+```
+
+If `=>` is followed by object declaration, add `()` around `{}`.
+
+```
+createStudentObj = (firstName, lastName) => {
+    return {
+        firstName: firstName,
+        lastName: lastName
+    };
+}
+```
+
+```
+createStudentObj = (firstName, lastName) => ({firstName: firstName, lastName: lastName});
+```
+
+
+### Difference between `=>` arrow function and `function`
+
+1. Arrow functions do not get their own `this` keyword, therefore `this` refers to the ***enclosing context***.(outside context)
+2. arrow functions do not get their own keyword `arguments`, use ***enclosing context*** `arguments`.
+
+### Arrow functions do not get their own `this` keyword
+
+```
+function Instructor(firstName){
+    this.firstName = firstName;
+}
+Instructor.prototype.sayHi = function(){
+    setTimeout(function(){
+        console.log("Hi " + this.firstName);
+    }, 1000);
+};
+var elie = new Instructor("Elie");
+elie.sayHi()
+
+//Hi undefined
+```
+
+```
+Instructor.prototype.sayHi = function(){
+    setTimeout(function(){
+        console.log("Hi " + this.firstName);
+    }.bind(this), 1000);
+};
+
+//Hello Elie
+```
+
+Arrow functions do not have their own keyword `this`. The keyword `this` refers to its ***enclosing context*** (the Instructor).
+
+```
+Instructor.prototype.sayHi = function(){
+    setTimeout(() => console.log(`Hello ${this.firstName}`), 1000);
+};
+
+//Hello Elie
+```
+
+Or
+
+```
+Instructor.prototype.sayHi = function(){
+    setTimeout(() => {
+        console.log(`Hello ${this.firstName}`);
+    }, 1000);
+};
+```
+
+#### Why should we use both the function keyword and an arrow function
+
+If we use two arrow functions, the sayHi function will not have its own keyword `this` - and the keyword this will refer to the ***enclosing context*** -- `window`.
+
+
+```
+Instructor.prototype.sayHi = () => setTimeout(() => console.log(`Hello ${this.firstName}`), 1000);
+
+//Hello undefined
+```
+
+Or 
+
+```
+Instructor.prototype.sayHi = () => {
+    setTimeout(() => {
+        console.log(`Hello ${this.firstName}`);
+    }, 1000);
+};
+```
+
+### arrow functions do not get their own keyword `arguments`
+
+Return inner arguments.
+
+```
+function outer(){
+    return function inner(){
+        return arguments;
+    };
+}
+outer(1)(3);
+
+// Arguments [3, callee: ƒ, Symbol(Symbol.iterator): ƒ]
+```
+
+Return outer(enclosing context) arguments.
+
+```
+function outer(){
+    return inner = () => arguments;
+}
+outer(1)(3);
+
+//Arguments [1, callee: ƒ, Symbol(Symbol.iterator): ƒ]
+```
+
+Return window(enclosing context) arguments.(Uncaught ReferenceError: arguments is not defined)
+
+```
+outer = () => inner = (a, b) => arguments;
+outer(1)(3);
+
+//Uncaught ReferenceError: arguments is not defined
+```
+
+If you REALLY need the arguments to an arrow function, use the rest operator.
+
+### When NOT to use Arrow Functions
+
+`Arrow functions` should NEVER be used as ***methods in objects*** since we will get the ***incorrect*** value of the keyword `this`. ES2015 provides a better alternative.
+
+```
+var instructor = {
+    firstName: "Elie",
+    sayHi: () => `Hello ${this.firstName}`
+}
+
+instructor.sayHi(); // "Hello undefined"
+```
+
+`this` in sayHi refers to window.(enclosing context)
+
+### Default Parameters
+
+```
+function add(a, b){
+    return a + b;
+}
+add();
+//NaN
+```
+
+Assign default values to prevent that.
+
+```
+function add(a, b){
+    if(a === undefined){
+        a = 10;
+    }
+    if(b === undefined){
+        b = 20;
+    }
+    return a + b;
+}
+add();
+//30
+```
+
+
+```
+function add(a=10, b=20){
+    return a + b;
+}
+add();
+//30
+```
+
+### For...of loop
+
+`for...of` can't access an index, can access value.
+
+While `for...in` can access property(index).
+
+Works with data types that are built with `Symbol.iterator()` function. Not work with normal `object` because normal object doesn't have `Symbol.iterator`.
+
+The for...of statement creates a loop iterating over iterable objects (including the built-in String, Array, e.g. the Array-like arguments or NodeList objects, TypedArray, Map and Set, and user-defined iterables), invoking a custom iteration hook with statements to be executed for the value of each distinct property of the object.
+
+
+```
+for(let i of arr){
+    console.log(i);
+}
+//1
+//2
+//3
+```
+
+
+```
+for(let val of {}){
+    console.log(val)
+}
+//Uncaught TypeError: {} is not iterable
+```
+
+### Rest operator
+
+- The rest operator always returns an array 
+- Is called the rest operator only when it is a ***parameter*** to a function
+- Is accessed without the ... in a function
+- A better alternative to using the arguments array-like object
+
+```
+function printRest(a,b,...c){
+    console.log(a);
+    console.log(b);
+    console.log(c);
+}
+
+printRest(1,2,3,4,5); 
+
+// 1
+// 2
+// [3,4,5]
+```
+
+### Rest operator usage example
+
+```
+function add(){
+    var sum = 0;
+    for(let i = 0; i < arguments.length; i++){
+        sum += arguments[i];
+    }
+    return sum;
+}
+```
+
+```
+function add(a,b,c,...d){
+    var sum = a + b + c;
+    for(let x of d){
+        sum += x;
+    }
+    return sum;
+}
+add(1,2,3,4,5,6,7,8,9,0,1,2,3)
+//51
+```
+
+```
+function add(){
+    var argArr = [].slice.call(arguments);
+    return argArr.reduce((acc, val) => acc + val);
+}
+```
+
+#### Use rest operator to avoid converting arguments
+
+`args` is Array.
+
+```
+var add = (...args) => args.reduce((acc, val) => acc + val);
+```
+
+### Spread Operator
+
+Spread each value in ***array*** to a ***comma separated value***.
+
+```
+var arr = [3,2,4,1,5];
+Math.max(arr); // NaN
+// ES5
+Math.max.apply(this, arr); // 5
+// ES2015
+Math.max(...arr); // 5
+```
+
+```
+// ES5
+var arr1 = [1,2,3];
+var arr2 = [4,5,6];
+var arr3 = [7,8,9];
+
+var combined = arr1.concat(arr2).concat(arr3);
+```
+
+```
+// ES2015
+var combined = [...arr1, ...arr2, ...arr3];
+```
+
+You get `[1,2,3,4,5,6,7,8,9]`.
+
+```
+function sumValues(a,b,c){
+    return a+b+c;
+}
+var nums = [12,15,20];
+// ES5
+sumValues.apply(this, nums); // 47
+// ES2015
+sumValues(...nums); // 47
+```
+
+### Coding Exercise - Rest and Spread Exercises
+
+```
+/* 
+Write a function called smallestValue which accepts a variable number of parameters and returns the smallest parameters passed to the function.
+
+Examples:
+    smallestValue(4,1,12,0) // 0
+    smallestValue(5,4,1,121) // 1
+    smallestValue(4,2) // 2
+    smallestValue(99,12321,12.2) // 12.2
+*/
+
+function smallestValue(...args){
+    return Math.min(...args);
+}
+
+/* 
+Write a function called placeInMiddle which accepts two parameters, an array and another array. This function should return the first array with all of the values in the second array placed in the middle of the first array.
+
+Examples:
+    placeInMiddle([1,2,6,7],[3,4,5]) // [1,2,3,4,5,6,7]
+    placeInMiddle([1],[3,4,5]) // [3,4,5,1]
+    placeInMiddle([1,6],[2,3,4,5]) // [1,2,3,4,5,6]
+    placeInMiddle([],[2,3,4,5]) // [2,3,4,5]
+*/
+
+function placeInMiddle(arr, vals){
+    var len = Math.floor(arr.length/2);
+    arr.splice(len, 0, ...vals);
+    return arr;
+}
+
+/* 
+Write a function called joinArrays which accepts a variable number of parameters (you can assume that each argument to this function will be an array) and returns an array of all of the parameters concatenated together
+
+Examples:
+
+    joinArrays([1],[2],[3]) // [1,2,3]
+    joinArrays([1],[2],[3],[1],[2],[3]) // [1,2,3,1,2,3]
+    joinArrays([1,2,3],[4,5,6],[7,8,9]) // [1,2,3,4,5,6,7,8,9]
+    joinArrays([1],[3],[0],[7]) // [1,3,0,7]
+
+*/
+
+function joinArrays(...args){
+    return args.reduce((acc, val) => [...acc, ...val]);
+}
+
+/* 
+// Write a function called sumEvenArgs which takes all of the parameters passed to a function and returns the sum of the even ones.
+
+Examples:
+    sumEvenArgs(1,2,3,4) // 6
+    sumEvenArgs(1,2,6) // 8
+    sumEvenArgs(1,2) // 2
+*/
+
+function sumEvenArgs(...args){
+    return args.reduce((acc, val) => acc + (val % 2 === 0 ? val : 0), 0);
+}
+
+/* 
+Write a function called flip which accepts a function and a value for the keyword this. Flip should return a new function that when invoked, will invoke the function passed to flip with the correct value of the keyword this and all of the parameters passed to the function REVERSED. HINT - if you pass more than two parameters to flip, those parameters should be included as parameters to the inner function when it is invoked. You will have to make use of closure!
+
+
+
+Examples:
+
+    function personSubtract(a,b,c){
+        return this.firstName + " subtracts " + (a-b-c);
+    }
+    
+    var person = {
+        firstName: 'Elie'
+    }
+    
+    var flipFn = flip(personSubtract, person);
+    flipFn(3,2,1) // "Elie subtracts -4"
+    
+    var flipFn2 = flip(personSubtract, person, 5,6);
+    flipFn2(7,8). // "Elie subtracts -4"
+
+    flip(subtractFourNumbers,this,1)(2,3,4) // -2
+    flip(subtractFourNumbers,this,1,2)(3,4) // -2
+    flip(subtractFourNumbers,this,1,2,3)(4) // -2
+    flip(subtractFourNumbers,this,1,2,3,4)() // -2
+    flip(subtractFourNumbers,this)(1,2,3,4) // -2
+    flip(subtractFourNumbers,this,1,2,3)(4,5,6,7) // -2
+    flip(subtractFourNumbers,this)(1,2,3,4,5,6,7,8,9,10) // -2
+    flip(subtractFourNumbers,this,11,12,13,14,15)(1,2,3,4,5,6,7,8,9,10) // -22
+
+*/
+
+
+var flip = (fn, thisArg, ...outerArgs) => (...innerArgs) => fn.apply(thisArg, [...outerArgs, ...innerArgs].slice(0, fn.length).reverse());
+
+
+/* 
+Write a function called bind which accepts a function and a value for the keyword this. Bind should return a new function that when invoked, will invoke the function passed to bind with the correct value of the keyword this. HINT - if you pass more than two parameters to bind, those parameters should be included as parameters to the inner function when it is invoked. You will have to make use of closure!
+
+Examples:
+
+    function firstNameFavoriteColor(favoriteColor){
+        return this.firstName + "'s favorite color is " + favoriteColor
+    }
+    
+    var person = {
+        firstName: 'Elie'
+    }
+    
+    var bindFn = bind(firstNameFavoriteColor, person);
+    bindFn('green') // "Elie's favorite color is green"
+    
+    var bindFn2 = bind(firstNameFavoriteColor, person, 'blue');
+    bindFn2('green') // "Elie's favorite color is blue" 
+    
+    function addFourNumbers(a,b,c,d){
+        return a+b+c+d;
+    }
+
+    bind(addFourNumbers,this,1)(2,3,4) // 10
+    bind(addFourNumbers,this,1,2)(3,4) // 10
+    bind(addFourNumbers,this,1,2,3)(4) // 10
+    bind(addFourNumbers,this,1,2,3,4)() // 10
+    bind(addFourNumbers,this)(1,2,3,4) // 10
+    bind(addFourNumbers,this)(1,2,3,4,5,6,7,8,9,10) // 10
+
+*/
+
+var bind = (fn, thisArg, ...outerArgs) => (...innerArgs) => fn.call(thisArg,...outerArgs, ...innerArgs);
+```
+### Array.prototype.reduce()
+
+```
+function sumEvenArgs(...args){
+    return args.reduce((acc, val) => acc + (val % 2 === 0 ? val : 0), 0);
+}
+```
+
+`initialValue` of previous function is 0.
+
+`initialValue`: Value to use as the first argument to the first call of the callback. If no initial value is supplied, the ***first element in the array*** will be used. Calling `reduce()` on an ***empty*** array without an initial value is an ***error***.
+
+### Object Shorthand Notation
+
+If key and value are the same, omit one.
+
+```
+var firstName = "Elie";
+var lastName = "Schoppik";
+
+// ES5
+var instructor = {
+    firstName: firstName,
+    lastName: lastName
+}
+```
+
+
+```
+var firstName = "Elie";
+var lastName = "Schoppik";
+
+// ES2015
+var instructor = {
+    firstName,
+    lastName
+}
+```
+
+### Object Methods Shorthand Notation
+
+Use arrow function in object because we may accidentally use don't use the right `this`.
+
+```
+// ES5
+var instructor = {
+    sayHello: function(){
+        return "Hello!";
+    }    
+}
+```
+
+To be short, omit the colon `:` and `function` keyword.
+
+```
+// ES2015 - do NOT use arrow functions here!
+var instructor = {
+    sayHello(){
+        return "Hello!";
+    }
+}
+```
+
+### Computed Property Names
+
+Use brackets `[]` around a variable to let Javascript compute the variable.
+
+```
+// ES5
+var firstName = "Elie";
+var instructor = {};
+instructor[firstName] = "That's me!";
+
+instructor.Elie; // "That's me!"
+```
+
+```
+// ES2015
+var firstName = "Elie";
+var instructor = {
+    [firstName]: "That's me!"
+}
+
+instructor.Elie; // "That's me!"
+```
+
+### Object Destructuring
+
+Extracting values from data stored in objects and arrays
+
+```
+var instructor = {
+    firstName: "Elie",
+    lastName: "Schoppik"
+}
+var firstName = instructor.firstName;
+var lastName = instructor.lastName;
+
+firstName; // "Elie"
+lastName; // "Schoppik"
+```
+
+```
+var {firstName: firstName, lastName: lastName} = instructor;
+```
+
+Omit repeated firstName, lastName and `:` like `Object Shorthand Notation`.
+
+```
+var {firstName, lastName} = instructor;
+```
+
+Use different variables rather than firstName and lastName.
+
+```
+var {firstName:first, lastName:last} = instructor;
+```
+
+### Object Destructuring Usage
+
+```
+function createInstructor(options){
+    var options = options || {};
+    var name = options.name || {first: "Matt", last:"Lane"}
+    var isHilarious = options.isHilarious || false; 
+    return [name.first, name.last, isHilarious];
+}
+createInstructor(); // ["Matt", "Lane", false]
+createInstructor({isHilarious:true}); // ["Matt", "Lane", true]
+createInstructor({name: {first:"Tim", last:"Garcia"}}); // ["Tim", "Garcia", false]
+```
+
+#### Refactor
+
+Destructure object accepted to name, isHilarious.
+
+```
+function createInstructor({name, isHilarious}){
+    console.log(name, isHilarious);
+}
+```
+
+Use default value for name and isHilarious.
+
+```
+function createInstructor({name={first: "Matt", last: "Lane"}, isHilarious=false}){
+    console.log(name, isHilarious);
+}
+createInstructor();//Uncaught TypeError: Cannot destructure property `name` of 'undefined' or 'null'.
+```
+
+If pass nothing to `createInstructor`, `undefined.name` throws error, therefore use default value for the object that contains name, isHilarious.
+
+```
+function createInstructor({name={first: "Matt", last: "Lane"}, isHilarious=false}={}){
+    console.log(name, isHilarious);
+}
+```
+
+return array instead of console.log.
+
+```
+function createInstructor({name={first: "Matt", last: "Lane"}, isHilarious=false}={}){
+    return [name.first, name.last, isHilarious];
+}
+```
+
+### Object Destructure Usage: Object fields as parameters
+
+Very common in React!
+
+
+```
+function displayInfo(obj) {
+    return [obj.name, obj.favColor];
+}
+var instructor = { 
+    name: "Elie",
+    favColor: "Purple"
+};
+
+displayInfo(instructor); // ["Elie", "Purple"]
+```
+
+default value `{}` is required otherwise Uncaught TypeError: Cannot destructure property `name` of 'undefined' or 'null' if `displayInfo()
+` is called.
+
+```
+function displayInfo({name, favColor}={}){
+    return [name, favColor];
+}
+```
+
+### Array Destructuring
+
+```
+var arr = [1,2,3];
+
+var a = arr[0];
+var b = arr[1]; 
+var c = arr[2];
+
+a; // 1
+b; // 2
+c; // 3
+```
+
+```
+var [a,b,c] = arr;
+```
+
+```
+function returnNumbers(a,b) {
+  return [a,b];
+}
+
+var first = returnNumbers(5,10)[0];
+var second = returnNumbers(5,10)[1];
+
+first; // 5
+second; // 10
+```
+
+```
+var [first, second] = returnNumbers(5, 10);
+```
+
+### Swapping Values with array destructuring
+
+Don't have to use `tmp`.
+
+```
+function reverseArray(arr){
+    for(var i=0; i<arr.length/2; i++){
+        var tmp = arr[i];
+        arr[i] = arr[arr.length-1-i];
+        arr[arr.length-1-i] = tmp;
+    }
+    return arr;
+}
+```
+
+```
+function reverseArray(arr){
+    for(var i=0; i<arr.length/2; i++){
+        [arr[i], arr[arr.length-1-i]] = [arr[arr.length-1-i], arr[i]];
+    }
+    return arr;
+}
+```
+
+### Refactor tips with ES 2015
+
+1. Won't be changed word, use const
+2. use let in loops
+3. Use template strings instead of string
+4. Refactor callback to arrow function
+5. Change short function to one-line arrow function
+6. Use `let` for arrow function declaration, to avoid function accidental override.
+6. Other variables not mentioned, just use `var`
+
+### `class` keyword
+
+1. A new reserved keyword provided by ES2015
+2. The class keyword creates a constant - can not be redeclared, but can be re-assigned
+3. The class keyword is an abstraction of constructor functions and prototypes. JavaScript does not have built in support for object oriented programming. Under the hood, we are still using the functions and prototypes like we use them in ES5. ES2015 class syntax is an abstraction of using functions and objects!
+4. The class keyword does not hoist
+5. Still use `new` keyword to create objects
+
+#### ES5 Object Oriented
+
+```
+function Student(firstName, lastName){
+    this.firstName = firstName;
+    this.lastName = lastName;
+}
+
+var elie = new Student('Elie', 'Schoppik');
+```
+
+create a constructor function
+use the new keyword to create objects
+
+#### ES2015 Object Oriented
+
+```
+class Student { 
+    constructor(firstName, lastName){
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+}
+
+var elie = new Student('Elie', 'Schoppik'); // same as ES5
+```
+
+1. use the `class` keyword instead of creating a function
+2. inside, use a special method `constructor` which is run when `new` is used
+3. use the `new` keyword to create objects
+
+#### ES5 Instance Methods
+
+```
+function Student(firstName, lastName){
+    this.firstName = firstName;
+    this.lastName = lastName;
+}
+
+Student.prototype.sayHello = function(){
+    return "Hello " + this.firstName + " " + this.lastName;
+}
+```
+
+Shared methods and properties are placed directly on the function's `prototype` property
+
+#### ES2015 Instance Methods
+
+```
+class Student { 
+    constructor(firstName, lastName){
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+    sayHello(){
+        return `Hello ${this.firstName} ${this.lastName}`;
+    }
+}
+```
+
+placed inside of `class` keyword
+no `function` keyword - similar to `object shorthand notation`
+***under the hood*** it is placing methods on the prototype object
+
+#### ES5 Class Methods
+
+```
+function Student(firstName, lastName){
+    this.firstName = firstName;
+    this.lastName = lastName;
+}
+
+Student.prototype.sayHello = function(){
+    return "Hello " + this.firstName + " " + this.lastName;
+}
+
+Student.isStudent = function(obj){
+    return obj.constructor === Student;
+}
+```
+
+Class methods are placed directly on the constructor function
+
+#### ES2015 Class Methods(aka static methods)
+
+```
+class Student { 
+    constructor(firstName, lastName){
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+    sayHello(){
+        return `Hello ${this.firstName} ${this.lastName}`;
+    }
+    static isStudent(obj){
+        return obj.constructor === Student;
+    }
+}
+```
+
+Class methods are created using the `static` keyword
+
+### Inheritance
+
+Passing along methods and properties from one class to another
+
+#### ES5 Inheritance
+
+```
+function Person(firstName, lastName){
+    this.firstName = firstName;
+    this.lastName = lastName;
+}
+
+Person.prototype.sayHello(){
+    return "Hello " +  this.firstName + " " + this.lastName;
+}
+
+function Student(firstName, lastName){
+    this.firstName = firstName;
+    this.lastName = lastName;
+}
+Student.prototype = Object.create(Person.prototype);
+Student.prototype.constructor = Student;
+```
+
+Set the prototype property of a constructor to be an object created from another prototype property
+
+Reset the constructor property on a constructor function
+
+#### ES2015 Inheritance
+
+Use the `extends` keyword
+
+```
+class Person {
+    constructor(firstName, lastName){
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+    sayHello(){
+        return `Hello ${this.firstName} ${this.lastName}`;
+    }
+}
+
+class Student extends Person { 
+
+}
+```
+
+### super keyword
+
+#### ES5 use `apply`
+
+
+```
+function Person(firstName, lastName){
+    this.firstName = firstName;
+    this.lastName = lastName;
+}
+
+Person.prototype.sayHello(){
+    return "Hello " +  this.firstName + " " + this.lastName;
+}
+
+function Student(){
+    Person.apply(this, arguments);
+}
+```
+
+Use call or apply in a constructor function - apply is handy when there are many arguments
+
+#### ES2015 - super
+
+```
+class Person {
+    constructor(firstName, lastName){
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+    sayHello(){
+        return `Hello ${this.firstName} ${this.lastName}`;
+    }
+}
+class Student extends Person { 
+    constructor(firstName, lastName){
+        // use super to call constructor in parent class Person
+        super(firstName, lastName);
+    }
+}
+```
+
+`super` can only be used if a method by the same name is implemented in the parent class.
+
+### Map
+
+Also called "hash maps" in other languages
+
+Until ES2015 - objects `{}` were replacements for maps. In object, key is always ***string***.
+
+Maps is similar to objects, except the keys can be ***ANY data type***!
+
+Created using the `new` keyword
+
+```
+var firstMap = new Map;
+
+firstMap.set(1, 'Elie');
+firstMap.set(false, 'a boolean');
+firstMap.set('nice', 'a string');
+firstMap.delete('nice'); // true
+firstMap.size; // 2
+```
+
+Keys can be any type!
+
+```
+var arrayKey = [];
+firstMap.set(arrayKey, [1,2,3,4,5]);
+
+var objectKey = {};
+firstMap.set(objectKey, {a:1});
+```
+
+#### Extracting Values
+
+```
+firstMap.get(1); // 'Elie'
+firstMap.get(false); // 'a boolean'
+firstMap.get(arrayKey); // [1,2,3,4,5]
+firstMap.get(objectKey); // {a:1}
+```
+
+#### iterate value over the map - forEach
+
+```
+firstMap.forEach(v => console.log(v));
+
+// Elie
+// a boolean
+// [1,2,3,4,5]
+// {a:1}
+```
+
+#### iterate value over the map - for...of 
+
+maps implement a `Symbol.iterator` which means we can use a for...of loop!
+
+```
+for(let i of firstMap){
+    console.log(i);
+}
+//(2) [1, "Elie"]
+//(2) [false, "a boolean"]
+//(2) [Array(0), Array(5)]
+//(2) [{…}, {…}]
+```
+
+```
+firstMap.values(); // MapIterator of values
+firstMap.keys(); // MapIterator of keys
+```
+
+```
+for(let i of firstMap.keys()){
+    console.log(i);
+}
+//1
+//false
+//[]
+//{}
+```
+
+```
+for(let i of firstMap.values()){
+    console.log(i);
+}
+//Elie
+//a boolean
+//(5) [1, 2, 3, 4, 5]
+//{a: 1}
+```
+
+#### Accessing keys and values in a map
+
+we can access everything with .entries() and destructuring!
+
+```
+var m = new Map;
+m.set(1, 'Elie');
+m.set(2, 'Colt');
+m.set(3, 'Tim');
+
+for(let [key,value] of m.entries()){
+    console.log(key, value);
+}
+
+// 1 "Elie"
+// 2 "Colt"
+// 3 "Tim"
+```
+
+Each entry in `m.entries()` is an Array, so we can use array destructuring after for of.
+
+#### Why use maps?
+
+Finding the size is easy  - no more loops or Object.keys()
+
+The keys can be any data type!
+
+You can accidentally overwrite keys on the Object.prototype in an object you make - maps do not have that issue
+
+Iterating over keys and values in a map is quite easy as well
+
+#### When to use a map
+If you need to look up keys dynamically (they are not hard coded strings), like `person[prop]` in object.
+If you need keys that are not strings!
+If you are frequently adding and removing key/value pairs
+Are key-value pairs frequently added or removed?
+If you are operating on multiple keys at a time
+
+### WeakMap
+Similar to a map, but all keys MUST be objects
+
+Values in a WeakMap can be cleared from memory if there is no reference to them
+
+More performant than maps, but can not be iterated over
+
+### Set
+
+All values in a set are ***unique***
+
+***Any type of value*** can exist in a set
+
+Created using the `new` keyword
+
+Exist in quite a few other languages, ES2015 finally brings them to JavaScript
+
+
+```
+var s = new Set;
+
+// can also be created from an array
+var s2 = new Set([3,1,4,1,2,1,5]); // {3,1,4,2,5}, s2.size === 5
+```
+
+But `s2.add([1,2,3])` will only add an Array to s2, not every number added to s2 seperately.
+
+```
+s.add(10); // {10}
+s.add(20); // {20, 10}
+s.add(10); // {20, 10}
+
+s.size; // 2
+```
+
+```
+s.has(10); // true
+
+s.delete(20); // true
+
+s.size; // 1
+```
+
+```
+s2[Symbol.iterator]; // function(){}...
+// we can use a for...of loop!
+```
+
+### WeakSet
+
+Similar to a set, but all values MUST be objects
+
+Values in a WeakSet can be cleared from memory if there is no reference to them
+
+More performant than sets, but can not be iterated over
+
+### countPairs
+
+Write a function called countPairs which accepts an array of numbers and a number. The function should return the number of unique pairs (two numbers) that sum up to the number passed to the function.
+
+```
+function countPairs(arr, num){
+    var set = new Set();
+    var count = 0;
+    for(var i=0; i<arr.length; i++){
+        if(set.has(num-arr[i])){
+            count++;
+            set.delete(num-arr[i]);
+        }else{
+            set.add(arr[i]);
+        }
+    }
+    return count;
+}
+```
+
+### Generators
+A special kind of function which can pause execution and resume at any time
+Created using a `*` after `function` keyword
+When a generator function invoked, a `generator object` is returned to us, that  `generator object` has a `next` method, which returns another object to us if invoked with the property of `value` and `done`.
+`value` is what is returned from the paused function using the `yield` keyword
+`done` is a boolean which returns true when the function has completed
+
+```
+function* pauseAndReturnValues(num){
+    for(let i = 0; i < num; i++){
+        yield i;
+    }
+}
+var gen = pauseAndReturnValues(5);
+gen.next(); // {value: 0, done: false}, from yield i
+gen.next(); // {value: 1, done: false}
+gen.next(); // {value: 2, done: false}
+gen.next(); // {value: 3, done: false}
+gen.next(); // {value: 4, done: false}
+gen.next(); // {value: undefined, done: true}
+```
+
+#### Yield Multiple Values
+
+We can place multiple yield keywords inside of a generator function to pause multiple times!
+
+
+
+```
+function* printValues(){
+    yield "First";
+    yield "Second";
+    yield "Third";
+}
+
+var g = printValues();
+g.next(); // {value: "First", done: false}
+g.next(); // {value: "Second", done: false}
+g.next(); // {value: "Third", done: false}
+g.next(); //{value: undefined, done: true}
+```
+
+### Iterating over a generator
+Since generators implement a Symbol.iterator property we can use a for...of loop!
+
+```
+function* pauseAndReturnValues(num){
+    for(let i = 0; i < num; i++){
+        yield i;
+    }
+}
+for(let val of pauseAndReturnValues(3)){
+    console.log(val);
+}
+// 0
+// 1
+// 2
+```
+
+```
+function* pauseAndReturnValues(num){
+    yield "First";
+    yield "Second";
+    yield "Third";
+}
+for(let val of pauseAndReturnValues(3)){
+    console.log(val);
+}
+//First
+//Second
+//Third
+```
+
+### Async Generators
+
+We can use generators to pause asynchronous code.
+
+The next().value returned is a `promise`.
+
+
+```
+function* getMovie(title){
+    yield $.getJSON(`https://omdbapi.com?t=${title}&apikey=thewdb`);
+}
+getMovie("titanic").next().value.then(data => console.log(data));
+//{Title: "Titanic", Year: "1997", Rated: "PG-13", Released: "19 Dec 1997", Runtime: "194 min", …}
+```
+
+Since titanic and colt are async, not sure which one comes first, but 1 is sure to come first.
+
+```
+function* getData(){
+    yield $.getJSON("https://omdbapi.com?t=$titanic&apikey=thewdb");
+    yield $.getJSON("https://api.github.com/users/colt");
+    yield 1;
+}
+var gen = getData();
+gen.next().value.then(data => console.log(data));
+gen.next().value.then(data => console.log(data));
+console.log(gen.next().value);
+```
+
+### Object.assign
+
+Create shallow copies of objects.
+
+```
+// ES5
+var o = {name: "Elie"};
+var o2 = o;
+o2.name = "Tim";
+o.name; // "Tim"
+```
+
+`{}` is an empty object.
+
+```
+// ES2015
+var o = {name: "Elie"};
+var o2 = Object.assign({},o);
+o2.name = "Tim";
+o.name; // "Elie"
+```
+
+Although o and o2 are two different objects, `o.instructors === o2.instructors`
+
+```
+// ES2015
+var o = {instructors: ["Elie", "Tim"]};
+var o2 = Object.assign({},o);
+o2.instructors.push("Colt");
+o.instructors; // ["Elie", "Tim", "Colt"];
+```
+
+### Array.from
+
+```
+// ES5
+
+var divs = document.getElementsByTagName("div"); // returns an array-like-object
+
+divs.reduce // undefined, since it is not an actual array
+```

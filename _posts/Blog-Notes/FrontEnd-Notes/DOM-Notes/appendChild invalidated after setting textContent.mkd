@@ -1,0 +1,32 @@
+# appendChild invalidated after setting textContent
+
+## Details
+
+```
+var li = document.createElement("li");
+li.setAttribute("id", task.id);
+var trashIcon = document.createElement("i");
+trashIcon.classList.add("far");
+trashIcon.classList.add("fa-trash-alt");
+li.appendChild(trashIcon);
+li.textContent += task.name;
+ulDisplay.appendChild(li);
+```
+
+## Reason
+
+Setting this `textContent` on a node removes all of its children and replaces them with a single text node with the given value, then child `<i class="far fa-trash-alt"></i>` of `li` will be replaced.
+
+## Solution
+
+```
+li.innerHTML += task.name;
+```
+
+instead of
+
+```
+li.textContent += task.name;
+```
+
+So that `<i class="far fa-trash-alt"></i>` remains, and `task.name` is properly appended to the right of `i`.
