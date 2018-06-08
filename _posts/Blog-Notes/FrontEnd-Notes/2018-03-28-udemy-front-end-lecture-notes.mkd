@@ -7767,4 +7767,4 @@ o.instructors; // ["Elie", "Tim", "Colt"];
 var divs = document.getElementsByTagName("div"); // returns an array-like-object
 
 divs.reduce // undefined, since it is not an actual array
-```
+``` 
