@@ -9,13 +9,20 @@ cover:
 ## Rule
 
 ```
-svn export https://github.com/PROJECT/trunk/PATH LOCAL-DEST
+svn export https://github.com/USERNAME/PROJECTNAME/trunk/PATH-LOCAL-DEST
 ```
 
 
 ## Exapmle
 
+The real address:
 
 ```
-svn export https://github.com/justACT/griffin-profile-enum/trunk/sample enum-profing-sample
+https://github.com/jonobr1/Neuronal-Synchrony/tree/master/assets/A
+```
+
+SVN command:
+
+```
+svn export https://github.com/jonobr1/Neuronal-Synchrony/trunk/assets/A
 ```
