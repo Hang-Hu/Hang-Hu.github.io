@@ -1,0 +1,79 @@
+# Uncaught Error: Target container is not a DOM element.
+
+## Details
+
+`index.html`
+
+```
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Hello React and Typescript</title>
+        <script src="./node_modules/react/umd/react.development.js"></script>
+        <script src="./node_modules/react-dom/umd/react-dom.development.js"></script>
+        <script src="./dist/bundle.js"></script>
+    </head>
+    <body>
+        <div id="example"></div>
+    </body>
+</html>
+```
+
+`index.tsx`
+
+```
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+
+import { Hello } from './components/Hello';
+
+ReactDOM.render(
+    <Hello compiler="Typescript" framework="React"/>,
+    document.querySelector("example")
+);
+```
+
+## Reason
+
+`ReactDOM.render` happens before DOM is built because `script` is placed in `head`.
+
+## Solution 1 - put script in the end of body
+
+Put script in the end of `body` to make sure DOM is loaded before Javascript execution.
+
+```
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Hello React!</title>
+    </head>
+    <body>
+        <div id="example"></div>
+
+        <!-- Dependencies -->
+        <script src="./node_modules/react/umd/react.development.js"></script>
+        <script src="./node_modules/react-dom/umd/react-dom.development.js"></script>
+
+        <!-- Main -->
+        <script src="./dist/bundle.js"></script>
+    </body>
+</html>
+```
+
+## Solution 2 - use `window.addEventListener("load", init)`
+
+```
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+
+import { Hello } from './components/Hello';
+
+window.addEventListener("load", init);
+
+function init() {
+    ReactDOM.render(
+        <Hello compiler="Typescript" framework="React" />,
+        document.querySelector("#example")
+    );
+}
+```
