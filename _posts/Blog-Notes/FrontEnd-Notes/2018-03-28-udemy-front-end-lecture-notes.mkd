@@ -1146,6 +1146,17 @@ clearInterval(intervalId);
 
 Shift+Enter in chrome console
 
+## Function
+
+```
+// Named function
+function add(x, y) {
+    return x + y;
+}
+// Anonymous function
+let myAdd = function(x, y) { return x + y; };
+```
+
 ## Anonymous function
 
 ```
@@ -1249,6 +1260,7 @@ console.log(fruits);
 
 Variables in JavaScript are declared without a type. In fact, we can assign a number to a variable, and then later assign a string to the same variable.
 
+```
 var myStuff;
 myStuff = 1;
 myStuff = "hi";
@@ -1281,7 +1293,7 @@ var duck = "Donald Duck";
 for (var i = 0; i < duck.length; i++) {
     console.log("Element #" + i + ": " + duck[i]);
 }
-
+```
 
 ## Loop
 
@@ -6730,6 +6742,76 @@ Instructor.prototype.sayHi = function(){
 };
 ```
 
+### Arrow functions capture `this` where the function is created than invoked
+
+```
+let deck = {
+    suits: ["hearts", "spades", "clubs", "diamonds"],
+    cards: Array(52),
+    createCardPicker: function() {
+        return function() {
+            let pickedCard = Math.floor(Math.random() * 52);
+            let pickedSuit = Math.floor(pickedCard / 13);
+
+            return {suit: this.suits[pickedSuit], card: pickedCard % 13};
+        }
+    }
+}
+
+let cardPicker = deck.createCardPicker();
+let pickedCard = cardPicker();
+
+alert("card: " + pickedCard.card + " of " + pickedCard.suit);
+```
+
+```
+Uncaught TypeError: Cannot read property '3' of undefined
+```
+
+Because cardPicker runs outside, and `this` refers to window or undefined if `use strict`.
+
+Use `bind` to change this in the returned function.
+
+```
+var deck = {
+    suits: ["hearts", "spades", "clubs", "diamonds"],
+    cards: Array(52),
+    createCardPicker: function () {
+        return (function () {
+            var pickedCard = Math.floor(Math.random() * 52);
+            var pickedSuit = Math.floor(pickedCard / 13);
+            return { suit: this.suits[pickedSuit], card: pickedCard % 13 };
+        }).bind(this);
+    }
+};
+var cardPicker = deck.createCardPicker();
+var pickedCard = cardPicker();
+alert("card: " + pickedCard.card + " of " + pickedCard.suit);
+```
+
+Or use arrow function to capture `this` where the function is created than invoked.
+
+```
+let deck = {
+    suits: ["hearts", "spades", "clubs", "diamonds"],
+    cards: Array(52),
+    createCardPicker: function() {
+        // NOTE: the line below is now an arrow function, allowing us to capture 'this' right here
+        return () => {
+            let pickedCard = Math.floor(Math.random() * 52);
+            let pickedSuit = Math.floor(pickedCard / 13);
+
+            return {suit: this.suits[pickedSuit], card: pickedCard % 13};
+        }
+    }
+}
+
+let cardPicker = deck.createCardPicker();
+let pickedCard = cardPicker();
+alert("card: " + pickedCard.card + " of " + pickedCard.suit);
+```
+
+
 #### Why should we use both the function keyword and an arrow function
 
 If we use two arrow functions, the sayHi function will not have its own keyword `this` - and the keyword this will refer to the ***enclosing context*** -- `window`.
@@ -6836,6 +6918,16 @@ function add(a=10, b=20){
 }
 add();
 //30
+```
+
+A parameter will be assigned if the user ***does not provide one***, or if the user ***passes undefined*** in its place.
+
+```
+function buildName(firstName, lastName = "Smith") {
+    return firstName + " " + lastName;
+}
+buildName();//"undefined Smith"
+buildName("Bob", undefined);//"Bob Smith"
 ```
 
 ### For...of loop
@@ -7544,6 +7636,8 @@ class Student {
 }
 
 var elie = new Student('Elie', 'Schoppik'); // same as ES5
+typeof Student; //"function"
+typeof elie; //"object"
 ```
 
 1. use the `class` keyword instead of creating a function
