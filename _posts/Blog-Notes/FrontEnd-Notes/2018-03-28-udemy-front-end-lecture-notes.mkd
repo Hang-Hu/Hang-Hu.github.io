@@ -6144,7 +6144,16 @@ function handleGreenBoxMouseMove(mousemoveEventObj){
 ```
 
 
-### const vs var
+### const
+
+`const` are like let declarations(block-scope, can't be re-declared) but, as their name implies, their value cannot be changed once they are bound. 
+
+```
+{
+    const x=1;
+}
+console.log(x);//Uncaught ReferenceError: x is not defined
+```
 
 ```
 var name = "Colt";
@@ -6165,6 +6174,27 @@ Can change content inside any object, but can't change primitive. Because if arr
 const arr = [1,3,1];
 arr.push(10);
 console.log(arr);//(4) [1, 3, 1, 10]
+```
+
+Unless you take specific measures to avoid it, the internal state of a const variable is still modifiable. Fortunately, TypeScript allows you to specify that members of an object are readonly. The chapter on Interfaces has the details.
+
+```
+const numLivesForCat = 9;
+const kitty = {
+    name: "Aurora",
+    numLives: numLivesForCat,
+}
+
+kitty = {
+    name: "Danielle",
+    numLives: numLivesForCat
+};//Uncaught TypeError: Assignment to constant variable.
+
+// all "okay"
+kitty.name = "Rory";
+kitty.name = "Kitty";
+kitty.name = "Cat";
+kitty.numLives--;//8
 ```
 
 ### difference between var and Java's int/double/boolean/etc
@@ -6341,6 +6371,13 @@ var catName = function(name) {
 
 `let` does hoist, but we cannot access the value because it's in a Temporal Dead Zone(TDZ).
 
+Another property of block-scoped variables is that they can’t be read or written to before they’re actually declared. While these variables are “present” throughout their scope, all points up until their declaration are part of their temporal dead zone. This is just a sophisticated way of saying you can’t access them before the let statement, and luckily TypeScript will let you know that.
+
+```
+a++; // illegal to use 'a' before it's declared;
+let a;
+```
+
 ```
 function hello(){
     return elie;
@@ -6350,6 +6387,39 @@ hello();//Uncaught ReferenceError: elie is not defined
 ```
 
 ### Block scope with `let`: Usage
+
+When a variable is declared using let, it uses what some call lexical-scoping or block-scoping. Unlike variables declared with var whose scopes leak out to their containing function, block-scoped variables are not visible outside of their nearest containing block or for-loop.
+
+```
+function f(input: boolean) {
+    let a = 100;
+
+    if (input) {
+        // Still okay to reference 'a'
+        let b = a + 1;
+        return b;
+    }
+
+    // Error: 'b' doesn't exist here
+    return b;
+}
+```
+
+Here, we have two local variables a and b. a’s scope is limited to the body of f while b’s scope is limited to the containing if statement’s block.
+
+Variables declared in a catch clause also have similar scoping rules.
+
+```
+try {
+    throw "oh no!";
+}
+catch (e) {
+    console.log("Oh well.");
+}
+
+// Error: 'e' doesn't exist here
+console.log(e);
+```
 
 Useful in async environment.
 
@@ -6361,6 +6431,10 @@ for(var i=0; i<5; i++){
 }
 // 5 (five times)
 ```
+
+A common work around is to use an IIFE - an Immediately Invoked Function Expression - to capture i at each iteration.
+
+This odd-looking pattern is actually pretty common. The i in the parameter list actually shadows the i declared in the for loop, but since we named them the same, we didn’t have to modify the loop body too much.
 
 ```
 for(var i=0; i<5; i++){
@@ -6377,7 +6451,30 @@ for(var i=0; i<5; i++){
 // 4
 ```
 
-Or use `let` to ultilize block scope, each setTimeout uses `i` in its own block scope.
+#### Block-scoped variable capturing
+
+When we first touched on the idea of variable capturing with var declaration, we briefly went into how variables act once captured. To give a better intuition of this, each time a scope is run, it creates an “environment” of variables. That environment and its captured variables can exist even after everything within its scope has finished executing.
+
+```
+function theCityThatAlwaysSleeps() {
+    let getCity;
+
+    if (true) {
+        let city = "Seattle";
+        getCity = function() {
+            return city;
+        }
+    }
+
+    return getCity();
+}
+```
+
+Because we’ve captured city from within its environment, we’re still able to access it despite the fact that the if block finished executing.
+
+Recall that with our earlier setTimeout example, we ended up needing to use an IIFE to capture the state of a variable for every iteration of the for loop. In effect, what we were doing was ***creating a new variable environment for our captured variables***. That was a bit of a pain, but luckily, you’ll never have to do that again in TypeScript.
+
+let declarations have drastically different behavior when declared as part of a loop. Rather than just introducing a new environment to the loop itself, these declarations sort of create a new scope per iteration. Since this is what we were doing anyway with our IIFE, we can change our old setTimeout example to just use a let declaration. Each setTimeout uses `i` in its own block scope.
 
 ```
 for(let i=0; i<5; i++){
@@ -6391,6 +6488,48 @@ for(let i=0; i<5; i++){
 // 3
 // 4
 ```
+
+### Shadowing
+
+The act of introducing a new name in a more nested scope is called `shadowing`.
+
+
+```
+function f(con, x) {
+    if(con){
+        let x=100;
+        console.log(x);
+    }
+    console.log(x);
+}
+```
+
+```
+
+f(true, 1);
+//100
+//1
+
+f(false, 1);
+//1
+```
+
+Shadowing is a bit of a double-edged sword in that it can introduce certain bugs on its own in the event of accidental shadowing, while also preventing certain bugs. For instance, imagine we had written our earlier sumMatrix function using let variables.
+
+```
+function sumMatrix(matrix: number[][]) {
+    let sum = 0;
+    for (let i = 0; i < matrix.length; i++) {
+        var currentRow = matrix[i];
+        for (let i = 0; i < currentRow.length; i++) {
+            sum += currentRow[i];
+        }
+    }
+    return sum;
+}
+```
+
+Shadowing should usually be avoided in the interest of writing clearer code. While there are some scenarios where it may be fitting to take advantage of it, you should use your best judgement.
 
 ### Template Strings
 
@@ -6789,6 +6928,16 @@ var add = (...args) => args.reduce((acc, val) => acc + val);
 
 ### Spread Operator
 
+The spread operator is the opposite of destructuring. It allows you to spread an array into another array, or an object into another object. For example:
+
+```
+let first = [1, 2];
+let second = [3, 4];
+let bothPlus = [0, ...first, ...second, 5];
+```
+
+This gives bothPlus the value [0, 1, 2, 3, 4, 5]. Spreading creates a shallow copy of first and second. They are not changed by the spread.
+
 Spread each value in ***array*** to a ***comma separated value***.
 
 ```
@@ -6825,6 +6974,42 @@ var nums = [12,15,20];
 sumValues.apply(this, nums); // 47
 // ES2015
 sumValues(...nums); // 47
+```
+
+#### Object spread
+
+```
+let defaults = { food: "spicy", price: "$$", ambiance: "noisy" };
+let search = { ...defaults, food: "rich" };
+console.log(search);//{food: "rich", price: "$$", ambiance: "noisy"}
+```
+
+Now search is { food: "rich", price: "$$", ambiance: "noisy" }. Object spreading is more complex than array spreading. Like array spreading, it proceeds from left-to-right, but the result is still an object. This means that properties that come later in the spread object overwrite properties that come earlier. So if we modify the previous example to spread at the end:
+
+```
+let defaults = { food: "spicy", price: "$$", ambiance: "noisy" };
+let search = { food: "rich", ...defaults };
+console.log(search);//{food: "spicy", price: "$$", ambiance: "noisy"}
+```
+
+Object spread also has a couple of other surprising limits. First, it only includes an objects’ own, enumerable properties. Basically, that means you lose methods when you spread instances of an object:
+
+```
+class C {
+    constructor(p){
+        this.p = p;
+    }
+    m(){
+    }
+}
+let c = new C();
+let clone = { ...c };
+
+c.m(); // ok
+c.p; // ok
+
+clone.p; // ok
+clone.m(); // Uncaught TypeError: clone.m is not a function
 ```
 
 ### Coding Exercise - Rest and Spread Exercises
@@ -7071,11 +7256,65 @@ Omit repeated firstName, lastName and `:` like `Object Shorthand Notation`.
 var {firstName, lastName} = instructor;
 ```
 
-Use different variables rather than firstName and lastName.
+### Property renaming
+
+You can also give different names to properties:
+
+```
+let o = {
+    a: "foo",
+    b: 12,
+    c: "bar"
+};
+let { a: newName1, b: newName2 } = o;
+```
+
+Here the syntax starts to get confusing. You can read a: newName1 as “a as newName1”. The direction is left-to-right, as if you had written:
+
+```
+let newName1 = o.a;
+let newName2 = o.b;
+```
+
+Another example:
 
 ```
 var {firstName:first, lastName:last} = instructor;
 ```
+
+
+
+### ignore some element
+
+This creates new variables a and b from o.a and o.b. Notice that you can skip c if you don’t need it.
+
+```
+let o = {
+    a: "foo",
+    b: 12,
+    c: "bar"
+};
+let { a, b } = o;
+console.log(a);//foo
+console.log(b);//12
+```
+
+Like array destructuring, you can have assignment without declaration:
+
+```
+({ a, b } = { a: "baz", b: 101 });
+```
+
+Notice that we had to surround this statement with `parentheses`. JavaScript normally parses a `{` as the start of block.
+
+You can create a variable for the remaining items in an object using the syntax `...`:
+
+```
+let { a, ...passthrough } = o;
+console.log(passthrough);//{b: 12, c: "bar"}
+```
+
+
 
 ### Object Destructuring Usage
 
@@ -7130,7 +7369,6 @@ function createInstructor({name={first: "Matt", last: "Lane"}, isHilarious=false
 
 Very common in React!
 
-
 ```
 function displayInfo(obj) {
     return [obj.name, obj.favColor];
@@ -7151,6 +7389,27 @@ function displayInfo({name, favColor}={}){
     return [name, favColor];
 }
 ```
+
+### Default value
+
+```
+function keepWholeObject(wholeObject) {
+    let { a, b = 1001 } = wholeObject;
+    console.log(a, b);
+}
+keepWholeObject({});//undefined 1001
+```
+
+```
+function f({ a, b = 0 } = { a: "a" }) {
+    console.log(a, b);
+}
+f({ a: "yes" }); // yes 0
+f(); // a 0
+f({}); // undefined 0
+```
+
+Use destructuring with care. As the previous example demonstrates, anything but the simplest destructuring expression is confusing. This is especially true with deeply nested destructuring, which gets really hard to understand even without piling on renaming, default values, and type annotations. Try to keep destructuring expressions small and simple. You can always write the assignments that destructuring would generate yourself.
 
 ### Array Destructuring
 
@@ -7186,7 +7445,7 @@ second; // 10
 var [first, second] = returnNumbers(5, 10);
 ```
 
-### Swapping Values with array destructuring
+#### Swapping Values with array destructuring
 
 Don't have to use `tmp`.
 
@@ -7209,6 +7468,38 @@ function reverseArray(arr){
     return arr;
 }
 ```
+
+#### And with parameters to a function
+
+```
+function f([first, second]) {
+    console.log(first);
+    console.log(second);
+}
+f([1, 2]);
+```
+
+#### With rest operator
+
+```
+let [first, ...rest] = [1, 2, 3, 4];
+console.log(first); // outputs 1
+console.log(rest); // outputs [ 2, 3, 4 ]
+```
+
+#### Ignore trailing elements
+
+```
+let [first] = [1, 2, 3, 4];
+console.log(first); // 1
+```
+
+```
+let [, second, , fourth] = [1, 2, 3, 4];
+console.log(second);//2
+console.log(fourth);//4
+```
+
 
 ### Refactor tips with ES 2015
 

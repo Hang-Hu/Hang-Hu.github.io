@@ -337,5 +337,999 @@ Ideally, we’d just import the React module from within the browser, but most b
 webpack
 ```
 
+## Boolean
+
+```
+let isDone: boolean = false;
+```
+
+## Number
+
+```
+let decimal: number = 6;
+let hex: number = 0xf00d;
+let binary: number = 0b1010;
+let octal: number = 0o744;
+```
+
+## String
+
+```
+let color: string = "blue";
+color = 'red';
+```
+
+```
+let fullName: string = `Bob Bobbington`;
+let age: number = 37;
+let sentence: string = `Hello, my name is ${ fullName }.
+
+I'll be ${ age + 1 } years old next month.`;
+```
+
+## Array
+
+```
+let list: number[] = [1, 2, 3];
+
+let list: Array<number> = [1, 2, 3];
+```
+
+## Tuple
+
+```
+let x: [string, number];
+x = ["hello", 10]; // OK
+x = [10, "hello"]; // Error
+console.log(x[0].substr(1)); // OK
+console.log(x[1].substr(1)); // Error, 'number' does not have 'substr'
+```
+
+When accessing an element outside the set of known indices, a union type is used instead:
+
+```
+x[3] = "world"; // OK, 'string' can be assigned to 'string | number'
+console.log(x[5].toString()); // OK, 'string' and 'number' both have 'toString'
+x[6] = true; // Error, 'boolean' isn't 'string | number'
+```
+
+## Enum
+
+```
+enum Color {Red, Green, Blue}
+let c: Color = Color.Green;
+```
+
+By default, enums begin numbering their members starting at 0. You can change this by manually setting the value of one of its members. For example, we can start the previous example at 1 instead of 0:
+
+```
+enum Color {Red = 1, Green, Blue}
+let c: Color = Color.Green;
+```
+
+Or, even manually set all the values in the enum:
+
+```
+enum Color {Red = 1, Green = 2, Blue = 4}
+let c: Color = Color.Green;
+```
+
+```
+enum Color {Red = 1, Green, Blue}
+let colorName: string = Color[2];
+
+alert(colorName); // Displays 'Green' as its value is 2 above
+```
+
+## Any vs Object
+
+```
+let notSure: any = 4;
+notSure = "maybe a string instead";
+notSure = false; // okay, definitely a boolean
+```
+
+The any type is a powerful way to work with existing JavaScript, allowing you to gradually opt-in and opt-out of type-checking during compilation. You might expect Object to play a similar role, as it does in other languages. But variables of type Object only allow you to assign any value to them - you can’t call arbitrary methods on them, even ones that actually exist:
+
+```
+let notSure: any = 4;
+notSure.ifItExists(); // okay, ifItExists might exist at runtime
+notSure.toFixed(); // okay, toFixed exists (but the compiler doesn't check)
+
+let prettySure: Object = 4;
+prettySure.toFixed(); // Error: Property 'toFixed' doesn't exist on type 'Object'.
+```
+
+The any type is also handy if you know some part of the type, but perhaps not all of it. For example, you may have an array but the array has a mix of different types:
+
+```
+let list: any[] = [1, true, "free"];
+
+list[1] = 100;
+
+```
+
+## void
+
+void is a little like the opposite of any: the absence of having any type at all. You may commonly see this as the return type of functions that do not return a value:
+
+```
+function warnUser(): void {
+    alert("This is my warning message");
+}
+```
+
+Declaring variables of type void is not useful because you can only assign undefined or null to them:
+
+```
+let unusable: void = undefined;
+```
+
+## null and undefined
+
+In TypeScript, both undefined and null actually have their own types named undefined and null respectively. Much like void, they’re not extremely useful on their own:
+
+```
+// Not much else we can assign to these variables!
+let u: undefined = undefined;
+let n: null = null;
+```
+
+By default null and undefined are subtypes of all other types. That means you can assign null and undefined to something like number.
+
+However, when using the --strictNullChecks flag, null and undefined are only assignable to void and their respective types. This helps avoid many common errors. In cases where you want to pass in either a string or null or undefined, you can use the union type string | null | undefined. Once again, more on union types later on.
+
+As a note: we encourage the use of --strictNullChecks when possible, but for the purposes of this handbook, we will assume it is turned off.
+
+## never
+
+The never type represents the type of values that never occur. For instance, never is the return type for a function expression or an arrow function expression that always throws an exception or one that never returns; Variables also acquire the type never when narrowed by any type guards that can never be true.
+
+The never type is a subtype of, and assignable to, every type; however, no type is a subtype of, or assignable to, never (except never itself). Even any isn’t assignable to never.
+
+Some examples of functions returning never:
+
+```
+// Function returning never must have unreachable end point
+function error(message: string): never {
+    throw new Error(message);
+}
+
+// Inferred return type is never
+function fail() {
+    return error("Something failed");
+}
+
+// Function returning never must have unreachable end point
+function infiniteLoop(): never {
+    while (true) {
+    }
+}
+```
+
+## Object
+
+object is a type that represents the non-primitive type, i.e. any thing that is not number, string, boolean, symbol, null, or undefined.
+
+With object type, APIs like Object.create can be better represented. For example:
+
+```
+declare function create(o: object | null): void;
+
+create({ prop: 0 }); // OK
+create(null); // OK
+
+create(42); // Error
+create("string"); // Error
+create(false); // Error
+create(undefined); // Error
+```
+
+## Type assertions
+
+Sometimes you’ll end up in a situation where you’ll know more about a value than TypeScript does. Usually this will happen when you know the type of some entity could be more specific than its current type.
+
+Type assertions are a way to tell the compiler “trust me, I know what I’m doing.” A type assertion is like a type cast in other languages, but performs no special checking or restructuring of data. It has no runtime impact, and is used purely by the compiler. TypeScript assumes that you, the programmer, have performed any special checks that you need.
+
+Type assertions have two forms. One is the “angle-bracket” syntax:
+
+```
+let someValue: any = "this is a string";
+
+let strLength: number = (<string>someValue).length;
+```
+
+And the other is the as-syntax:
+
+```
+let someValue: any = "this is a string";
+
+let strLength: number = (someValue as string).length;
+```
+
+The two samples are equivalent. Using one over the other is mostly a choice of preference; however, when using TypeScript with JSX, only as-style assertions are allowed.
+
+## A note about let
+
+You may’ve noticed that so far, we’ve been using the let keyword instead of JavaScript’s var keyword which you might be more familiar with. The let keyword is actually a newer JavaScript construct that TypeScript makes available. We’ll discuss the details later, but many common problems in JavaScript are alleviated by using let, so you should use it instead of var whenever possible.
+
+## var Scoping rules
+
+```
+function f(shouldInitialize: boolean) {
+    if (shouldInitialize) {
+        var x = 10;
+    }
+
+    return x;
+}
+
+f(true);  // returns '10'
+f(false); // returns 'undefined'
+```
+
+Some readers might do a double-take at this example. The variable x was declared within the if block, and yet we were able to access it from outside that block. That’s because var declarations are accessible anywhere within their containing function, module, namespace, or global scope - all which we’ll go over later on - regardless of the containing block. Some people call this var-scoping or function-scoping. Parameters are also function scoped.
+
+Some readers might do a double-take at this example. The variable x was declared within the if block, and yet we were able to access it from outside that block. That’s because var declarations are accessible anywhere within their containing function, module, namespace, or global scope - all which we’ll go over later on - regardless of the containing block. Some people call this var-scoping or function-scoping. Parameters are also function scoped.
+
+```
+function sumMatrix(matrix: number[][]) {
+    var sum = 0;
+    for (var i = 0; i < matrix.length; i++) {
+        var currentRow = matrix[i];
+        for (var i = 0; i < currentRow.length; i++) {
+            sum += currentRow[i];
+        }
+    }
+
+    return sum;
+}
+```
+
+Maybe it was easy to spot out for some, but the inner for-loop will accidentally overwrite the variable i because i refers to the same function-scoped variable. As experienced developers know by now, similar sorts of bugs slip through code reviews and can be an endless source of frustration.
+
+Something to note is that you can still capture a block-scoped variable before it’s declared. The only catch is that it’s illegal to call that function before the declaration. If targeting ES2015, a modern runtime will throw an error; however, right now TypeScript is permissive and won’t report this as an error.
+
+```
+function foo() {
+    // okay to capture 'a'
+    return a;
+}
+
+// illegal call 'foo' before 'a' is declared
+// runtimes should throw an error here
+foo();
+
+let a;
+```
+
+## Array destructuring
+
+```
+function f([first, second]: [number, number]) {
+    console.log(first);
+    console.log(second);
+}
+f([1, 2]);
+```
+
+## Object destructuring
+
+```
+let { a, b } = o;
+let { a: newName1, b: newName2 } = o;
+```
+
+Confusingly, the colon here does not indicate the type(it indicates the new name). The type, if you specify it, still needs to be written after the entire destructuring:
+
+```
+let { a, b }: { a: string, b: number } = o;
+```
+
+## Function declarations
+
+```
+type C = { a: string, b?: number }
+function f({ a, b }: C): void {
+    // ...
+}
+```
+
+```
+function f({ a, b = 0 } = { a: "a" }): void {
+    console.log(a, b);
+}
+f({ a: "yes" }); // yes 0
+f(); // a 0
+f({}); // undefined 0
+```
+
+## Spread Operator
+
+The Typescript compiler doesn’t allow spreads of type parameters from generic functions. That feature is expected in future versions of the language.
+
+## Interfaces
+
+One of TypeScript’s core principles is that type-checking focuses on the shape that values have. This is sometimes called “duck typing” or “structural subtyping”. In TypeScript, interfaces fill the role of naming these types, and are a powerful way of defining ***contracts*** ***within*** your code as well as contracts with code ***outside*** of your project.
+
+### First interface
+
+```
+function printLabel(labelledObj: { label: string }) {
+    console.log(labelledObj.label);
+}
+
+let myObj = {size: 10, label: "Size 10 Object"};
+printLabel(myObj);
+```
+
+The type-checker checks the call to printLabel. The printLabel function has a single parameter that requires that the object passed in has a property called label of type string. Notice that our object actually has more properties than this, but the compiler only checks that at least the ones required are present and match the types required. There are some cases where TypeScript isn’t as lenient, which we’ll cover in a bit.
+
+We can write the same example again, this time using an interface to describe the requirement of having the label property that is a string:
+
+```
+interface LabelledValue {
+    label: string;
+}
+
+function printLabel(labelledObj: LabelledValue) {
+    console.log(labelledObj.label);
+}
+
+let myObj = {size: 10, label: "Size 10 Object"};// ok
+printLabel(myObj);
+```
+
+```
+interface LabelledValue {
+    label: string;
+}
+
+function printLabel(labelledObj: LabelledValue) {
+    console.log(labelledObj.label);
+}
+printLabel({size: 10, label: "Size 10 Object"});// Object literal may only specify known properties, and 'size' does not exist in type 'LabelledValue'
+```
+
+The interface LabelledValue is a name we can now use to describe the requirement in the previous example. It still represents having a single property called label that is of type string. Notice we didn’t have to explicitly say that the object we pass to printLabel implements this interface like we might have to in other languages. Here, it’s only the shape that matters. If the object we pass to the function meets the requirements listed, then it’s allowed.
+
+It’s worth pointing out that the type-checker does not require that these properties come in any sort of order, only that the properties the interface requires are present and have the required type.
+
+## Optional Properties
+
+Not all properties of an interface may be required. Some exist under certain conditions or may not be there at all. These optional properties are popular when creating patterns like “option bags” where you pass an object to a function that only has a couple of properties filled in.
+
+Interfaces with optional properties are written similar to other interfaces, with each optional property denoted by a `?` at the end of the property name in the declaration.
+
+```
+interface SquareConfig {
+    color?: string;
+    width?: number;
+}
+
+function createSquare(config: SquareConfig): {color: string; area: number} {
+    let newSquare = {color: "white", area: 100};
+    if (config.color) {
+        newSquare.color = config.color;
+    }
+    if (config.width) {
+        newSquare.area = config.width * config.width;
+    }
+    return newSquare;
+}
+
+let mySquare = createSquare({color: "black"});
+```
+
+The advantage of optional properties is that you can describe these possibly available properties while still also preventing use of properties that are not part of the interface. For example, had we mistyped the name of the `color` property in function `createSquare`, we would get an error message letting us know:
+
+```
+interface SquareConfig {
+    color?: string;
+    width?: number;
+}
+
+function createSquare(config: SquareConfig): { color: string; area: number } {
+    let newSquare = {color: "white", area: 100};
+    if (config.clor) {
+        // Error: Property 'clor' does not exist on type 'SquareConfig'
+        newSquare.color = config.clor;
+    }
+    if (config.width) {
+        newSquare.area = config.width * config.width;
+    }
+    return newSquare;
+}
+
+let mySquare = createSquare({color: "black"});
+```
+
+## Readonly properties
+
+Some properties should only be modifiable when an object is first created. You can specify this by putting readonly before the name of the property:
+
+```
+interface Point {
+    readonly x: number;
+    readonly y: number;
+}
+```
+
+You can construct a Point by assigning an object literal. After the assignment, x and y can’t be changed.
+
+TypeScript comes with a `ReadonlyArray<T>` type that is the same as `Array<T>` with all mutating methods removed, so you can make sure you don’t change your arrays after creation:
+
+```
+let p1: Point = { x: 10, y: 20 };
+p1.x = 5; // error!
+```
+
+```
+let a: number[] = [1, 2, 3, 4];
+let ro: ReadonlyArray<number> = a;
+ro[0] = 12; // Index signature in type 'ReadonlyArray<number>' only permits reading
+ro.push(5); // Property 'push' does not exist on type 'ReadonlyArray<number>'
+ro.length = 100; // Cannot assign to 'length' because it is a constant or a read-only property
+a = ro; // Type 'ReadonlyArray<number>' is not assignable to type 'number[]'
+```
+
+On the last line of the snippet you can see that even assigning the entire ReadonlyArray back to a normal array is illegal. You can still override it with a type assertion, though:
+
+```
+a = ro as number[];
+```
+
+## readonly vs const
+
+The easiest way to remember whether to use readonly or const is to ask whether you’re using it on a variable or a property. ***Variables use const*** whereas ***properties use readonly***.
+
+## Excess Property Checks
+
+```
+let mySquare = createSquare({width: 100, size: 3}); // Object literal may only specify known properties, and 'size' does not exist in type 'SquareConfig'.
+```
+
+
+Getting around these checks is actually really simple. The easiest method is to just use a type assertion:
+
+```
+let mySquare = createSquare({width: 100, size: 3} as SquareConfig);
+```
+
+However, a better approach might be to add a string index signature if you’re sure that the object can have some extra properties that are used in some special way. If SquareConfig can have color and width properties with the above types, but could also have any number of other properties, then we could define it like so:
+
+```
+interface SquareConfig {
+    color?: string;
+    width?: number;
+    [propName: string]: any;
+}
+```
+
+One final way to get around these checks, which might be a bit surprising, is to assign the object to another variable: Since squareOptions won’t undergo excess property checks, the compiler won’t give you an error.
+
+```
+let squareOptions = {width: 100, size: 3};
+let mySquare = createSquare(squareOptions);
+```
+
+Keep in mind that for ***simple*** code like above, you probably ***shouldn’t be trying to “get around” these checks***. For more complex object literals that have methods and hold state, you might need to keep these techniques in mind, but a majority of excess property errors are actually bugs. That means if you’re running into excess property checking problems for something like option bags, you might need to revise some of your type declarations. In this instance, if it’s okay to pass an object with both a color or colour property to createSquare, you should fix up the definition of SquareConfig to reflect that.
+
+## Function types
+
+To describe a function type with an interface, we give the interface a call signature. This is like a function declaration with only the parameter list and return type given. Each parameter in the parameter list requires both name and type.
+
+Function parameters are checked one at a time, with the type in each corresponding parameter position checked against each other. 
+
+```
+interface SearchFunc{
+    (source: string, subString: string): boolean;
+}
+let mySearch: SearchFunc;
+mySearch = function(src: string, sub: string): boolean {
+    let result = src.search(sub);
+    return result > -1;
+}
+```
+
+If you do not want to specify types at all, TypeScript’s contextual typing can infer the argument types since the function value is assigned directly to a variable of type SearchFunc. Here, also, the return type of our function expression is implied by the values it returns (here false and true). Had the function expression returned numbers or strings, the type-checker would have warned us that return type doesn’t match the return type described in the SearchFunc interface.
+
+```
+interface SearchFunc{
+    (source: string, subString: string): boolean;
+}
+let mySearch: SearchFunc;
+mySearch = function(source, subString) {
+    let result = source.search(subString);
+    return result > -1;
+}
+mySearch(1, 3);//Argument of type '1' is not assignable to parameter of type 'string'
+```
+
+### Indexable Types
+
+Similarly to how we can use interfaces to describe function types, we can also describe types that we can “index into” like a[10], or ageMap["daniel"]. Indexable types have an index signature that describes the types we can use to index into the object, along with the corresponding return types when indexing. Let’s take an example:
+
+```
+interface StringArray {
+    [index: number]: string;
+}
+
+let myArray: StringArray;
+myArray = ["Bob", "Fred"];
+
+let myStr: string = myArray[0];
+```
+
+This index signature states that when a StringArray is indexed with a number, it will return a string.
+
+There are two types of supported index signatures: `string` and `number`. It is possible to support both types of indexers, but the type returned from a numeric indexer must be a subtype of the type returned from the string indexer. This is because when indexing with a number, JavaScript will actually convert that to a string before indexing into an object. That means that indexing with 100 (a number) is the same thing as indexing with "100" (a string), so the two need to be consistent.
+
+```
+class Animal {
+    name: string;
+}
+class Dog extends Animal {
+    breed: string;
+}
+
+// Numeric index type 'Animal' is not assignable to string index type 'Dog', // Indexing with a numeric string might get you a completely separate type of Animal!
+interface NotOkay {
+    [x: number]: Animal;
+    [x: string]: Dog;
+}
+```
+
+While string index signatures are a powerful way to describe the “dictionary” pattern, they also enforce that all properties match their return type. This is because a string index declares that obj.property is also available as obj["property"]. In the following example, name’s type does not match the string index’s type, and the type-checker gives an error:
+
+```
+interface NumberDictionary {
+    [index: string]: number;
+    length: number;    // ok, length is a number
+    name: string;      // error, the type of 'name' is not a subtype of the indexer
+}
+```
+
+Finally, you can make index signatures readonly in order to prevent assignment to their indices:
+
+```
+interface ReadonlyStringArray {
+    readonly [index: number]: string;
+}
+let myArray: ReadonlyStringArray = ["Alice", "Bob"];
+myArray[2] = "Mallory"; // Index signature in type 'ReadonlyStringArray' only permits reading
+```
+
+### Class Types
+
+#### Implement interface
+
+```
+interface ClockInterface {
+    currentTime: Date;
+}
+
+class Clock implements ClockInterface {
+    currentTime: Date;
+    constructor(h: number, m: number) { }
+}
+```
+
+```
+interface ClockInterface {
+    currentTime: Date;
+    setTime(d: Date);
+}
+
+class Clock implements ClockInterface {
+    currentTime: Date;
+    setTime(d: Date) {
+        this.currentTime = d;
+    }
+    constructor(h: number, m: number) { }
+}
+```
+
+#### Difference between the static and instance sides of classes
+
+When working with classes and interfaces, it helps to keep in mind that a class has two types: the type of the static side and the type of the instance side.
+
+If you create an interface with a ***construct signature*** and try to create a class that ***implements*** this interface you get an error:
+
+This is because when a class implements an interface, only the ***instance side of the class is checked***. Since the ***constructor sits in the static side***, it is not included in this check.
+
+
+```
+interface ClockConstructor {
+    new (hour: number, minute: number);
+}
+
+class Clock implements ClockConstructor {
+    currentTime: Date;
+    constructor(h: number, m: number) { }
+}
+```
+
+Here you find `Clock` fits the shape described in `ClockConstructor`. `class` can fit the shape of a `interface` without using `implements`.
+
+```
+interface ClockConstructor {
+    new (hour: number, minute: number);
+}
+class Clock {
+    time: Date;
+    constructor(h: number, m: number) {
+        let cur = new Date(Date.now());
+        this.time = new Date(cur.getFullYear(), cur.getMonth(), cur.getDate(), h, m);
+    }
+}
+function check(c: ClockConstructor) {
+    let clock = new c(12, 1);
+    console.log(clock);
+}
+check(Clock);
+```
+
+You would need to work with the static side of the class directly. In this example, we define two interfaces, `ClockConstructor` for the static method `constructor` and `ClockInterface` for the instance methods `tick`. Then for convenience we define a constructor function `createClock` that creates instances of the type that is passed to it.
+
+```
+interface ClockConstructor {
+    new (hour: number, minute: number): ClockInterface;
+}
+interface ClockInterface {
+    tick();
+}
+
+function createClock(ctor: ClockConstructor, hour: number, minute: number): ClockInterface {
+    return new ctor(hour, minute);
+}
+
+class DigitalClock implements ClockInterface {
+    constructor(h: number, m: number) { }
+    tick() {
+        console.log("beep beep");
+    }
+}
+class AnalogClock implements ClockInterface {
+    constructor(h: number, m: number) { }
+    tick() {
+        console.log("tick tock");
+    }
+}
+
+let digital = createClock(DigitalClock, 12, 17);
+let analog = createClock(AnalogClock, 7, 32);
+```
+
+Because createClock’s first parameter is of type `ClockConstructor`(parameter list and return type match), in `createClock(AnalogClock, 7, 32)`, it checks that `AnalogClock` has the correct constructor signature.
+
+### Extending interfaces
+
+```
+interface Shape {
+    color: string;
+}
+interface Square extends Shape {
+    sideLength: number;
+}
+let square = <Square>{};
+square.color = "blue";
+square.sideLength = 10;
+console.log(square);
+```
+
+An interface can extend multiple interfaces.
+
+```
+interface Shape {
+    color: string;
+}
+
+interface PenStroke {
+    penWidth: number;
+}
+
+interface Square extends Shape, PenStroke {
+    sideLength: number;
+}
+
+let square = <Square>{};
+square.color = "blue";
+square.sideLength = 10;
+square.penWidth = 5.0;
+```
+
+### Hybrid Types
+
+One such example is a function with properties like an object.
+
+```
+interface Counter {
+    (start: number): string;//Counter is an interface for a function
+    interval: number;
+    reset(): void;
+}
+function getCounter(): Counter {
+    let counter = <Counter>function (start: number) { };
+    counter.interval = 123;
+    counter.reset = function () { };
+    return counter; 
+}
+let c = getCounter();
+c(10);
+c.reset();
+c.interval = 5.0;
+```
+
+Its vanilla Javascript is:
+
+```
+function getCounter() {
+    var counter = function (start) { };
+    counter.interval = 123;
+    counter.reset = function () { };
+    return counter;
+}
+var c = getCounter();
+c(10);
+c.reset();
+c.interval = 5.0;
+```
+
+### Interfaces Extending Classes
+
+When an interface type extends a class type it inherits the members of the class but not their implementations. It is as if the interface had declared all of the members of the class without providing an implementation. Interfaces inherit even the private and protected members of a base class. 
+
+This means that when you create an interface that extends a class with private or protected members, that interface type can only be implemented by that class or a subclass of it.
+
+You cannot declare `private state: any` in `class Image` for the missing property, otherwise it will log error `Types have separate declarations of a private property 'state'.`.
+
+`SelectableControl` contains all of the members of `Control`, including the private `state` property. Since `state` is a private member it is only possible for descendants of `Control` to implement `SelectableControl`. This is because only descendants of `Control` will have a `state` private member that originates in the same declaration, which is a requirement for private members to be compatible.
+
+Within the `Control` class it is possible to access the `state` private member through an instance of `SelectableControl`. Effectively, a `SelectableControl` acts like a `Control` that is known to have a `select` method. The `Button` and `TextBox` classes are subtypes of `SelectableControl` (because they both inherit from Control and have a select method), but the Image and Location classes are not.
+
+```
+class Control {
+    private state: any;
+}
+
+interface SelectableControl extends Control {
+    select(): void;
+}
+
+class Button extends Control implements SelectableControl {
+    select() { }
+}
+
+class TextBox extends Control {
+    select() { }//it's ok that no select() here, then TextBox isn't a subtype of SelectableControl
+}
+
+// Error: Property 'state' is missing in type 'Image'.
+class Image implements SelectableControl {
+    select() { }
+}
+
+class Location {
+
+}
+```
+
+## Classes
+
+### Intro
+
+```
+class Greeter {
+    greeting: string;
+    constructor(message: string){
+        this.greeting = message;
+    }
+    greet(){
+        return `Hello ${this.greeting}`;
+    }
+}
+let greeter  = new Greeter("World");
+greeter.greet();
+```
+
+### Inherience
+
+```
+class Animal {
+    move(distanceInMeters: number = 0) {
+        console.log(`Animal moved ${distanceInMeters}m.`);
+    }
+}
+
+class Dog extends Animal {
+    bark() {
+        console.log('Woof! Woof!');
+    }
+}
+
+const dog = new Dog();
+dog.bark();
+dog.move(10);
+dog.bark();
+```
+
+```
+class Animal {
+    name: string;
+    constructor(theName: string) { this.name = theName; }
+    move(distanceInMeters: number = 0) {
+        console.log(`${this.name} moved ${distanceInMeters}m.`);
+    }
+}
+
+class Snake extends Animal {
+    constructor(name: string) { super(name); }
+    move(distanceInMeters = 5) {
+        console.log("Slithering...");
+        super.move(distanceInMeters);
+    }
+}
+
+class Horse extends Animal {
+    constructor(name: string) { super(name); }
+    move(distanceInMeters = 45) {
+        console.log("Galloping...");
+        super.move(distanceInMeters);
+    }
+}
+
+let sam = new Snake("Sammy the Python");
+let tom: Animal = new Horse("Tommy the Palomino");
+
+sam.move();
+tom.move(34);
+```
+
+Note that even though tom is declared as an Animal, since its value is a `Horse`, calling `tom.move(34)` will call the overriding method in Horse
+
+```
+Slithering...
+Sammy the Python moved 5m.
+Galloping...
+Tommy the Palomino moved 34m.
+```
+
+### Public, private, and protected modifiers
+
+#### public 
+
+In TypeScript, each member is ***public by default***. You may still mark a member public explicitly.
+
+#### private
+
+When a member is marked private, it ***cannot be accessed from outside of its containing class***. For example:
+
+```
+class Animal {
+    private name: string;
+    constructor(theName: string) { this.name = theName; }
+}
+
+new Animal("Cat").name; // Error: 'name' is private;
+```
+
+TypeScript is a structural type system. When we compare two different types, ***regardless of where they came from***, if the types of all members are compatible, then we say the types themselves are compatible.
+
+However, when comparing types that have private and protected members, we treat these types differently. For two types to be considered compatible, if one of them has a private member, then the other must have a private member that ***originated in the same declaration***. The same applies to protected members.
+
+```
+class Animal {
+    private name: string;
+    constructor(theName: string) { this.name = theName; }
+}
+
+class Rhino extends Animal {
+    constructor() { super("Rhino"); }
+}
+
+class Employee {
+    private name: string;
+    constructor(theName: string) { this.name = theName; }
+}
+
+let animal = new Animal("Goat");
+let rhino = new Rhino();
+let employee = new Employee("Bob");
+
+animal = rhino;
+animal = employee; // Error: 'Animal' and 'Employee' are not compatible
+```
+
+Even though Employee also has a private member called name, it’s not the one we declared in Animal.
+
+#### protected
+
+The protected modifier acts much like the private modifier with the exception that members declared protected can also be ***accessed within deriving classes***.
+
+```
+class Person {
+    protected name: string;
+    constructor(name: string) { this.name = name; }
+}
+
+class Employee extends Person {
+    private department: string;
+
+    constructor(name: string, department: string) {
+        super(name);
+        this.department = department;
+    }
+
+    public getElevatorPitch() {
+        return `Hello, my name is ${this.name} and I work in ${this.department}.`;
+    }
+}
+
+let howard = new Employee("Howard", "Sales");
+console.log(howard.getElevatorPitch());
+console.log(howard.name); // error
+```
+
+When constructor is marked protected, it cannot be instantiated. But it subclass can be insrantiated as long as subclass's constructor is public. 
+
+```
+class Person {
+    protected name: string;
+    protected constructor(theName: string) { this.name = theName; }
+}
+
+// Employee can extend Person
+class Employee extends Person {
+    private department: string;
+
+    constructor(name: string, department: string) {
+        super(name);
+        this.department = department;
+    }
+
+    public getElevatorPitch() {
+        return `Hello, my name is ${this.name} and I work in ${this.department}.`;
+    }
+}
+
+let howard = new Employee("Howard", "Sales");
+let john = new Person("John"); // Error: The 'Person' constructor is protected
+```
+
+#### readonly
+
+You can make properties readonly by using the readonly keyword. Readonly properties must be initialized at their ***declaration*** or in the ***constructor***.
+
+```
+class Octopus {
+    readonly name: string;
+    readonly numberOfLegs: number = 8;
+    constructor (theName: string) {
+        this.name = theName;
+    }
+}
+let dad = new Octopus("Man with the 8 strong legs");
+dad.name = "Man with the 3-piece suit"; // Cannot assign to 'name' because it is a constant or a read-only property
+```
+
+#### Parameter properties
+
+The below statement equals the previous one.
+
+```
+class Octopus {
+    readonly numberOfLegs: number = 8;
+    constructor(readonly name: string){
+    }
+}
+```
+
+Use the shortened `readonly name: string` parameter on the constructor to create and initialize the name member.
+
+Use private, public, protected similarly.
+
+
+
 
 
