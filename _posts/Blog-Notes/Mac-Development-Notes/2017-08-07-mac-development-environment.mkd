@@ -25,7 +25,19 @@ brew cask install docker
 brew install p7zip
 brew cask install squirrel
 brew cask install iterm2
+```
+
+Install `pip`:
+
+```
 sudo easy_install pip
+```
+
+Or
+
+```
+curl -O https://bootstrap.pypa.io/get-pip.py
+sudo python get-pip.py
 ```
 
 Don't use `brew cask install sublime-text`, download it directly from the website and install.

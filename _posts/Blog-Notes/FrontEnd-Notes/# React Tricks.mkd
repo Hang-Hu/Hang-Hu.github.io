@@ -1,0 +1,41 @@
+# React Tricks
+
+## use `ref` string to access DOM Element
+
+```
+<SubMenu
+    title={ this.state.username }
+    ref="user"
+>
+</SubMenu>
+```
+
+```
+public componentDidMount(): void {
+    const userDisplay = ReactDOM.findDOMNode(this.refs.user) as HTMLElement;
+    console.log(userDisplay.offsetWidth);
+}
+```
+
+## `ref` string is not encouraged 
+
+```
+<SubMenu
+    title={ this.state.username }
+    ref={ (ref) => this.userRef = ref }
+>
+</SubMenu>
+```
+
+Note that `this.user` is `SubMenu` and cannot find `offsetWidth` in it, so I have to use `ReactDOM.findDOMNode(this.userRef)` to get the `Element`.
+
+```
+private userRef: SubMenu|null = null;
+public componentDidMount(): void {
+    if (this.userRef) {
+        const userDisplay = ReactDOM.findDOMNode(this.userRef) as HTMLElement;
+        this.setState({userDisplayWidth: userDisplay.offsetWidth + 'px'});
+    }
+}
+```
+
