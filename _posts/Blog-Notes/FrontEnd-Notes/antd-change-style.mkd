@@ -1,0 +1,30 @@
+### Change ant-menu-sub component style
+
+```
+<SubMenu
+    className={ style.user }
+    title={ this.state.username }
+>
+    <Menu.Item>Logout</Menu.Item>
+</SubMenu>
+```
+
+Use className to restrict components influenced. Use `:global` because `.ant-menu-sub` is the `class` in final webpage.
+
+```
+.user :global(.ant-menu-sub) {
+    text-align: center;
+    width: 120px;
+    min-width: 0px;
+ }
+```
+
+`user` is a className designated to `SubMenu`.
+
+### Change user style
+
+```
+.header .headerMenu .user {
+    float: right;
+}
+```

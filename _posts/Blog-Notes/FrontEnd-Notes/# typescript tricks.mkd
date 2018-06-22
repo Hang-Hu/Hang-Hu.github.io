@@ -1,0 +1,8 @@
+# typescript tricks
+
+## type casting
+
+```
+const userDisplay = ReactDOM.findDOMNode(this.refs.user) as HTMLElement;
+const userDisplay = <HTMLElement>ReactDOM.findDOMNode(this.refs.user);
+```

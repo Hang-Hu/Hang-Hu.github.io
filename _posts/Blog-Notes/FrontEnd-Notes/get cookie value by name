@@ -1,0 +1,2 @@
+
+document.cookie.split(`${name}=`)[1].split(";")[0]

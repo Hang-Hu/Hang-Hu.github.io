@@ -11,7 +11,6 @@ git clone https://github.com/StephenGrider/ReduxSimpleStarter.git
 cd ReduxSimpleStarter
 npm install
 npm start
-
 ```
 
 React is a Javascript library used to ultimately generate HTML. We use component/view to produce HTML.
@@ -20,7 +19,7 @@ Take this component's generated HTML and put it on page(in the DOM).
 
 JSX cannot be interpreted by browser, so we use webpack and babel to translate it into vanilla javascript.
 
-## Try JSX
+### Try JSX
 
 In `src/index.js`:
 
@@ -87,7 +86,7 @@ Get vanilla Javascript of React code in website [babeljs.io/repl](https://babelj
 
 The more HTML is, the more vanilla JS will be. And JSX just makes it clean and easy to write HTML in Javascript.
 
-## The `()` means nothing
+### The `()` means nothing
 
 ```
 const App = function() {
@@ -107,7 +106,7 @@ var App = function App() {
 };
 ```
 
-## `Uncaught ReferenceError: React is not defined`
+### `Uncaught ReferenceError: React is not defined`
 
 Javascript Modules: files are seperate from other code we write and libraries. Code in other file has no contact with the current one until we explictly import it. We have no access to React, which is in other file, although React is installed.
 
@@ -115,5 +114,63 @@ Javascript Modules: files are seperate from other code we write and libraries. C
 import React from 'react';
 ```
 
-Go to find react library and assign it to React variable.
+Go to find react library in node_modules and assign it to React variable.
 
+
+### render with ReactDOM
+
+
+```
+const App = function() {
+    return <h1>Hello world</h1>;
+}
+```
+
+App is a function, you have to pass an instance of App to ReactDOM.
+
+```
+ReactDOM.render(<App />, document.querySelector(".container1"));
+```
+
+Use babel to translate:
+
+```
+"use strict";
+var App = function App() {
+    return React.createElement(
+        "h1",
+        null,
+        "Hello world"
+    );
+};
+ReactDOM.render(React.createElement(App, null), document.querySelector(".container1"));
+```
+
+### prototype
+
+```
+var App = function() {
+    return <h1>Hello world</h1>;
+}
+```
+
+Equals
+
+```
+function App(){
+    return React.createElement(
+        "h1",
+        null,
+        "Hello world"
+    );
+}
+```
+
+This is a function used to create object, like:
+
+```
+function Person(firstName, lastName){
+    this.firstName = firstName;
+    this.lastName = lastName;
+}
+```
