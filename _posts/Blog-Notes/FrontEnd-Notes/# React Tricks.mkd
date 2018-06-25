@@ -39,3 +39,7 @@ public componentDidMount(): void {
 }
 ```
 
+## After render
+
+Use `componentDidMount()`.
+
