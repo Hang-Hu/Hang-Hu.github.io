@@ -4427,6 +4427,8 @@ Adv: easy logic.
 
 Dis: bind multiple times.
 
+`this.value` is also `eventObj.target.value` because `eventObj.target` and `this` here refers to the same object.
+
 ```
 liDisplays.forEach(function(liDisplay){
     addELToLi(liDisplay);
