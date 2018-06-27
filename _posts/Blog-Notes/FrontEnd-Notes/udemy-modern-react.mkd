@@ -2,7 +2,7 @@
 
 Email address: `ste.grider@gmail.com`, give the code with email.
 
-## Intro
+## An Intro to React
 
 ![modern javascript tooling]({{ site.url }}/assets/posts_img/modern-javascript-tooling.png)
 
@@ -270,16 +270,18 @@ Use SearchBar in App. When we use multiple lines of JSX, parenthesis `()` is usu
 ```
 const App = () => {
     return (
-        <h1>
+        <div>
             <SearchBar />
-        </h1>
+        </div>
     );
 }
 ```
 
+Note that it ok for function component to contain class based components.
+
 ### Class-Based components
 
-Create a component using `class` instead of `prototype function`, for more complex features.
+Create a component using `class` instead of `prototype function`, for more complex features. There is no `this` in rrrow function `App`.
 
 Function component:
 
@@ -301,7 +303,7 @@ class SearchBar extends React.Component{
 
 #### ES6 here: syntax sugar `import React, { Component } from 'react'`
 
-Instead of writing `React.Component`, we can emit React by using `import React, { Component } from 'react'` instead `import React, {Component} from 'react'`. Then the statement woule be `class SearchBar extends Component`.
+Instead of writing `React.Component`, we can emit React by using `import React, { Component } from 'react'` instead of `import React from 'react'`. Then the statement woule be `class SearchBar extends Component`.
 
 The curly braces `{}` here means put Component in react into a const Component, the same as `const Component = React.Component`.
 
@@ -331,6 +333,8 @@ render() {
 ```
 
 ### Introduction to State
+
+`constructor` always gets called with `props`.
 
 ```
 class SearchBar extends Component{
@@ -382,3 +386,117 @@ Explain of the previous example code, with it you get the newest value of input 
 
 When we type something in input, we change the value of input, then the callback of `onChange` is executed and state changed. Since setState is called, `setState` automatically put the updated information from the render method into the DOM. Because `{this.state.term}` is used the `p`, every time component re-rendered, we get the updated `this.state.term` in the DOM.
 
+### Controlled Components: ***state decides value***
+
+#### Intro
+
+A controlled fild is a form element like `input` whose `value` is set by `state`.
+
+Previouly we use `input` to change `state`, this example let `state` control `input`.
+
+```
+<input
+    value={ this.state.term }
+    // onChange={ event => this.setState({ term: event.target.value })}
+/>
+```
+
+Now input cannot be typed in anything.
+
+Because when we use `value={ this.state.term }`, `input` becomes a controlled component. Its `value` is set by `state`, it changes only when the `state` changes. And `this.state.term` is initially set to be `''` in `constructor`.
+
+#### The full process
+
+When onChange is not commented, you can type in the input. However, it works differently. 
+
+As App starts to run, constructor is called, and term in state is set to be `''`. So the value of input is empty. When something is typed, `onChange` reacts, `this.setState` is called, term is given string typed, and `this.setState` calls React to re-render the component. When `input` re-rendered, `value={ this.state.term }` is called again, and input is updated to receive `this.state.term`. Finally, the component finishes rendering, and the new value of input is visible on the screen.
+
+```
+class SearchBar extends Component{
+    constructor(props) {
+        super(props);
+        this.state = { term: '' };
+    }
+    render() {
+        return (
+            <div>
+                <input
+                    value={ this.state.term }
+                    onChange={ event => this.setState({ term: event.target.value })}
+                />
+            </div>
+        );
+    }
+}
+```
+
+
+#### Why use controlled component?
+
+We don't use the concept that use changes something, we have to figure out the `value`. We use the concept that the `value` in the `input` is equal to the `state`.
+
+And it allows us to do many things, like default value.
+
+##### Default value
+
+We get default value like `Search term` below, not placeholder, but actual value pre populating there.
+
+```
+this.state = { term: 'Search term' };
+```
+
+##### Allow us to read the value of input more easily than jQuery
+
+We don't have to select input and get its value, but use `this.state.term` to read the value.
+
+## Ajax Requests with React
+
+### Youtube Search Response
+
+Downwards data flow: most parent component should be responsible for the data fetched from API/flex framework/redux.
+
+`App` in `index.js` is the parent component.
+
+
+In `index.js`:
+
+```
+import YTSearch from 'youtube-api-search';
+
+YTSearch({ key: API_KEY, term: 'surfboards'}, function(data) {
+    console.log(data);
+});
+```
+
+### Refactoring Functional Components to Class Components
+
+We refactor App to be a class component so that App can keep track of list of videos in state. Whenever we use this.state, we need a class based component. We want to use state here because it's the kind of data that changes over time and we want to persist throughout the application.
+
+```
+const App = () => {
+    return (
+        <div>
+            <SearchBar />
+        </div>
+    );
+}
+```
+
+To
+
+```
+class App extends Component {
+    render() {
+        return (
+            <div>
+                <SearchBar />
+            </div>
+        );
+    }
+}
+```
+
+
+As people search for new terms, the 5 videos are expected to be updated. Video Data changes over time, which is a good use case for state. Conduct new search and set the result in state.
+
+We don't put `this.state = {videos: [data]}` inside YTSearch's callback because if the network connection fails at first, App has no this.state.videos. Even if the network resumes later, this application won't resume to work.
