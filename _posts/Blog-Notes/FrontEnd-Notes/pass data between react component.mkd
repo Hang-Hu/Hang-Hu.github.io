@@ -1,0 +1,32 @@
+
+Parent Component passes info as prop.
+
+```
+export default class App extends React.Component {
+	render() {
+		return (
+			<TodoList info="info ..." />	
+		);
+	}
+}
+```
+
+Child component receive info in `this.props.info`.
+
+```
+export default class TodoList extends React.Component {
+    constructor(props) {
+        super(props);
+        this.onButtonMouseEnter = this.onButtonMouseEnter.bind(this);
+    }
+    private onButtonMouseEnter() {
+        console.log('mouse enter');
+        console.log(this.props.info);
+    }
+    public render() {
+        return (
+            <button onMouseEnter={ this.onButtonMouseEnter } />
+        );
+    }
+}
+```
