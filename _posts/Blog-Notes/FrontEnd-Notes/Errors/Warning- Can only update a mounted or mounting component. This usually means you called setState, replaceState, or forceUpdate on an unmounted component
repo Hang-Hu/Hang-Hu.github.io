@@ -1,0 +1,3 @@
+## Solution
+
+Call those methods inside `componentDidUpdate` to make sure the component has been mounted.

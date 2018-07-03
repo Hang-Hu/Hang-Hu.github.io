@@ -1,0 +1,12 @@
+
+
+```
+render() {
+    const optionElements = this.state.optionList.map( o => <Option value={ o }>{ o }</Option>);
+    return (
+        <Select>
+            { optionElements }
+        </Select>
+    );
+}
+```

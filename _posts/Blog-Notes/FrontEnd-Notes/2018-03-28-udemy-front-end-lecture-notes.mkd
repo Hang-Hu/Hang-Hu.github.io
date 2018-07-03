@@ -5131,10 +5131,10 @@ Error: 0.8415900841407606
 
 ```
 var promise = new Promise(function(resolve, reject) {
-setTimeout(function() {
-    var randomInt = Math.floor(Math.random() * 10);
-    resolve(randomInt);
-}, 4000);
+    setTimeout(function() {
+        var randomInt = Math.floor(Math.random() * 10);
+        resolve(randomInt);
+    }, 4000);
 });
 promise.then(function(data) {
     console.log("Random int passed to resolve:", data);
@@ -5721,7 +5721,7 @@ Error: 404
 
 If it's network problem, `TypeError: Failed to fetch`.
 
-### Final solution: `.catch(callback)` + `.json()`
+### Fetch Final solution: `.catch(callback)` + `.json()`
 
 use function `handleErrors` to handle status errors.
 
@@ -8154,4 +8154,14 @@ o.instructors; // ["Elie", "Tim", "Colt"];
 var divs = document.getElementsByTagName("div"); // returns an array-like-object
 
 divs.reduce // undefined, since it is not an actual array
-``` 
+```
+
+### Current full url
+
+This can work in client side, but as for React server side rendering, it won't work.
+
+```
+window.location.href
+```
+
+Base url: `window.location.origin`

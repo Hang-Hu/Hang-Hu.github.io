@@ -43,3 +43,55 @@ public componentDidMount(): void {
 
 Use `componentDidMount()`.
 
+## Use JSX in variable
+
+Note that no `""` or `''` used around `<span>{ this.state.info }</span>`.
+
+```
+content = <span>{ this.state.info }</span>;
+```
+
+## avoid string being escaped: dangerouslySetInnerHTML
+
+```
+return <div dangerouslySetInnerHTML={ {__html: str} } />;
+```
+
+[React DOM Elements](https://reactjs.org/docs/dom-elements.html)
+
+## export const
+
+```
+export const Info;
+```
+
+```
+import { Info } from Info.js
+```
+
+## less hover inside a class selection
+
+```
+.user {
+    font-size: 1rem;
+    &:hover {
+        color: blue;
+    }
+}
+```
+
+## statement in JSX: use parenthesis `()`
+
+```
+return (
+    (typeof info === 'undefined') ?
+    null : (
+    <Popover
+        content={ getContent() }
+    >
+        <h1>Hover me!</h1>
+    </Popover>)
+);
+```
+
+

@@ -6,3 +6,9 @@
 const userDisplay = ReactDOM.findDOMNode(this.refs.user) as HTMLElement;
 const userDisplay = <HTMLElement>ReactDOM.findDOMNode(this.refs.user);
 ```
+
+## If props used but state not
+
+```
+export default class Todo extends React.Component<TodoProps>
+```
