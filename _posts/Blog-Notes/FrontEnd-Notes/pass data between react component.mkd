@@ -1,3 +1,5 @@
+## Parent to child component
+
 
 Parent Component passes info as prop.
 
@@ -30,3 +32,46 @@ export default class TodoList extends React.Component {
     }
 }
 ```
+
+## Child to parent
+
+Parent compoent:
+
+```
+private updateFavFruit(fruit) {
+    this.setState({favFruit: fruit});
+    // ...
+}
+render(){
+    return (
+        <Dropdown
+            updateFavFruit={ this.updateFavFruit }
+        />
+    );    
+}
+```
+
+Child Component:
+
+```
+private fruitOnSelect(optionValue) {
+    this.props.updateFavFruit(optionValue);
+}
+render() {
+    return (
+        <Select
+            onSelect={ this.fruitOnSelect }
+        >
+            <Option key="Apple" value="Apple">Apple</Option>
+            <Option key="Banana" value="Banana">Banana</Option>
+            <Option key="Orange" value="Orange">Orange</Option>
+        </Select>
+    );
+}
+```
+
+
+
+## Reference
+
+[Medium passing data between react components](https://medium.com/@ruthmpardee/passing-data-between-react-components-103ad82ebd17)

@@ -1,0 +1,11 @@
+Change callback in interface from
+
+```
+callbackFromParent: (data: string) => void;
+```
+
+To
+
+```
+callbackFromParent(data: string): void;
+```

@@ -1,0 +1,15 @@
+## Details
+
+I passed a number from parent component to child component, but found it was 0 in child componnet. When displaying in parent component's render(), it was not 0.
+
+## Reason
+
+This number was fetched through async call, when I logged it in constructor and componentDidMount, the call hadn't been completed, thus I got 0.
+
+## Solution
+
+Use `componentWillReceiveProps` or `componentDidUpdate` to make sure the call has been completed and this number has been updated. Then I will get the actual value instead of 0.
+
+## Reference
+
+[props becoming null after they are passed into react component](https://stackoverflow.com/questions/41496655/props-becoming-null-after-they-are-passed-into-react-component)
