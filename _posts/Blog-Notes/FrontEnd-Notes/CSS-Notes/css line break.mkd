@@ -1,0 +1,15 @@
+## br
+
+```
+<span>A</span>
+<br>
+<span>B</span>
+```
+
+## display
+
+```
+span:nth-of-type(1) {
+    display: block;
+}
+```

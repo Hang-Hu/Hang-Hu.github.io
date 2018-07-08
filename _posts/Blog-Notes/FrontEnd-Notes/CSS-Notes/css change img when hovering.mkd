@@ -1,0 +1,5 @@
+```
+img:hover {
+    background: url("../images/img_hover.png");
+}
+```
