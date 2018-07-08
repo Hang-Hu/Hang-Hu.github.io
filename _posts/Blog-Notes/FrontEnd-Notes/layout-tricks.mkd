@@ -1,0 +1,17 @@
+## table -- td inside td
+
+remove outer `td`, use two `td`s to layout icon left and text right.
+
+```
+<td>
+    <span class="icon">
+        <img src="./static/images/icon.png">
+    </span>
+</td>
+<td>
+    <span class="text">
+        <span class="title">Report</span><br>
+        <span class="desp">Desption: ...</span>
+    </span>
+</td>
+```

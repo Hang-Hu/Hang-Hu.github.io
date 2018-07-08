@@ -1,0 +1,12 @@
+## Reason
+
+`HTMLElement` doesn't have method `select()`.
+
+## Solution
+
+Use Type Assertion:
+
+```
+const inputEle = ele as HTMLInputElement;
+inputEle.select();
+```

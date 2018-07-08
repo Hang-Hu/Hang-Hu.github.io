@@ -1,0 +1,103 @@
+## distance between axis and chart border: `grid`
+
+```
+grid: {
+    left: '30',
+    right: '30',
+    top: '30',
+    bottom: '30',
+    containLabel: true
+}
+```
+
+## bar width: `barMaxWidth` and `barWidth`
+
+```
+series: [
+    {
+        type: 'bar',
+        barMaxWidth: '50'
+    }
+]
+```
+
+## Change color: LinearGradient
+
+```
+series: [
+    {
+        type: 'bar',
+        data: seriesData,
+        itemStyle: {
+            normal: {
+                color: new echarts.graphic.LinearGradient(
+                    0, 0, 0, 1,
+                    [
+                        {offset: 0, color: '#0096c0'},
+                        {offset: 1, color: '#33bdea'}
+                    ]
+                )
+            }
+        }
+    }
+],
+```
+
+## title style: `textStyle`
+
+```
+title: {
+    text: 'Chart A',
+    textStyle: {
+        fontWeight: 'normal',
+        color: 'black',
+        fontSize: '20'
+    }
+}
+```
+
+## yAxis no axis line
+
+```
+yAxis: {
+    axisLine: {
+        show: false
+    }
+}
+```
+
+## Interval in y axis
+
+```
+yAxis: {
+    interval: 10
+}
+```
+
+## echarts height
+
+```
+grid: {
+    height: '300'
+}
+```
+
+## number displayed in bar: `series.itemStyle.label`
+
+
+```
+series: [
+    {
+        type: 'bar',
+        data: seriesData,
+        itemStyle: {
+            normal: {
+                label: {
+                    show: true, //show number
+                    position: 'insideTop'// position of number
+                }
+            }
+        }
+    }
+],
+```

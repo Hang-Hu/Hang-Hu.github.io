@@ -12,3 +12,9 @@ const userDisplay = <HTMLElement>ReactDOM.findDOMNode(this.refs.user);
 ```
 export default class Todo extends React.Component<TodoProps>
 ```
+
+## method signature in props
+
+```
+onTagsChange(tags: []): void;
+```

@@ -1,0 +1,11 @@
+
+`ReactDOM.findDOMNode(ref)` to get element, and use addEventListener on `HTMLElement`.
+
+```
+if (this.selectRef) {
+    const selectEle = ReactDOM.findDOMNode(this.selectRef) as HTMLElement;
+    selectEle.addEventListener('click', (): void => {
+        console.log(selectEle);
+    });
+}
+```
