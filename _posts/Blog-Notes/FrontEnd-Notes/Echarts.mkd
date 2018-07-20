@@ -1,4 +1,6 @@
-## distance between axis and chart border: `grid`
+## grid: bar chart position
+
+Bistance between axis and chart border: `grid`
 
 ```
 grid: {
@@ -10,7 +12,7 @@ grid: {
 }
 ```
 
-## bar width: `barMaxWidth` and `barWidth`
+## series.barMaxWidth: bar width (`barMaxWidth` and `barWidth`)
 
 ```
 series: [
@@ -21,7 +23,7 @@ series: [
 ]
 ```
 
-## Change color: LinearGradient
+## series.itemStyle.normal.color: new echarts.graphic.LinearGradient, gradually changing color
 
 ```
 series: [
@@ -43,7 +45,7 @@ series: [
 ],
 ```
 
-## title style: `textStyle`
+## title.textStyle: title style: `textStyle`
 
 ```
 title: {
@@ -56,17 +58,17 @@ title: {
 }
 ```
 
-## yAxis no axis line
+## yAxis.axisLine.show.false: yAxis no axis line
 
 ```
 yAxis: {
     axisLine: {
-        show: false
+        : false
     }
 }
 ```
 
-## Interval in y axis
+## yAxis.interval: interval in y axis
 
 ```
 yAxis: {
@@ -74,7 +76,7 @@ yAxis: {
 }
 ```
 
-## echarts height
+## grid.height: echarts height
 
 ```
 grid: {
@@ -100,4 +102,71 @@ series: [
         }
     }
 ],
+```
+
+## series.center: pie chart position
+
+`50%`(center) is the horizontal position, `58%` is the vertical position.
+
+```
+series:[
+    {
+        center: ['50%', '58%']
+    }
+]
+```
+
+## legend.formatter: dynamic text for upper different types
+
+```
+legend: {
+    formatter: (params): string => {
+        for (const entry of option.series[0].data) {
+            if (entry.params === params) {
+                return `${params}: ${entry.value}`;
+            }
+        }
+    }
+}
+```
+
+## series.color: color of each bar
+
+```
+series: [
+    {
+        type: 'bar'
+        data: data
+        color: function(params){
+            return palette[params.dataIndex % palette.length];
+        }
+    }
+]
+```
+
+## backgroundColor: background color of the chart
+
+```
+backgroundColor: grey
+```
+
+## tooltip.formatter: customized popup text
+
+```
+tooltip: {
+    formatter: `{a} <br/>{b}: {c} ({d}%)<br />${addtionalText}`
+}
+```
+
+## emphasis.label.textStyle: highlight label by bigger bold font when hovering
+
+```
+emphasis: {
+    label: {
+        textStyle: {
+            fontSize: 16,
+            fontWeight: 'bold'
+        }
+    }
+}
 ```

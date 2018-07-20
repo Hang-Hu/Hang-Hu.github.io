@@ -1091,6 +1091,18 @@ typeof null//object
 "3" / "4" // 0.75 (number)
 ```
 
+To string:
+
+```
+1 + ''
+```
+
+To number:
+
+```
++'1'
+```
+
 ## If number is a perfect square
 
 ```
