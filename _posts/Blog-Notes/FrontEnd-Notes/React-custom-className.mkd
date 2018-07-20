@@ -1,0 +1,28 @@
+In parent component `DisplayPage`, import `style`, assign `style.dataTable` to child `DataTable`.
+
+```
+import style from './DisplayPage.less';
+
+<DataTable
+    dataSource={ this.state.dataSource }
+    className={ style.dataTable }
+/>
+```
+
+In child component DataTable, use `this.props.className` in `Table`'s className.
+
+```
+interface IDataTableProps {
+    dataSource: any;
+    className?: string;
+}
+public render(): React.ReactNode {
+    return (
+        <Table
+            className={ this.props.className }
+            dataSource={ this.props.dataSource }
+            columns={ columns }
+        />
+    );
+}
+```

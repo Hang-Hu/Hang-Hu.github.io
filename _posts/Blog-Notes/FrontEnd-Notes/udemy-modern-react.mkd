@@ -807,3 +807,14 @@ We passes an inner function to debounce, and the time 1000 ms. It returns a prox
 
 This way user won't search too often, in which way Google Instant Search works.
 
+## Modeling Application State -- Redux
+
+Component state: state, but application state: Redux.
+
+Predictable state container for Javascript.
+
+Redux is the data contained in the application, while React is the view contained in the application.
+
+React centralizes all data into a single object - state.
+
+Important for redux: how to design your state.

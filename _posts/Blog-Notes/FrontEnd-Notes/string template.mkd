@@ -1,0 +1,8 @@
+## Line break
+
+```
+const searchLink =  'https://www.google.com/search?' +
+                    `num=${this.props.num}&` +
+                    'newwindow=1&safe=active&source=hp&' +
+                    `q=${this.props.queryText}`;
+```

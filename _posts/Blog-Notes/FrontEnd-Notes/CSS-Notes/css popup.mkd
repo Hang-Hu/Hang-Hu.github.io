@@ -1,0 +1,23 @@
+
+Create a popup that floats in top 5px of content.
+
+```
+.container {
+    position: relative;
+}
+.popup {
+    position: absolute !important;
+    display: block;
+    z-index: 100;
+    left: 0;
+    width: 100%;
+    bottom: 5px;
+}
+```
+
+```
+<div class='container'>
+    <div class='popup'>Popup text here</div>
+    <div class='content'>Contents here</div>
+</div>
+```

@@ -1,0 +1,15 @@
+## First cancel local commit
+
+```
+git reset HEAD~1
+git add .
+git commit -m 'commit message'
+```
+
+## Then cancel remote commit by force push
+
+```
+git push origin branch_name --force
+```
+
+Note that you have to specify branch name or you might inadvertently modify other branches!

@@ -1,0 +1,11 @@
+## Reason
+
+I forgot to bind this to the method.
+
+## Solution
+
+In constructor:
+
+```
+this.handleInputChange = this.handleInputChange.bind(this);
+```

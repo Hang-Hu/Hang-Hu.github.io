@@ -94,4 +94,10 @@ return (
 );
 ```
 
+## comment in JSX
+
+```
+{ /* comments here */ }
+```
+
 
