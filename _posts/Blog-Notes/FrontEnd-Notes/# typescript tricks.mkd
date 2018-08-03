@@ -60,3 +60,9 @@ name: PersonInterface["name"]
 ```
 Map<string, string>
 ```
+
+## type aliases
+
+```
+type studentListType = Array<{name: string, age: number}>
+```

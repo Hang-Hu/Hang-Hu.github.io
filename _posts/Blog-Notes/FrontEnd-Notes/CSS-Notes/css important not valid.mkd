@@ -1,0 +1,11 @@
+## Detail
+
+`!important` was used and shown in chrome developer tools, but it was override by a class inherited from library antd.
+
+## Reason
+
+Unknown.
+
+## Solution
+
+Use more classes, elements, etc to select the target, so that its specification gains more score than the inherited one.
