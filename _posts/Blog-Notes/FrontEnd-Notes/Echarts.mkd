@@ -158,15 +158,192 @@ tooltip: {
 }
 ```
 
-## emphasis.label.textStyle: highlight label by bigger bold font when hovering
+## series.itemStyle.emphasis.label.textStyle: highlight label by bigger bold font when hovering
 
 ```
-emphasis: {
+series: [{
+    itemStyle{
+        emphasis: {
+            label: {
+                textStyle: {
+                    fontSize: 16,
+                    fontWeight: 'bold'
+                }
+            }
+        }    
+    }
+}]
+```
+
+## series.label, hide stretching line in normal, show it when hovering
+
+```
+series: [{
     label: {
+        normal: {
+            show: false
+        },
+        emphasis: {
+            show: true,
+            formatter: '{b}: {d}%'
+        }
+    }
+}]
+```
+
+## adaptive
+
+Echarts is not adaptive to div change, use Card in antd to surround it, and give echarts white background in the `div` containing echarts. Then even echarts doesn't adapt to div change, since the container Card is, it seems to be an adaptive app.
+
+## Use lib `echarts-for-react` along with lib `echarts`
+
+This library provides echarts based on react state.
+
+```
+<ReactEcharts
+    option={this.getOption()}
+    notMerge={true}
+    lazyUpdate={true}
+    theme={"theme_name"}
+    onChartReady={this.onChartReadyCallback}
+    showLoading={ this.state.isLoading }
+    onEvents={
+    {
+        click: onEchartsClick
+    }
+    }
+    opts={ {height: 300} }
+/>
+```
+
+## legend circle icon
+
+```
+legend: {
+    icon: 'circle',
+}
+```
+
+## Pie chart format inside text
+
+```
+itemStyle: {
+    normal: {
+        label: {
+            show: true,
+            formatter: '{b}\n{c}'
+        }
+    }
+},
+label: {
+    normal: {
+        show: false,
+        position: 'center'
+    },
+    emphasis: {
+        show: true,
         textStyle: {
-            fontSize: 16,
+            fontSize: '30',
             fontWeight: 'bold'
         }
     }
+},
+```
+
+## series.label.normal.formatter: pie chart customize stretching line
+
+```
+series: [
+    {
+        label: {
+            normal: {
+                formatter: '{b}: {d}%'
+            }
+        }
+    }
+]
+```
+
+## legend.align: legend text in the right of icon
+
+```
+legend: {
+    align: 'left'
 }
+```
+
+## xAxis.boundaryGap: Location of `xAxis` label text
+
+Note that `xAxis.boundaryGap` only applies to type `category`.
+
+Between the scales:
+
+```
+xAxis: {
+    boundaryGap: true
+}
+```
+
+Under the scale:
+
+```
+xAxis: {
+    boundaryGap: false
+}
+```
+
+## series.areaStyle: backgroundColor under line
+
+```
+series: [{
+    type: 'line',
+    areaStyle: {
+        opacity: 0.1 // use opacity if you want the backgroundColor to be transparent
+    }
+}]
+```
+
+## series.smooth curly line
+
+```
+series: [{
+    type: 'line',
+    smooth: true,
+}]
+```
+
+## legend
+
+```
+legend: {
+    orient: 'horizontal', // 'vertical'
+    x: 'center', // 'center' | 'left' | {number},
+    y: 'top' // 'center' | 'bottom' | {number}
+}
+```
+
+## yAxis scale 2 times of the highest value
+
+```
+yAxis: {
+    boundaryGap: [0, '100%']
+}
+```
+
+## xAxis.axisLabel.formatter: format xAxis label
+
+```
+xAxis: {
+    axisLabel: {
+        formatter: (val) => {
+            return moment(val).format(formatter);
+        }
+    }
+}
+```
+
+## dispose before update
+
+```
+
 ```

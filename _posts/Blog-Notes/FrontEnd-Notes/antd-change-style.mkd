@@ -37,3 +37,32 @@ Style li under it:
     float: right;
 }
 ```
+
+### nested style
+
+```
+.header {
+    text-align: left;
+    :global {
+        .ant-radio-button-wrapper {
+            color: white;
+        }
+        .ant-menu-sub {
+            border: 0;
+        }
+    }
+    .user {
+        font-size: 14px;
+    }
+}
+```
+
+## :active
+
+```
+.header {
+    &:active {
+        background-color: red;
+    }
+}
+```

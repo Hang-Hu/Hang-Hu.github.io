@@ -1,0 +1,21 @@
+## Details
+
+[tslint] Tag closing must be on its own line and aligned with opening of tag
+
+```
+proj1:  <Project1
+            data={ this.state.data }
+        />
+```
+
+## Solution
+
+Use bracket `()` to wrap component code.
+
+```
+proj1: (
+    <Project1
+        data={ this.state.data }
+    />
+)
+```

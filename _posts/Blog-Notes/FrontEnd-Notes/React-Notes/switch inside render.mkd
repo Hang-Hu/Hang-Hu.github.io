@@ -1,0 +1,16 @@
+```
+public render(): React.ReactNode {
+    switch (this.props.query.marketId) {
+        case 'product_1': return (
+            <Layout>
+                <Row gutter={ 8 } style={ { marginTop: 10 } }>
+                    <RewardMarket/>
+                </Row>
+            </Layout>
+        );
+        case 'product_2': return (
+            <PaymentMarket />
+        );
+    }
+}
+```

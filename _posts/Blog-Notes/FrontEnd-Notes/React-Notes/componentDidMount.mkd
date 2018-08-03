@@ -1,0 +1,11 @@
+When the component is mounted and `this.props.data` exists, parse data and generate echarts. This is required for the case where `componentDidUpdate` doesn't execute `this.parseDataAndGenerateChart` because there is no change in `this.props.data`.
+
+If it comes to switch tabs, the chart should be re-generate even if `this.props.data` not changed.
+
+```
+public componentDidMount() {
+    if (this.props.data) {
+        this.parseDataAndGenerateChart();
+    }
+}
+```
