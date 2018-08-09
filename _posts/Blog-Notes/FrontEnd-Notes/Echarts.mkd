@@ -84,7 +84,7 @@ grid: {
 }
 ```
 
-## number displayed in bar: `series.itemStyle.label`
+## number displayed in bar: `series.itemStyle.normal.label` or `series.label.normal`
 
 
 ```
@@ -102,6 +102,36 @@ series: [
         }
     }
 ],
+```
+
+Or
+
+```
+series : [
+    {
+        label: {
+            normal: {
+                show: true,
+                formatter: '{a}',
+                position: 'inside'
+            }
+        }
+    }
+]
+```
+
+## customize value displayed in bar
+
+```
+label: {
+    normal: {
+        show: true,
+        formatter: function(params){
+            return `${(100 * params.data.value).toFixed(3)}%`;
+        },
+        position: 'inside'
+    }
+}
 ```
 
 ## series.center: pie chart position
@@ -128,6 +158,35 @@ legend: {
         }
     }
 }
+```
+
+## tooltip.formatter: customize text in popup when hovering
+
+```
+const seriesData = [{
+    value: -0.45,
+    desp: [{
+        name: 'Income',
+        value: 223219
+    },
+    {
+        name: 'Ratio',
+        value: '10.45%'
+    }]
+}];
+```
+
+```
+tooltip : {
+    trigger: 'axis',
+    axisPointer : {
+        type : 'shadow'
+    },
+    formatter: function(params) {
+        var arr = params[0].data.desp.map((item) => `${item.name}: ${item.value}`);
+        return `${arr.join('<br>')}`;
+    }
+},
 ```
 
 ## series.color: color of each bar
@@ -342,8 +401,127 @@ xAxis: {
 }
 ```
 
-## dispose before update
+## dispose before update chart
 
+```
+this.chartInstance && this.chartInstance.dispose();
+```
+
+## `series.color`: cutomize color by data's value
+
+```
+const seriesData = [{
+    value: 0.45,
+    name: 'house'
+}, {
+    value: 0.55,
+    name: 'food'
+}];
 ```
 
 ```
+series : [{
+    type:'bar',
+    color: function(params){
+        if (params.data.value > 0) {
+            return 'green';
+        } else if(params.data.value < 0) {
+            return 'red';
+        }
+    }
+}]
+```
+
+## customize xAxis and yAxis color and width
+
+```
+xAxis: {
+    axisLine:{
+        lineStyle:{
+            color: 'blue',
+            width: 2,
+        }
+    } 
+}
+```
+
+## hide yAxis label text
+
+```
+yAxis: {
+    axisLabel: {
+        show: false
+    }
+}
+```
+
+## hide yAxis tick
+
+```
+yAxis: {
+    axisTick: {show: false},
+}
+```
+
+## move xAixs to top
+
+```
+xAxis: {
+    position: 'top'
+}
+```
+
+## 0 in the middle of xAxis
+
+Set min and max.
+
+```
+xAxis: {
+    min: -1,
+    max: 1
+},
+```
+
+## customize xAxis label
+
+```
+xAxis: {
+    axisLabel: {
+        show: true,
+        color: 'black',
+        formatter: function(params) {
+            return `${(100 * params).toFixed(2)}%`;
+        }
+    }
+}
+```
+
+## `yAxis.axisLabel.textStyle.align`: center yAxis label text
+
+```
+yAxis: {
+    axisLabel: {
+        show: true,
+        textStyle: {
+            align: 'center',
+            baseline: 'middle'
+        }
+    }
+}
+```
+
+## yAxis label overlap with chart
+
+Give some margin between yAxis label and yAxis
+
+```
+yAxis: {
+    axisLabel: {
+        margin: 35
+    }
+}
+```
+
+
+
+
