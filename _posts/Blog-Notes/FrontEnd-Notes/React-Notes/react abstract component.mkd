@@ -1,0 +1,92 @@
+## Abstract method
+
+Use `protected` and `throw new Error` for abstract method.
+
+```
+protected formatData(): void { // construct this.chartConfig
+    throw new Error('No implementation for method formatData.');
+}
+```
+
+## Method optional to use
+
+The following is to open an interface for writing optional code, like addEventListener to chartInstance `this.chartInstance.on('click', handleChartClick)`.
+
+```
+protected afterExecutingChart() {
+    // free to override or not
+}
+```
+
+## Props and State to be extended
+
+`P` is props, `S` is state, `D` is `IDataSourceItem`.
+
+```
+interface IPieChartProps extends IAbstractChartProps<IDataSourceItem> {
+    // props specific to IPieChartProps
+}
+```
+
+## Example
+
+```
+import { palatte } from ./Palatte;
+export interface IAbstractChartProps<D> {
+    dataSource: D[];
+    loading: boolean;
+}
+export interface IAbstractChartState {
+}
+export default class AbstractChart<P extends IAbstractChartProps<D>, S extends IAbstractChartState, D>
+extends React.Component<P, S> {
+
+    private chartElement: HTMLDivElement | undefined;
+    protected chartInstance: echarts.ECharts | undefined;
+    protected chartConfig: any | undefined;
+
+    constructor(props: P, context?: IAbstractChartState) {
+        super(props, context);
+        this.setChartContainer = this.setChartContainer.bind(this);
+        this.executeChart = this.executeChart.bind(this);
+        this.formatData = this.formatData.bind(this);
+        this.formatAndExecute = this.formatAndExecute.bind(this);
+        this.afterExecutingChart = this.afterExecutingChart.bind(this);
+    }
+    public componentDidMount() {
+        this.props.dataSource && this.formatAndExecute();
+    }
+    private setChartContainer(divElement: HTMLDivElement): void {
+        this.chartElement = divElement;
+    }
+    protected formatAndExecute() {
+        this.formatData();
+        this.executeChart();
+        this.afterExecutingChart();
+    }
+    private executeChart(): void {
+        // ...
+    }
+    protected afterExecutingChart() {
+        // free to override or not
+    }
+    protected formatData(): void { // construct this.chartConfig
+        throw new Error('No implementation for method formatData.');
+    }
+    protected loadChartOption(): echarts.EChartOption {
+        throw new Error('No implementation for method loadChartOption.');
+    }
+    protected getPalatte(): string[] {
+        return palatte;
+    }
+    public render(): React.ReactNode {
+        return (
+            <Card
+                loading={ this.props.loading }
+            >
+                <div style={ { height: 300, backgroundColor: 'white' } } ref={ this.setChartContainer } />
+            </Card>
+        );
+    }
+}
+```

@@ -818,3 +818,6 @@ Redux is the data contained in the application, while React is the view containe
 React centralizes all data into a single object - state.
 
 Important for redux: how to design your state.
+
+How to design your state?
+

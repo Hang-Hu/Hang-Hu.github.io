@@ -100,4 +100,26 @@ return (
 { /* comments here */ }
 ```
 
+## Compare before update
 
+If not compare, the update of `this.state.caseName` will call `render()` even if it's the same as previous one. And the re-render times will dramatically increase, slowing down the page largely.
+
+```
+onCaseClick(caseName) {
+    if (caseName !== this.state.caseName) {
+        this.setState({
+            caseName: caseName
+        });
+    }
+}
+```
+
+If not compare, the execution of `this.formatDataAndExecuteChart()` will re-render chart even if `this.props.caseName` is `undefined` or the same as previous one. And the re-render times will dramatically increase, slowing down the page largely.
+
+```
+componentDidUpdate(prevProps) {
+    if (this.props.caseName && this.props.caseName !== prevProps.caseName) {
+        this.formatDataAndExecuteChart();
+    }
+}
+```
