@@ -522,6 +522,19 @@ yAxis: {
 }
 ```
 
+## legend hollow circle
+
+Make sure no `icon` in `legend` and no `symbol` in `series`.
+
+```
+legend: {
+    // icon: 'circle'
+},
+series: [
+{
+    // symbol: 'none'
+}]
+```
 
 
 
