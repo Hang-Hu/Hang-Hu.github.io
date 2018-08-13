@@ -1,0 +1,5 @@
+## Download all submission with question details
+
+```
+leetcode submission -a -x
+```
