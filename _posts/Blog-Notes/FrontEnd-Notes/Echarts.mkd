@@ -63,7 +63,7 @@ title: {
 ```
 yAxis: {
     axisLine: {
-        : false
+        show: false
     }
 }
 ```
@@ -536,5 +536,37 @@ series: [
 }]
 ```
 
+## pie chart click to select effect
 
+selectedOffset is the offset after clicking.
 
+```
+series: [{
+    type: 'pie',
+    selectedMode: 'single',
+    selectedOffset: 30
+}]
+```
+
+## x y line chart grid
+
+```
+grid: {
+    top: '1%',
+    right: '1%',
+    bottom: '1%',
+    left: '1%',
+    containLabel: true
+}
+```
+
+## hide xAxis axisLabel, axisTick and splitLine
+
+```
+xAxis: {
+    show: true,
+    axisLabel: {show: false},
+    axisTick: {show: false},
+    splitLine: {show: false}
+}
+```

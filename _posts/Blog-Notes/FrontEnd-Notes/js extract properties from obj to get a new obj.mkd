@@ -16,6 +16,10 @@ console.log(newObj); // { name: "Paul", age: 26 }
 ## brief version
 
 ```
+(params) => (obj to return)
+```
+
+```
 const originObj = { name: "Paul", age: 26, city: "San Jose"  };
 const newObj = (({ name, age }) => ({ name, age }))(originObj);
 
