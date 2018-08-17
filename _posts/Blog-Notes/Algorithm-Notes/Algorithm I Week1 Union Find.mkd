@@ -26,7 +26,7 @@ class SocialNetworkConnectivity{
     private int numOfTrees;
     public SocialNetworkConnectivity() {
         id = new int[N];
-        numOfTrees =
+        numOfTrees = N;
         for(int i=0; i<N; i++){
             id[i] = i;
             size[i] = 1;
@@ -39,7 +39,7 @@ class SocialNetworkConnectivity{
         }
         return i;
     }
-    private boolean isConnected(int p, int q) {
+    private boolean connected(int p, int q) {
         return root(p) == root(q);
     }
     private void union(int p, int q) {
@@ -47,16 +47,16 @@ class SocialNetworkConnectivity{
         int j = root(q);
         if(i == j) return;
         if(size[i] > size[j]){
-            id[j] = id[i];
+            id[j] = i;
             size[i] += size[j]
         } else {
-            id[i] = id[j];
+            id[i] = j;
             size[j] += size[i];
         }
     }
     public int earliestTime() {
         for(log in logs) {
-            if(!isConnected(log.p, log.q)) {
+            if(!connected(log.p, log.q)) {
                 union(log.p, log.q);
                 numOfTrees--;
             }
@@ -68,4 +68,68 @@ class SocialNetworkConnectivity{
     }
 }
 ```
+
+
+## Question2 
+
+Union-find with specific canonical element. Add a method find() to the union-find data type so that find(i) returns the largest element in the connected component containing i. The operations, union(), connected(), and find() should all take logarithmic time or better.
+
+For example, if one of the connected components is {1,2,6,9}, then the find() method should return 99 for each of the four elements in the connected components.
+
+```
+class UnionFind{
+    private static final int N;
+    private int[] id;
+    private int[] size;
+    private Map<Integer, Integer> components = new HashMap<>();// (root, maxElement)
+    public UnionFind() {
+        id = new int[N];
+        for(int i=0; i<N; i++){
+            id[i] = i;
+            size[i] = 1;
+            components.put(i, i);
+        }
+    }
+    private int root(int i) {
+        while(id[i] != i) {
+            id[i] = id[id[i]];
+            i = id[i];
+        }
+        return i;
+    }
+    private boolean connected(int p, int q) {
+        return root(p) == root(q);
+    }
+    private void union(int p, int q) {
+        int i = root(p);
+        int j = root(q);
+        if(i == j) return;
+        if(size[i] > size[j]){
+            id[j] = i;
+            size[i] += size[j]
+            int maxJ = components.get(j);
+            maxJ > components.get(i) && components.put(i, maxJ);
+        } else {
+            id[i] = j;
+            size[j] += size[i];
+            int maxI = components.get(i);
+            maxI > components.get(j) && components.put(j, maxI);
+        }
+    }
+    public int find(int i) {
+        int root = root(i);
+        return components.get(root);
+    }
+}
+```
+
+## Question 3
+
+Successor with delete. Given a set of nn integers S={0,1,...,n−1} and a sequence of requests of the following form:
+
+Remove x from S
+Find the successor of x: the smallest y in S such that y≥x.
+design a data type so that all operations (except construction) take logarithmic time or better in the worst case.
+
+
 
