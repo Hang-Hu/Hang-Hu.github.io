@@ -1,0 +1,7 @@
+# ReadTimeoutError: HTTPSConnectionPool(host='files.pythonhosted.org', port=443): Read timed out
+
+## Solution
+
+```
+sudo pip install --default-timeout=100 django
+```

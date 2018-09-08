@@ -6,6 +6,19 @@ tags: Ubuntu Vpn
 cover: 
 ---
 
+
+##  This one doesn't work.
+
+```
+sudo vim /etc/rc.local
+```
+
+Add this line before exit 0:
+
+    openvpn --config ustc-dianxin.ovpn
+
+## A Good Solution
+
 ```
 sudo cp ~/openvpn/dianxin.ovpn /etc/openvpn/dianxin.conf
 ```
@@ -18,4 +31,10 @@ Uncomment `AUTOSTART="home office"` and change it to `AUTOSTART="dianxin"`.
 
 ```
 sudo service openvpn restart
+```
+
+## Disable openvpn on startup
+
+```
+sudo update-rc.d -f openvpn remove
 ```
