@@ -1,0 +1,13 @@
+---
+layout: post
+author: Hang Hu
+categories: frontend
+tags: Blog FrontEnd 
+cover: 
+---
+
+```
+const map: Map<string, number> = new Map(); // (key, value)
+// ...
+return [...map.entries()].sort((a, b) => a[1] - b[1]);
+```

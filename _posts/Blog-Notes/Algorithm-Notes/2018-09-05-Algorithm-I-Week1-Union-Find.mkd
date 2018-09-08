@@ -1,0 +1,154 @@
+---
+layout: post
+author: Hang Hu
+categories: algorithm
+tags: Blog Algorithm 
+cover: 
+---
+
+PPT 36
+
+Why is the depth of the weighted quick-union tree logN?
+
+The depth of smaller tree increases 1 when it's merged into a larger tree. And it at least doubles because it's merged into a larger tree. 1 doubles x times to N, which is,
+
+```
+1 * 2^x = N
+x = log2 N
+```
+
+
+
+Interview Questions: Union–Find (ungraded)
+
+
+
+Social network connectivity. Given a social network containing n members and a log file containing mm timestamps at which times pairs of members formed friendships, design an algorithm to determine the earliest time at which all members are connected (i.e., every member is a friend of a friend of a friend ... of a friend). Assume that the log file is sorted by timestamp and that friendship is an equivalence relation. The running time of your algorithm should be m*logn or better and use extra space proportional to n.
+
+
+```
+class SocialNetworkConnectivity{
+    private static final int N;
+    private int[] id;
+    private int[] size;
+    private Log[] logs;
+    private int numOfTrees;
+    public SocialNetworkConnectivity() {
+        id = new int[N];
+        numOfTrees = N;
+        for(int i=0; i<N; i++){
+            id[i] = i;
+            size[i] = 1;
+        }
+    }
+    private int root(int i) {
+        while(id[i] != i) {
+            id[i] = id[id[i]];
+            i = id[i];
+        }
+        return i;
+    }
+    private boolean connected(int p, int q) {
+        return root(p) == root(q);
+    }
+    private void union(int p, int q) {
+        int i = root(p);
+        int j = root(q);
+        if(i == j) return;
+        if(size[i] > size[j]){
+            id[j] = i;
+            size[i] += size[j]
+        } else {
+            id[i] = j;
+            size[j] += size[i];
+        }
+    }
+    public int earliestTime() {
+        for(log in logs) {
+            if(!connected(log.p, log.q)) {
+                union(log.p, log.q);
+                numOfTrees--;
+            }
+            if(numOfTrees == 1) {
+                return log.timestamp;
+            }
+        }
+        return -1;
+    }
+}
+```
+
+
+
+## Question2 
+
+
+Union-find with specific canonical element. Add a method find() to the union-find data type so that find(i) returns the largest element in the connected component containing i. The operations, union(), connected(), and find() should all take logarithmic time or better.
+
+
+For example, if one of the connected components is {1,2,6,9}, then the find() method should return 99 for each of the four elements in the connected components.
+
+
+```
+class UnionFind{
+    private static final int N;
+    private int[] id;
+    private int[] size;
+    private Map<Integer, Integer> components = new HashMap<>();// (root, maxElement)
+    public UnionFind() {
+        id = new int[N];
+        for(int i=0; i<N; i++){
+            id[i] = i;
+            size[i] = 1;
+            components.put(i, i);
+        }
+    }
+    private int root(int i) {
+        while(id[i] != i) {
+            id[i] = id[id[i]];
+            i = id[i];
+        }
+        return i;
+    }
+    private boolean connected(int p, int q) {
+        return root(p) == root(q);
+    }
+    private void union(int p, int q) {
+        int i = root(p);
+        int j = root(q);
+        if(i == j) return;
+        if(size[i] > size[j]){
+            id[j] = i;
+            size[i] += size[j]
+            int maxJ = components.get(j);
+            maxJ > components.get(i) && components.put(i, maxJ);
+        } else {
+            id[i] = j;
+            size[j] += size[i];
+            int maxI = components.get(i);
+            maxI > components.get(j) && components.put(j, maxI);
+        }
+    }
+    public int find(int i) {
+        int root = root(i);
+        return components.get(root);
+    }
+}
+```
+
+
+## Question 3
+
+
+Successor with delete. Given a set of nn integers S={0,1,...,n−1} and a sequence of requests of the following form:
+
+
+Remove x from S
+
+Find the successor of x: the smallest y in S such that y≥x.
+
+design a data type so that all operations (except construction) take logarithmic time or better in the worst case.
+
+
+balanced tree.
+

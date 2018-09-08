@@ -1,0 +1,14 @@
+---
+layout: post
+author: Hang Hu
+categories: react
+tags: Blog FrontEnd React 
+cover: 
+---
+## Reason
+
+I used `this.props.config` outside a class.
+
+## Solution
+
+Always use `this` inside a class.

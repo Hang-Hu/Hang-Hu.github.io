@@ -1,0 +1,34 @@
+---
+layout: post
+author: Hang Hu
+categories: frontend
+tags: Blog FrontEnd 
+cover: 
+---
+Tables have difficult rules about distributing the space of the columns because they distribute space dependent on the content of the cells by default. Calc (atm) just wont work with that.
+
+What you can do however is to set the table-layout attribute for the table to force the child td elements to get the exact width you declared. For this to work you also need a width (100% works) on the table.
+
+```
+table{
+   table-layout:fixed; /* this keeps your columns with at the defined width */
+   width: 100%;        /* a width must be specified */
+
+   display: table;     /* required for table-layout to be used 
+                          (since this is the default value it is normally not necessary;
+                          just included for completeness) */
+}
+```
+
+
+```
+.half {
+    width: calc(50% - 10px);
+}
+```
+
+
+## Reference
+
+
+[using calc with tables](https://stackoverflow.com/questions/15873302/using-calc-with-tables)

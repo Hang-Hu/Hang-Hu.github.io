@@ -6,6 +6,6 @@ tags: Blog FrontEnd
 cover: 
 ---
 
-```
-timestr = datetime_var.strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
-```
+`startTimestamp`: 1532091655
+
+`endTimestamp`: 1532091655 + 86400 = 1532178055

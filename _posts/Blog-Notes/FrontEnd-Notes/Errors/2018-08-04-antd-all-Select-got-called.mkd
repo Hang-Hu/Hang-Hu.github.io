@@ -1,0 +1,36 @@
+---
+layout: post
+author: Hang Hu
+categories: frontend
+tags: Blog FrontEnd 
+cover: 
+---
+## Details
+
+When the app was just loaded, all onSelect was called, logging the result. And every time I selected an option, callbacks in all `Select` executed.
+
+## Reason
+
+I was calling `this.onCardSelect` in `render()`. Therefore during rendering, callbacks in all `Select` was called. As I selected an option, the change of `state` in `setState` made the componnet to re-render. During the rendering, callbacks in all `Select` was called as well.
+
+```
+<Select
+    onSelect={ this.onFavFruitSelect('Favorite Fruit') }
+>
+```
+
+
+## Solution
+
+
+```
+onSelect={ (optionValue) => this.onFavFruitSelect('Favorite Fruit') }
+```
+
+
+Or
+
+
+```
+onSelect={ this.onFavFruitSelect.bind(this, 'Favorite Fruit') }
+```

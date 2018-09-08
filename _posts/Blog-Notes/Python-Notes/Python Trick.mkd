@@ -1,9 +1,0 @@
-# Python Trick
-
-### All file names in a folder
-
-```
-import os
-names = os.listdir("./")
-print(names)
-```

@@ -1,0 +1,11 @@
+---
+layout: post
+author: Hang Hu
+categories: typescript
+tags: Blog FrontEnd Typescript 
+cover: 
+---
+
+```
+const name = (this.props as any).name
+```

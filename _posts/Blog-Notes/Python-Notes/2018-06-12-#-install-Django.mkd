@@ -1,0 +1,33 @@
+---
+layout: post
+author: Hang Hu
+categories: python
+tags: Blog Python 
+cover: 
+---
+
+```
+source bin/activate
+
+
+proxychains pip3 install virtualenv 
+
+python3 -m virtualenv ./ -p /usr/bin/python3.5 
+
+source bin/activate
+
+python
+//Python 3.5.2 (default, Nov 23 2017, 16:37:01) 
+
+pip -V
+// pip 10.0.1 from /home/joanna/Documents/CodeSpace/code4Python/
+// djangoProjects/firstDjango/lib/python3.5/site-packages/pip (python 3.5)
+
+proxychains pip install Django
+python -m django --version
+//2.0.6
+
+sudo apt-get install libmysqlclient-dev //for pip install mysqlclient
+proxychains pip install mysqlclient
+
+```

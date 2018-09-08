@@ -1,0 +1,38 @@
+---
+layout: post
+author: Hang Hu
+categories: frontend
+tags: Blog FrontEnd 
+cover: 
+---
+
+## Example
+
+Used Object Destructuring and Property Shorthand
+
+
+```
+const originObj = { name: "Paul", age: 26, city: "San Jose"  };
+const { name, age } = originObj;
+const newObj = { name, age }
+
+console.log(newObj); // { name: "Paul", age: 26 }
+```
+
+
+## brief version
+
+
+```
+(params) => (obj to return)
+```
+
+
+```
+const originObj = { name: "Paul", age: 26, city: "San Jose"  };
+const newObj = (({ name, age }) => ({ name, age }))(originObj);
+
+console.log(newObj); // { name: "Paul", age: 26 }
+```
+
+

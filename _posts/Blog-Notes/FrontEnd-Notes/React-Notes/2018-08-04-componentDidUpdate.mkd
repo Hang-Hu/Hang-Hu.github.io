@@ -1,0 +1,41 @@
+---
+layout: post
+author: Hang Hu
+categories: react
+tags: Blog FrontEnd React 
+cover: 
+---
+```
+componentDidUpdate(prevProps) {
+    if (this.props.value !== prevProps.value) {
+        this.setState({
+            value: this.props.value
+        });
+        this.requestData()
+    }
+}
+```
+
+
+When `dataSource` has changed, re populate data:
+
+
+```
+componentDidUpdate(prevProps) {
+    if (this.state.dataSource !== prevProps.dataSource) {
+        this.rePopulateData();
+    }
+}
+```
+
+
+Or when arguments used to request dataSource has changed, request data again:
+
+
+```
+componentDidUpdate(prevProps) {
+    if (JSON.stringify(this.props) !== JSON.stringify(prevProps)) {
+        this.requestData();
+    }
+}
+```

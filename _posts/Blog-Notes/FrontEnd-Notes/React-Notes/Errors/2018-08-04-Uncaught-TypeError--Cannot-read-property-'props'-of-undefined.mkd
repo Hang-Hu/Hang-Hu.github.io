@@ -1,0 +1,18 @@
+---
+layout: post
+author: Hang Hu
+categories: frontend
+tags: Blog FrontEnd 
+cover: 
+---
+## Reason
+
+I forgot to bind this to the method.
+
+## Solution
+
+In constructor:
+
+```
+this.handleInputChange = this.handleInputChange.bind(this);
+```

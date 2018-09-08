@@ -1,5 +1,0 @@
-# host ip in host-only virtualbox
-
-```
-192.168.56.1
-``` 

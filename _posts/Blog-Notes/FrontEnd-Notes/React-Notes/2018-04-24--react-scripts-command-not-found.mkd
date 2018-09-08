@@ -6,6 +6,8 @@ tags: Blog FrontEnd
 cover: 
 ---
 
+## Solution
+
 ```
-timestr = datetime_var.strftime("%Y-%m-%dT%H:%M:%S.%f")[:-3] + "Z"
+npm install
 ```

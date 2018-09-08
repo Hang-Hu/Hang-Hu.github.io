@@ -1,0 +1,15 @@
+---
+layout: post
+author: Hang Hu
+categories: python
+tags: Blog Python 
+cover: 
+---
+
+### All file names in a folder
+
+```
+import os
+names = os.listdir("./")
+print(names)
+```

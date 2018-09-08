@@ -1,7 +1,0 @@
-In index.less to style component in item.less:
-
-```
-.nav :lobal(.ant-menu-submenu), .nav :global(.ant-menu) {
-    .nav;
-}
-```

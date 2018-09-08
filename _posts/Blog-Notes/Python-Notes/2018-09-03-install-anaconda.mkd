@@ -1,0 +1,57 @@
+---
+layout: post
+author: Hang Hu
+categories: python
+tags: Blog Python 
+cover: 
+---
+## Download and install
+
+```
+bash Anaconda3-5.2.0-Linux-x86_64.sh
+```
+
+
+- license: YES
+
+- location: YES
+
+- PATH: NO
+
+- Microsoft VS Code: NO
+
+
+
+## Configure PATH
+
+
+```
+mkdir ~/.symlinks
+cd .symlinks
+mkdir anaconda3
+ln -s /home/joanna/anaconda3/bin/conda conda
+ln -s /home/joanna/anaconda3/bin/activate activate
+ln -s /home/joanna/anaconda3/bin/deactivate deactivate
+ln -s /home/joanna/anaconda3/bin/anaconda-navigator anaconda-navigator
+ln -s /home/joanna/anaconda3/bin/jupyter-notebook jupyter-notebook
+```
+
+
+```
+sudo vim /etc/profile
+```
+
+
+Add two lines to the end
+
+
+```
+# for anaconda
+
+export PATH=$PATH:/home/joanna/.symlinks/anaconda3  
+```
+
+
+```
+source /etc/profile
+```

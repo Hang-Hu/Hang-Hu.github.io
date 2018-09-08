@@ -1,9 +1,0 @@
-## Reason
-
-Because inside Card body, `loading` component will mount during loading time, causing every component inside Card body to unmount. Therefore, every time I select an option or clicking other menu that make chart re-fetch data, `Select` inside Card's body will be unmount, and after loading, mount again.
-
-Thus `Select` cannot keep the previous `this.props` because it's re constructed once select an option. Then `props` is always the same as `nextProps`, equaling to `props` just received.
-
-## Solution
-
-Move `Select` in the title of Card, which won't display loading effect, thus won't be re-constructed.

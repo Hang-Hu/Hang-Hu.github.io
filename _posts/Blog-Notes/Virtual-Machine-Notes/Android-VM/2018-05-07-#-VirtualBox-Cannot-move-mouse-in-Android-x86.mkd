@@ -1,0 +1,11 @@
+---
+layout: post
+author: Hang Hu
+categories: virtual-machine
+tags: Blog Virtual-Machine 
+cover: 
+---
+
+## Solution
+
+Click Input, close Mouse Integration.
