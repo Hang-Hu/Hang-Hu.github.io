@@ -59,7 +59,7 @@ Enter recovery mode.
 adb reboot bootloader
 adb push lineage-14.1-20170911-nightly-cheeseburger-signed.zip /sdcard/
 adb push open_gapps-arm64-7.1-full-20170909.zip /sdcard/
-adb push addonsu-14.1-arm64-signed.zip /sdcard/
+adb push addonsu-14.1-arm64-signed.zip /sdcard/ ## this is for ROOTING the device!
 ```
 
 
@@ -94,3 +94,12 @@ Once installation has finished, return to the main menu, select Reboot, and then
 
 ](https://forum.xda-developers.com/oneplus-3/help/error-7-trying-to-install-lineage-os-op3-t3554900)
 
+
+### Unroot it
+
+1. Download addonsu-remove-14.1-arm64-signed.zip and copy it to phone.
+2. Reboot to recovery mode
+3. Unlock with passpord, select install, and find the addonsu-remove-14.1-arm64-signed.zip
+4. Swift right to install without versify signature
+5. Reboot to system
+6. You get your lineage unrooted

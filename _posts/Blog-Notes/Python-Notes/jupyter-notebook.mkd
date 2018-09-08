@@ -1,0 +1,7 @@
+```
+export BROWSER=google-chrome
+jupter-notebook ~/Documents/CodeSpace/code4Python
+
+```
+
+Shift + Enter to change line and run code.

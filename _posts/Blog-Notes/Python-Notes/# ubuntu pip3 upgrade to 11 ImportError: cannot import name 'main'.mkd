@@ -1,0 +1,9 @@
+# ubuntu pip3 upgrade to 11 ImportError: cannot import name 'main'
+
+## Solution
+
+```
+sudo vim /usr/bin/pip3
+```
+
+Change `from pip import main` to `from pip._internal import main`
