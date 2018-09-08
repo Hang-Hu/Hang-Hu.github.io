@@ -1,0 +1,13 @@
+---
+layout: post
+author: Hang Hu
+categories: proxy
+tags: Blog Ubuntu Proxy 
+cover: 
+---
+
+## Example
+
+```
+curl --socks5 localhost:1081 google.com
+```

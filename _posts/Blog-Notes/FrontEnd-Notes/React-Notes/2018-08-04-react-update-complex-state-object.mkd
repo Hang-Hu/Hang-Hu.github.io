@@ -1,0 +1,56 @@
+---
+layout: post
+author: Hang Hu
+categories: react
+tags: Blog FrontEnd React 
+cover: 
+---
+
+```
+infoList: infoObj[];
+
+infoObj {
+    name: string;
+    age: number;
+    background: any;
+}
+background {
+    bioDesc: string;
+    education: any[];
+}
+```
+
+
+Update `bioDesc` in `this.state.infoObj.background.bioDesc`
+
+
+Shallow copy `infoList` and assign it to `newInfoList`, newInfoList is a new object with all properties the same reference/value.
+
+
+```
+const newInfoList = this.state.infoList.slice();
+```
+
+
+Shallow copy `background` and assign it to `newInfoList[index].background`, then `background` is a new object with all properties the same reference/value now.
+
+
+```
+newInfoList[index].background = Object.assign({}, this.state.infoList[index].background);
+```
+
+
+Update `bioDesc` in new `background` object.
+
+
+```
+newInfoList[index].background.bioDesc = bioDesc;
+```
+
+
+Use `setState`.
+
+
+```
+this.setState({ infoList: newInfoList });
+```

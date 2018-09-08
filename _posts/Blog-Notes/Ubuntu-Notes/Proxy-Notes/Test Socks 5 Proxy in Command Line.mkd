@@ -1,7 +1,0 @@
-# Test Socks 5 Proxy in Command Line
-
-## Example
-
-```
-curl --socks5 localhost:1081 google.com
-```

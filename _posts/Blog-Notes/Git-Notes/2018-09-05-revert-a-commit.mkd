@@ -1,0 +1,23 @@
+---
+layout: post
+author: Hang Hu
+categories: git
+tags: Blog Git 
+cover: 
+---
+## Revert a commit
+
+```
+git revert <commit sha>
+```
+
+
+This will generate a commit sha of the revert action.
+
+
+## Undo the revert: revert the revert commit
+
+
+```
+git revert <commit sha of the revert>
+```

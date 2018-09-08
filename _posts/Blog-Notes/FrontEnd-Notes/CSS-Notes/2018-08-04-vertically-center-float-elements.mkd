@@ -1,0 +1,27 @@
+---
+layout: post
+author: Hang Hu
+categories: frontend
+tags: Blog FrontEnd 
+cover: 
+---
+```
+    <div class="container">
+        <span class="child1"></span>
+        <span class="child2"></span>
+    </div>
+```
+
+
+```
+.container {
+    display: flex;
+    align-items: center;
+}
+.child1{
+    float: left;
+}
+.child2{
+    float: left;
+}
+```

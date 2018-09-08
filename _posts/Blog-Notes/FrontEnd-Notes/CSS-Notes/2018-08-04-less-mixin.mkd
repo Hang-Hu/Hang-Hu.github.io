@@ -1,0 +1,35 @@
+---
+layout: post
+author: Hang Hu
+categories: frontend
+tags: Blog FrontEnd 
+cover: 
+---
+.my-mixin {
+  color: black;
+}
+.my-other-mixin() {
+  background: white;
+}
+.class {
+  .my-mixin;
+  .my-other-mixin;
+}
+```
+
+
+Output:
+
+
+```
+.my-mixin {
+  color: black;
+}
+.class {
+  color: black;
+  background: white;
+}
+```
+
+
+[Less Mixin](http://lesscss.org/features/# mixins-feature-not-outputting-the-mixin)

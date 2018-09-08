@@ -1,0 +1,17 @@
+---
+layout: post
+author: Hang Hu
+categories: react
+tags: Blog FrontEnd React 
+cover: 
+---
+
+If it comes to switch tabs, the chart should be re-generate even if `this.props.data` not changed.
+
+```
+public componentDidMount() {
+    if (this.props.data) {
+        this.parseDataAndGenerateChart();
+    }
+}
+```

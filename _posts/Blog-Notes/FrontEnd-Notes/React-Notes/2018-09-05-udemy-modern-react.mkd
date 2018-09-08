@@ -1,0 +1,1038 @@
+---
+layout: post
+author: Hang Hu
+categories: frontend
+tags: Blog FrontEnd 
+cover: 
+---
+## Get help
+
+Email address: `ste.grider@gmail.com`, give the code with email.
+
+## An Intro to React
+
+![modern javascript tooling]({{ site.url }}/assets/posts_img/modern-javascript-tooling.png)
+
+```
+git clone https://github.com/StephenGrider/ReduxSimpleStarter.git
+cd ReduxSimpleStarter
+npm install
+npm start
+```
+
+
+React is a Javascript library used to ultimately generate HTML. We use component/view to produce HTML.
+
+
+Take this component's generated HTML and put it on page(in the DOM).
+
+
+JSX cannot be interpreted by browser, so we use webpack and babel to translate it into vanilla javascript.
+
+
+### Try JSX
+
+
+In `src/index.js`:
+
+
+```
+const App = function() {
+    return <div>Hi</div>;
+}
+```
+
+
+Its corresponding Vanilla Javascript:
+
+
+```
+"use strict";
+var App = function App() {
+    return React.createElement(
+        "div",
+        null,
+        "Hi"
+    );
+};
+```
+
+
+Or
+
+
+```
+const App = function() {
+    return <ol>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+    </ol>;
+}
+```
+
+
+This can be translated to
+
+
+```
+"use strict";
+
+var App = function App() {
+  return React.createElement(
+    "ol",
+    null,
+    React.createElement(
+      "li",
+      null,
+      "1"
+    ),
+    React.createElement(
+      "li",
+      null,
+      "2"
+    ),
+    React.createElement(
+      "li",
+      null,
+      "3"
+    )
+  );
+};
+```
+
+
+Get vanilla Javascript of React code in website [babeljs.io/repl](https://babeljs.io/repl).
+
+
+The more HTML is, the more vanilla JS will be. And JSX just makes it clean and easy to write HTML in Javascript.
+
+
+### The `()` means nothing
+
+
+```
+const App = function() {
+    return (<div>Hi</div>);
+}
+```
+
+
+```
+"use strict";
+
+var App = function App() {
+    return React.createElement(
+        "div",
+        null,
+        "Hi"
+    );
+};
+```
+
+
+### `Uncaught ReferenceError: React is not defined`
+
+
+Javascript Modules: files are seperate from other code we write and libraries, which is called sideload. Code in other file has no contact with the current one until we explictly import it. We have no access to React, which is in other file, although React is installed.
+
+
+```
+import React from 'react';
+```
+
+
+Go to find react library in node_modules and assign it to React variable.
+
+
+
+### render with ReactDOM
+
+
+
+```
+const App = function() {
+    return <h1>Hello world</h1>;
+}
+```
+
+
+App is a function, you have to pass an instance of App to ReactDOM.
+
+
+```
+ReactDOM.render(<App />, document.querySelector(".container1"));
+```
+
+
+Use babel to translate:
+
+
+```
+"use strict";
+var App = function App() {
+    return React.createElement(
+        "h1",
+        null,
+        "Hello world"
+    );
+};
+ReactDOM.render(React.createElement(App, null), document.querySelector(".container1"));
+```
+
+
+### prototype
+
+
+```
+var App = function() {
+    return <h1>Hello world</h1>;
+}
+```
+
+
+Equals
+
+
+```
+function App(){
+    return React.createElement(
+        "h1",
+        null,
+        "Hello world"
+    );
+}
+```
+
+
+This is a function used to create object, like:
+
+
+```
+function Person(firstName, lastName){
+    this.firstName = firstName;
+    this.lastName = lastName;
+}
+```
+
+
+
+### Component Structure
+
+
+Component is a function/object that returns some HTML.
+
+
+Instead of using one component to do all things, we use different components for different purposes.
+
+
+Component for search bar, for video info panel, 
+
+
+![youtube clone demo]({{ site.url }}/assets/posts_img/youtube-clone-demo.png)
+
+
+One big component to contain all, one for wideo and info, one for search bar, one for a list of components, and inside the lists, there are many components.
+
+
+
+![youtube clone component structure]({{ site.url }}/assets/posts_img/youtube-clone-component-structure.png)
+
+
+Keep in mind: ALWAYS one component per file.
+
+
+Open `https://console.developers.google.com/` to request for Youtube API permission and generate a key for access.
+
+
+Install a package:
+
+
+```
+npm install --save youtube-api-search
+```
+
+
+```
+./
+├── LICENSE.MD
+├── README.md
+├── index.html
+├── node_modules
+│   ├── ...
+├── package-lock.json
+├── package.json
+├── src
+│   ├── components
+│   │   ├── search_bar.js
+│   │   ├── video_detail.js
+│   │   ├── video_list.js
+│   │   └── video_list_item.js
+│   └── index.js
+├── style
+│   └── style.css
+├── test
+│   ├── components
+│   │   └── app_test.js
+│   └── test_helper.js
+└── webpack.config.js
+```
+
+
+### Export Statement
+
+
+In `proj/src/components/search_bar.js`, you have to import React because `return <input />` will be translated to `React.createElement` even React not called explicitly.
+
+
+```
+import React from 'react';
+const SearchBar = () => {
+    return <input />;
+};
+```
+
+
+Since files are sideloading and seperate, we have to export so that other files can access. We have a bunch of code, and only part of it is exported. Make sure the only code we export in this file is the SearchBar component with `export default SearchBar;`.
+
+
+```
+import React from 'react';
+
+const SearchBar = () => {
+    return <input />;
+};
+
+export default SearchBar;
+```
+
+
+index.js
+
+
+```
+import SearchBar from './components/search_bar';
+```
+
+
+Here if we export foo, then SearchBar in will be 5 instead of the component.
+
+
+```
+const foo = 5;
+export default foo;
+```
+
+
+Whenever we import a component written by ourselves, we have to provide the relative path, such as `import SearchBar from './components/search_bar'`. As for node_modules, not required to do that because of the namespace, like `import React from 'react'`.
+
+
+
+Use SearchBar in App. When we use multiple lines of JSX, parenthesis `()` is usually added. It's also ok when if parenthesis not used.
+
+
+```
+const App = () => {
+    return (
+        <div>
+            <SearchBar />
+        </div>
+    );
+}
+```
+
+
+Note that it ok for function component to contain class based components.
+
+
+### Class-Based components
+
+
+Create a component using `class` instead of `prototype function`, for more complex features. There is no `this` in rrrow function `App`.
+
+
+Function component:
+
+
+```
+const SearchBar = () => {
+    return <input />;
+};
+```
+
+
+Class Component:
+
+
+```
+class SearchBar extends React.Component{
+    render() {
+        return <input />;
+    }
+}
+```
+
+
+#### ES6 here: syntax sugar `import React, { Component } from 'react'`
+
+
+Instead of writing `React.Component`, we can emit React by using `import React, { Component } from 'react'` instead of `import React from 'react'`. Then the statement woule be `class SearchBar extends Component`.
+
+
+The curly braces `{}` here means put Component in react into a const Component, the same as `const Component = React.Component`.
+
+
+### Handling User Events
+
+
+`on${event type}={this.${event handler function}}`
+
+
+Like vanilla Javascript, you will get event object in handler.
+
+
+```
+class SearchBar extends Component{
+    render() {
+        return <input onChange={this.onInputChange} />;
+    }
+    onInputChange(event) {//or handleInputChange
+        console.log(event.target.value);
+    }
+}
+```
+
+
+#### Use es6 arrow function to compact code
+
+
+```
+render() {
+    return <input onChange={ event => console.log(event.target.value)} />;
+}
+```
+
+
+### Introduction to State
+
+
+`constructor` always gets called with `props`.
+
+
+```
+class SearchBar extends Component{
+    constructor(props) {
+        super(props);
+        this.state = { term: '' };
+    }
+    render() {
+        return <input onChange={ event => console.log(event.target.value)} />;
+    }
+}
+```
+
+
+
+State is a plain javascript object used to record and react to user events. Each class-based component has its own state object, while function-based components don't have state.
+
+
+If state of SearchBar is changed, the `render` function will re-run. If other components inside SearchBar exist, those components will be re-rendered.
+
+
+Before we use `state` inside a component, we have to initialize the `state` object. To initialize the `state` object, we set the property state to a plain Javascript object inside the class's `constructor` method.
+
+
+All Javascript classes have a special function called `constructor`, the constructor function is the first and only function called automatically whenever a new instance of this class is created. `constructor` is used to do some setups, like initializing variables, state, etc.
+
+
+`Coponent` has its own constructor, when we difine a method already defined in parent class, which is `Component`, we can call that parent method by calling super.
+
+
+If no `super`, you get an error: `'this' is not allowed before super()`.
+
+
+Whenever we use a state, we initialize it by creating a new object and assign it to `this.state`, the object we pass will also contain properties we want to record in state. Here we want to record `term`, which is search term. Every time user changes the value of SearchBar input, `term` is the property we record change on.
+
+
+### More on State
+
+
+We use `this.state = { ... }` only in constructor, in other functions we use `this.setState({ ... })`. We cann't use `this.state.term = event.target.value`. When referencing state property, we can use `this.state.term`.
+
+
+We always use `this.setState` to manipulate state, we use setState as a ***proxy***, to inform React state is changed.s
+
+
+Whenever we ***reference a Javascript variable inside `JSX`***, we wrap it with curly braces `{}`.
+
+
+```
+render() {
+    return (
+        <div>
+            <input onChange={ event => this.setState({ term: event.target.value })} />
+            <p>Value of the input: {this.state.term}</p>
+        </div>
+    );
+}
+```
+
+
+Explain of the previous example code, with it you get the newest value of input instantly on the the second line:
+
+
+When we type something in input, we change the value of input, then the callback of `onChange` is executed and state changed. Since setState is called, `setState` automatically put the updated information from the render method into the DOM. Because `{this.state.term}` is used the `p`, every time component re-rendered, we get the updated `this.state.term` in the DOM.
+
+
+### Controlled Components: ***state decides value***
+
+
+#### Intro
+
+
+A controlled fild is a form element like `input` whose `value` is set by `state`.
+
+
+Previouly we use `input` to change `state`, this example let `state` control `input`.
+
+
+```
+<input
+    value={ this.state.term }
+    // onChange={ event => this.setState({ term: event.target.value })}
+/>
+```
+
+
+Now input cannot be typed in anything.
+
+
+Because when we use `value={ this.state.term }`, `input` becomes a controlled component. Its `value` is set by `state`, it changes only when the `state` changes. And `this.state.term` is initially set to be `''` in `constructor`.
+
+
+#### The full process
+
+
+When onChange is not commented, you can type in the input. However, it works differently. 
+
+
+As App starts to run, constructor is called, and term in state is set to be `''`. So the value of input is empty. When something is typed, `onChange` reacts, `this.setState` is called, term is given string typed, and `this.setState` calls React to re-render the component. When `input` re-rendered, `value={ this.state.term }` is called again, and input is updated to receive `this.state.term`. Finally, the component finishes rendering, and the new value of input is visible on the screen.
+
+
+```
+class SearchBar extends Component{
+    constructor(props) {
+        super(props);
+        this.state = { term: '' };
+    }
+    render() {
+        return (
+            <div>
+                <input
+                    value={ this.state.term }
+                    onChange={ event => this.setState({ term: event.target.value })}
+                />
+            </div>
+        );
+    }
+}
+```
+
+
+
+#### Why use controlled component?
+
+
+We don't use the concept that use changes something, we have to figure out the `value`. We use the concept that the `value` in the `input` is equal to the `state`.
+
+
+And it allows us to do many things, like default value.
+
+
+##### Default value
+
+
+We get default value like `Search term` below, not placeholder, but actual value pre populating there.
+
+
+```
+this.state = { term: 'Search term' };
+```
+
+
+##### Allow us to read the value of input more easily than jQuery
+
+
+We don't have to select input and get its value, but use `this.state.term` to read the value.
+
+
+## Ajax Requests with React
+
+
+### Youtube Search Response
+
+
+Downwards data flow: most parent component should be responsible for the data fetched from API/flex framework/redux.
+
+
+`App` in `index.js` is the parent component.
+
+
+
+In `index.js`:
+
+
+```
+import YTSearch from 'youtube-api-search';
+
+YTSearch({ key: API_KEY, term: 'surfboards'}, function(data) {
+    console.log(data);
+});
+```
+
+
+### Refactoring Functional Components to Class Components
+
+
+We refactor App to be a class component so that App can keep track of list of videos in state. Whenever we use this.state, we need a class based component. We want to use state here because it's the kind of data that changes over time and we want to persist throughout the application.
+
+
+```
+const App = () => {
+    return (
+        <div>
+            <SearchBar />
+        </div>
+    );
+}
+```
+
+
+To
+
+
+```
+class App extends Component {
+    render() {
+        return (
+            <div>
+                <SearchBar />
+            </div>
+        );
+    }
+}
+```
+
+
+As people search for new terms, the 5 videos are expected to be updated. Video Data changes over time, which is a good use case for state. Conduct new search and set the result in state.
+
+
+```
+constructor(props) {
+    super(props);
+    this.state = { videos: [] };
+    YTSearch({ key: API_KEY, term: 'surfboards'}, (videos) => {
+        this.setState({ videos });
+    });
+}
+```
+
+
+We don't put `this.state = {videos: [data]}` inside YTSearch's callback because if the network connection fails at first, App has no this.state.videos. Even if the network resumes later, this application won't resume to work.
+
+
+#### ES6 here: Object Shorthand Notation
+
+
+If key and value is of the same name, like `this.setState({ videos: videos })`, we can use ES6 to condense it into `this.setState({ videos })`.
+
+
+### Props
+
+
+VideoList doesn't really need `state`, it doesn't record any user action or re-render it, so we can make it a plain functional component.
+
+
+Since Bootrap is referenced in index.html, which is `<link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/48938155eb24b4ccdde09426066869504c6dab3c/dist/css/bootstrap.min.css">`, we can style the application with Bootstrap.
+
+
+We can add a `class` to style element, instead of class keyword, React uses `className` keyword to avoid confict with keyword `class` used to define class based component, for example `class App extends React.Component`. 
+
+
+Here the `class`es originates from Bootstrap via `<link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/48938155eb24b4ccdde09426066869504c6dab3c/dist/css/bootstrap.min.css">` in `index.html`.
+
+
+```
+return (
+    <ul className="col-md-4 list-group">
+        {videoItems}
+    </ul>
+);
+```
+
+
+#### Passing data from parent component to child component: props
+
+
+We have to pass `videos` from parent component `App` to child component `VideoList` so that `VideoList` can display these videos.
+
+
+```
+<VideoList videos={ this.state.videos } />
+```
+
+
+Passing data like this is refered to as passing props in React. The data passed from App to VideoList is refered to as a prop, so we are passing prop `videos` to `VideoList`.
+
+
+Every time App setState on videos, VideoList re-renders, and it will get the new list of videos by `videos={ this.state.videos }`. 
+
+
+When we use a functional component, `props` object will arrive as an argument to the function.
+
+
+```
+const VideoList = (props) => {
+    return (
+        <ul className="col-md-4 list-group">
+          {props.videos.length}
+        </ul>
+    );
+};
+```
+
+
+Then you get 5 in the browser. As you refresh the page, you find half a minute it turns 0 and quickly back to 5. The reason is, we initialize `videos` as an empty array by `this.state = { videos: [] }`. Then we call `YTSearch`, which is not a instantaneous operation but an aynchronous one. If it costs 250 ms, then during this time, the `videos` is 0. So that's why we see 0 for half a second. And when request completes, we get a list of 5 videos.
+
+
+#### props in functional component and class component
+
+
+In functional component, `props` is an argument. While in class component, `props` is available anywhere in any method we define as `this.props`
+
+
+So if we refactor a functional component to class component, we must update all our references from `props` to `this.props`.
+
+
+### Building Lists With Map
+
+
+Try to keep away from for loop, use built-in iterators if possible.
+
+
+```
+var arr2 = arr.map(item => item * 2)
+console.log(arr2); //(3) [2, 4, 6]
+```
+
+
+```
+var arr2 = arr.map(item => `<div>${item}</div>`)
+console.log(arr2); //(3) ["<div>1</div>", "<div>2</div>", "<div>3</div>"]
+```
+
+
+React is intelligent about rendering an array of `JSX.Element`/`React.ReactNode`, if passed to JSX, React will render it properly.
+
+
+In video_list.js:
+
+
+```
+import React from 'react';
+import VideoListItem from './video_list_item';
+
+const VideoList = (props) => {
+    const videoItems = props.videos.map( (video) => {
+        return <VideoListItem video={video} />;
+    });
+    return (
+        <ul className="col-md-4 list-group">
+            {videoItems}
+        </ul>
+    );
+};
+
+export default VideoList;
+```
+
+
+In video_list_item.js:
+
+
+```
+import React from 'react';
+
+const VideoListItem = (props) => {
+    return (
+        <li>
+            <a>
+                <img src={ props.video.snippet.thumbnails.default.url} />
+                <p>{ props.video.title}</p>
+            </a>
+        </li>
+    );
+};
+
+export default VideoListItem;
+```
+
+
+### List Item Keys
+
+
+We get a warning here:
+
+
+```
+Warning: Each child in an array or iterator should have a unique "key" prop.
+Check the render method of `VideoList`.
+```
+
+
+Whenever we render an array of items of the same type, React assumes that we are building a list. React has a bunch of logic built into it to optimize the process of rendering a list.
+
+
+You have a list of card, and you have to update one if someone come to ask you to do that. You have to throw away the entire stack and re-create all the cards. If you have an id for each card, however, and person telling you to update has the id, you can update the card with id 5. That's what's happening under the hood with React trying to render a list.
+
+
+React builds a list, if it has an id for a particular element and that element changes, it knows what element it needs to update. Otherwise, it has to throw them all the way and re-render them all.
+
+
+Adding a key to a list is straightforward. The key doen't need to be specific or special, it has to be unique and ***consistent***(even we re-render the component, it has the same `etag` again, then it has the same key again). It's common to use the id of the data as key, we can use `etag` here.
+
+
+```
+const videoItems = props.videos.map( (video) => {
+    return <VideoListItem video={video} key={ video.etag } />;
+});
+```
+
+
+
+### Video List Items
+
+
+#### ES6 here: Object Destructuring
+
+
+The object `props` as argument has a property `video`, please grab that video and declare a new variable called video.
+
+
+```
+const VideoListItem = (props) => {
+    const video = props.video;
+    return (...);
+};
+```
+
+
+Equals
+
+
+```
+const VideoListItem = ({video: video}) => {
+    const video = props.video;
+    return (...);
+};
+```
+
+
+Equals
+
+
+```
+const VideoListItem = ({video}) => {
+    return (...);
+};
+```
+
+
+### Detail Component and Template Strings
+
+
+Do I really this component to contain any type of `state`? If not, you can use a functional component.
+
+
+### Handling Null Props
+
+
+We get a warning here:
+
+
+```
+Uncaught TypeError: Cannot read property 'videoId' of undefined
+```
+
+
+When App first run, it runs the `constructor` function which set the initial state and call YTSearch to get videos. It takes time for YTSearch to receive a response but `render` won't wait for it, it just run `render()` right now. So `selectedVideo` is an empty object, so `video.id` is `undefined`. When reading `video.id.videoId`, we get `Uncaught TypeError: Cannot read property 'videoId' of undefined`.
+
+
+### Video Selection
+
+
+Change `selectedVideo` to `null` instead of `{}` as initial because when initializing nothing is selected.
+
+
+```
+this.state = { videos: [], selectedVideo: null };
+```
+
+
+```
+YTSearch({ key: API_KEY, term: 'surfboards'}, (videos) => {
+    this.setState({ videos: videos, selectedVideo: videos[0] });
+});
+```
+
+
+#### Use callback to change selectedVideo
+
+
+index.js
+
+
+```
+onItemClicked(video) {
+    this.setState({selectedVideo: video});
+}
+render(){
+    <VideoList videos={ this.state.videos } onItemClicked={ this.onItemClicked } />
+}
+```
+
+
+video_list.js
+
+
+```
+const videoItems = props.videos.map( (video) => {
+    return <VideoListItem video={video} key={ video.etag } onItemClicked={ props.onItemClicked } />;
+});
+```
+
+
+video_list_item.js
+
+
+```
+const VideoListItem = ({video, onItemClicked}) => {
+    return (
+        <li className='list-group-item' onClick={ () => onItemClicked(video) }>
+            //...
+        </li>
+    );
+};
+```
+
+
+Here `() => onItemClicked(video)` makes the argument be `video` instead of normal `event`.
+
+
+However, passing callback like this is not good if more than two levels.
+
+
+### Styling with CSS
+
+
+### Searching for Videos
+
+
+index.js
+
+
+```
+constructor(props) {
+    this.searchVideos = this.searchVideos.bind(this);
+    this.searchVideos('surfboards');
+}
+searchVideos(term) {
+    YTSearch({ key: API_KEY, term: term }, (videos) => {
+        this.setState({ videos: videos, selectedVideo: videos[0] });
+    });
+}
+render(){
+    return (
+        <SearchBar onSearchTermChange={ this.searchVideos } />
+    );
+}
+```
+
+
+search_bar.js
+
+
+```
+onInputChange(value) {
+    this.setState({ term: value });
+    this.props.onSearchTermChange(value);
+}
+render() {
+    return (
+        <input
+            value={ this.state.term }
+            onChange={ e => this.onInputChange(e.target.value) }
+        />
+    );
+}   
+```
+
+
+### Throttling Search Term Input
+
+
+The search is laggy because every character change will call a request to Youtube and change the videos based on the result. It changes too often.
+
+
+To do the throttling, we make use of a library called `lodash` and its `debounce` in particular.
+
+
+```
+npm install --save lodash
+```
+
+
+index.js, use underscore `_` instead of lodash after `import`.
+
+
+```
+import _ from 'lodash';
+```
+
+
+```
+render() {
+    const searchVideos = _.debounce(this.searchVideos, 1000);
+    return (
+        <SearchBar onSearchTermChange={ searchVideos } />
+    );
+}
+```
+
+
+We passes an inner function to debounce, and the time 1000 ms. It returns a proxy function to be assigned to `searchVideos`, which can only be called every 1000 ms. It just won't run until 1000 ms lasts. If we call it 5 time within 1000 ms, we don't get error or crash, it just won't call the original function. Then we passed the debounced version to the SearchBar, SearchBar can update as often as it wants, it can call this callback repeatedly, but the original function get to run every 1000 ms.
+
+
+This way user won't search too often, in which way Google Instant Search works.
+
+
+## Modeling Application State -- Redux
+
+
+Component state: state, but application state: Redux.
+
+
+Predictable state container for Javascript.
+
+
+Redux is the data contained in the application, while React is the view contained in the application.
+
+
+React centralizes all data into a single object - state.
+
+
+Important for redux: how to design your state.
+
+
+How to design your state?
+

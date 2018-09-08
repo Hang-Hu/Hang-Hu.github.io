@@ -1,0 +1,14 @@
+---
+layout: post
+author: Hang Hu
+categories: proxy
+tags: Blog Ubuntu Proxy 
+cover: 
+---
+
+```
+curl --socks5 192.168.56.1:1081 172.217.25.14
+```
+
+
+Note that 172.217.25.14 is the ip of google, in case dns not configured. 

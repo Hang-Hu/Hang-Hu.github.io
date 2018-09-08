@@ -1,0 +1,32 @@
+---
+layout: post
+author: Hang Hu
+categories: react
+tags: Blog FrontEnd React 
+cover: 
+---
+## method 1: `ref`
+
+
+```
+const element: HTMLElement = ReactDOM.findDOMNode(this[ref]) as HTMLElement;
+```
+
+
+```
+<input ref={ (r) => this.userIdentity = r } />
+```
+
+
+
+## method 2
+
+
+```
+const node = ReactDOM.findDOMNode(this);
+
+// Get child nodes
+if (node instanceof HTMLElement) {
+    const child = node.querySelector('.someClass');
+}
+```

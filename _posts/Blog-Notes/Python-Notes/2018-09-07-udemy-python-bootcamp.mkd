@@ -1,0 +1,409 @@
+---
+layout: post
+author: Hang Hu
+categories: python
+tags: Blog Python 
+cover: 
+---
+## String
+
+`string[start:stop:step]`
+
+```
+my_str = "abcde"
+my_str[1:] // 'bcde'
+
+my_str[1:3] // 'bc'
+
+my_str[::] // 'abcde'
+
+my_str[::2] // 'ace'
+
+my_str[::-1] // 'edcba'
+// This just reverses the string. It says to start from the beginning to the end, step back 1 each time.
+```
+
+
+### Immutability of String
+
+
+```
+name="John"
+name[0]="S"
+```
+
+
+```
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+<ipython-input-12-4d8900dcaf5a> in <module>()
+----> 1 name[0]="S"
+
+TypeError: 'str' object does not support item assignment
+
+```
+
+
+Have to contact to create new string for that: 
+
+
+```
+"S" + name[1:] // 'Sohn'
+```
+
+
+```
+letter = "z"
+letter *= 10
+letter // 'zzzzzzzzzz'
+```
+
+
+```
+2 + '3'
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+<ipython-input-19-8fd9dcfa4f42> in <module>()
+----> 1 2 + '3'
+
+TypeError: unsupported operand type(s) for +: 'int' and 'str'
+
+```
+
+
+```
+x = "Hello World"
+x.upper() // 'HELLO WORLD'
+x.upper // <function str.upper>
+x.split() // ['Hello', 'World']
+x.split('o') // ['Hell', ' W', 'rld']
+```
+
+
+Are strings mutable?
+
+
+Strings are not mutable! (meaning you can't use indexing to change individual elements of a string)
+
+
+### String interpolation
+
+
+#### .format()
+
+
+```
+print('The {} {} {}'.format('banana', 'fish', 'rice'))
+// The banana fish rice
+```
+
+
+Use placeholder
+
+
+```
+print('The {2} {1} {0}'.format('A', 'B', 'C'))
+// The C B A
+
+print('The {0} {0} {0}'.format('A', 'B', 'C'))
+// The A A A
+```
+
+
+Use keyword
+
+
+```
+print('The {b} {f} {r}'.format(b='banana', f='fish', r='rice'))
+// The banana fish rice
+```
+
+
+### Presicion: {value:width.precision f}
+
+
+```
+print('The result is {r:1.2f}'.format(r=10/3))
+//The result is 3.33
+```
+
+
+9 white spaces inserted before 3.33 if width is 10 instead of 1.
+
+
+```
+print('The result is {r:10.2f}'.format(r=10/3))
+//The result is       3.33
+```
+
+
+```
+name = 'John'
+print('His name is {}'.format(name)) // His name is John
+
+```
+
+
+### f-strings -- formatted string literals
+
+
+f-strings Require 3.6 or higher.
+
+
+Or remove format, move `f` to the left, use name directly in `{}`, you get the same result.
+
+
+```
+name = 'John'
+print(f'His name is {name}')  // His name is John
+```
+
+
+Works on multiples variables
+
+
+```
+name="Sam"
+age=13
+print(f"{name} is {age} years old.")
+```
+
+
+
+## list
+
+
+```
+my_list=[1,2,3]
+my_list=[1,'two',2]
+len(my_list) // 3
+my_list[0] // 1
+my_list[1:] // ['two', 2]
+
+another_list=[3,4,5]
+new_list = my_list+another_list // [1, 'two', 2, 3, 4, 5]
+my_list[0] = "Changed"
+my_list // ['Changed', 'two', 2]
+my_list.append(5)
+my_list // ['Changed', 'two', 2, 5]
+
+my_list.pop() // pops the last element, 5
+my_list.pop(0) // Changed popped
+```
+
+
+
+By default, pop uses index `-1`, which is the last element.
+
+
+`my_list.pop()` equals `my_list.pop(-1)`.
+
+
+### Sort
+
+
+```
+list1 = [4,2,1,4,5,7,8,22]
+newlist = list1.sort()
+list1 // [1, 2, 4, 4, 5, 7, 8, 22]
+type(newlist) //NoneType
+type(None) //NoneType
+```
+
+
+`[].sort()` returns None, so the type of `newlist` is `NoneType`, which is returning nothing.
+
+
+```
+list2 = ['b','c','a']
+list2.sort()
+list2 // ['a', 'b', 'c']
+```
+
+
+### Reverse
+
+
+```
+numlist=[1,2,3]
+numlist.reverse()
+numlist // [3, 2, 1]
+```
+
+
+## Dictionaries
+
+
+```
+prices_lookup = {'apple': 1.22, "banana": 0.77}
+prices_lookup['apple'] // 1.22
+```
+
+
+```
+d = {'k1': 123, 'k2': [0,1,2], 'k2': {'insideKey': 100}}
+d['k2']['insideKey'] // 100
+
+d = {'key1': ['a', 'b', 'c']}
+d['key1'][-1].upper() // 'C'
+```
+
+
+### Put a new key, value pair
+
+
+```
+d = {'k1': 100}
+d['k2'] = 200
+d // {'k1': 100, 'k2': 200}
+```
+
+
+
+### Set new value for existing key
+
+
+```
+d = {'k1': 100}
+d['k1'] = 400
+d // {'k1': 400}
+```
+
+
+### keys() and values()
+
+
+```
+d = {'k1': 100, 'k2': 200}
+
+d.keys() // dict_keys(['k1', 'k2'])
+d.values() // dict_values([100, 200])
+```
+
+
+### items() to get all key, value pairs
+
+
+```
+d = {'k1': 100, 'k2': 200}
+d.items() // dict_items([('k1', 100), ('k2', 200)])
+```
+
+
+### Do dictionaries keep an order? How do I print the values of the dictionary in order?
+
+
+Dictionaries are mappings and do not retain order! If you do want the capabilities of a dictionary but you would like ***ordering*** as well, check out the `ordereddict` object lecture later on in the course!
+
+
+## Tuples
+
+
+Tuples are very similar to `lists`. However they have one key difference - ***immutability***.
+
+
+Once an element is inside a tuple, it ***can not be reassigned***.
+
+
+Tuples use parenthesis:  (1,2,3)
+
+
+```
+t = (1,2,3)
+l = [1,2,3]
+
+type(l) // list
+
+type(t) // tuple
+
+len(t) // 3
+```
+
+
+### Slicing and indexing like list
+
+
+```
+t=(1,'two')
+t[0] // 1
+t[1] // 'two'
+t[-1] // 'two'
+```
+
+
+### tuple has only 2 method: count() and index()
+
+
+```
+t=('a', 'a', 'b')
+
+t.count('a') // the frequency of 'a', which is 2
+
+t.index('a') // the first index of 'a', which is 2
+
+t.index('b') // 2
+```
+
+
+### Immutability - What makes tuple different from list
+
+
+```
+l = [1,2,3]
+l[0] = 'One'
+l // ['One', 2, 3]
+```
+
+
+
+```
+t = (1,2,3)
+
+One
+t[0] = 'One'
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+<ipython-input-34-5c31fbd4691a> in <module>()
+----> 1 t[0] = 'One'
+
+TypeError: 'tuple' object does not support item assignment
+
+```
+
+
+
+## Sets - unique
+
+
+Sets are unordered collections of unique elements.
+
+
+```
+s = set()
+s // set()
+
+s.add(1)
+s // {1}
+
+s.add(2)
+s // {1, 2}
+
+s.add(2)
+s // {1, 2}
+```
+
+
+Use set to remove duplicate elements in list.
+
+
+```
+l = [1,1,1,1,2,2,2,2,2,2,2,2,2,3,4,5,6,6,6]
+set(l) // {1, 2, 3, 4, 5, 6}
+```
+
+
+### Unordered
+
+
+Sets don't have any order.
+

@@ -1,0 +1,19 @@
+---
+layout: post
+author: Hang Hu
+categories: frontend
+tags: Blog FrontEnd 
+cover: 
+---
+
+```
+callbackFromParent: (data: string) => void;
+```
+
+
+To
+
+
+```
+callbackFromParent(data: string): void;
+```

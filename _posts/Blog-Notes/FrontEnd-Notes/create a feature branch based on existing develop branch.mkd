@@ -1,8 +1,0 @@
-
-```
-git checkout remotes/origin/Develop
-git checkout -b Develop_NewFeature
-git branch
-* Develop_NewFeature
-  master
-```

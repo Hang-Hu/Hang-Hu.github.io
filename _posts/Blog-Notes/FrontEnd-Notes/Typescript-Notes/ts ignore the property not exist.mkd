@@ -1,5 +1,0 @@
-Use `as any`.
-
-```
-const name = (this.props as any).name
-```

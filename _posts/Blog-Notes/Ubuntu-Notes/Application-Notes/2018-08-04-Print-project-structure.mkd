@@ -1,0 +1,33 @@
+---
+layout: post
+author: Hang Hu
+categories: application
+tags: Blog Ubuntu Application 
+cover: 
+---
+## Install
+
+```
+brew install tree
+```
+
+
+
+## Only directories
+
+
+```
+tree -d ./
+```
+
+
+## Directories as well as files
+
+
+```
+tree ./
+```
+
+
+You can add the option `-L #` where `# ` is replaced by a number, to specify the max recursivity level.
+
