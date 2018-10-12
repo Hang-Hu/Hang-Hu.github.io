@@ -1,0 +1,57 @@
+## Edit MarkdownPreview config
+
+Add following config to ***user*** config of Markdown Preview: Preferences -> Package Settings -> Markdown Preview -> Settings
+
+```
+{
+    "enable_mathjax": true,
+    "js": [
+    "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js",
+            "res://MarkdownPreview/js/math_config.js",
+    ],
+}
+```
+
+## Install Package​Resource​Viewer in sublime
+
+Package Contol: Install Package -> Package​Resource​Viewer
+
+## Edit math_config.js
+
+Package​Resource​Viewer -> Open Resource -> MarkdownPreview -> js -> math_config.js
+
+Replace it with:
+
+```
+MathJax.Hub.Config({
+  config: ["MMLorHTML.js"],
+  extensions: ["tex2jax.js"],
+  jax: ["input/TeX", "output/HTML-CSS", "output/NativeMML"],
+  tex2jax: {
+    inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+    processEscapes: true
+  },
+  TeX: {
+    extensions: ["AMSmath.js", "AMSsymbols.js"],
+    TagSide: "right",
+    TagIndent: ".8em",
+    MultLineWidth: "85%",
+    equationNumbers: {
+      autoNumber: "AMS",
+    },
+    unicode: {
+      fonts: "STIXGeneral,'Arial Unicode MS'"
+    }
+  },
+  displayAlign: "center",
+  showProcessingMessages: false,
+  messageStyle: 'none'
+});
+```
+
+## Try it
+
+$$
+J(\theta) = \frac 1 2 \sum_{i=1}^m (h_\theta(x^{(i)})-y^{(i)})^2
+$$

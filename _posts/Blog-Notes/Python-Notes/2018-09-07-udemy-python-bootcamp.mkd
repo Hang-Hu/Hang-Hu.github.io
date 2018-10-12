@@ -407,3 +407,593 @@ set(l) // {1, 2, 3, 4, 5, 6}
 
 Sets don't have any order.
 
+## Booleans
+
+Be careful about the capitalized `T` fro True and `F` for False.
+
+```
+True
+​
+True
+```
+
+```
+true
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-2-724ba28f4a9a> in <module>()
+----> 1 true
+
+NameError: name 'true' is not defined
+```
+
+```
+type(True)
+bool
+```
+
+
+```
+1>2
+False
+
+1==1
+True
+```
+
+## None
+
+Use None as placeholder if you have nothing to assign
+
+```
+b
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-9-89e6c98d9288> in <module>()
+----> 1 b
+
+NameError: name 'b' is not defined
+
+b=None
+b
+```
+
+
+
+## I/O with Basic Files
+
+### Write a new file
+
+```
+%%writefile myfile.txt
+This is the first line
+This is the second line
+This is the third line
+```
+
+```
+Writing myfile.txt
+```
+
+### Open a non exist file -> FileNotFoundError
+
+myfile.txt exists but myfile_not_exist.txt doesn't.
+
+```
+myfile = open('myfile.txt')
+```
+
+```
+myfile = open('myfile_not_exist.txt')
+---------------------------------------------------------------------------
+FileNotFoundError                         Traceback (most recent call last)
+<ipython-input-16-dcec0a29c266> in <module>()
+----> 1 myfile = open('myfile_not_exist.txt')
+
+FileNotFoundError: [Errno 2] No such file or directory: 'myfile_not_exist.txt'
+
+```
+
+### Open a file
+
+```
+myfile = open('myfile.txt')
+
+myfile.read()
+'This is the first line\nThis is the second line\nThis is the third line'
+
+myfile.read()
+''
+```
+
+You get `''` for the second `.read()` because there is cursor that already went to the end of file after the first `.read()`.
+
+Reset the cursor to 0 and read again.
+
+```
+myfile.seek(0)
+0
+
+myfile.read()
+'This is the first line\nThis is the second line\nThis is the third line'
+```
+
+### `.readlines()`
+
+```
+myfile.seek(0)
+myfile.readlines()
+
+['This is the first line\n',
+ 'This is the second line\n',
+ 'This is the third line']
+```
+
+### `.close()`
+
+```
+myfile.close()
+```
+
+After closing, you cannot read anymore.
+
+```
+myfile.read()
+
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+<ipython-input-31-f51008fa62ae> in <module>()
+----> 1 myfile.read()
+
+ValueError: I/O operation on closed file.
+
+```
+
+### Use `with open('myfile.txt') as myfile` to get rid of closing file manually
+
+```
+with open("myfile.txt") as myfile:
+    contents = myfile.read()
+
+contents
+'This is the first line\nThis is the second line\nThis is the third line'
+```
+
+### Shift + Tab to open function description in jupyter-notebook
+
+### Read and Write mode
+
+You can read when opening a file with write mode
+
+```
+with open("myfile.txt", mode='w') as myfile:
+    contents = myfile.read()
+
+contents
+
+---------------------------------------------------------------------------
+UnsupportedOperation                      Traceback (most recent call last)
+<ipython-input-36-a8e2cc09ac32> in <module>()
+      1 with open("myfile.txt", mode='w') as myfile:
+----> 2     contents = myfile.read()
+      3 
+      4 contents
+
+UnsupportedOperation: not readable
+```
+
+- r: read
+- w: write, this will overwrite file if file exists, or create new file if file not exist
+- a: append, will append to file
+- r+: read and write
+- w+: write and read, this will overwrite file if file exists, or create new file if file not exist
+
+#### Append to the file
+
+Create my_new_file.txt with `%%writefile`
+
+```
+%%writefile my_new_file.txt
+One
+two
+three
+```
+
+```
+with open('my_new_file.txt', mode='r') as f:
+    print(f.read())
+
+One
+two
+three
+```
+
+Use mode `a`, which is the `append` mode and call `write`.
+
+```
+with open('my_new_file.txt', mode='a') as f:
+    f.write('\nfour')
+```
+
+```
+with open('my_new_file.txt', mode='r') as f:
+    print(f.read())
+One
+two
+three
+four
+```
+
+#### Create new file with mode w
+
+```
+with open('new_file.txt', mode='w') as f:
+    f.write('I created a new file!')
+
+)
+with open('new_file.txt', mode='r') as f:
+    print(f.read())
+I created a new file!
+```
+
+#### Exercise of file I/O
+
+```
+with open('test.txt', mode='w') as f:
+    f.write('Hello World')
+```
+
+```
+testfile = open('test.txt', 'w')
+testfile.write('Hello World')
+testfile.close()
+```
+
+## Python Comparison Operators
+
+```
+'2' == 2
+False
+
+2.0 == 2
+True
+```
+
+The chained comparison is actually &&.
+
+```
+1<2<3
+True
+
+1<3>2
+True
+
+1<2>3
+False
+```
+
+```
+and: &&
+or: ||
+not: !
+```
+
+
+```
+1<2 and 2>2
+False
+
+1==1 or 2==1
+True
+
+not 1!=1
+True
+```
+
+
+## Control Statements
+
+Control Flow syntax makes use of colons and indentation (whitespace).
+
+This indentation system is crucial to Python and is what sets it apart from other programming languages.
+
+### if, elif, else
+
+```
+if some_condition:
+    # execute some code
+else:
+    # do something else
+```
+
+```
+if some_condition:
+    # execute some code
+elif some_other_condition:
+    # do something different
+else:
+    # do something else
+```
+
+### for
+
+Many objects in Python are “iterable”, meaning we can iterate over every element in the object.
+For example you can iterate over every character in a string, iterate over every item in a list, ***iterate over every key in a dictionary***.
+
+```
+l=[1,2,3]
+for item in l:
+    print(item)
+
+1
+2
+3
+```
+
+#### The indentation
+
+indentation is used like `{}` in other language.
+
+```
+sum = 0
+l=[1,2,3,4,5,6]
+for n in l:
+    sum+=n
+​
+print(sum)
+21
+```
+
+```
+sum = 0
+l=[1,2,3,4,5,6]
+for n in l:
+    sum+=n
+​
+    print(sum)
+1
+3
+6
+10
+15
+21
+```
+
+#### loop over String
+
+```
+for c in 'Hello':
+    print(c)
+H
+e
+l
+l
+o
+```
+
+If you don't use the variable `c`, usually you use `_` instead, indicating you won't use it.
+
+```
+for _ in 'Hello':
+    print('Cool')
+Cool
+Cool
+Cool
+Cool
+Cool
+```
+
+#### loop over list of tuples
+
+```
+l = [(1,2),(3,4),(5,6)]
+
+for t in l:
+    print(t)
+(1, 2)
+(3, 4)
+(5, 6)
+```
+
+##### tuple unpacking can be used
+
+```
+for (a, b) in l:
+    print(a)
+1
+3
+5
+```
+
+Parenthesis around tuple can be omitted.
+
+```
+for a, b in l:
+    print(a)
+1
+3
+5
+```
+
+### Iterate through dictionary
+
+Note that when you iterate through dictionary, you actually iterate through keys.
+
+```
+d = {'k1': 1, "k2":2, "k3":3}
+
+for item in d:
+    print(item)
+k1
+k2
+k3
+```
+
+call `.items()` on dictionary if you want to loop over key/value item.
+
+```
+for item in d.items():
+    print(item)
+
+('k1', 1)
+('k2', 2)
+('k3', 3)
+```
+
+#### Since (key,value) is also tuple, use unpacking
+
+```
+for key, value in d.items():
+    print(value)
+
+1
+2
+3
+```
+
+#### values()
+
+```
+for value in d.values():
+    print(value)
+
+1
+2
+3
+```
+
+And dictionary is not ordered, this is just a small one and it seems to be ordered, but when it's bigger, no guarantee that you can get things back you put them.
+
+### While
+
+```
+x=0
+while x<5:
+    print(f'The current x is {x}')
+    x+=1
+else:
+    print(f'x {x} is no less than 5')
+
+The current x is 0
+The current x is 1
+The current x is 2
+The current x is 3
+The current x is 4
+x 5 is no less than 5
+```
+
+### pass: does nothing, just placeholder, instead of comment in Java
+
+```
+l = [1,2,3]
+for item in l:
+    # comment
+```
+
+```
+  File "<ipython-input-4-a01c5ff62353>", line 3
+    # comment
+             ^
+SyntaxError: unexpected EOF while parsing
+```
+
+Since Python uses indent and `:` instead `()` and `{}`, it requires you to have something after `:`, and comment won't do.
+
+To avoid errors, use `pass` instead of comment as the placeholder if you want it to do nothing.
+
+```
+l = [1,2,3]
+for item in l:
+    pass
+```
+
+### continue: goes to the next of the closest loop
+
+```
+str = 'Sammy'
+for c in str:
+    if(c == 'a'):
+        continue
+    print(c)
+```
+
+```
+S
+m
+m
+y
+```
+
+### break: Breaks out of the closest loop, break only ***one*** loop
+
+```
+str = 'Sammy'
+for c in str:
+    if(c == 'a'):
+        break
+    print(c)
+```
+
+```
+S
+```
+
+### Useful Operators
+
+#### range(start, stop, step): inclusive, exclusive, step
+
+```
+for num in range(10):
+    print(num)
+
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+```
+
+```
+for num in range(5,10):
+    print(num)
+
+5
+6
+7
+8
+9
+```
+
+```
+for num in range(0,10,2):
+    print(num)
+
+0
+2
+4
+6
+8
+```
+
+range is a generator, which will generate information instead of saving it to memory.
+
+```
+range(0, 10, 2)
+
+range(0, 10, 2)
+```
+
+range can be casted to list:
+
+```
+list(range(0,10,2))
+
+[0, 2, 4, 6, 8]
+```
+
+#### enumerate

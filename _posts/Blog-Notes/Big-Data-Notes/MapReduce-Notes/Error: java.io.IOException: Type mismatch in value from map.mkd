@@ -1,0 +1,26 @@
+## Details
+
+Error: java.io.IOException: Type mismatch in value from map: expected org.apache.hadoop.io.DoubleWritable, received LongPairWritable
+
+## Reason
+
+The output key value class for mapper and reducer are different, I didn't assign a different one to mapper, so mapper just used the `DoubleWritable.class` as `OutputValueClass`.
+
+```
+job.setOutputKeyClass(Text.class);
+job.setOutputValueClass(DoubleWritable.class);
+```
+
+## Solution
+
+Set `MapOutputKeyClass` and `MapOutputValueClass`.
+
+```
+// for mapper, otherwise it uses the same output key/value class as reducer
+job.setMapOutputKeyClass(Text.class);
+job.setMapOutputValueClass(LongPairWritable.class);
+
+// for reducer
+job.setOutputKeyClass(Text.class);
+job.setOutputValueClass(DoubleWritable.class);
+```

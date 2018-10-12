@@ -38,3 +38,16 @@ View content:
 ```
 hadoop fs -cat <file>
 ```
+
+### Clean
+
+If you have unnecessary files sitting around (especially large files created as part of an assignment), please clean them up with a command like this:
+
+
+```
+hdfs dfs -rm -r /user/<USERID>/output*
+```
+
+### hdfs dfs
+
+`hdfs dfs` equals to `hadoop fs`

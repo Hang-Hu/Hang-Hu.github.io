@@ -5,9 +5,10 @@ categories: python
 tags: Blog Python 
 cover: 
 ---
+
+```
 export BROWSER=google-chrome
 jupter-notebook ~/Documents/CodeSpace/code4Python
-
 ```
 
 

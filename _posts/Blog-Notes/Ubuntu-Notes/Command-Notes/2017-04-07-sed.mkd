@@ -84,3 +84,10 @@ Lines beginning with `*` will be deleted
 ```
 sed -i "/*/d" *.java
 ```
+
+
+## Delete all comments and empty lines
+
+```
+sed -i -e 's/#.*$//' -e '/^$/d' Test.py
+```

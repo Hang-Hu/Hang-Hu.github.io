@@ -1,0 +1,10 @@
+## Example
+
+```
+export HADOOP_CLASSPATH=./json-20180813.jar
+yarn jar redditaverage.jar RedditAverage -libjars ./json-20180813.jar /courses/732/reddit-1 output-18
+```
+
+## Will get error if not add jar properly
+
+`Error: java.lang.ClassNotFoundException: org.json.JSONObject`

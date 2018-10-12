@@ -1,0 +1,12 @@
+# Priority
+
+`and` in python has higher priority than `==`, it stands for both `&&` and `&`.
+
+The following is wrong, must use parenthesis for each component if `and` used.
+
+```
+wikipedia = wikipedia.filter(wikipedia.language == 'en'
+                           & (wikipedia.title != 'Main_Page')
+                           & (~wikipedia.title.startswith('Special:'))
+                         )
+```
