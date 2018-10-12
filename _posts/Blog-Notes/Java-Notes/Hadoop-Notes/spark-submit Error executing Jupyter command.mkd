@@ -1,0 +1,13 @@
+
+## Reason
+
+I got this error because I set jupyter notebook to run pyspark.
+
+
+## Solution
+
+Run this command before spark-submit to unset `PYSPARK_DRIVER_PYTHON`.
+
+```
+unset PYSPARK_DRIVER_PYTHON
+```

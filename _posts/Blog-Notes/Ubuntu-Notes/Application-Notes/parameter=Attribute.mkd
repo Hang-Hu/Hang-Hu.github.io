@@ -1,0 +1,14 @@
+## Details
+
+ENML_VALIDATION parameter=Attribute \"class\" must be declared for element type \"p\"."
+
+## Solution
+
+1. Check Help -> Message Log, find the note with this error
+2. Copy content of the note, create a new one
+3. Delete the erronious note
+4. Sync successfully
+
+## Reference
+
+[forum discussion](https://sourceforge.net/p/nevernote/support-requests/18/)

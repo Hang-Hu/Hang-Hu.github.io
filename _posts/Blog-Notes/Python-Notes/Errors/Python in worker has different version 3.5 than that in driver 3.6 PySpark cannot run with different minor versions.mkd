@@ -1,0 +1,11 @@
+## Details
+
+Exception: Python in worker has different version 3.5 than that in driver 3.6, PySpark cannot run with different minor versions.Please check environment variables PYSPARK_PYTHON and PYSPARK_DRIVER_PYTHON are correctly set.
+
+## Solution
+
+Set PYSPARK_PYTHON in Pycharm to be the same as python interpreter
+
+```
+PYSPARK_PYTHON /home/joanna/anaconda3/bin/python3
+```

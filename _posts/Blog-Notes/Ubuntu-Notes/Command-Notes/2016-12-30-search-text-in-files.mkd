@@ -27,3 +27,9 @@ grep -r ".metadata" ./
 ```
 grep -rl --exclude-dir './/node_modules' 'script src=' ./
 ```
+
+## Extension limit
+
+```
+grep -r 'collect' --include "*.py"
+```

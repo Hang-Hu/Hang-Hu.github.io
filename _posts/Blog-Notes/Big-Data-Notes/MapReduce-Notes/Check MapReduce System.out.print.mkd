@@ -1,0 +1,6 @@
+Open `http://localhost:19888/jobhistory`
+
+1. Click on Job Id of the completed job
+2. Click on map or reduce task
+3. Click on tasknumber(one file one mapper, one tasknumber also corresponds to one file)
+4. Click on logs
