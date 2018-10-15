@@ -1,5 +1,5 @@
+#!/bin/bash
 DATE = `date +%Y-%m-%d`
-printf DATE
 git add .
-git commit -m 'new posts'
+git commit -m '$DATE new posts'
 git push
