@@ -1,0 +1,26 @@
+# python file
+
+## get current directory
+
+```
+os.getcwd()
+```
+
+## change current directory
+
+```
+os.chdir(path)
+```
+
+## get filename of current executing file
+
+```
+import inspect
+inspect.getfile(inspect.currentframe())
+```
+
+## get path of current executing file
+
+```
+os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+```
