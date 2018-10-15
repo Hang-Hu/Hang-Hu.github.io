@@ -13,3 +13,17 @@ import os
 names = os.listdir("./")
 print(names)
 ```
+
+
+### file header for direct run
+
+Add the following in the first line of python file.
+
+```
+#! /usr/bin/env python3                                                     
+```
+
+```
+chmod +x filename.py
+./filename.py
+```
