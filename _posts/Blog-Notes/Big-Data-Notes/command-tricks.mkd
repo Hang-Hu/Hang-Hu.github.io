@@ -1,0 +1,7 @@
+# Command tricks
+
+## Print gz file to std
+
+```
+zcat output/* | zless
+```
