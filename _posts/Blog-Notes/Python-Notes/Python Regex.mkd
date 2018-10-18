@@ -1,0 +1,22 @@
+# Python Regex
+
+## Compile and split
+
+```
+import re
+
+line = 'I love apple.'
+wordsep = re.compile(r'[%s\s]+' % re.escape(string.punctuation))
+
+for w in wordsep.split(line):
+    print(w)
+
+```
+
+
+## Search to extract
+
+```
+path = 'pagecounts-20160801-000000.gz'
+time = re.search('\d{8}-\d{2}', path).group(0)
+```
