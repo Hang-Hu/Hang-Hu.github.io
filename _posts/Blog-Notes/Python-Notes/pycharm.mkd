@@ -1,0 +1,6 @@
+
+Environment variables for pyspark
+
+```
+PYSPARK_PYTHON /home/joanna/anaconda3/bin/python3
+```
