@@ -20,3 +20,9 @@ for w in wordsep.split(line):
 path = 'pagecounts-20160801-000000.gz'
 time = re.search('\d{8}-\d{2}', path).group(0)
 ```
+
+## compile and match
+
+```
+
+```

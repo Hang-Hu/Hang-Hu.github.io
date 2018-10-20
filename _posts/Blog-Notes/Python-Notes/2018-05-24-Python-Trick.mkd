@@ -27,3 +27,65 @@ Add the following in the first line of python file.
 chmod +x filename.py
 ./filename.py
 ```
+
+### filter
+
+```
+num_list = list(filter(lambda x: len(x)>0, num_list))
+```
+
+### map
+
+```
+num_list = list(map(lambda x: int(x), num_list))
+```
+
+### string to int
+
+```
+main(inputs, output, int(src_node), int(dst_node))
+```
+
+### int to string
+
+```
+known_paths.saveAsTextFile(output + '/iter-' + str(i))
+```
+
+### reverse list: `reversed()`
+
+```
+finalpath = (reversed(trace_paths))
+```
+
+### read from command line
+
+```
+python3.6 ***.py graph-1/ output-1/
+```
+
+```
+import sys
+inputs = sys.argv[1]
+output = sys.argv[2]
+```
+
+### assert and compare
+
+```
+assert sys.version_info >= (3, 5) # make sure we have Python 3.5+
+assert sc.version >= '2.3'  # make sure we have Spark 2.3+
+```
+
+### split `1: 2 5`
+
+```
+num_list = re.split(':| ', line)
+```
+
+### `? :`: a if True else b
+
+```
+a if distance_a<distance_b else b
+```
+
