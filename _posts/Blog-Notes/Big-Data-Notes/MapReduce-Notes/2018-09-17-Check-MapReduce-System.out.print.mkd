@@ -1,4 +1,10 @@
-Open `http://localhost:19888/jobhistory`
+---
+layout: post
+author: Hang Hu
+categories: mapreduce
+tags: Blog Big-Data MapReduce 
+cover: 
+---
 
 1. Click on Job Id of the completed job
 2. Click on map or reduce task

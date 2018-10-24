@@ -1,3 +1,10 @@
+---
+layout: post
+author: Hang Hu
+categories: sublime
+tags: Blog FrontEnd Sublime 
+cover: 
+---
 ## Edit MarkdownPreview config
 
 Add following config to ***user*** config of Markdown Preview: Preferences -> Package Settings -> Markdown Preview -> Settings
@@ -12,15 +19,21 @@ Add following config to ***user*** config of Markdown Preview: Preferences -> Pa
 }
 ```
 
+
 ## Install Package​Resource​Viewer in sublime
+
 
 Package Contol: Install Package -> Package​Resource​Viewer
 
+
 ## Edit math_config.js
+
 
 Package​Resource​Viewer -> Open Resource -> MarkdownPreview -> js -> math_config.js
 
+
 Replace it with:
+
 
 ```
 MathJax.Hub.Config({
@@ -50,8 +63,12 @@ MathJax.Hub.Config({
 });
 ```
 
+
 ## Try it
 
+
 $$
+
 J(\theta) = \frac 1 2 \sum_{i=1}^m (h_\theta(x^{(i)})-y^{(i)})^2
+
 $$

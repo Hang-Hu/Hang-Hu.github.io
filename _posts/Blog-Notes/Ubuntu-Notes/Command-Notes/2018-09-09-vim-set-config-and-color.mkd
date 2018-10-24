@@ -1,3 +1,10 @@
+---
+layout: post
+author: Hang Hu
+categories: command
+tags: Blog Ubuntu Command 
+cover: 
+---
 ## .vimrc
 
 Copy it from my gist.
@@ -6,9 +13,12 @@ Copy it from my gist.
 cat > ~/.vimrc
 ```
 
+
 ## color
 
+
 Download `solarized.vim` from [github vim-colors-solarized](https://github.com/altercation/vim-colors-solarized).
+
 
 ```
 mkdir -p ~/.vim/colors

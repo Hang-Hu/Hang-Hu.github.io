@@ -1,4 +1,10 @@
-
+---
+layout: post
+author: Hang Hu
+categories: python
+tags: Blog Python 
+cover: 
+---
 ## RDD
 
 ### I/O
@@ -9,29 +15,39 @@
 rdd = sc.textFile(filepath)
 ```
 
+
 ```python
 text = sc.textFile(filepath)
 ```
 
+
 #### Write
+
 
 ```python
 rdd.saveAsTextFile(filepath)
 ```
 
+
 ```python
 sc.parallelize(result_list).saveAsTextFile(output)
 ```
 
+
 ### list to RDD: `sc.parallelize`
+
 
 ```python
 # (key, value), which in detail is (subreddit_name, (visit_count, bytes transferred))
+
 reddit = sc.parallelize([('xkcd', (12, 2121)), ('xkcd', (213, 42323))])
 reddit = reddit.reduceByKey(lambda a, b: (a[0] + b[0], a[1] + b[1])) # reduce by subreddit_name
+
 ```
 
+
 ### return more: `yield`, and flat to list: `rdd.flatMap`
+
 
 ```python
 def words_once(line):
@@ -44,31 +60,41 @@ text = sc.textFile(inputs)
 words = text.flatMap(words_once)
 ```
 
+
 ### use another rdd in map: `rdd.join(another_rdd)` or `sc.broadcast(dict(another_rdd.collect()))`
 
+
 #### join
+
 
 ```python
 rdd.join(another_rdd)
 ```
 
+
 ```python
 def iterate_once(tuple):
     node, ((source, distance), outgoing_nodes) = tuple
     yield (node, (source, distance)) # currently-known path
+
     # new paths found by going one more step in the graph
+
     for out in outgoing_nodes:
         yield (out, (node, distance+1))
 
 known_paths = known_paths.join(graph_edges) # (node, ((source, distance), list of outgoing nodes))
+
 known_paths = known_paths.flatMap(iterate_once)
 ```
 
+
 #### broadcast
+
 
 ```python
 sc.broadcast(dict(another_rdd.collect()))
 ```
+
 
 ```python
 def calc_relative_score(average, comment):
@@ -79,19 +105,25 @@ broadcast_average = sc.broadcast(dict(average.collect()))
 result = commentdata.map(lambda x: (calc_relative_score(broadcast_average, x), x['author'])).sortBy(lambda x: x[0])
 ```
 
+
 ### dict like search: `rdd.lookup(key)`
+
 
 ```python
 # if known_paths has row whose key is 4, then break
+
 if known_paths.lookup(4):
     break
 ```
 
+
 ### cache
+
 
 ```
 rdd = rdd.cache()
 ```
+
 
 ## Data Frame
 

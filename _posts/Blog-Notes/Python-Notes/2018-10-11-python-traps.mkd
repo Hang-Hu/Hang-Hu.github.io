@@ -1,4 +1,10 @@
-# Priority
+---
+layout: post
+author: Hang Hu
+categories: python
+tags: Blog Python 
+cover: 
+---
 
 `and` in python has higher priority than `==`, it stands for both `&&` and `&`.
 

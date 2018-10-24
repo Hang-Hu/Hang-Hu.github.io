@@ -1,16 +1,27 @@
+---
+layout: post
+author: Hang Hu
+categories: python
+tags: Blog Python 
+cover: 
+---
 ## sort one-column matrix
 
 ```
 sorted_x = x[x.argsort(axis=0)][:,:,0]
 ```
 
+
 ## plot matrix
+
 
 ```
 plt.plot(sorted_x_train.A1.tolist(), learned.A1.tolist())
 ```
 
+
 ## concatenate matrix by column
+
 
 ```
 res_x = np.concatenate((res_x, x_degree), axis=1)

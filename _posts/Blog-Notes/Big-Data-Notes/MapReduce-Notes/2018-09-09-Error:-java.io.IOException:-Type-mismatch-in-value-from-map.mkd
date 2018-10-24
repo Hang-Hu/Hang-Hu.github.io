@@ -1,3 +1,10 @@
+---
+layout: post
+author: Hang Hu
+categories: mapreduce
+tags: Blog Big-Data MapReduce 
+cover: 
+---
 ## Details
 
 Error: java.io.IOException: Type mismatch in value from map: expected org.apache.hadoop.io.DoubleWritable, received LongPairWritable
@@ -11,9 +18,12 @@ job.setOutputKeyClass(Text.class);
 job.setOutputValueClass(DoubleWritable.class);
 ```
 
+
 ## Solution
 
+
 Set `MapOutputKeyClass` and `MapOutputValueClass`.
+
 
 ```
 // for mapper, otherwise it uses the same output key/value class as reducer
