@@ -1,7 +1,0 @@
-# diff 
-
-## vim
-
-```
-vim -d a b
-```

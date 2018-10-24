@@ -1,0 +1,13 @@
+---
+layout: post
+author: Hang Hu
+categories: big-data
+tags: Blog Big-Data 
+cover: 
+---
+
+## Print gz file to std
+
+```
+zcat output/* | zless
+```

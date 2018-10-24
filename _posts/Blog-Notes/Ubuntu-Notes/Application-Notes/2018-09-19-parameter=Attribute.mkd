@@ -1,3 +1,10 @@
+---
+layout: post
+author: Hang Hu
+categories: application
+tags: Blog Ubuntu Application 
+cover: 
+---
 ## Details
 
 ENML_VALIDATION parameter=Attribute \"class\" must be declared for element type \"p\"."

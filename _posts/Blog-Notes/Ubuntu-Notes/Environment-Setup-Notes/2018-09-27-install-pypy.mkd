@@ -1,7 +1,13 @@
-
+---
+layout: post
+author: Hang Hu
+categories: environment-setup
+tags: Blog Ubuntu Environment-Setup 
+cover: 
+---
 ## Download
 
-Download it from https://pypy.org/download.html#installing and uncompress it in `/home/joanna/Programs`.
+Download it from https://pypy.org/download.html# installing and uncompress it in `/home/joanna/Programs`.
 
 ## Config
 
@@ -9,28 +15,37 @@ Download it from https://pypy.org/download.html#installing and uncompress it in 
 sudo vim /etc/profile
 ```
 
+
 Add the following line:
+
 
 ```
 # for pypy3
+
 export PYPY3_HOME=/home/joanna/Programs/pypy3-v6.0.0-linux64
 export PATH=$PATH:${PYPY3_HOME}/bin
 ```
 
+
 Change PYSPARK_PYTHON to pypy3:
+
 
 ```
 # use shipped python3 for pyspark
-#export PYSPARK_PYTHON=python3
+
+# export PYSPARK_PYTHON=python3
 
 # use pypy3 for pyspark
+
 export PYSPARK_PYTHON=pypy3
 ```
+
 
 
 ```
 source /etc/profile
 ```
+
 
 ```
 pypy3

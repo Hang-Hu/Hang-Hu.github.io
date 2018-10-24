@@ -1,4 +1,10 @@
-
+---
+layout: post
+author: Hang Hu
+categories: hadoop
+tags: Blog Java Hadoop 
+cover: 
+---
 ## Reason
 
 I got this error because I set jupyter notebook to run pyspark.

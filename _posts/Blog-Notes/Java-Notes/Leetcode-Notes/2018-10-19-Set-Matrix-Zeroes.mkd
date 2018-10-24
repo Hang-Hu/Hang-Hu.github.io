@@ -1,3 +1,10 @@
+---
+layout: post
+author: Hang Hu
+categories: leetcode
+tags: Blog Java Leetcode 
+cover: 
+---
 ## Brute force
 
 ```java
@@ -46,10 +53,14 @@ class Solution {
 }
 ```
 
+
 Time Complexity: O((M*N)*(M+N))
+
 Space Complexity: O(1)
 
+
 ## Remember cols and rows
+
 
 ```
 class Solution {
@@ -75,10 +86,14 @@ class Solution {
 }
 ```
 
+
 Time Complexity: O(M*N)
+
 Space Complexity: O(M+N)
 
+
 ## Best Solution: 0th row and 0th col as guard
+
 
 ```
 class Solution {

@@ -1,43 +1,62 @@
-
+---
+layout: post
+author: Hang Hu
+categories: environment-setup
+tags: Blog Ubuntu Environment-Setup 
+cover: 
+---
 ## Download and unzip spark-2.3.1-bin-hadoop2.7.tgz
 
 ```
 sudo mv spark-2.3.1-bin-hadoop2.7 /usr/local/
 ```
 
+
 ## Config
+
 
 ```
 sudo vim /etc/profile
 ```
 
+
 Add these lines:
+
 
 ```
 # for spark
+
 export SPARK_HOME=/usr/local/spark-2.3.1-bin-hadoop2.7
 export PATH=$PATH:$SPARK_HOME/bin                                           
 ```
+
 
 ```
 source /etc/profile
 ```
 
+
 ## Which to use for pyspark
 
+
 ### Use simple python3 shipped with ubuntu 16.04
+
 
 ```
 export PYSPARK_PYTHON=python3 
 ```
 
+
 ### USe Anaconda's ipython3
+
 
 ```
 export PYSPARK_DRIVER_PYTHON=~/anaconda3/bin/ipython3
 ```
 
+
 ### Use Jupter Notebook
+
 
 ```
 export PYSPARK_PYTHON=${ANACONDA_HOME}/bin/python3
@@ -45,14 +64,18 @@ export PYSPARK_DRIVER_PYTHON=${ANACONDA_HOME}/bin/jupyter
 export PYSPARK_DRIVER_PYTHON_OPTS="notebook"
 ```
 
+
 ## Try
+
 
 ```
 pyspark
 spark-submit sparkcode.py
 ```
 
+
 ## Reference
+
 
 
 [Mengdong Github](https://mengdong.github.io/2016/08/08/fully-armed-pyspark-with-ipython-and-jupyter/)

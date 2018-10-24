@@ -1,10 +1,17 @@
-
+---
+layout: post
+author: Hang Hu
+categories: frontend
+tags: Blog FrontEnd 
+cover: 
+---
 ## Extract words
 
 ```
 var content = "Extract UPPERCASE words from string. I do it with RegEx.";
 content.match(/\b([A-Z]|_)+\b/g);
 ```
+
 
 ```
 ["UPPERCASE", "I"]
