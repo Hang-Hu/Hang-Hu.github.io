@@ -1,0 +1,12 @@
+## sps.expit
+
+Logistics sigmoid.
+
+```
+import scipy.special as sps
+sps.expit
+```
+
+```
+expit(x) = 1/(1+exp(-x))
+```
