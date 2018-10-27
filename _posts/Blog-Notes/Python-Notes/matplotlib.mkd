@@ -1,0 +1,8 @@
+## legend
+
+```
+import matplotlib.pyplot as plt
+plt.plot(e_all, label=eta)
+plt.legend()
+plt.show()
+```

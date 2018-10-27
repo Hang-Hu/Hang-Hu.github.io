@@ -1,0 +1,15 @@
+## Use getOrCreate
+```
+spark = SparkSession.builder.appName('Load Logs Spark')\
+    .config('spark.cassandra.connection.host', ','.join(cluster_seeds)).getOrCreate()
+conf = SparkConf().setAppName('Load Logs Spark')
+sc = SparkContext.getOrCreate(conf=conf)
+```
+
+## Better way
+
+```
+spark = SparkSession.builder.appName('Load Logs Spark')\
+    .config('spark.cassandra.connection.host', ','.join(cluster_seeds)).getOrCreate()
+sc = spark.sparkContext
+```
