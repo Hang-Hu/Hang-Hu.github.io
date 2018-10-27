@@ -84,3 +84,49 @@ get the machine epsilon
 ```
 np.finfo(float).eps
 ```
+
+## numpy.genfromtxt
+
+```
+data = np.genfromtxt('data.txt')
+```
+
+## np.random.shuffle
+
+Shuffle matrix by row, in place.
+
+```
+np.random.shuffle(data)
+```
+
+Multi-dimensional arrays are only shuffled along the first axis.
+
+```
+>>> arr = np.arange(9).reshape((3, 3))
+>>> arr
+array([[0, 1, 2],
+       [3, 4, 5],
+       [6, 7, 8]])
+
+>>> np.random.shuffle(arr)
+>>> arr
+array([[3, 4, 5],
+       [6, 7, 8],
+       [0, 1, 2]])
+```
+
+## np.mean
+
+```
+grad_e = np.mean(np.multiply((y - t), X.T), axis=1)
+```
+
+axis=1 is to calculate along the columns.
+
+```
+>>> np.shape(np.multiply((y - t), X.T))
+(3, 200)
+>>> grad_e = np.mean(np.multiply((y - t), X.T), axis=1)
+>>> grad_e
+array([0.44299607, 0.47463903, 0.14360159])
+```
