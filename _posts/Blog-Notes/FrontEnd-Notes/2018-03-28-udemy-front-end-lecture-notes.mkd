@@ -6646,7 +6646,7 @@ var add = (a, b) => {
 
 ### One-line arrow functions
 
-To put arrow functions on one line,  ***omit*** the ***return keyword*** as well as ***curly braces*** `{}`
+To put arrow functions on one line,  ***omit*** the ***return keyword*** as well as ***curly braces*** `{}`.
 
 ```
 var add = function(a, b){
@@ -6688,7 +6688,7 @@ To
 var doubleAndFilter = arr => arr.map(value => value * 2).filter(value => value%3 === 0);
 ```
 
-If `=>` is followed by object declaration, add `()` around `{}`.
+#### If `=>` is followed by object declaration, add `()` around `{}`.
 
 ```
 createStudentObj = (firstName, lastName) => {
@@ -6703,6 +6703,22 @@ createStudentObj = (firstName, lastName) => {
 createStudentObj = (firstName, lastName) => ({firstName: firstName, lastName: lastName});
 ```
 
+#### If the return is longer than one line, use `()`
+
+
+```
+const FilterLink = ({ filter, children }) => (
+   <NavLink
+       to={filter === 'SHOW_ALL' ? '/' : `/${ filter }`}
+       activeStyle={ {
+       textDecoration: 'none',
+           color: 'black'
+       }}
+   >
+       {children}
+   </NavLink>
+)
+```
 
 ### Difference between `=>` arrow function and `function`
 
