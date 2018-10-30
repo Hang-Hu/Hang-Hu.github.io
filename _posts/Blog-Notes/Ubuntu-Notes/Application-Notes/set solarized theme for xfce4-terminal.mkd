@@ -1,0 +1,18 @@
+# set solarized theme for xfce4-terminal
+
+
+## Generate config file
+
+Change one preference in xfce4-terminal GUI to generate config file.
+
+## Replace config file
+
+```
+wget https://raw.githubusercontent.com/sgerrand/xfce4-terminal-colors-solarized/master/light/terminalrc
+
+mv terminalrc ~/.config/xfce4/terminal/terminalrc
+```
+
+## Set font to bold
+
+Open xfce4-terminal, edit -> preference -> appearance -> font, set it to bold.

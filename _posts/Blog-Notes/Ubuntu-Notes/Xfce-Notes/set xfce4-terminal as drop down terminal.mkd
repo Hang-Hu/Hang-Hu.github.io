@@ -1,0 +1,9 @@
+# set xfce4-terminal as drop down terminal
+
+In shortcut, set command to be
+
+```
+xfce4-terminal --drop-down
+```
+
+Shortcut to be Super+D.
