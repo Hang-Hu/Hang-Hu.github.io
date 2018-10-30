@@ -1,0 +1,13 @@
+# ubuntu delete themes
+
+themes
+
+```
+/usr/share/themes
+```
+
+icons
+
+```
+/usr/share/icons
+```
