@@ -44,3 +44,10 @@
 ```
 mv config ~/.config/terminator/config
 ```
+
+## dropdown feature
+
+```
+[keybindings]
+  hide_window = <Super>grave
+```
