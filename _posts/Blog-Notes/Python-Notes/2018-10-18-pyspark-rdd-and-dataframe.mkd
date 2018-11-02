@@ -127,3 +127,30 @@ rdd = rdd.cache()
 
 ## Data Frame
 
+### reduce strings
+
+```
+@functions.udf(returnType=types.StringType())
+def to_name_str(namelist):
+    print(namelist)
+    return ', '.join(sorted(namelist))
+
+
+res_df = res_df.groupby('orderkey', 'totalprice')\
+        .agg(to_name_str(functions.collect_set('name')).alias('name'))
+```
+
+### list to dataframe pyspark
+
+```
+orderkeys_df = spark.createDataFrame(orderkeys, IntegerType())
+```
+
+### spark config
+
+```
+spark = SparkSession.builder.appName('TPCH Denormalize') \
+    .config('spark.cassandra.connection.host', ','.join(cluster_seeds))\
+    .config('spark.dynamicAllocation.maxExecutors', 16)\
+    .getOrCreate()
+```
