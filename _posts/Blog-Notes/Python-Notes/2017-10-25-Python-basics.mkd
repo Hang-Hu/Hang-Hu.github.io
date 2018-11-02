@@ -28,3 +28,19 @@ js = "".join(["function getPathTo(node) {",
 if currentframe != "MainFrame":
     switch_to_course_registration_frame(driver)
 ```
+
+## sort list alphabetically(ignore case)
+
+```
+list = ['Stem', 'constitute', 'Sedge', 'Eflux', 'Whim', 'Intrigue']
+list = sorted(list, key=str.lower)
+```
+
+## args from 3rd to end
+
+```
+orderkeys = []
+for i in range(3, len(sys.argv)):
+    orderkeys.append(int(sys.argv[i]))
+```
+
