@@ -132,7 +132,6 @@ rdd = rdd.cache()
 ```
 @functions.udf(returnType=types.StringType())
 def to_name_str(namelist):
-    print(namelist)
     return ', '.join(sorted(namelist))
 
 
