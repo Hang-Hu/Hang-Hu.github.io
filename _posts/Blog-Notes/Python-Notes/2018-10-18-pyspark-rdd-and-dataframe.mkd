@@ -153,3 +153,16 @@ spark = SparkSession.builder.appName('TPCH Denormalize') \
     .config('spark.dynamicAllocation.maxExecutors', 16)\
     .getOrCreate()
 ```
+
+### Get the value in one row one column dataframe
+
+```
+r = res.collect()[0][0]
+```
+
+### combine two dataframe
+
+```
+result = slope.union(intercept)
+
+```
