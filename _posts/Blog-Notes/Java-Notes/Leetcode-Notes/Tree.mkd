@@ -1,0 +1,174 @@
+## class TreeNode
+
+```
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+```
+
+
+## 105. Construct Binary Tree from Preorder and Inorder Traversal
+
+### Description
+
+```
+Given preorder and inorder traversal of a tree, construct the binary tree.
+
+Note:
+You may assume that duplicates do not exist in the tree.
+
+For example, given
+
+preorder = [3,9,20,15,7]
+inorder = [9,3,15,20,7]
+Return the following binary tree:
+
+    3
+   / \
+  9  20
+    /  \
+   15   7
+```
+
+### First Version
+
+```
+class Solution {
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        return build(preorder, 0, preorder.length, inorder, 0, inorder.length);
+    }
+    // start is inclusive, end is exclusive
+    private TreeNode build(int[] preorder, int pStart, int pEnd, int[] inorder, int iStart, int iEnd){
+        // end condition: no root
+        if(pStart == pEnd){
+            return null;
+        }
+        int rootVal = preorder[pStart];
+        int rootIndex = findIndex(rootVal, inorder, iStart, iEnd);
+        TreeNode rootNode = new TreeNode(rootVal);
+        int lengthOfLeft = rootIndex - iStart;
+        if(lengthOfLeft>0)  rootNode.left = build(preorder, pStart+1, pStart+1+lengthOfLeft, inorder, iStart, rootIndex);
+        if(rootIndex+1 < iEnd) rootNode.right = build(preorder, pStart+1+lengthOfLeft, pEnd, inorder, rootIndex+1, iEnd);
+        return rootNode;
+    }
+    private int findIndex(int val, int[] arr, int start, int end){
+        for(int i=start; i<end; i++){
+            if(arr[i] == val){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+}
+```
+
+Time Complexity: findIndex is O(n), it will run findIndex height-1 times, so it's O(nlogn)
+Space Complexity: O(n)
+
+### Second Version (Best Solution)
+
+I have to imporve the findIndex function to be O(1). Since duplicates do not exist in the tree, use map to find index.
+
+```
+class Solution {
+    private Map<Integer, Integer> inorderMap; // (value, index)
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        inorderMap = new HashMap<>();
+        for(int i=0; i<inorder.length; i++){
+            inorderMap.put(inorder[i], i);
+        }
+        return build(preorder, 0, preorder.length, inorder, 0, inorder.length);
+    }
+    // start is inclusive, end is exclusive
+    private TreeNode build(int[] preorder, int pStart, int pEnd, int[] inorder, int iStart, int iEnd){
+        // end condition: no root
+        if(pStart == pEnd){
+            return null;
+        }
+        int rootVal = preorder[pStart];
+        int rootIndex = inorderMap.get(rootVal);
+        TreeNode rootNode = new TreeNode(rootVal);
+        int lengthOfLeft = rootIndex - iStart;
+        if(lengthOfLeft>0)  rootNode.left = build(preorder, pStart+1, pStart+1+lengthOfLeft, inorder, iStart, rootIndex);
+        if(rootIndex+1 < iEnd) rootNode.right = build(preorder, pStart+1+lengthOfLeft, pEnd, inorder, rootIndex+1, iEnd);
+        return rootNode;
+    }
+}
+```
+
+Time Complexity: traverse every node O(n), find index O(logn*1), use the bigger one, which is O(n)
+Space Complexity: O(n)
+
+## 144. Binary Tree Preorder Traversal
+
+### Description
+
+```
+Given a binary tree, return the preorder traversal of its nodes' values.
+
+Example:
+
+Input: [1,null,2,3]
+   1
+    \
+     2
+    /
+   3
+
+Output: [1,2,3]
+```
+
+### Code - recursion
+
+```
+class Solution {
+    public List<Integer> preorderTraversal(TreeNode root) {
+        List<Integer> ans = new ArrayList<>();
+        traverse(root, ans);
+        return ans;
+    }
+    private void traverse(TreeNode root, List<Integer> ans){
+        // end condition
+        if(root == null)    return;
+        
+        ans.add(root.val);
+        traverse(root.left, ans);
+        traverse(root.right, ans);
+    }
+}
+```
+
+### Follow up - iteration
+
+Recursive solution is trivial, could you do it iteratively?
+
+Use stack to remember node which has to change itself to left child. When node is null, set it to TreeNode popped from stack, since left was used when pushed to stack, so node should go right. This time setting node to its right child, I don't have to remember it in stack, because its left and right children have been traversed, I don't need it anymore. If encounter null in right tree, just go back to any previous node whose right child not visited. 
+
+Since it's preorder, I have to save the value of node to ans before going left.
+
+```
+class Solution {
+    public List<Integer> preorderTraversal(TreeNode root) {
+        List<Integer> ans = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode node = root;
+        while(node!=null || stack.empty()==false){
+            if(node != null){// add to ans, push into stack, go left
+                ans.add(node.val);
+                stack.push(node);
+                node = node.left;
+            }else{// node is null: pop to node, and go right
+                node = stack.pop().right;
+            }
+        }
+        return ans;
+    }
+}
+```
