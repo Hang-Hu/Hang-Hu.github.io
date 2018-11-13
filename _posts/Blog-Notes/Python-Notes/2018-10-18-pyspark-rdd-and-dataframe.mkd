@@ -124,6 +124,13 @@ if known_paths.lookup(4):
 rdd = rdd.cache()
 ```
 
+### remove first row
+
+```
+header = raw.take(1)[0]
+data = raw.filter(lambda l: l != header)
+```
+
 
 ## Data Frame
 
