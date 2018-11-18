@@ -1,0 +1,17 @@
+## Details
+
+ERROR: ld.so: object 'libgtk3-nocsd.so.0' from LD_PRELOAD cannot be preloaded (cannot open shared object file): ignored.
+
+## Reason
+
+```
+ls -l /usr/lib/x86_64-linux-gnu/ |grep libgtk3
+```
+
+library libgtk3-nocsd.so.0 is lost.
+
+## Solution
+
+```
+sudo apt-get install gtk3-nocsd
+```
