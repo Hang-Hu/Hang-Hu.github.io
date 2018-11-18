@@ -11,3 +11,13 @@ icons
 ```
 /usr/share/icons
 ```
+
+## Use user themes and icons
+
+```
+~/.themes
+```
+
+```
+~/.icons
+```
