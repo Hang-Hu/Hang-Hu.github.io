@@ -630,7 +630,7 @@ four
 with open('new_file.txt', mode='w') as f:
     f.write('I created a new file!')
 
-)
+
 with open('new_file.txt', mode='r') as f:
     print(f.read())
 I created a new file!
