@@ -1,0 +1,7 @@
+## Sort by file size
+
+Use `-S`.
+
+```
+ls -alhS
+```
