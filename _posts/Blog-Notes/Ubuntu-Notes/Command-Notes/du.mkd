@@ -1,0 +1,5 @@
+## Sort by file size
+
+```
+du -sh * | sort -h
+```
