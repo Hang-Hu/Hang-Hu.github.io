@@ -1,0 +1,18 @@
+## File uploader
+
+Must use `component='span'` otherwise no response clicking Upload button.
+
+```
+<input
+    type='file'
+    id='trainImage'
+    accept='image/png, image/jpeg'
+    style={{display: 'none'}}
+/>
+<label htmlFor='trainImage'>
+    <Button component='span' color='default' variant='contained'>
+        Upload
+        <CloudUploadIcon className='icon-right' />
+    </Button>
+</label>
+```

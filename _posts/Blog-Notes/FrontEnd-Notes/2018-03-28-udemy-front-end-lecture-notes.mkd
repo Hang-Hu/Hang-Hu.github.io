@@ -112,6 +112,22 @@ thead and tbody.
 </form>
 ```
 
+`for` in `label` must match `id` in `input`.
+
+### change input's style
+
+```
+<div className="App">
+<input
+  type='file'
+  id='trainImage'
+  accept='image/png, image/jpeg'
+  style={{display: 'none'}}
+/>
+<label for='trainImage'>
+  Upload
+</label>
+```
 
 ## Dropdown menu
 
