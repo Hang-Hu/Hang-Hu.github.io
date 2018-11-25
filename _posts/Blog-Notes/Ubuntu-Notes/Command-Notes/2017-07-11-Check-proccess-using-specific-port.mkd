@@ -11,3 +11,14 @@ lsof -Pni :3306
 COMMAND   PID  USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
 mysqld  27561 mysql   28u  IPv4 157269      0t0  TCP 127.0.0.1:3306 (LISTEN)
 ```
+
+
+
+## Kill process which require root
+
+A more simple solution just type `sudo fuser -k 8000/tcp`. This should kill all the processes associated with port 8000.
+
+EDIT:
+
+For osx users you can use `sudo lsof -t -i tcp:8000 | xargs kill -9`
+
