@@ -1,0 +1,45 @@
+## Error
+
+No property setState for undefined in .catch.
+
+```
+fetch(url, {
+    method: 'POST',
+    headers: {
+        'X-CSRFToken': 'KCOD1YSeoBAhmePzcVR7ddSusf4gxlw4GMNqdBzCA6jEKsNP0viGMF209qnPIaDy'
+    },
+    body: this.state.files[0]
+})
+.then(handleErrors)
+.then(function(response){
+    return response.json();
+})
+.then(function(data){
+    console.log(data);
+})
+.catch(function(err){
+    console.log(err);
+    console.log(this);
+    this.setState({
+        loading: false
+    });
+});
+```
+
+## Reason
+
+fetch returned a Promise, so it's something else(maybe Promise call it with arrow function so this is undefined) instead of current React Componet calling the function passed to .catch.
+
+## Solution
+
+`function(err){}.bind(this)`
+
+```
+.catch(function(err){
+    console.log(err);
+    console.log(this);
+    this.setState({
+        loading: false
+    });
+}.bind(this));
+```
