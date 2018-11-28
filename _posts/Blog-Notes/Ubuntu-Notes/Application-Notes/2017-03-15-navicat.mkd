@@ -30,8 +30,8 @@ sudo vim navicat.desktop
 Encoding=UTF-8
 Name=Navicat
 Comment=Navicat Premium
-Exec=/usr/local/navicat112_premium_en_x64/start_navicat
-Icon=/usr/local/navicat112_premium_en_x64/navicat.svg
+Exec=/home/joanna/Programs/navicat121_premium_en_x64/start_navicat
+Icon=/home/joanna/ProgramFiles/Icons/navicat.svg
 Terminal=false
 StartupNotify=true
 Type=Application
@@ -50,4 +50,4 @@ rm -r /home/joanna/.navicat64
 
 ## Restore Font
 
-Tools->Option->Fonts, choose by clicking instead of typing for typing may leads to error.
+Tools->Option->General-> GUI Fonts, choose by clicking instead of typing for typing may leads to error.
