@@ -173,3 +173,16 @@ r = res.collect()[0][0]
 result = slope.union(intercept)
 
 ```
+
+### RDD to DataFrame: createDataFrame
+
+```
+line_re = re.compile(r'^(\S+) - - \[(\S+) [+-]\d+\] \"[A-Z]+ (\S+) HTTP/\d\.\d\" \d+ (\d+)$')
+logs = sc.textFile(input_dir) \
+    .repartition(10) \
+    .map(lambda x: line_re.split(x)) \
+    .map(format_line) \
+    .filter(lambda x: x is not None)
+data_rows = logs.map(lambda x: Row(host=x[0], id=str(uuid.uuid4()), bytes=x[1], datetime=x[2], path=x[3]))
+data = spark.createDataFrame(data_rows)
+```
