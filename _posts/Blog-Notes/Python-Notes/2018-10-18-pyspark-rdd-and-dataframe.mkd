@@ -186,3 +186,47 @@ logs = sc.textFile(input_dir) \
 data_rows = logs.map(lambda x: Row(host=x[0], id=str(uuid.uuid4()), bytes=x[1], datetime=x[2], path=x[3]))
 data = spark.createDataFrame(data_rows)
 ```
+
+### Create dataframe from scratch
+
+#### Multiple columns
+
+```
+test = spark.createDataFrame([(1, 1), (1, 2), (1, 3)], ["user_id", "business_id"])
+```
+
+#### Single Column
+
+```
+user_id = 1
+user_df = spark.createDataFrame([user_id], types.IntegerType())
+user_df = user_df.select(user_df['value'].alias('user_id'))
+```
+
+### Extract Rows inside one grid of dataframe using `.flatMap`
+
+```
+rec = ratings_model.recommendForUserSubset(user_df, 3).select('recommendations')
+```
+
+```
+>>> rec.show()
++-------+--------------------+                                                  
+|user_id|     recommendations|
++-------+--------------------+
+|      1|[[16356, 9.150447...|
++-------+--------------------+
+```
+
+```
+rec_rdd = rec.rdd\
+    .flatMap(lambda x: x['recommendations'])\
+    .map(lambda x: (x['business_id'], x['rating']))
+```
+
+### withColumn
+
+```
+data = data.withColumn('slope',
+        (data['sum((x * y))']-data['sum(x)']*data['sum(y)']/data['sum(1)']) / (data['sum(POWER(x, 2))']-data['sum(x)']**2/data['sum(1)']))
+```
