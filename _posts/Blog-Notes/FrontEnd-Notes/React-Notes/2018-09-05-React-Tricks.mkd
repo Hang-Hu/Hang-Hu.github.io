@@ -156,3 +156,23 @@ componentDidUpdate(prevProps) {
     }
 }
 ```
+
+
+## send parameter to props
+
+### arrow function
+
+### bind(this, 1, 2, 3)
+
+```
+function addNumbers(a,b,c,d){
+    return this.firstName + " just calculated " + (a+b+c+d);
+}
+var elie = {
+    firstName: "Elie"
+}
+var elieCalc = addNumbers.bind(elie,1,2,3,4); // function(){}...
+elieCalc(); // Elie just calculated 10
+```
+
+### another function to send parameters
