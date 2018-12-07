@@ -176,3 +176,22 @@ elieCalc(); // Elie just calculated 10
 ```
 
 ### another function to send parameters
+
+### onChange={this.handleChange('age')}
+
+```
+<div>
+     <TextField
+        id="standard-number"
+        label="Number"
+        value={this.props.userId}
+        onChange={this.handleChange('age')}
+        type="number"
+        InputLabelProps={{
+            shrink: true,
+        }}
+        margin="normal"
+    />
+    
+</div>
+```
