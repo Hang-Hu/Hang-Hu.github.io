@@ -1,0 +1,11 @@
+## Basic Usage
+
+```
+ tree proj/
+ ```
+
+## Exclude directory
+
+```
+tree -I venv proj/
+```
