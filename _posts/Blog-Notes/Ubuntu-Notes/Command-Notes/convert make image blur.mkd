@@ -1,0 +1,5 @@
+## Command
+
+```
+convert blur.jpeg -blur 0x4 blur5.jpeg
+```
