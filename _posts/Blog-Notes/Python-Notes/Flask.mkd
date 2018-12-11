@@ -1,0 +1,55 @@
+## CORS
+
+```
+app = Flask(__name__)
+app.config['CORS_HEADERS'] = 'Content-Type'
+cors = CORS(app)
+```
+
+```
+@cross_origin()
+@main.route('/hello', methods=['POST'])
+def hello():
+    return jsonify({
+        'result': 'success',
+        'data': 'hello'
+    })
+
+```
+
+
+## Upload
+
+```
+@main.route('/upload', methods=['POST'])
+def upload():
+    file = request.data
+    with open('../upload_dir/test.jpeg', 'wb') as bf:
+        bf.write(file)
+    return jsonify({'result': 'success'})
+```
+
+## Serve image
+
+Code:
+
+```
+@main.route('/images/<path:file_name>', methods=['GET'])
+def send_file(file_name):
+	return send_from_directory('../resources/images/', file_name)
+```
+
+Image file directory structure:
+
+```
+flask-scaffold/
+├── resources
+│   └── images
+│       └── diagram.jpeg
+```
+
+Url:
+
+```
+http://0.0.0.0:5432/images/diagram.jpeg
+```
