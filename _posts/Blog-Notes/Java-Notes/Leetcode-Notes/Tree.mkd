@@ -175,3 +175,1114 @@ class Solution {
 
 Time Complexity: O(n)
 Space Complexity: O(n)
+
+## 94. Binary Tree Inorder Traversal
+
+### Description
+
+```
+Given a binary tree, return the inorder traversal of its nodes' values.
+
+Example:
+
+Input: [1,null,2,3]
+   1
+    \
+     2
+    /
+   3
+
+Output: [1,3,2]
+Follow up: Recursive solution is trivial, could you do it iteratively?
+```
+
+### Recursive
+
+```
+class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        traversal(root, res);
+        return res;
+    }
+    private void traversal(TreeNode node, List<Integer> res){
+        if(node == null)    return;
+        traversal(node.left, res);
+        res.add(node.val);
+        traversal(node.right, res);
+    }
+}
+```
+
+### Iterative
+
+```
+class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> ans = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode node = root;
+        while(node != null || stack.empty() == false){
+            if(node != null){
+                stack.push(node);
+                node = node.left;
+            }else{
+                node = stack.pop();
+                ans.add(node.val);
+                node = node.right;
+            }
+        }
+        return ans;
+    }
+}
+```
+
+Time: O(n)
+Space: ans contains every node, stack is logn, so O(n)
+
+## 145. Binary Tree Postorder Traversal
+
+### Description
+
+```
+Given a binary tree, return the postorder traversal of its nodes' values.
+
+Example:
+
+Input: [1,null,2,3]
+   1
+    \
+     2
+    /
+   3
+
+Output: [3,2,1]
+Follow up: Recursive solution is trivial, could you do it iteratively?
+
+```
+
+### Recursive
+
+```
+class Solution {
+    public List<Integer> postorderTraversal(TreeNode root) {
+        List<Integer> ans = new ArrayList<>();
+        traversal(root, ans);
+        return ans;
+    }
+    private void traversal(TreeNode node, List<Integer> ans){
+        if(node == null)    return;
+        traversal(node.left, ans);
+        traversal(node.right, ans);
+        ans.add(node.val);
+    }
+}
+```
+
+### Iterative
+
+1. Node is `null` and left child: `peek()` and go right
+2. Node is `null`/used and right child: `pop()` to `ansNodes`, `peek()` and go right
+3. Otherwise `push()` and go left
+
+Use `leftChild` to know if current `node` is its parents' left or right child.(`true`: left child, `false`: right child).
+
+```
+class Solution {
+    public List<Integer> postorderTraversal(TreeNode root) {
+        List<TreeNode> ansNodes = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode node = root;
+        boolean leftChild = false;
+        while(node!=null || !stack.empty()){
+            if(node != null && (leftChild || !ansNodes.contains(node))){
+                stack.push(node);
+                node = node.left;
+                leftChild = true;
+            }else if(leftChild == true){// node is null and is left child
+                node = stack.peek().right;
+                leftChild = false;
+            }else{//node is null or used and is right child
+                ansNodes.add(stack.pop());
+                if(stack.empty() == true)   break;
+                node = stack.peek().right;
+                leftChild = false;
+            }
+        }
+        List<Integer> ans = new ArrayList<>();
+        for(TreeNode n: ansNodes){
+            ans.add(n.val);
+        }
+        return ans;
+    }
+}
+```
+
+Time: O(n)
+Space: O(n)
+
+## 102. Binary Tree Level Order Traversal
+
+### Description
+
+```
+Given a binary tree, return the level order traversal of its nodes' values. (ie, from left to right, level by level).
+
+For example:
+Given binary tree [3,9,20,null,null,15,7],
+    3
+   / \
+  9  20
+    /  \
+   15   7
+return its level order traversal as:
+[
+  [3],
+  [9,20],
+  [15,7]
+]
+```
+
+### Recursive
+
+`ans.get(depth).add(node.val)`, so use node, depth, ans in parameter.
+
+```
+class Solution {
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> ans = new ArrayList<>();
+        levelOrder(root, 0, ans);
+        return ans;
+    }
+    private void levelOrder(TreeNode node, int depth, List<List<Integer>> ans){
+        if(node == null)        return;
+        // if ans.get(depth) not exist, new LinkedList
+        if(depth+1>ans.size())  ans.add(new LinkedList<>());
+        ans.get(depth).add(node.val);
+        levelOrder(node.left, depth+1, ans);
+        levelOrder(node.right, depth+1, ans);
+    }
+}
+```
+
+
+### Iterative
+
+Like preorder iterative traversal, use stack to remember where is next node when it comes to null. Add val to ans the first time meeting node. Have variable depth and update it when going left or right.
+
+```
+class Solution {
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> ans = new ArrayList<>();
+        int depth = 0;
+        Stack<NodeDepth> stack = new Stack<>();
+        TreeNode node = root;
+        while(node != null || !stack.empty()){
+            if(node == null){
+                NodeDepth nodeDepth = stack.pop();
+                node = nodeDepth.node.right;
+                depth = nodeDepth.depth + 1;
+            }else{
+                stack.push(new NodeDepth(node, depth));
+                if(depth+1>ans.size())  ans.add(new ArrayList<>());
+                ans.get(depth).add(node.val);
+                node = node.left;
+                depth++;
+            }
+        }
+        return ans;
+    }
+}
+class NodeDepth{
+    TreeNode node;
+    int depth;
+    NodeDepth(TreeNode node, int depth){
+        this.node = node;
+        this.depth = depth;
+    }
+}
+```
+
+
+## 107. Binary Tree Level Order Traversal II
+
+### Description
+
+```
+Given a binary tree, return the bottom-up level order traversal of its nodes' values. (ie, from left to right, level by level from leaf to root).
+
+For example:
+Given binary tree [3,9,20,null,null,15,7],
+    3
+   / \
+  9  20
+    /  \
+   15   7
+return its bottom-up level order traversal as:
+[
+  [15,7],
+  [9,20],
+  [3]
+]
+```
+
+### Recursive
+
+The only difference between Binary Tree Level Order Traversal I, is that I reverse list before return.
+
+```
+class Solution {
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        List<List<Integer>> ans = new ArrayList<>();
+        levelOrder(root, 0, ans);
+        Collections.reverse(ans);
+        return ans;
+    }
+    private void levelOrder(TreeNode node, int depth, List<List<Integer>> ans){
+        if(node == null)        return;
+        if(depth+1>ans.size())  ans.add(new LinkedList<>());
+        ans.get(depth).add(node.val);
+        levelOrder(node.left, depth+1, ans);
+        levelOrder(node.right, depth+1, ans);
+    }
+}
+```
+
+### Iterative
+
+The same as recursive, the only difference: `Collections.reverse(ans)`.
+
+```
+class Solution {
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        List<List<Integer>> ans = new ArrayList<>();
+        int depth = 0;
+        Stack<NodeDepth> stack = new Stack<>();
+        TreeNode node = root;
+        while(node != null || !stack.empty()){
+            if(node == null){
+                NodeDepth nodeDepth = stack.pop();
+                node = nodeDepth.node.right;
+                depth = nodeDepth.depth + 1;
+            }else{
+                stack.push(new NodeDepth(node, depth));
+                if(depth+1>ans.size())  ans.add(new ArrayList<>());
+                ans.get(depth).add(node.val);
+                node = node.left;
+                depth++;
+            }
+        }
+        Collections.reverse(ans);
+        return ans;
+    }
+}
+class NodeDepth{
+    TreeNode node;
+    int depth;
+    NodeDepth(TreeNode node, int depth){
+        this.node = node;
+        this.depth = depth;
+    }
+}
+```
+
+## 226. Invert Binary Tree
+
+
+### Description
+
+```
+Invert a binary tree.
+
+Example:
+
+Input:
+
+     4
+   /   \
+  2     7
+ / \   / \
+1   3 6   9
+Output:
+
+     4
+   /   \
+  7     2
+ / \   / \
+9   6 3   1
+```
+
+### Analysis
+
+First, 2 and 7 exchanged.
+
+```
+     4
+   /   \
+  7     2
+ / \   / \
+6   9 1   3
+```
+
+For 7, 6 and 9 changed.
+
+For 2, 1 and 3 changed.
+
+So that's left and right child changed.
+
+### Recursive
+
+```
+class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        traversal(root);
+        return root;
+    }
+    private void traversal(TreeNode node){
+        if(node == null)    return;
+        TreeNode tmp = node.left;
+        node.left = node.right;
+        node.right = tmp;
+        traversal(node.left);
+        traversal(node.right);
+    }
+} 
+```
+
+### Iterative
+
+Use preorder's stack, the first time meeting node, switch its left and right child.
+
+```
+class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode node = root;
+        while(node!=null || !stack.empty()){
+            if(node == null){
+                node = stack.pop().right;
+            }else{
+                stack.push(node);
+                TreeNode tmp = node.left;
+                node.left = node.right;
+                node.right = tmp;
+                node = node.left;
+            }
+        }
+        return root;
+    }
+}
+```
+
+## 230. Kth Smallest Element in a BST
+
+### Description
+
+```
+Given a binary search tree, write a function kthSmallest to find the kth smallest element in it.
+
+Note: 
+You may assume k is always valid, 1 ≤ k ≤ BST's total elements.
+
+Example 1:
+
+Input: root = [3,1,4,null,2], k = 1
+   3
+  / \
+ 1   4
+  \
+   2
+Output: 1
+Example 2:
+
+Input: root = [5,3,6,2,4,null,null,1], k = 3
+       5
+      / \
+     3   6
+    / \
+   2   4
+  /
+ 1
+Output: 3
+Follow up:
+What if the BST is modified (insert/delete operations) often and you need to find the kth smallest frequently? How would you optimize the kthSmallest routine?
+```
+
+### First Version
+
+Add every value into list, and sort.
+
+```
+class Solution {
+    public int kthSmallest(TreeNode root, int k) {
+        List<Integer> l = new ArrayList<>();
+        traversal(root, l);
+        Collections.sort(l);
+        return l.get(k-1);
+    }
+    private void traversal(TreeNode root, List<Integer> l){
+        if(root == null)    return;
+        l.add(root.val);
+        traversal(root.left, l);
+        traversal(root.right, l);
+    }
+}
+```
+
+Time: each node is O(n), quick sort is O(nlogn), so O(nlogn)
+Space: O(n)
+
+### Second Version
+
+Use inorder traversal, since it's BST, then the list I got is already sorted.
+
+```
+class Solution {
+    public int kthSmallest(TreeNode root, int k) {
+        List<Integer> l = new ArrayList<>();
+        traversal(root, l);
+        return l.get(k-1);
+    }
+    private void traversal(TreeNode root, List<Integer> l){
+        if(root == null)    return;
+        traversal(root.left, l);
+        l.add(root.val);
+        traversal(root.right, l);
+    }
+}
+```
+
+Time: O(n)
+Space: O(n)
+
+### Recursive(Final)
+
+Use instance variable `count` to remember this is the nth node inorder traversed. When `count` equals `k`, the remember the node.val in `ans`, which is the answer, and stop traversal.
+
+```
+class Solution {
+    private int count;
+    private int k;
+    private int ans;
+    public int kthSmallest(TreeNode root, int k) {
+        this.count = 0;
+        this.k = k;
+        traversal(root);
+        return ans;
+    }
+    private void traversal(TreeNode root){
+        if(root == null)    return;
+        traversal(root.left);
+        this.count++;
+        if(this.count == this.k){
+            this.ans = root.val;
+            return;
+        }
+        // l.add(root.val);
+        traversal(root.right);
+    }
+}
+```
+
+### Iterative(Final)
+
+Use inorder iterative traversal, add count and compare with k when second time meeting node.
+
+```
+class Solution {
+    public int kthSmallest(TreeNode root, int k) {
+        int count = 0;
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode node = root;
+        while(node!=null || !stack.empty()){
+            if(node == null){
+                node = stack.pop();
+                // second time meeting node
+                count++;
+                if(count == k)  return node.val;
+                node = node.right;
+            }else{
+                stack.push(node);
+                node = node.left;
+            }
+        }
+        return -1;
+    }
+}
+```
+
+
+## 98. Validate Binary Search Tree
+
+### Description
+
+```
+Given a binary tree, determine if it is a valid binary search tree (BST).
+
+Assume a BST is defined as follows:
+
+The left subtree of a node contains only nodes with keys less than the node's key.
+The right subtree of a node contains only nodes with keys greater than the node's key.
+Both the left and right subtrees must also be binary search trees.
+Example 1:
+
+Input:
+    2
+   / \
+  1   3
+Output: true
+Example 2:
+
+    5
+   / \
+  1   4
+     / \
+    3   6
+Output: false
+Explanation: The input is: [5,1,4,null,null,3,6]. The root node's value
+             is 5 but its right child's value is 4.
+```
+
+### Recursive
+
+As it goes deeper, there are more and more limitations, but the newer limitations can overwrite the old ones. There are only two valid, lowerLimit and upperLimit. Going left, overwrite upperLimit. Going right, overwrite lowerLimit.
+
+```
+class Solution {
+    public boolean isValidBST(TreeNode root) {
+        return traverse(root, Long.MIN_VALUE, Long.MAX_VALUE);
+    }
+    // lowerLimit < val < upperLimit must exist
+    private boolean traverse(TreeNode node, long lowerLimit, long upperLimit){
+        if(node == null)                                    return true;    
+        if(node.val<=lowerLimit || node.val>=upperLimit)    return false;
+        return traverse(node.left, lowerLimit, node.val) && traverse(node.right, node.val, upperLimit);
+    }
+}
+```
+
+### Iterative
+
+Preorder iterative traversal, `WrappedNode` to save the context(`min`, `max`) of each node pushed into `stack`, so that when `pop()` I can restore the corresponding context(`min`, `max`).
+
+```
+class Solution {
+    public boolean isValidBST(TreeNode root) {
+        Stack<WrappedNode> stack = new Stack<>();
+        TreeNode node = root;
+        long min = Long.MIN_VALUE;
+        long max = Long.MAX_VALUE;
+        while(node!=null || !stack.empty()){
+            if(node == null){
+                WrappedNode wNode = stack.pop();
+                max = wNode.max;
+                node = wNode.node;
+                min = node.val;
+                node = node.right;
+            }else{
+                if(node.val<=min || node.val>=max)  return false;
+                stack.push(new WrappedNode(node, min, max));
+                max = node.val;
+                node = node.left;
+            }
+        }
+        return true;
+    }
+}
+class WrappedNode{
+    TreeNode node;
+    long min;
+    long max;
+    public WrappedNode(TreeNode node, long min, long max){
+        this.node = node;
+        this.min = min;
+        this.max = max;
+    }
+}
+```
+
+## 114. Flatten Binary Tree to Linked List
+
+### Description
+
+```
+Given a binary tree, flatten it to a linked list in-place.
+
+For example, given the following tree:
+
+    1
+   / \
+  2   5
+ / \   \
+3   4   6
+The flattened tree should look like:
+
+1
+ \
+  2
+   \
+    3
+     \
+      4
+       \
+        5
+         \
+          6
+```
+
+### First Version
+
+Do it in preorder.
+
+If left child of current node exists: find left.right...right or left itself if left has no right child, the node found is named after x; move node.right to x.right; move node's left to node's right
+
+node = node.right
+
+until node == null
+
+#### Recursive
+
+```
+class Solution {
+    public void flatten(TreeNode root) {
+        if(root==null)  return;
+        if(root.left != null){
+            TreeNode x = root.left;
+            while(x.right!=null)    x = x.right;
+            x.right = root.right;
+            root.right = root.left;
+            root.left = null;
+        }
+        flatten(root.right);
+    }
+}
+```
+
+#### Iterative
+
+```
+class Solution {
+    public void flatten(TreeNode root) {
+        TreeNode node = root;
+        while(node!=null){
+            if(node.left != null){
+                TreeNode x = node.left;
+                while(x.right!=null)    x = x.right;
+                x.right = node.right;
+                node.right = node.left;
+                node.left = null;
+            }
+            node = node.right;
+        }
+    }
+}
+```
+
+Time: O(nlogn)
+Space: O(1)
+
+### Second Version
+
+Do it in post order.
+
+For the preorder version, I have 2 while loops. For left's most left, I used while loop to get it, and the time complexity is O(logn) for that. To improve that, I used post order, got to leaf first, from bottom to up, adjust the structure and return the most right one so that I got x without many times going down to find most right.
+
+If left exists, then adjust left to right:
+
+1. move right to left's most right(l)'s right.
+2. move left to right.
+
+If no left or right, return node.
+If no left, return right's most right(r).
+If no right, return previous left's most right(l).
+If left right both exist, return previous right's most right(r).
+
+```
+class Solution {
+    public void flatten(TreeNode root) {
+        postOrder(root);
+    }
+    private TreeNode postOrder(TreeNode node){
+        if(node == null)    return null;
+        TreeNode l = postOrder(node.left);
+        TreeNode r = postOrder(node.right);
+        if(node.left != null){
+            l.right = node.right;
+            node.right = node.left;
+            node.left = null;    
+        }
+        if(r==null){
+            if(l==null){
+                return node;
+            }else{
+                return l;
+            }
+        }else{
+            return r;
+        }
+    }
+}
+```
+
+### Final Version Recursive
+
+Preorder but O(n) time complexity and O(1) space.
+
+Use instance variable `pre` to remember the previous node in preorder traversal, and change `pre`'s right to current node when visiting each node. Make sure to save `node.right` because after running `preorder(node.left)` node's right will be changed.
+
+```
+class Solution {
+    private TreeNode pre;
+    public void flatten(TreeNode root) {
+        pre = null;
+        preorder(root);
+    }
+    private void preorder(TreeNode node){
+        if(node == null)    return;
+        if(pre!=null){
+            pre.right = node;
+            pre.left = null;
+        }
+        pre = node;
+        TreeNode right = node.right;
+        preorder(node.left);// pre changed after running this line, node is its pre, so node's right also changed  after this line
+        preorder(right);
+    }
+}
+```
+
+Time: O(n)
+Space: O(1)
+
+### Final Version Iterative
+
+```
+class Solution {
+    public void flatten(TreeNode root) {
+        TreeNode pre = new TreeNode(-1);
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode node = root;
+        while(node!=null || !stack.empty()){
+            if(node==null){
+                node = stack.pop();
+            }else{
+                pre.right = node;
+                pre.left = null;
+                pre = node;
+                stack.push(node.right);//save node right child in stack because that's the only thing I want
+                node = node.left;
+            }
+        }
+    }
+}
+```
+
+Time: O(n)
+Space: O(n)
+
+## 113. Path Sum II
+
+### Description
+
+```
+Given a binary tree and a sum, find all root-to-leaf paths where each path's sum equals the given sum.
+
+Note: A leaf is a node with no children.
+
+Example:
+
+Given the below binary tree and sum = 22,
+
+      5
+     / \
+    4   8
+   /   / \
+  11  13  4
+ /  \    / \
+7    2  5   1
+Return:
+
+[
+   [5,4,11,2],
+   [5,8,4,5]
+]
+```
+
+### First Version
+
+Go to bottom, and if sum can be extracted to 0, add to path, bottom up, returned list is index list in case many paths returned.
+
+```
+class Solution {
+    public List<List<Integer>> pathSum(TreeNode root, int sum) {
+        List<List<Integer>> ans = new ArrayList<>();
+        traversal(root, ans, sum);
+        return ans;
+    }
+    //return list of index in ans, ans[index] is the path
+    private List<Integer> traversal(TreeNode node, List<List<Integer>> ans, int sum){
+        if(node == null)    return new ArrayList<>();
+        if(node.val == sum && node.left == null && node.right == null){
+            ans.add(new ArrayList<Integer>(){{add(node.val);}});
+            return new ArrayList<Integer>(){{add(ans.size()-1);}};
+        }
+        List<Integer> is = traversal(node.left, ans, sum-node.val);
+        List<Integer> js = traversal(node.right, ans, sum-node.val);
+        for(int i: is)  ans.get(i).add(0, node.val);
+        for(int j: js)  ans.get(j).add(0, node.val);
+        is.addAll(js);
+        return is;
+    }
+}
+```
+
+Time: O(n)
+Space: O(n)
+
+### Final Version(Recursive)
+
+Use `path` to remember every node along the path, the third time accessing node, remove `node.val` from `path` so that `path` can be reused.
+
+```
+class Solution {
+    public List<List<Integer>> pathSum(TreeNode root, int sum) {
+        List<List<Integer>> ans = new ArrayList<>();
+        traversal(root, ans, new ArrayList<>(), sum);
+        return ans;
+    }
+    private void traversal(TreeNode node, List<List<Integer>> ans, List<Integer> path, int sum){
+        if(node == null)    return;
+        path.add(node.val);
+        if(sum == node.val && node.left == null && node.right == null){
+            ans.add(new ArrayList<>(path));
+        }
+        traversal(node.left, ans, path, sum-node.val);
+        traversal(node.right, ans, path, sum-node.val);
+        path.remove(path.size()-1);
+    }
+}
+```
+
+Time: O(n)
+Space: O(n)
+
+## 437. Path Sum III
+
+### Description
+
+```
+You are given a binary tree in which each node contains an integer value.
+
+Find the number of paths that sum to a given value.
+
+The path does not need to start or end at the root or a leaf, but it must go downwards (traveling only from parent nodes to child nodes).
+
+The tree has no more than 1,000 nodes and the values are in the range -1,000,000 to 1,000,000.
+
+Example:
+
+root = [10,5,-3,3,2,null,11,3,-2,null,1], sum = 8
+
+      10
+     /  \
+    5   -3
+   / \    \
+  3   2   11
+ / \   \
+3  -2   1
+
+Return 3. The paths that sum to 8 are:
+
+1.  5 -> 3
+2.  5 -> 2 -> 1
+3. -3 -> 11
+```
+
+
+### First Version
+
+Use sumList to start from every node for path sum. When third time meeting the node, have to extract every sum and remove the one added by this node.
+
+```
+class Solution {
+    private int ans;
+    public int pathSum(TreeNode root, int sum) {
+        this.ans = 0;
+        List<Integer> sumList = new ArrayList<>();
+        traversal(root, sum, sumList);
+        return this.ans;
+    }
+    private void traversal(TreeNode node, int sum, List<Integer> sumList){
+        if(node == null)    return;
+        sumList.add(sum);
+        for(int i=0; i<sumList.size(); i++){
+            sumList.set(i, sumList.get(i)-node.val);
+            if(sumList.get(i)==0)   this.ans++;
+        }
+        traversal(node.left, sum, sumList);
+        traversal(node.right, sum, sumList);
+        for(int i=0; i<sumList.size(); i++){
+            sumList.set(i, sumList.get(i)+node.val);
+        }
+        sumList.remove(sumList.size()-1);
+    }
+}
+```
+
+
+### Final Version
+
+Prefix sum.
+
+sum(root, 3) - sum(root, 10) = sum(5, 3) == 8(which is the sum)
+
+10,5,3 - 10 = 5,3
+
+```
+      10
+     /  \
+    5   -3
+   / \    \
+  3   2   11
+ / \   \
+3  -2   1
+```
+
+
+```
+class Solution {
+    public int pathSum(TreeNode root, int sum) {
+        Map<Integer, Integer> map = new HashMap<>(); //(prefix sum, occurencies), use occurencies in case many in one path match
+        map.put(0, 1);// in case leaf.val == sum
+        return traversal(root, sum, map, 0);
+    }
+    private int traversal(TreeNode node, int sum, Map<Integer, Integer> map, int prefixSum){
+        if(node==null)  return 0;
+        prefixSum += node.val;
+        int ans = 0;
+        if(map.containsKey(prefixSum-sum))    ans+=map.get(prefixSum-sum);
+        map.put(prefixSum, map.getOrDefault(prefixSum, 0)+1);
+        ans += traversal(node.left, sum, map, prefixSum);
+        ans += traversal(node.right, sum, map, prefixSum);
+        map.put(prefixSum, map.get(prefixSum)-1);
+        return ans;
+    }
+}
+```
+
+## 106. Construct Binary Tree from Inorder and Postorder Traversal
+
+### Description
+
+```
+Given inorder and postorder traversal of a tree, construct the binary tree.
+
+Note:
+You may assume that duplicates do not exist in the tree.
+
+For example, given
+
+inorder = [9,3,15,20,7]
+postorder = [9,15,7,20,3]
+Return the following binary tree:
+
+    3
+   / \
+  9  20
+    /  \
+   15   7
+```
+
+### First&Final Version
+
+Used inStart, inEnd, postStart, postEnd to get subtree, and divide array into smaller part to deal with.
+
+Do it recursively, construct node and return.
+
+```
+class Solution {
+    public TreeNode buildTree(int[] inorder, int[] postorder) {
+        return recur(inorder, postorder, 0, inorder.length, 0, postorder.length);
+    }
+    //start inclusive, end exclusive
+    private TreeNode recur(int[] inorder, int[] postorder, int inStart, int inEnd, int postStart, int postEnd){
+        if(inStart>=inEnd) return null;
+        int root = postorder[postEnd-1];
+        int inRootIndex = findIndex(inorder, root);
+        int sizeOfLeft = inRootIndex-inStart;
+        TreeNode left = recur(inorder, postorder, inStart, inRootIndex, postStart, postStart+sizeOfLeft);
+        TreeNode right = recur(inorder, postorder, inRootIndex+1, inEnd, postStart+sizeOfLeft, postEnd-1);
+        TreeNode node = new TreeNode(inorder[inRootIndex]);
+        node.left = left;
+        node.right = right;
+        return node;
+    }
+    private int findIndex(int[] arr, int x){
+        for(int i=0; i<arr.length; i++){
+            if(arr[i]==x)   return i;
+        }
+        return -1;
+    }
+}
+```
+
+## 889. Construct Binary Tree from Preorder and Postorder Traversal
+
+### Description
+
+```
+Return any binary tree that matches the given preorder and postorder traversals.
+
+Values in the traversals pre and post are distinct positive integers.
+
+ 
+
+Example 1:
+
+Input: pre = [1,2,4,5,3,6,7], post = [4,5,2,6,7,3,1]
+Output: [1,2,3,4,5,6,7]
+ 
+
+Note:
+
+1 <= pre.length == post.length <= 30
+pre[] and post[] are both permutations of 1, 2, ..., pre.length.
+It is guaranteed an answer exists. If there exists multiple answers, you can return any of them.
+```
+
+### First & Final Version
+
+inStart, inEnd, postStart, postEnd, recursive, construct node and return
+
+Be careful about null end condition, and cases when there is one node left(preStart+1 == preEnd).
+
+```
+class Solution {
+    public TreeNode constructFromPrePost(int[] pre, int[] post) {
+        return recur(pre, post, 0, pre.length, 0, post.length);
+    }
+    //start inclusive, end exclusive
+    private TreeNode recur(int[] pre, int[] post, int preStart, int preEnd, int postStart, int postEnd){
+        if(preStart>=preEnd || preStart<0 || preEnd>pre.length || postStart<0 || postEnd>post.length)    return null;
+        if(preStart+1 == preEnd){
+            return new TreeNode(pre[preStart]);
+        }
+        int root = pre[preStart];
+        int rRoot = post[postEnd-2];
+        int preRightStartIndex = findIndex(pre, rRoot);
+        int leftSize = preRightStartIndex-(preStart+1);
+        TreeNode l = recur(pre, post, preStart+1, preRightStartIndex, postStart, postStart+leftSize);
+        TreeNode r = recur(pre, post, preRightStartIndex, preEnd, postStart+leftSize, postEnd-1);
+        TreeNode node = new TreeNode(root);
+        node.left = l;
+        node.right = r;
+        return node;
+    }
+    private int findIndex(int[] arr, int x){
+        for(int i=0; i<arr.length; i++){
+            if(arr[i]==x)   return i;
+        }
+        return -1;
+    }
+}
+```
