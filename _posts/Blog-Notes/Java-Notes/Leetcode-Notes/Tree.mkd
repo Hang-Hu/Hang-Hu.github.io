@@ -1286,3 +1286,655 @@ class Solution {
     }
 }
 ```
+
+## 124. Binary Tree Maximum Path Sum
+
+### Description
+
+```
+Given a non-empty binary tree, find the maximum path sum.
+
+For this problem, a path is defined as any sequence of nodes from some starting node to any node in the tree along the parent-child connections. The path must contain at least one node and does not need to go through the root.
+
+Example 1:
+
+Input: [1,2,3]
+
+       1
+      / \
+     2   3
+
+Output: 6
+Example 2:
+
+Input: [-10,9,20,null,null,15,7]
+
+   -10
+   / \
+  9  20
+    /  \
+   15   7
+
+Output: 42
+```
+
+### First Version
+
+The same logic as Path Sum III brute force recursion version.
+
+For each node, assume it to be the parent node, get the node.val+maxSum of left+maxSum of right. Do it for all nodes to get max.
+
+```
+class Solution {
+    public int maxPathSum(TreeNode root) {
+        if(root==null)  return Integer.MIN_VALUE;
+        return max(root.val+helper(root.left, 0, 0)+helper(root.right, 0, 0), maxPathSum(root.left), maxPathSum(root.right));
+    }
+    private int helper(TreeNode node, int max, int sum){
+        if(node==null)  return max;
+        sum += node.val;
+        if(sum > max)   max = sum;
+        max = helper(node.left, max, sum);
+        return helper(node.right, max, sum);
+    }
+    private int max(int a, int b, int c){
+        if(a>b){
+            if(a>c) return a;
+            else    return c;
+        }else{
+            if(b>c) return b;
+            else    return c;
+        }
+    }
+}
+```
+
+
+### Use array to remember max
+
+```
+class Solution {
+    public int maxPathSum(TreeNode root) {
+        if(root==null)  return Integer.MIN_VALUE;
+        int[] l = new int[1];
+        int[] r = new int[1];
+        helper(root.left, l, 0);
+        helper(root.right, r, 0);
+        int itself = root.val + l[0] + r[0];
+        return max(itself, maxPathSum(root.left), maxPathSum(root.right));
+    }
+    private void helper(TreeNode node, int[] max, int sum){
+        if(node==null)  return;
+        sum += node.val;
+        if(sum > max[0])   max[0] = sum;
+        helper(node.left, max, sum);
+        helper(node.right, max, sum);
+    }
+    private int max(int a, int b, int c){
+        if(a>b){
+            if(a>c) return a;
+            else    return c;
+        }else{
+            if(b>c) return b;
+            else    return c;
+        }
+    }
+}
+```
+
+Time: O(n^2)
+Space: O(1)
+
+### Final Version
+
+Do two things in one method, 
+
+answer, which is maximum path from node to left and right: `l+r+node.val`, use ans array to remember.
+
+What helper did in previous version, which is max sum from node to its decendent node: `node.val+Math.max(l, r)`, use return to remember.
+
+
+```
+class Solution {
+    public int maxPathSum(TreeNode root) {
+        int[] ans = new int[1];
+        ans[0] = Integer.MIN_VALUE;
+        maxPathSum(root, ans);
+        return ans[0];
+    }
+    // return max path sum from this node(inclusive) to its decendent node
+    private int maxPathSum(TreeNode node, int[] ans){
+        if(node == null)    return 0;
+        int l = Math.max(0, maxPathSum(node.left, ans));
+        int r = Math.max(0, maxPathSum(node.right, ans));
+        ans[0] = Math.max(ans[0], l+r+node.val);
+        return node.val+Math.max(l, r);
+    }
+}
+```
+
+Time: O(n)
+Space: O(1)
+
+## 173. Binary Search Tree Iterator
+
+### Description
+
+```
+Implement an iterator over a binary search tree (BST). Your iterator will be initialized with the root node of a BST.
+
+Calling next() will return the next smallest number in the BST.
+
+Note: next() and hasNext() should run in average O(1) time and uses O(h) memory, where h is the height of the tree.
+```
+
+### Stack Version
+
+```
+public class BSTIterator {
+    private Stack<TreeNode> stack;
+    private TreeNode node;
+    public BSTIterator(TreeNode root) {
+        stack = new Stack<>();
+        node = root;
+    }
+    /** @return whether we have a next smallest number */
+    public boolean hasNext() {
+        if(node==null && stack.empty()){
+            return false;
+        }else{
+            return true;
+        }
+    }
+    /** @return the next smallest number */
+    public int next() {
+        while(true){
+            if(node==null){
+                node = stack.pop();
+                int ans = node.val;
+                node = node.right;
+                return ans;
+            }else{
+                stack.push(node);
+                node = node.left;                
+            }    
+        }
+    }
+}
+/**
+ * Your BSTIterator will be called like this:
+ * BSTIterator i = new BSTIterator(root);
+ * while (i.hasNext()) v[f()] = i.next();
+ */
+```
+
+Time: O(n)
+Space: O(logn)
+
+***Stack for binary tree preorder/inorder traversal takes O(logn) space.***
+
+### Version without Stack: Morris Traversal
+
+## 199. Binary Tree Right Side View
+
+### Description
+
+```
+Given a binary tree, imagine yourself standing on the right side of it, return the values of the nodes you can see ordered from top to bottom.
+
+Example:
+
+Input: [1,2,3,null,5,null,4]
+Output: [1, 3, 4]
+Explanation:
+
+   1            <---
+ /   \
+2     3         <---
+ \     \
+  5     4       <---
+```
+
+### Final Recursive Version
+
+List<Integer> ans, overwrite ans[depth] so that the final one left will be the right one. Preorder.
+
+```
+class Solution {
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> ans = new ArrayList<>();
+        traversal(root, ans, 0);
+        return ans;
+    }
+    private void traversal(TreeNode node, List<Integer> ans, int depth){
+        if(node == null)        return;
+        if(depth+1>ans.size())  ans.add(node.val);
+        else                    ans.set(depth, node.val);
+        traversal(node.left, ans, depth+1);
+        traversal(node.right, ans, depth+1);
+    }
+}
+```
+
+### Final Iterative Version
+
+```
+class Solution {
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> ans = new ArrayList<>();
+        Stack<NodeDepth> stack = new Stack<>();
+        TreeNode node = root;
+        int depth = 0;
+        while(node!=null || !stack.empty()){
+            if(node == null){
+                NodeDepth nodeD = stack.pop();
+                node = nodeD.node.right;
+                depth = nodeD.depth+1;
+            }else{
+                if(depth+1>ans.size())  ans.add(node.val);
+                else                    ans.set(depth, node.val);
+                stack.push(new NodeDepth(node, depth));
+                node = node.left;
+                depth++;
+            }
+        }
+        return ans;
+    }
+}
+class NodeDepth{
+    TreeNode node;
+    int depth;
+    public NodeDepth(TreeNode node, int depth){
+        this.node = node;
+        this.depth = depth;
+    }
+}
+```
+
+## 236. Lowest Common Ancestor of a Binary Tree
+
+### Description
+
+```
+Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.
+
+According to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two nodes p and q as the lowest node in T that has both p and q as descendants (where we allow a node to be a descendant of itself).”
+
+Given the following binary tree:  root = [3,5,1,6,2,0,8,null,null,7,4]
+
+
+ 
+
+Example 1:
+
+Input: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 1
+Output: 3
+Explanation: The LCA of nodes 5 and 1 is 3.
+Example 2:
+
+Input: root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 4
+Output: 5
+Explanation: The LCA of nodes 5 and 4 is 5, since a node can be a descendant of itself according to the LCA definition.
+ 
+
+Note:
+
+All of the nodes' values will be unique.
+p and q are different and both values will exist in the binary tree.
+```
+
+### First Version
+
+When node is p or q, return count 1, add count+l+r. When 3rd time meeting the node(returning back), if count is 2 and ans[0] not set then this is the lowest parent node.
+
+```
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        TreeNode[] ans = new TreeNode[1];
+        traversal(root, p, q, ans);
+            return ans[0];
+    }
+    private int traversal(TreeNode node, TreeNode p, TreeNode q, TreeNode[] ans){
+        if(node == null)            return 0;
+        int count = 0;
+        if(node == p || node == q)  count = 1;
+        count += traversal(node.left, p, q, ans);
+        count += traversal(node.right, p, q, ans);
+        if(count == 2 && ans[0] == null)  ans[0] = node;
+        return count;
+    }
+}
+```
+
+### Final Version
+
+Recursive. Directly return TreeNode. If l or r one not null, return that node, if both not null, then this is the lowest parent, return node.
+
+```
+class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        return traversal(root, p, q);
+    }
+    private TreeNode traversal(TreeNode node, TreeNode p, TreeNode q){
+        if(node == null)            return null;
+        if(node == p || node == q)  return node;
+        TreeNode l = traversal(node.left, p, q);
+        TreeNode r = traversal(node.right, p, q);
+        if(l==null){
+            return r;
+        }else{
+            if(r==null){
+                return l;
+            }else{
+                return node;
+            }
+        }
+    }
+}
+```
+
+## 116. Populating Next Right Pointers in Each Node
+
+### Description
+
+```
+Given a binary tree
+
+struct TreeLinkNode {
+  TreeLinkNode *left;
+  TreeLinkNode *right;
+  TreeLinkNode *next;
+}
+Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to NULL.
+
+Initially, all next pointers are set to NULL.
+
+Note:
+
+You may only use constant extra space.
+Recursive approach is fine, implicit stack space does not count as extra space for this problem.
+You may assume that it is a perfect binary tree (ie, all leaves are at the same level, and every parent has two children).
+Example:
+
+Given the following perfect binary tree,
+
+     1
+   /  \
+  2    3
+ / \  / \
+4  5  6  7
+After calling your function, the tree should look like:
+
+     1 -> NULL
+   /  \
+  2 -> 3 -> NULL
+ / \  / \
+4->5->6->7 -> NULL
+```
+
+### Final Version
+
+Recursive because implicit stack not count as extra space. 
+
+1. root points to null
+2. left points to right
+3. right points to next's left(if next == null, then right points to null)
+
+```
+public class Solution {
+    public void connect(TreeLinkNode root) {
+        if(root == null)    return;
+        traversal(root);
+    }
+    private void traversal(TreeLinkNode node){
+        if(node.left == null)   return;
+        node.left.next = node.right;
+        node.right.next = node.next != null ? node.next.left : null;
+        traversal(node.left);
+        traversal(node.right);
+    }
+}
+```
+
+## 117. Populating Next Right Pointers in Each Node II
+
+### Description
+
+```
+Given a binary tree
+
+struct TreeLinkNode {
+  TreeLinkNode *left;
+  TreeLinkNode *right;
+  TreeLinkNode *next;
+}
+Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to NULL.
+
+Initially, all next pointers are set to NULL.
+
+Note:
+
+You may only use constant extra space.
+Recursive approach is fine, implicit stack space does not count as extra space for this problem.
+Example:
+
+Given the following binary tree,
+
+     1
+   /  \
+  2    3
+ / \    \
+4   5    7
+After calling your function, the tree should look like:
+
+     1 -> NULL
+   /  \
+  2 -> 3 -> NULL
+ / \    \
+4-> 5 -> 7 -> NULL
+```
+
+### Final Version
+
+Level order.
+
+node from start to the end of level l, parent from start to the end of level l-1. Contruct all the next of current level l, then move parent to sentinel.next, which is the first node in level l.
+
+```
+public class Solution {
+    public void connect(TreeLinkNode root) {
+        TreeLinkNode parent = root;
+        while(parent!=null){
+            TreeLinkNode node = new TreeLinkNode(-1);
+            TreeLinkNode sentinel = node;
+            while(parent!=null){
+                if(parent.left!=null){
+                    node.next = parent.left;
+                    node = node.next;
+                }
+                if(parent.right!=null){
+                    node.next = parent.right;
+                    node = node.next;
+                }
+                parent = parent.next;
+            }
+            parent = sentinel.next;
+        }
+    }
+}
+```
+
+## 96. Unique Binary Search Trees
+
+### Description
+
+```
+Given n, how many structurally unique BST's (binary search trees) that store values 1 ... n?
+
+Example:
+
+Input: 3
+Output: 5
+Explanation:
+Given n = 3, there are a total of 5 unique BST's:
+
+   1         3     3      2      1
+    \       /     /      / \      \
+     3     2     1      1   3      2
+    /     /       \                 \
+   2     1         2                 3
+```
+
+
+### recursion+memory Version
+
+DP is iteration of recursion+memory.
+
+Assume i as root to divide problem, numTrees(n) = sum i=1-n numTrees(i-1)*numTrees(n-i)
+
+```
+class Solution {
+    Map<Integer, Integer> map = new HashMap<>(); //(n, num of unique trees)
+    public int numTrees(int n) {
+        if(n==0)    return 1;
+        if(n==1)    return 1;
+        if(map.containsKey(n))  return map.get(n);
+        int ans = 0;
+        for(int i=1; i<=n; i++){
+            ans += numTrees(i-1)*numTrees(n-i);
+        }
+        map.put(n, ans);
+        return ans;
+    }
+}
+```
+
+### DP Final Version
+
+Use array to replace method numTrees.
+
+```
+class Solution {
+    public int numTrees(int n) {
+        int[] arr = new int[n+1]; //arr[0] won't be used
+        arr[0]=1;
+        arr[1]=1;
+        for(int i=2; i<=n; i++){ // i is n, start from n==2 because 0 and 1 already specified
+            for(int j=1; j<=i; j++){ // j is i
+                arr[i] += arr[j-1]*arr[i-j];
+            }
+        }
+        return arr[n]; // the same as numTrees(n)
+    }
+}
+```
+
+## 95. Unique Binary Search Trees II
+
+### Description
+
+```
+Given an integer n, generate all structurally unique BST's (binary search trees) that store values 1 ... n.
+
+Example:
+
+Input: 3
+Output:
+[
+  [1,null,3,2],
+  [3,2,null,1],
+  [3,1,null,null,2],
+  [2,1,3],
+  [1,null,2,null,3]
+]
+Explanation:
+The above output corresponds to the 5 unique BST's shown below:
+
+   1         3     3      2      1
+    \       /     /      / \      \
+     3     2     1      1   3      2
+    /     /       \                 \
+   2     1         2                 3
+```
+
+### First Version
+
+Recursive construct subtree, root with leftList and rightList, since it's product so use two for loops. Because they it's going down more trees generate, when returning back(post order) then construct many root and set left as well as right.
+
+```
+class Solution {
+    public List<TreeNode> generateTrees(int n) {
+        if(n==0)    return new ArrayList<TreeNode>();
+        else        return traversal(1, n);
+    }
+    // start and end are inclusive
+    private List<TreeNode> traversal(int start, int end){
+        if(start>end)   return new ArrayList<TreeNode>(){{add(null);}};
+        List<TreeNode> roots = new ArrayList<>();
+        for(int i=start; i<=end; i++){
+            List<TreeNode> leftList = traversal(start, i-1);
+            List<TreeNode> rightList = traversal(i+1, end);
+            for(TreeNode left: leftList){
+                for(TreeNode right: rightList){
+                    TreeNode root = new TreeNode(i);
+                    root.left = left;
+                    root.right = right;
+                    roots.add(root);
+                }
+            }
+        }
+        return roots;
+    }
+}
+```
+
+### Recursive + Mem Version
+
+```
+class Solution {
+    Map<Integer, List<TreeNode>> map = new HashMap<>(); // (n, rootList)
+    public Solution(){
+        map.put(0, new ArrayList<TreeNode>(){{add(null);}});
+        map.put(1, new ArrayList<TreeNode>(){{add(new TreeNode(1));}});
+    }
+    public List<TreeNode> generateTrees(int n) {
+        if(n==0)    return new ArrayList<TreeNode>();
+        else        return traversal(1, n);
+    }
+    // start and end are inclusive
+    private List<TreeNode> traversal(int start, int end){
+        int n = end+1-start;
+        if(map.containsKey(n)){
+            List<TreeNode> roots = map.get(n);
+            return adjust(roots, start);
+        }
+        List<TreeNode> roots = new ArrayList<>();
+        for(int i=start; i<=end; i++){
+            List<TreeNode> leftList = traversal(start, i-1);
+            List<TreeNode> rightList = traversal(i+1, end);
+            for(TreeNode left: leftList){
+                for(TreeNode right: rightList){
+                    TreeNode root = new TreeNode(i);//Don't adjust here otherwise in traversal there are different start, and hence the adjustment value is different, makng the result wield
+                    root.left = left;
+                    root.right = right;
+                    roots.add(root);
+                }
+            }
+        }
+        map.put(n, adjust(roots, -start+2));
+        return roots;
+    }
+    private List<TreeNode> adjust(List<TreeNode> roots, int offset){
+        List<TreeNode> adjustedRoots = new ArrayList<>();
+        for(TreeNode root: roots)   adjustedRoots.add(update(root, offset));
+        return adjustedRoots;
+    }
+    private TreeNode update(TreeNode root, int offset){
+        if(root == null)    return null;
+        TreeNode newRoot = new TreeNode(root.val+offset-1);
+        newRoot.left = update(root.left, offset);
+        newRoot.right = update(root.right, offset);
+        return newRoot;
+    }
+}
+```
