@@ -2383,3 +2383,176 @@ public class Codec {
 }
 ```
 
+
+## 23. Merge k Sorted Lists
+
+### Description
+
+```
+Merge k sorted linked lists and return it as one sorted list. Analyze and describe its complexity.
+
+Example:
+
+Input:
+[
+  1->4->5,
+  1->3->4,
+  2->6
+]
+Output: 1->1->2->3->4->4->5->6
+```
+
+### First Version
+
+Create a sentinel pointing to first list, add each node in other lists into the first list.
+
+```
+class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+        if(lists.length==0) return null;
+        ListNode sentinel = new ListNode(Integer.MIN_VALUE);
+        sentinel.next = lists[0];
+        for(int i=1; i<lists.length; i++){
+            ListNode node = lists[i];
+            while(node!=null){
+                ListNode tmpNext = node.next;
+                add(sentinel, node);
+                node = tmpNext;
+            }
+        }
+        return sentinel.next;
+    }
+    private void add(ListNode node, ListNode add){
+        ListNode pre = null;
+        while(node!=null){
+            if(add.val<node.val){ // if < node, then add it before node
+                add.next = node;
+                pre.next = add;
+                return;
+            }
+            pre = node;
+            node = node.next;
+        }
+        pre.next = add;
+        add.next = null; // set add.next to null to prevent other node after it added to sentinel list
+    }
+}
+```
+
+Time: worst case O(n^2)
+Space: O(1)
+
+### Second Version - Min Node
+
+Find the min node from smallest node of each list, and append it to answer list. Move pointer to next node for that list.
+
+```
+class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+        if(lists.length==0) return null;
+        ListNode sentinel = new ListNode(Integer.MIN_VALUE);
+        ListNode node = sentinel;
+        while(true){
+            int minIndex = findMinIndex(lists);
+            if(minIndex==-1)    break;
+            ListNode tmpNext = lists[minIndex].next;
+            lists[minIndex].next = null;
+            node.next = lists[minIndex];
+            node = node.next;
+            lists[minIndex] = tmpNext;
+        }
+        return sentinel.next;
+    }
+    private int findMinIndex(ListNode[] lists){
+        int min = Integer.MAX_VALUE;
+        int minIndex = -1;
+        for(int i=0; i<lists.length; i++){
+            if(lists[i]!=null && lists[i].val<min){
+                min = lists[i].val;
+                minIndex = i;
+            }
+        }
+        return minIndex;
+    }
+}
+```
+
+Time: O(k*n), k is the length of lists, for each node appended, I have to compare k smallest available nodes in k lists.
+
+Space: O(1)
+
+### Third Version -- Heap
+
+PriorityQueue is the implemetation of heap in Java.
+
+Use heap to get the minimum node faster than compare k lists. Add all nodes into heap and poll() the min node one-by-one to append to answer list.
+
+```
+class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+        if(lists==null || lists.length==0) return null;
+        ListNode sentinel = new ListNode(Integer.MIN_VALUE);
+        ListNode node = sentinel;
+        Queue<ListNode> q = new PriorityQueue<>(new Comparator<ListNode>(){
+            @Override
+            public int compare(ListNode p, ListNode q){
+                return p.val-q.val;
+            }
+        });
+        addIntoQueue(lists, q);
+        while(q.size()>0){
+            node.next = q.poll();
+            node = node.next;
+        }
+        node.next = null; // set the last node pointing to null to avoid circle
+        return sentinel.next;
+    }
+    private void addIntoQueue(ListNode[] lists, Queue<ListNode> q){
+        for(ListNode node: lists){
+            while(node!=null){
+                q.add(node);
+                node = node.next;
+            }
+        }
+    }
+    
+}
+```
+
+Time: O(n*logn), because for each poll() and add(), it's the height of heap, so logn, and I add() and poll() n nodes, so it's n*logn
+Space: O(n)
+
+### Final Version - Heap
+
+Add k nodes into heap(k == lists.length), add its next into heap after popping one out, this saves space of queue from O(n) to O(k).
+
+```
+class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+        if(lists==null || lists.length==0) return null;
+        ListNode sentinel = new ListNode(Integer.MIN_VALUE);
+        ListNode node = sentinel;
+        Queue<ListNode> q = new PriorityQueue<>(new Comparator<ListNode>(){
+            @Override
+            public int compare(ListNode p, ListNode q){
+                return p.val-q.val;
+            }
+        });
+        for(ListNode head: lists){
+            if(head!=null)  q.add(head);
+        }
+        while(q.size()>0){
+            node.next = q.poll();
+            node = node.next;
+            if(node.next!=null) q.add(node.next); // if polled node's next exist, add it into queue to replace polled node
+        }
+        node.next = null; // set the last node pointing to null to avoid circle
+        // System.out.println(sentinel.next.val);
+        return sentinel.next;
+    }
+}
+```
+
+Time: O(n*logk), because for n nodes, each did one add() and one poll(), which is logk(there are always k nodes in queue)
+Space: O(k)
+
