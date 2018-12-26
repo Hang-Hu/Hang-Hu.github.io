@@ -1857,7 +1857,7 @@ The above output corresponds to the 5 unique BST's shown below:
    2     1         2                 3
 ```
 
-### First Version
+### First Version Recursive
 
 Recursive construct subtree, root with leftList and rightList, since it's product so use two for loops. Because they it's going down more trees generate, when returning back(post order) then construct many root and set left as well as right.
 
@@ -1888,7 +1888,7 @@ class Solution {
 }
 ```
 
-### Recursive + Mem Version
+### Recursive + Mem Version -> traversal(start, end)
 
 ```
 class Solution {
@@ -1938,3 +1938,448 @@ class Solution {
     }
 }
 ```
+
+### Recursive+Mem updated version -> use traversal(n)
+
+```
+class Solution {
+    Map<Integer, List<TreeNode>> map = new HashMap<>(); // (n, rootList)
+    public Solution(){
+        map.put(0, new ArrayList<TreeNode>(){{add(null);}});
+        map.put(1, new ArrayList<TreeNode>(){{add(new TreeNode(1));}});
+    }
+    public List<TreeNode> generateTrees(int n) {
+        if(n==0)    return new ArrayList<TreeNode>();
+        else        return traversal(n);
+    }
+    // start and end are inclusive
+    private List<TreeNode> traversal(int n){
+        if(map.containsKey(n))   return map.get(n);
+        map.put(n, new ArrayList<TreeNode>());
+        for(int i=1; i<=n; i++){
+            for(TreeNode left: traversal(i-1)){// left is from 1 to i-1, no adjust required
+                for(TreeNode right: adjust(traversal(n-i), i)){
+                    TreeNode root = new TreeNode(i);
+                    root.left = left;
+                    root.right = right;
+                    map.get(n).add(root);
+                }
+            }
+        }
+        return map.get(n);
+    }
+    private List<TreeNode> adjust(List<TreeNode> roots, int offset){
+        List<TreeNode> adjustedRoots = new ArrayList<>();
+        for(TreeNode root: roots)   adjustedRoots.add(update(root, offset));
+        return adjustedRoots;
+    }
+    private TreeNode update(TreeNode root, int offset){
+        if(root == null)    return null;
+        TreeNode newRoot = new TreeNode(root.val+offset);
+        newRoot.left = update(root.left, offset);
+        newRoot.right = update(root.right, offset);
+        return newRoot;
+    }
+}
+```
+
+
+### Final Version DP
+
+```
+class Solution {
+    public List<TreeNode> generateTrees(int n) {
+        if(n==0)    return new ArrayList<TreeNode>();
+        List<TreeNode>[] arr = new ArrayList[n+1];// from 1 to n
+        arr[0] = new ArrayList<TreeNode>(){{add(null);}};
+        arr[1] = new ArrayList<TreeNode>(){{add(new TreeNode(1));}};
+        for(int i=2; i<=n; i++){
+            arr[i] = new ArrayList<TreeNode>();
+            for(int j=1; j<=i; j++){// i is n, j is i(j is root)
+                List<TreeNode> leftList = arr[j-1]; // adjust(arr[j-1], 0) makes no changes
+                List<TreeNode> rightList = adjust(arr[i-j], j);
+                for(TreeNode left: leftList){
+                    for(TreeNode right: rightList){
+                        TreeNode root = new TreeNode(j);
+                        root.left = left;
+                        root.right = right;
+                        arr[i].add(root);
+                    }
+                }
+            }
+        }
+        return arr[n];
+    }
+    
+    private List<TreeNode> adjust(List<TreeNode> roots, int offset){
+        List<TreeNode> adjustedRoots = new ArrayList<>();
+        for(TreeNode root: roots)   adjustedRoots.add(update(root, offset));
+        return adjustedRoots;
+    }
+    // + offset for each node
+    private TreeNode update(TreeNode root, int offset){
+        if(root == null)    return null;
+        TreeNode newRoot = new TreeNode(root.val+offset);
+        newRoot.left = update(root.left, offset);
+        newRoot.right = update(root.right, offset);
+        return newRoot;
+    }
+}
+```
+
+## 129. Sum Root to Leaf Numbers
+
+### Description
+
+```
+Given a binary tree containing digits from 0-9 only, each root-to-leaf path could represent a number.
+
+An example is the root-to-leaf path 1->2->3 which represents the number 123.
+
+Find the total sum of all root-to-leaf numbers.
+
+Note: A leaf is a node with no children.
+
+Example:
+
+Input: [1,2,3]
+    1
+   / \
+  2   3
+Output: 25
+Explanation:
+The root-to-leaf path 1->2 represents the number 12.
+The root-to-leaf path 1->3 represents the number 13.
+Therefore, sum = 12 + 13 = 25.
+Example 2:
+
+Input: [4,9,0,5,1]
+    4
+   / \
+  9   0
+ / \
+5   1
+Output: 1026
+Explanation:
+The root-to-leaf path 4->9->5 represents the number 495.
+The root-to-leaf path 4->9->1 represents the number 491.
+The root-to-leaf path 4->0 represents the number 40.
+Therefore, sum = 495 + 491 + 40 = 1026.
+```
+
+### Iterative
+
+```
+class Solution {
+    public int sumNumbers(TreeNode root) {
+        if(root == null)    return 0;
+        int ans = 0;
+        TreeNode node = root;
+        Stack<NodeNum> stack = new Stack<>();
+        int num = 0;
+        while(node!=null || !stack.empty()){
+            if(node==null){
+                NodeNum nodeN = stack.pop();
+                num = nodeN.num;
+                node = nodeN.node.right;
+            }else{
+                num = 10*num + node.val;
+                if(node.left==null && node.right == null){
+                    ans+=num;
+                    node = null;
+                    continue;
+                }
+                stack.push(new NodeNum(node, num));
+                node = node.left;
+            }
+        }
+        return ans;
+    }
+    
+}
+class NodeNum{
+    TreeNode node;
+    int num;
+    public NodeNum(TreeNode node, int num){
+        this.node = node;
+        this.num = num;
+    }
+}
+```
+
+### Final Version Recursive
+
+```
+class Solution {
+    public int sumNumbers(TreeNode root) {
+        if(root == null)    return 0;
+        int[] ans = new int[1];
+        traversal(root, ans, 0);
+        return ans[0];
+    }
+    private void traversal(TreeNode node, int[] ans, int num){
+        num = 10*num + node.val;
+        if(node.left == null && node.right ==null){ // node is leaf
+            ans[0] += num;
+            return;
+        }
+        if(node.left!=null)     traversal(node.left, ans, num);
+        if(node.right!=null)    traversal(node.right, ans, num);
+    }
+}
+```
+
+
+## 222. Count Complete Tree Nodes
+
+### Description
+
+```
+Given a complete binary tree, count the number of nodes.
+
+Note:
+
+Definition of a complete binary tree from Wikipedia:
+In a complete binary tree every level, except possibly the last, is completely filled, and all nodes in the last level are as far left as possible. It can have between 1 and 2h nodes inclusive at the last level h.
+
+Example:
+
+Input: 
+    1
+   / \
+  2   3
+ / \  /
+4  5 6
+
+Output: 6
+```
+
+### Final Version
+
+My previous idea is to from right to left, and find the first node with depth == tree's depth, count the number of null nodes in its right side. However, the worst case for this method is that there is only one node in last level, then I have to traversal every node, the time complexity is O(n), so abandon this idea.
+
+if height(root.right) == h-1, then last leaf is in right subtree, left subtree is complete and full binary tree with height h-1. if height(root.right) == h-2, then last leaf is in left subtree, right subtree is full tree with height h-2.
+
+Number of nodes for full binary with height h is `2^(h+1)-1`, which equals `(1<<h+1)-1`
+
+```
+class Solution {
+    public int countNodes(TreeNode root) {
+        if(root == null)    return 0;
+        int h = height(root);
+        if(height(root.right) == h-1){//last leaf is in right subtree
+            return (1<<h) - 1 + countNodes(root.right) + 1;
+        }else{//last leaf is in left subtree
+            return countNodes(root.left) + ((1<<h-1) - 1) + 1;
+        }
+    }
+    private int height(TreeNode node){// null is -1, leaf is 0
+        return node == null ? -1 : 1+height(node.left);
+    }    
+}
+```
+
+Time: O(lgn*lgn). Because height() is logn, the recursion going down from root to leaf and it's logn, so logn*logn.
+Space: O(1)
+
+## 99. Recover Binary Search Tree
+
+### Description
+
+```
+Two elements of a binary search tree (BST) are swapped by mistake.
+
+Recover the tree without changing its structure.
+
+Example 1:
+
+Input: [1,3,null,null,2]
+
+   1
+  /
+ 3
+  \
+   2
+
+Output: [3,1,null,null,2]
+
+   3
+  /
+ 1
+  \
+   2
+Example 2:
+
+Input: [3,1,4,null,null,2]
+
+  3
+ / \
+1   4
+   /
+  2
+
+Output: [2,1,4,null,null,3]
+
+  2
+ / \
+1   4
+   /
+  3
+Follow up:
+
+A solution using O(n) space is pretty straight forward.
+Could you devise a constant space solution?
+```
+
+### Final Version
+
+Swap `first` and `second`.
+
+if `node.val<pre.val`, for `first` choose bigger one(pre), for `second` choose smaller one(node).
+
+Set `second` together with `first` in case there is one confict, then I have to swap the two nodes in that one confict. Be careful `pre` is not parent, use `pre[0]` or instance variable.
+
+```
+class Solution {
+    public void recoverTree(TreeNode root) {
+        TreeNode[] pre = new TreeNode[1];
+        pre[0] = new TreeNode(Integer.MIN_VALUE);
+        TreeNode[] nodes = new TreeNode[2];
+        inorder(root, pre, nodes);
+        swap(nodes[0], nodes[1]);
+    }
+    // inorder is ascending, node.val must > pre.val
+    private void inorder(TreeNode node, TreeNode[] pre, TreeNode[] nodes){
+        if(node == null)    return;
+        inorder(node.left, pre, nodes);
+        if(node.val<pre[0].val){
+            if(nodes[0]==null){//first
+                nodes[0] = pre[0];
+                nodes[1] = node;//set node in case there is no second wrong comparison
+            }else{//second
+                nodes[1] = node;
+            }
+        }
+        pre[0] = node;
+        inorder(node.right, pre, nodes);
+    }
+    private void swap(TreeNode p, TreeNode q){
+        int tmp = p.val;
+        p.val = q.val;
+        q.val = tmp;
+    }
+}
+```
+
+
+## 297. Serialize and Deserialize Binary Tree
+
+
+### Description
+
+```
+Serialization is the process of converting a data structure or object into a sequence of bits so that it can be stored in a file or memory buffer, or transmitted across a network connection link to be reconstructed later in the same or another computer environment.
+
+Design an algorithm to serialize and deserialize a binary tree. There is no restriction on how your serialization/deserialization algorithm should work. You just need to ensure that a binary tree can be serialized to a string and this string can be deserialized to the original tree structure.
+
+Example: 
+
+You may serialize the following tree:
+
+    1
+   / \
+  2   3
+     / \
+    4   5
+
+as "[1,2,3,null,null,4,5]"
+Clarification: The above format is the same as how LeetCode serializes a binary tree. You do not necessarily need to follow this format, so please be creative and come up with different approaches yourself.
+
+Note: Do not use class member/global/static variables to store states. Your serialize and deserialize algorithms should be stateless.
+```
+
+### First Version -- Leetcode serializer/deserializer
+
+Encode: List<List<Integer>> and preorder, then flatten list deleting last List which is null level.
+
+Decode: String Queue and Node Queue, `poll` value from `strQ` and construct node, `add` to `nodeQ`. For every next `node`, poll from `nodeQ`.
+
+```
+public class Codec {
+    // Encodes a tree to a single string.
+    public String serialize(TreeNode root) {
+        if(root == null)    return "[]";
+        List<List<Integer>> l = new ArrayList<>();
+        encode(root, l, 0);
+        List<Integer> flatList = new ArrayList<>();
+        // last level is null level, don't need it
+        for(int i=0; i<l.size()-1; i++) flatList.addAll(l.get(i));
+        return flatList.toString();
+    }
+    private void encode(TreeNode node, List<List<Integer>> l, int depth){
+        if(depth+1>l.size())  l.add(new ArrayList<Integer>());
+        if(node == null){
+            l.get(depth).add(null);
+            return;
+        }
+        l.get(depth).add(node.val);
+        encode(node.left, l, depth+1);
+        encode(node.right, l, depth+1);
+    }
+
+    // Decodes your encoded data to tree.
+    public TreeNode deserialize(String data) {
+        if(data.equals("[]"))   return null;
+        data = data.replace("[", "").replace("]", "");
+        Queue<String> strQ = new LinkedList<String>(Arrays.asList(data.split(", ")));
+        Queue<TreeNode> nodeQ = new LinkedList<>();
+        TreeNode root = new TreeNode(Integer.parseInt(strQ.poll()));
+        decode(strQ, nodeQ, root);
+        return root;
+    }
+    private void decode(Queue<String> strQ, Queue<TreeNode> nodeQ, TreeNode node){
+        if(strQ.size() == 0)    return;
+        String l = strQ.poll();
+        if(!l.equals("null")){
+            node.left = new TreeNode(Integer.parseInt(l));
+            nodeQ.add(node.left);    
+        }
+        String r = strQ.poll();
+        if(!r.equals("null")){
+            node.right = new TreeNode(Integer.parseInt(r));
+            nodeQ.add(node.right);
+        }
+        decode(strQ, nodeQ, nodeQ.poll());
+    }
+}
+```
+
+### Second Version
+
+Encode preorder, so decode also preorder. "N" is null, encoded into comma-seperated String.
+
+```
+public class Codec {
+    public String serialize(TreeNode root) {
+        if(root==null)  return "N";
+        return root.val + "," + serialize(root.left) + "," + serialize(root.right);
+    }
+    public TreeNode deserialize(String data) {
+        String[] strArr = data.split(",");
+        int[] strIndex = new int[1];
+        return decode(strArr, strIndex);
+    }
+    private TreeNode decode(String[] strArr, int[] strIndex){
+        String s = strArr[strIndex[0]++];
+        if(!s.equals("N")){
+            TreeNode node = new TreeNode(Integer.parseInt(s));
+            node.left = decode(strArr, strIndex);
+            node.right = decode(strArr, strIndex);
+            return node;
+        }else{
+            return null;
+        }
+    }
+}
+```
+
