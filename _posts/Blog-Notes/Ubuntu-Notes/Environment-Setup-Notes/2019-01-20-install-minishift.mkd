@@ -1,0 +1,100 @@
+---
+layout: post
+author: Hang Hu
+categories: environment-setup
+tags: Blog Ubuntu Environment-Setup 
+cover: 
+---
+## Download
+
+https://github.com/minishift/minishift/releases
+
+```
+wget https://github.com/minishift/minishift/releases/download/v1.29.0/minishift-1.29.0-linux-amd64.tgz
+```
+
+
+## Uncompress
+
+
+```
+tar xzvf minishift-1.29.0-linux-amd64.tgz
+mv minishift-1.29.0-linux-amd64 ~/Programs
+```
+
+
+## Set PATH
+
+
+```
+sudo vim /etc/profile
+```
+
+
+```
+export PATH=$PATH:/home/hang/Programs/minishift-1.29.0-linux-amd64/
+```
+
+
+```
+source /etc/profile
+```
+
+
+## Use virtualbox as minishift's vm driver
+
+
+```
+minishift config set vm-driver virtualbox
+```
+
+
+## Try
+
+
+```
+minishift start
+```
+
+
+```
+minishift oc-env
+```
+
+
+I got `export PATH=$PATH:/home/hang/.minishift/cache/oc/v3.11.0/linux` and appended it to `/etc/profile`.
+
+
+The first time running `minishift start`, it will download, install and run OpenShift.
+
+
+```
+minishift stop
+```
+
+
+To delete the entire cluster and uninstall the application.
+
+
+```
+minishift delete
+```
+
+
+## Reference
+
+
+```
+https://docs.okd.io/latest/minishift/getting-started/preparing-to-install.html
+```
+
+
+```
+https://docs.okd.io/latest/minishift/getting-started/setting-up-virtualization-environment.html# setting-up-virtualbox-driver
+
+```
+
+
+```
+https://docs.okd.io/latest/minishift/getting-started/quickstart.html
+```

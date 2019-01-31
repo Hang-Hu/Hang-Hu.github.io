@@ -20,6 +20,7 @@ bash Anaconda3-5.2.0-Linux-x86_64.sh
 
 - Microsoft VS Code: NO
 
+If I moved `anaconda3` file to another directory, I have to reinstall it.
 
 
 ## Configure PATH
@@ -29,11 +30,12 @@ bash Anaconda3-5.2.0-Linux-x86_64.sh
 mkdir ~/.symlinks
 cd .symlinks
 mkdir anaconda3
-ln -s /home/joanna/anaconda3/bin/conda conda
-ln -s /home/joanna/anaconda3/bin/activate activate
-ln -s /home/joanna/anaconda3/bin/deactivate deactivate
-ln -s /home/joanna/anaconda3/bin/anaconda-navigator anaconda-navigator
-ln -s /home/joanna/anaconda3/bin/jupyter-notebook jupyter-notebook
+ln -s /home/hang/anaconda3/bin/conda conda
+ln -s /home/hang/anaconda3/bin/activate activate
+ln -s /home/hang/anaconda3/bin/deactivate deactivate
+ln -s /home/hang/anaconda3/bin/anaconda-navigator anaconda-navigator
+ln -s /home/hang/anaconda3/bin/jupyter-notebook jupyter-notebook
+ln -s /home/hang/anaconda3/bin/jupyter jupyter
 ```
 
 
@@ -48,7 +50,7 @@ Add two lines to the end
 ```
 # for anaconda
 
-export PATH=$PATH:/home/joanna/.symlinks/anaconda3  
+export PATH=$PATH:/home/hang/.symlinks/anaconda3  
 ```
 
 

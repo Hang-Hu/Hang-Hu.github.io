@@ -1,0 +1,55 @@
+---
+layout: post
+author: Hang Hu
+categories: environment-setup
+tags: Blog Ubuntu Environment-Setup 
+cover: 
+---
+## Install
+
+Download from official website.
+
+```
+tar -xJvf node-v10.15.0-linux-x64.tar.xz
+mv node-v10.15.0-linux-x64 node-v10.15.0
+```
+
+ 
+
+
+## Config
+
+
+```
+sudo vim /etc/profile
+```
+
+
+```
+# for NodeJS
+
+export NODEJS_HOME=/home/joanna/Programs/nodejs/node-v10.15.0/
+export PATH=$PATH:${NODEJS_HOME}/bin
+```
+
+
+```
+source /etc/profile
+```
+
+
+```
+node -v
+npm version
+npx -v
+```
+
+
+## Link
+
+
+```
+sudo ln -s /home/joanna/Programs/nodejs/node-v10.15.0/bin/node /usr/bin/node
+sudo ln -s /home/joanna/Programs/nodejs/node-v10.15.0/bin/npm /usr/bin/npm
+sudo ln -s /home/joanna/Programs/nodejs/node-v10.15.0/bin/npx /usr/bin/npx
+```

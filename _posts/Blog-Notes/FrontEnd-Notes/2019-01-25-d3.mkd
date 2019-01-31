@@ -1,0 +1,314 @@
+---
+layout: post
+author: Hang Hu
+categories: frontend
+tags: Blog FrontEnd 
+cover: 
+---
+## scale
+
+Transform from data scale to pixel scale.
+
+```
+var scale = d3.scale().linear(); // linear instance
+
+scale.domain([0, 1]); //data space, min 0, max 1
+scale.range([0, 100]); //pixel space, min 0, max 100
+
+console.log(scale(0)); // 0
+console.log(scale(0.5)); // 50
+console.log(scale(1)); // 100
+```
+
+
+
+Or 
+
+
+```
+var scale = d3.scale().linear(); // linear instance
+            .domain([0, 1]); //data space, min 0, max 1
+            .range([0, 100]); //pixel space, min 0, max 100
+
+console.log(scale(0)); // 0
+console.log(scale(0.5)); // 50
+console.log(scale(1)); // 100
+```
+
+
+### ordinal: ordered things that are unique
+
+
+```
+var scale = d3.scale().ordinal(); // ordinal instance
+            .domain(['A', 'B', 'C']); // data space
+            .range(['Apple', 'Banana', 'Coconut']); // pixel space
+
+console.log(scale('A')); // Apple
+console.log(scale('B')); // Banana
+console.log(scale('C')); // Coconut
+```
+
+
+### rangePoints: can be auto divided
+
+
+```
+var scale = d3.scale().ordinal(); // ordinal instance
+            .domain(['A', 'B', 'C', 'D']); // data space
+            .rangePoints([0, 100]); // pixel space
+
+console.log(scale('A')); // 0
+console.log(scale('B')); // 33.333333333
+console.log(scale('C')); // 66.666666667
+console.log(scale('D')); // 100
+```
+
+
+### rangeRoundPoints: can be auto divided and round to nearest value
+
+
+```
+var scale = d3.scale().ordinal(); // ordinal instance
+            .domain(['A', 'B', 'C', 'D']); // data space
+            .rangePoints([0, 100]); // pixel space
+
+console.log(scale('A')); // 0
+console.log(scale('B')); // 34
+console.log(scale('C')); // 67
+console.log(scale('D')); // 100
+```
+
+
+### read from csv
+
+
+```
+d3.csv("data.csv", type, function (myArrayOfObjects){
+    myArrayOfObjects.forEach(function (d){
+      console.log(d.x + d.y);
+    });
+});
+
+function type(d){
+    d.x = parseFloat(d.x);
+    d.y = parseFloat(d.y);
+    return d;
+}
+```
+
+
+### The complete D3 pipeline
+
+
+`enter()`: things after enter() will be exeucuted if no `rect` element but there is data element. Just like data elements are entering into the picture.
+
+
+```
+var data=[1,2,3,4,5]
+var scale=d3.scale.linear()
+    .domain([1, 5])
+    .range([0, 200])
+
+var svg = d3.select('body').append('svg')
+    .attr('width', 250)
+    .attr('height', 250)
+
+svg
+    .selectAll('rect')
+    .data(data)
+    .enter()
+    .append('rect')
+    .attr('x', function(d){return scale(d);})
+    .attr('y', 50)
+    .attr('width', 20)
+    .attr('height', 20)
+```
+
+
+### Enter handles added data only
+
+
+The first 3 is red and last two is blue because when calling `render` the second time the first three element are already there. Only 4, 5 were executed because they just entered.
+
+
+```
+var scale = d3.scale.linear()
+    .domain([1, 5])   // Data space
+    .range([0, 200]); // Pixel space
+
+var svg = d3.select("body").append("svg")
+    .attr("width",  250)
+    .attr("height", 250);
+
+function render(data, color){
+    var rects = svg.selectAll("rect").data(data);
+
+    rects.enter().append("rect")
+        .attr("x", scale)
+        .attr("y", 50)
+        .attr("width",  20)
+        .attr("height", 20)
+        .attr("fill", color);
+}
+
+render([1, 2, 3], "red");
+render([1, 2, 3, 4, 5], "blue");
+```
+
+
+### Enter does not update data
+
+
+```
+var scale = d3.scale.linear()
+    .domain([1, 5])   // Data space
+    .range([0, 200]); // Pixel space
+
+var svg = d3.select("body").append("svg")
+    .attr("width",  250)
+    .attr("height", 250);
+
+function render(data, color){
+    var rects = svg.selectAll("rect").data(data);
+
+    rects.enter().append("rect")
+        .attr("x", scale)
+        .attr("y", 50)
+        .attr("width",  20)
+        .attr("height", 20)
+        .attr("fill", color);
+    }
+
+render([1, 2, 2.5], "red");
+render([1, 2, 3, 4, 5], "blue");
+```
+
+
+### update phase
+
+
+```
+var scale = d3.scale.linear()
+    .domain([1, 5])   // Data space
+    .range([0, 200]); // Pixel space
+
+var svg = d3.select("body").append("svg")
+    .attr("width",  250)
+    .attr("height", 250);
+
+function render(data, color){
+    // Bind data
+    var rects = svg.selectAll("rect").data(data);
+
+    // Enter
+    rects.enter().append("rect");
+
+    // Update
+    rects
+        .attr("x", scale)
+        .attr("y", 50)
+        .attr("width",  20)
+        .attr("height", 20)
+        .attr("fill", color);
+}
+
+render([1, 2, 2.5], "red");
+render([1, 2, 3, 4, 5], "blue");
+
+```
+
+
+### Using enter for static properties
+
+
+
+```
+var scale = d3.scale.linear()
+    .domain([1, 5])   // Data space
+    .range([0, 200]); // Pixel space
+var svg = d3.select("body").append("svg")
+    .attr("width",  250)
+    .attr("height", 250);
+function render(data, color){
+    // Bind data
+    var rects = svg.selectAll("rect").data(data);
+    // Enter
+    rects.enter().append("rect")
+        .attr("y", 50)
+        .attr("width",  20)
+        .attr("height", 20);
+
+    // Update
+    rects
+        .attr("x", scale)
+        .attr("fill", color);
+}
+render([1, 2, 2.5], "red");
+render([1, 2, 3, 4, 5], "blue");
+```
+
+
+### use exit().remove() to clean previous pixels
+
+
+```
+var scale = d3.scale.linear()
+    .domain([1, 5])   // Data space
+    .range([0, 200]); // Pixel space
+
+var svg = d3.select("body").append("svg")
+    .attr("width",  250)
+    .attr("height", 250);
+
+function render(data, color){
+
+    // Bind data
+    var rects = svg.selectAll("rect").data(data);
+
+    // Enter
+    rects.enter().append("rect")
+        .attr("y", 50)
+        .attr("width",  20)
+        .attr("height", 20);
+
+    // Update
+    rects
+        .attr("x", scale)
+        .attr("fill", color);
+
+    // Exit
+    rects.exit().remove();
+}
+
+render([1, 2, 2.5],     "red");
+render([1, 2, 3, 4, 5], "blue"); 
+render([1, 2],          "green");
+
+```
+
+
+## transition move texts right 100px
+
+
+```
+texts.transition()
+    .attr('transform', 'translate(100)')
+```
+
+
+## listener/event handling
+
+
+```
+texts
+    .on('mouseover', function(){
+        var index = [].indexOf.call(this.parentElement.children, this);
+        d3.select(this).attr('fill', function(d) { return colorScale(index) });
+    })
+    .on('mouseout', function(){
+        window.setTimeout(function(){
+            d3.select(this).attr('fill', 'black');
+        }.bind(this), 1000);
+    });
+```

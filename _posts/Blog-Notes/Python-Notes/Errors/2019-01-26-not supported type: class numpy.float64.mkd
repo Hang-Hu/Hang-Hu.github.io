@@ -1,0 +1,19 @@
+---
+layout: post
+author: Hang Hu
+categories: python
+tags: Blog Python 
+cover: 
+---
+## Reason
+
+The type of item is `numpy.float64`, not supported by `spark.createDataFrame`.
+
+## Solution
+
+Use `float`
+
+```
+flat_lats = [float(item) for sublist in lats for item in sublist]
+```
+

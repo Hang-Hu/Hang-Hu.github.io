@@ -1,0 +1,19 @@
+---
+layout: post
+author: Hang Hu
+categories: command
+tags: Blog Ubuntu Command 
+cover: 
+---
+
+```
+vim ~/.bashrc
+```
+
+
+Find three occurences of `PS1`, replace its lowercase `\w` with uppercase `\W`.
+
+
+```
+source ~/.bashrc
+```

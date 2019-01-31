@@ -24,4 +24,5 @@ duplicate line or selection     ctrl+y
 delete line                     ctrl+d
 System.out.println()            sout+enter
 Extract method                  ctrl+alt+M
+Run code styling                ctrl+alt+L
 ```

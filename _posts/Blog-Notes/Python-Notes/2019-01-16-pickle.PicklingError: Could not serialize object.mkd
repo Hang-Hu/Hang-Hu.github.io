@@ -1,0 +1,37 @@
+---
+layout: post
+author: Hang Hu
+categories: python
+tags: Blog Python 
+cover: 
+---
+## Details
+
+_pickle.PicklingError: Could not serialize object: Exception: It appears that you are attempting to reference SparkContext from a broadcast variable, action, or transformation. SparkContext can only be used on the driver, not in code that it run on workers. For more information, see SPARK-5063.
+
+## Reason
+
+```
+tokenizer_udf = functions.udf(lambda x: tokenizer(x, self.stopWordsBC), types.StringType())
+```
+
+
+Referencing the broadcasted variable `self.stopWordsBC` in `udf`, spark attempted to serialize the set `self.stopWordsBC`. Since `self.stopWordsBC` has a reference to `SparkContext`, I got the error.
+
+
+## Solution
+
+
+Assign self.stopWordsBC to variable stopWords and use stopWords as parameter of tokenizer function.
+
+
+```
+stopWords = self.stopWordsBC
+tokenizer_udf = functions.udf(lambda x: tokenizer(x, stopWords), types.StringType())
+```
+
+
+## Reference
+
+
+[Spark: Broadcast variables: It appears that you are attempting to reference SparkContext from a broadcast variable, action, or transforamtion](https://stackoverflow.com/questions/31508689/spark-broadcast-variables-it-appears-that-you-are-attempting-to-reference-spar)

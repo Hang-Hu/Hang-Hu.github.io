@@ -5,7 +5,54 @@ categories: python
 tags: Blog Python 
 cover: 
 ---
+
+## Skeleton for both RDD and DataFrame
+
+```
+import sys
+assert sys.version_info >= (3, 5) # make sure we have Python 3.5+
+
+from pyspark.sql import SparkSession, functions, types
+spark = SparkSession.builder.appName('example code').getOrCreate()
+assert spark.version >= '2.3' # make sure we have Spark 2.3+
+spark.sparkContext.setLogLevel('WARN')
+sc = spark.sparkContext
+
+# add more functions as necessary
+
+def main(inputs, output):
+    # main logic starts here
+
+if __name__ == '__main__':
+    inputs = sys.argv[1]
+    output = sys.argv[2]
+    main(inputs, output)
+```
+
 ## RDD
+
+### Skeleton
+
+```
+Spark + RDDs
+from pyspark import SparkConf, SparkContext
+import sys
+assert sys.version_info >= (3, 5) # make sure we have Python 3.5+
+
+# add more functions as necessary
+
+def main(inputs, output):
+    # main logic starts here
+
+if __name__ == '__main__':
+    conf = SparkConf().setAppName('example code')
+    sc = SparkContext(conf=conf)
+    # sc.setLogLevel('WARN')
+    assert sc.version >= '2.3'  # make sure we have Spark 2.3+
+    inputs = sys.argv[1]
+    output = sys.argv[2]
+    main(inputs, output)
+```
 
 ### I/O
 
@@ -131,6 +178,12 @@ header = raw.take(1)[0]
 data = raw.filter(lambda l: l != header)
 ```
 
+### remove rows with given condition
+
+```
+resultDF = resultDF.filter(resultDF.jaccard >= threshold)
+```
+
 ### Check if RDD empty
 
 ```
@@ -144,6 +197,29 @@ rec_df = spark.createDataFrame(rec_rdd)\
 
 ## Data Frame
 
+### Skeleton
+
+```
+import sys
+assert sys.version_info >= (3, 5) # make sure we have Python 3.5+
+
+from pyspark.sql import SparkSession, functions, types
+spark = SparkSession.builder.appName('example code').getOrCreate()
+assert spark.version >= '2.3' # make sure we have Spark 2.3+
+# spark.sparkContext.setLogLevel('WARN')
+# sc = spark.sparkContext
+
+# add more functions as necessary
+
+def main(inputs, output):
+    # main logic starts here
+
+if __name__ == '__main__':
+    inputs = sys.argv[1]
+    output = sys.argv[2]
+    main(inputs, output)
+```
+
 ### reduce strings
 
 ```
@@ -154,6 +230,21 @@ def to_name_str(namelist):
 
 res_df = res_df.groupby('orderkey', 'totalprice')\
         .agg(to_name_str(functions.collect_set('name')).alias('name'))
+```
+
+
+### udf
+
+`filename` is a column.
+
+```
+@functions.udf(returnType=types.StringType())
+def path_to_hour(path):
+    return re.search('\d{8}-\d{2}', path).group(0)
+
+wikipedia = spark.read.csv(inputs, schema=wikipedia_schema, sep=' ')\
+    .withColumn('filename', functions.input_file_name())\
+    .withColumn('hour', path_to_hour('filename'))
 ```
 
 ### list to dataframe pyspark
@@ -240,3 +331,168 @@ rec_rdd = rec.rdd\
 data = data.withColumn('slope',
         (data['sum((x * y))']-data['sum(x)']*data['sum(y)']/data['sum(1)']) / (data['sum(POWER(x, 2))']-data['sum(x)']**2/data['sum(1)']))
 ```
+
+### write to json
+
+```
+resDF.write.json(outputDir, compression='gzip', mode='overwrite')
+```
+
+### write to parquet
+
+```
+newDF1.write.parquet('newDF1')
+```
+
+### write to csv
+
+```
+averagesDF.write.csv(outputDir, mode='overwrite')
+```
+
+### write to a single csv
+
+```
+facultyDF.repartition(1).write.format('com.databricks.spark.csv').option('header', 'true').save('faculty_table.csv')
+```
+
+Without folder:
+
+```
+facultyDF.toPandas().to_csv("faculty_table.csv", header=True)
+```
+
+### concat two column
+
+Concat column cols[0] and cols[1] with a whitespace as separator.
+
+```
+df = df.withColumn('joinKey', functions.concat(cols[0], functions.lit(' '), cols[1]))
+```
+
+
+### dataframe show full column
+
+Show `100` rows by `100` and full column content by `False`
+
+```
+df.select('joinKey').show(100, False)
+```
+
+### remove duplicate rows
+
+`drop_duplicates()` is an alias for `dropDuplicates()`.
+
+```
+df = df.dropDuplicates()
+```
+
+```
+>>> from pyspark.sql import Row
+>>> df = sc.parallelize([ \
+...     Row(name='Alice', age=5, height=80), \
+...     Row(name='Alice', age=5, height=80), \
+...     Row(name='Alice', age=10, height=80)]).toDF()
+>>> df.dropDuplicates().show()
++---+------+-----+
+|age|height| name|
++---+------+-----+
+|  5|    80|Alice|
+| 10|    80|Alice|
++---+------+-----+
+>>> df.dropDuplicates(['name', 'height']).show()
++---+------+-----+
+|age|height| name|
++---+------+-----+
+|  5|    80|Alice|
++---+------+-----+
+```
+
+### split column into rows
+
+`explode` split each element in array of specified column.
+
+dtype of joinKey column is `array<string>`, like `[adobe, indesign, cs3, mac, upgrade, pagemaker]`
+
+The new column containing splitted element is `word`.
+
+```
+df1 = df1.withColumn('word', functions.explode(functions.col('joinKey')))
+```
+
+Another example in scale.
+
+```
+scala> movies.show(truncate = false)
++-------+---------+-----------------------+
+|movieId|movieName|genre                  |
++-------+---------+-----------------------+
+|1      |example1 |action|thriller|romance|
+|2      |example2 |fantastic|action       |
++-------+---------+-----------------------+
+
+scala> movies.withColumn("genre", explode(split($"genre", "[|]"))).show
++-------+---------+---------+
+|movieId|movieName|    genre|
++-------+---------+---------+
+|      1| example1|   action|
+|      1| example1| thriller|
+|      1| example1|  romance|
+|      2| example2|fantastic|
+|      2| example2|   action|
++-------+---------+---------+
+
+// You can use \\| for split instead
+scala> movies.withColumn("genre", explode(split($"genre", "\\|"))).show
++-------+---------+---------+
+|movieId|movieName|    genre|
++-------+---------+---------+
+|      1| example1|   action|
+|      1| example1| thriller|
+|      1| example1|  romance|
+|      2| example2|fantastic|
+|      2| example2|   action|
++-------+---------+---------+
+```
+
+### column types
+
+```
+df.dtypes
+```
+
+### many lists to dataframe
+
+```
+flat_lats = [float(item) for sublist in lats for item in sublist]
+flat_lons = [float(item) for sublist in lons for item in sublist]
+flat_elevs = [float(item) for sublist in elevs for item in sublist]
+
+tupleList = list(zip(flat_lats, flat_lons, flat_elevs))
+
+df = spark.createDataFrame(tupleList, ['latitude', 'longitude', 'elevation'])\
+    .withColumn('date', functions.lit(selected_date))
+```
+
+### sql compare year of a date
+
+```
+middle_year = 1900
+sql = 'select t1.longitude, t1.latitude, t2.avg ' \
+       'from weather t1, (select station, avg(tmax) as avg, count(*) ' \
+       'from weather ' \
+       'where year(date)<{} ' \
+       'group by station) t2 ' \
+       'where t1.station=t2.station'.format(middle_year)
+w_df = spark.sql(sql)
+```
+
+### dataframe column to list
+
+```
+df.select(column_name).rdd.map(lambda r: r[column_name]).collect()
+```
+
+## Reference
+
+[Pyspark 2.3.1 document](https://spark.apache.org/docs/2.3.1/api/python/pyspark.sql.html#pyspark.sql.functions.array)

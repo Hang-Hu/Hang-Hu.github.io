@@ -1,0 +1,63 @@
+---
+layout: post
+author: Hang Hu
+categories: command
+tags: Blog Ubuntu Command 
+cover: 
+---
+Password: no password, just enter
+
+```
+sudo -s
+
+fdisk -l
+
+mkdir /mnt/back_root
+
+ls -alh /mnt/back_root
+mount /dev/sda7 /mnt/back_root              # /
+
+ls -alh /mnt/back_root
+
+ls -alh /mnt/back_root/boot/efi
+mount /dev/sda2 /mnt/back_root/boot/efi     # /boot
+
+ls -alh /mnt/back_root/boot/efi
+
+ls -alh /mnt/back_root/usr
+mount /dev/sda9 /mnt/back_root/usr          # /usr
+
+ls -alh /mnt/back_root/usr
+
+ls -alh /mnt/back_root/home
+mount /dev/sda10 /mnt/back_root/home        # /home
+
+ls -alh /mnt/back_root/home
+
+cd /mnt/back_root
+tar czvf /mnt/back_root/home/joanna/Downloads/ubuntu-16.04-T560-UEFI-20181116.tar.gz
+--exclude=./home/joanna/Downloads/*
+--exclude=./home/joanna/Documents/*
+--exclude=./home/joanna/Music/*
+--exclude=./home/joanna/Videos/*
+--exclude=./home/joanna/Pictures/*
+--exclude=./home/joanna/gPodder/*
+--exclude=./home/joanna/ProgramFiles/*
+--exclude=./home/joanna/vmware/*
+--exclude=./home/joanna/SharedFolder/*
+./*
+```
+
+
+Should I exclude `/home/joanna/.cache`? 
+
+
+
+
+
+
+
+
+
+
+

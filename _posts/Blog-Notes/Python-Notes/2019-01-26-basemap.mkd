@@ -1,0 +1,81 @@
+---
+layout: post
+author: Hang Hu
+categories: python
+tags: Blog Python 
+cover: 
+---
+## import
+
+```
+from mpl_toolkits.basemap import Basemap
+```
+
+
+## colorbar
+
+
+Color is based on temperature temp, the bar color range is `viridis` set. marker `o` is a circle point, `D` then square point.
+
+
+```
+map.scatter(x, y, c=temp, cmap='viridis', marker='o')
+plt.colorbar()
+```
+
+
+### colorbar the same height as picture
+
+
+size is the width of colorbar, pad is the padding between colorbar and picture.
+
+
+```
+from mpl_toolkits.axes_grid1 import make_axes_locatable
+
+ax = plt.gca()
+divider = make_axes_locatable(ax)
+cax = divider.append_axes("right", size="2%", pad=0.1)
+plt.colorbar(cax=cax)
+```
+
+
+## cmap: theme for colorbar
+
+
+`coolwarm` is from red to blue.
+
+
+```
+map.scatter(lon, lat, c=third_param, cmap='coolwarm', marker='o', s=4, alpha=0.3)
+```
+
+
+`pcolormesh()` and `terrain` is better for elevation.
+
+
+```
+plt.pcolormesh(lon, lat, third_param, cmap='terrain')
+```
+
+
+## Transparency of marker
+
+
+alpha controls transparency.
+
+
+```
+map.scatter(lon, lat, c=third_param, cmap='coolwarm', marker='o', s=4, alpha=0.3)
+```
+
+
+### scatter third param
+
+
+`c=third_param` is also a list, like lon, lat.
+
+
+```
+map.scatter(lon, lat, c=third_param, cmap='coolwarm', marker='o', s=4, alpha=0.3)
+```

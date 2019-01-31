@@ -1,0 +1,59 @@
+---
+layout: post
+author: Hang Hu
+categories: python
+tags: Blog Python 
+cover: 
+---
+## Get started
+
+```
+with open('faculty.txt', mode='r') as f:
+    soup = bs4.BeautifulSoup(f.read(), 'lxml')
+
+```
+
+
+## get href
+
+
+```
+profile = profile_homepage[0]['href'] if len(profile_homepage) > 0 else 'NaN'
+```
+
+
+
+## css selector
+
+
+```
+import bs4 , requests
+res = requests.get("http://allevents.in/lahore/")
+soup = bs4.BeautifulSoup(res.text)
+for link in soup.select('a[property="schema:url"]'):
+    print link.get('href')
+```
+
+
+### querySelectorAll == select
+
+
+```
+profile_homepage = info.select('p:nth-of-type(2) > a')
+```
+
+
+### querySelector == select_one
+
+
+```
+namerank = info.select_one('h4').text
+```
+
+
+### get number of children nodes
+
+
+```
+len(info.select('p'))
+```

@@ -1,0 +1,20 @@
+---
+layout: post
+author: Hang Hu
+categories: command
+tags: Blog Ubuntu Command 
+cover: 
+---
+## Basic Usage
+
+```
+ tree proj/
+ ```
+
+
+## Exclude directory
+
+
+```
+tree -I venv proj/
+```

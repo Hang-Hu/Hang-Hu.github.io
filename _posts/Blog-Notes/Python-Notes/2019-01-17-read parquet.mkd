@@ -1,0 +1,35 @@
+---
+layout: post
+author: Hang Hu
+categories: python
+tags: Blog Python 
+cover: 
+---
+## Download
+
+Download jar from `https://search.maven.org/search?q=a:parquet-tools`.
+
+## Usage
+
+Start hadoop
+
+```
+hadoop namenode
+```
+
+
+If get the following exception, use `hadoop namenode -format` first to create hadoop-hang in tmp directory.
+
+
+```
+org.apache.hadoop.hdfs.server.common.InconsistentFSStateException: Directory /tmp/hadoop-hang/dfs/name is in an inconsistent state: storage directory does not exist or is not accessible.
+```
+
+
+Use parquet-tools to inspect parquet.
+
+
+```
+hadoop jar ~/Downloads/parquet-tools-1.10.0.jar cat --json file:///home/hang/Documents/CodeSpace/code4Python/BigData2/week2/entity_resolution/test/newDF1/part-r-00001-ff510b57-1b74-470d-9706-a82cef70d2c0.gz.parquet
+```
+

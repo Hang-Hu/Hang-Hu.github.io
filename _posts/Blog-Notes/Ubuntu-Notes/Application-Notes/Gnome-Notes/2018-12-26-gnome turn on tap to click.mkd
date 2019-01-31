@@ -1,0 +1,10 @@
+---
+layout: post
+author: Hang Hu
+categories: gnome
+tags: Blog Ubuntu Application Gnome 
+cover: 
+---
+## Solution
+
+ Settings -> Mouse & Touchpad -> Touchpad -> Tap to Click

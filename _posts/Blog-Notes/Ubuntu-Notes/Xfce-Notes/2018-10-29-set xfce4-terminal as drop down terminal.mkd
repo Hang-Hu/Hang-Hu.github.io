@@ -1,0 +1,16 @@
+---
+layout: post
+author: Hang Hu
+categories: xfce
+tags: Blog Ubuntu Xfce 
+cover: 
+---
+
+In shortcut, set command to be
+
+```
+xfce4-terminal --drop-down
+```
+
+
+Shortcut to be Super+D.

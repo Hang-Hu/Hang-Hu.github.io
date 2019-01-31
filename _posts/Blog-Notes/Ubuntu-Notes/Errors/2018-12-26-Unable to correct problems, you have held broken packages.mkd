@@ -1,0 +1,104 @@
+---
+layout: post
+author: Hang Hu
+categories: ubuntu
+tags: Blog Ubuntu 
+cover: 
+---
+ ## Details
+
+```
+$ sudo apt install npm
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+Some packages could not be installed. This may mean that you have
+requested an impossible situation or if you are using the unstable
+distribution that some required packages have not yet been created
+or been moved out of Incoming.
+The following information may help resolve the situation:
+
+The following packages have unmet dependencies:
+ npm : Depends: node-gyp (>= 0.10.9) but it is not going to be installed
+E: Unable to correct problems, you have held broken packages.
+```
+
+
+```
+~$ sudo apt install node-gyp
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+Some packages could not be installed. This may mean that you have
+requested an impossible situation or if you are using the unstable
+distribution that some required packages have not yet been created
+or been moved out of Incoming.
+The following information may help resolve the situation:
+
+The following packages have unmet dependencies:
+ node-gyp : Depends: nodejs-dev but it is not going to be installed
+E: Unable to correct problems, you have held broken packages.
+```
+
+
+```
+~$ sudo apt install nodejs-dev
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+Some packages could not be installed. This may mean that you have
+requested an impossible situation or if you are using the unstable
+distribution that some required packages have not yet been created
+or been moved out of Incoming.
+The following information may help resolve the situation:
+
+The following packages have unmet dependencies:
+ nodejs-dev : Depends: libssl1.0-dev (>= 1.0.2) but it is not going to be installed
+E: Unable to correct problems, you have held broken packages.
+```
+
+
+## Solution
+
+
+```
+sudo apt install aptitude
+sudo aptitude install npm
+```
+
+
+```
+The following packages have unmet dependencies:
+ libcurl4-openssl-dev : Conflicts: libssl1.0-dev but 1.0.2n-1ubuntu5.2 is to be installed
+ libssl-dev : Conflicts: libssl1.0-dev but 1.0.2n-1ubuntu5.2 is to be installed
+ libssl1.0-dev : Conflicts: libssl-dev but 1.1.0g-2ubuntu4.3 is installed
+The following actions will resolve these dependencies:
+
+     Keep the following packages at their current version:
+1)     libssl1.0-dev [Not Installed]                      
+2)     node-gyp [Not Installed]                           
+3)     nodejs-dev [Not Installed]                         
+4)     npm [Not Installed]                                
+```
+
+
+I solved the conflict by installing `libssl1.0-dev`.
+
+
+```
+sudo apt install libssl1.0-dev
+```
+
+
+Then it's okay to install npm.
+
+
+```
+sudo apt-get install npm
+```
+
+
+## Reference
+
+
+`https://askubuntu.com/questions/630439/libssl-dev-version-dependency-conflict-with-installed-libssl1-0-0`

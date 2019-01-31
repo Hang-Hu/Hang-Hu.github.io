@@ -1,0 +1,34 @@
+---
+layout: post
+author: Hang Hu
+categories: ubuntu
+tags: Blog Ubuntu 
+cover: 
+---
+
+themes
+
+```
+/usr/share/themes
+```
+
+
+icons
+
+
+```
+/usr/share/icons
+```
+
+
+## Use user themes and icons
+
+
+```
+~/.themes
+```
+
+
+```
+~/.icons
+```

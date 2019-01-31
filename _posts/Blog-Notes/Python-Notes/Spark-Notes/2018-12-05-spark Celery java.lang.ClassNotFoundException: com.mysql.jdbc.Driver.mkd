@@ -1,0 +1,52 @@
+---
+layout: post
+author: Hang Hu
+categories: spark
+tags: Blog Python Spark 
+cover: 
+---
+
+## Details
+
+The two commands will all bring the error.
+
+```
+spark-submit --packages mysql:mysql-connector-java:5.1.39 --master=local[*] tasks.py
+```
+
+
+```
+spark-submit --packages mysql:mysql-connector-java:5.1.39  tasks.py
+```
+
+
+## Reason
+
+
+There are two stages of spark running, by checking `http://localhost:4040/environment/` and `jps`.
+
+
+1. When you run spark-submit, in the short time, main() executed and mysql connector jar was loaded.
+
+
+2. When you call `from tasks import recommend_business`, spark loaded without mysql connector jar.
+
+
+## Solution
+
+
+I checked `http://localhost:4040/environment/` and found jars listed like /usr/local/spark-2.3.1-bin-hadoop2.7/jars/aopalliance-1.0.jar, therefore I thought `/usr/local/spark-2.3.1-bin-hadoop2.7/jars/` is the right directory to put mysql connector jar.
+
+
+As for `~/.ivy2/jars/mysql_mysql-connector-java-5.1.39.jar`, `spark-submit --packages mysql:mysql-connector-java:5.1.39` will check if `~/.ivy2` has this dependency or not. If not, it will download from central repository to `~/.ivy2/jars`.
+
+
+```
+sudo cp ~/.ivy2/jars/mysql_mysql-connector-java-5.1.39.jar  /usr/local/spark-2.3.1-bin-hadoop2.7/jars/
+```
+
+
+Then mysql connector jar was loaded for all spark environment.
+
+
+

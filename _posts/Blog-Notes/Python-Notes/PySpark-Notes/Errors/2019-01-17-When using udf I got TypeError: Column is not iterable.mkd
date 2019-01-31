@@ -1,0 +1,54 @@
+---
+layout: post
+author: Hang Hu
+categories: pyspark
+tags: Blog Python PySpark 
+cover: 
+---
+## Details
+
+When using udf I got TypeError: Column is not iterable.
+
+```
+functions.udf(returnType=types.FloatType())
+def jaccard_similarity(list1, list2):
+    set1 = set(list1)
+    set2 = set(list2)
+    intersection = len(set.intersection(set1, set2))
+    union = len(set.union(set1, set2))
+    return intersection/union
+```
+
+
+```
+resultDF = candDF.withColumn('jaccard', jaccard_similarity('joinKey1', 'joinKey2'))
+```
+
+
+## Reason
+
+
+I forgot the `@` before `functions.udf` so PySpark treated parameter list1 and list2 as `Column` instead of `array<string>`, which is content of that column.
+
+
+
+## Solution
+
+
+Add `@` before `functions.udf`
+
+
+```
+@functions.udf(returnType=types.FloatType())
+def jaccard_similarity(list1, list2):
+    set1 = set(list1)
+    set2 = set(list2)
+    intersection = len(set.intersection(set1, set2))
+    union = len(set.union(set1, set2))
+    return intersection/union
+```
+
+
+```
+resultDF = candDF.withColumn('jaccard', jaccard_similarity('joinKey1', 'joinKey2'))
+```

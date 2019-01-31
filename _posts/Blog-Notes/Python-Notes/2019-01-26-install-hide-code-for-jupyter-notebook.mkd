@@ -1,0 +1,14 @@
+---
+layout: post
+author: Hang Hu
+categories: python
+tags: Blog Python 
+cover: 
+---
+## Install
+
+```
+pip3.6 install --user hide_code
+jupyter  nbextension install --py hide_code --user
+jupyter nbextension enable hide_code --user --py
+```

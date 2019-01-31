@@ -1,0 +1,29 @@
+---
+layout: post
+author: Hang Hu
+categories: ubuntu
+tags: Blog Ubuntu 
+cover: 
+---
+## Reason
+
+I installed dns software and point all dns request to 127.0.0.1. During upgrading system, this software was deleted. Then there is nothing to resolve dns.
+
+## Solution
+
+```
+sudo vim /etc/resolv.conf
+```
+
+
+Change `127.0.0.1` to `8.8.8.8`.
+
+
+```
+nameserver 8.8.8.8
+```
+
+
+```
+sudo service network-manager restart
+```

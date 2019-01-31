@@ -1,0 +1,29 @@
+---
+layout: post
+author: Hang Hu
+categories: convert-formats
+tags: Blog Ubuntu Application Convert-Formats 
+cover: 
+---
+## concatenate
+
+```
+pdftk 01.pdf 02.pdf 03.pdf 04.pdf cat output 01-04.pdf
+```
+
+
+## set it to be 4 per page
+
+
+Open with Document Viewer `Evince`, ctrl-p, `Page Setup`, choose 4 in `Pages per side`, Choose `Landscape` in `Orientation`.
+
+
+## Rotate pdf 90 degrees clockwise
+
+
+```
+pdftk 01-04-4.pdf cat 1-endeast output out.pdf
+```
+
+
+## Use printer to print `out.pdf`

@@ -1,0 +1,31 @@
+---
+layout: post
+author: Hang Hu
+categories: pyspark
+tags: Blog Python PySpark 
+cover: 
+---
+## string
+
+Return type of this udf is simply string
+
+```
+@functions.udf(returnType=types.StringType())
+def path_to_hour(path):
+    return re.search('\d{8}-\d{2}', path).group(0)
+
+wikipedia = spark.read.csv(inputs, schema=wikipedia_schema, sep=' ')\
+    .withColumn('filename', functions.input_file_name())\
+    .withColumn('hour', path_to_hour('filename'))
+```
+
+
+## list of string
+
+
+Return type of this udf is list of string
+
+
+```
+tokenizer_udf = functions.udf(lambda x: tokenizer(x, stopWords), types.ArrayType(types.StringType()))
+```

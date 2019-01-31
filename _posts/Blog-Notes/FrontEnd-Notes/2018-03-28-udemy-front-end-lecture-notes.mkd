@@ -3112,6 +3112,14 @@ divsArray.filter(function(val){
 
 What we are doing is trying to slice something that is not actually an array! In JavaScript, slice will not work on all data types, but it works very well on array-like-objects
 
+#### use indexOf for array-like objects
+
+To find out the index of `this` element in its parent element.
+
+```
+var index = [].indexOf.call(this.parentElement.children, this); // [].indexOf.call(this, arg for indexOf)
+```
+
 
 #### `apply`
 
@@ -5552,6 +5560,7 @@ JSON looks (almost) exactly like JavaScript objects
 ```
 
 ### Making Requests with JavaScript:
+
 1. XMLHTTP Request
 2. The Fetch API
 3. 3rd Party Libraries: jQuery, Axios, etc.

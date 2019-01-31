@@ -1,0 +1,68 @@
+---
+layout: post
+author: Hang Hu
+categories: pyspark
+tags: Blog Python PySpark 
+cover: 
+---
+## Difference
+
+`concat` returns None when `cols[0]` or `cols[1]` is null, the all keys in another column is lost.
+
+`concat_ws` returns `cols[1]` when `cols[0]` is null. 
+
+So `concat_ws` is recommended rather than `concat`.
+
+## Code
+
+Whitespace is the seperator.
+
+```
+df = df.withColumn('joinKey', functions.concat(cols[0], functions.lit(' '), cols[1]))
+```
+
+
+
+```
+df_ws = df.withColumn('joinKey', functions.concat_ws(' ', cols[0], cols[1]))
+```
+
+
+
+## Related DataFrames
+
+
+`df`:
+
+
+```
+|[]                                                                            
+|[abacus, software, 5562, chopper, havoc, pc, abacus, software]   
+```
+
+
+`df_ws`:
+
+
+```
+|[hallmark, blank, greeting, cards, half, fold, matte, premium, 20, count, 2050xf]                                                                            
+|[abacus, software, 5562, chopper, havoc, pc, abacus, software]   
+```
+
+
+`cols[0]`:
+
+
+```
+|null                         
+|abacus software 
+```
+
+
+`cols[1]`:
+
+
+```
+|hallmark blank greeting cards half-fold matte premium 20 count (2050xf)
+|abacus software 5562 chopper havoc for pc  
+```

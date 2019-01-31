@@ -1,0 +1,12 @@
+---
+layout: post
+author: Hang Hu
+categories: command
+tags: Blog Ubuntu Command 
+cover: 
+---
+## Command
+
+```
+convert blur.jpeg -blur 0x4 blur5.jpeg
+```
