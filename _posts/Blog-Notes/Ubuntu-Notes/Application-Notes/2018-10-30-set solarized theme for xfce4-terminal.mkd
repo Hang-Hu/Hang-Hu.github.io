@@ -1,0 +1,65 @@
+---
+layout: post
+author: Hang Hu
+categories: application
+tags: Blog Ubuntu Application 
+cover: 
+---
+
+
+## config file
+
+```
+[Configuration]
+ColorCursor=# 586e75
+
+ColorForeground=# 657b83
+
+ColorBackground=# fdf6e3
+
+ColorPalette=#073642;#dc322f;#859900;#b58900;#268bd2;#d33682;#2aa198;#eee8d5;#002b36;#cb4b16;#586e75;#657b83;#839496;#6c71c4;#93a1a1;# fdf6e3
+
+FontName=Monospace Bold 12
+MiscAlwaysShowTabs=FALSE
+MiscBell=FALSE
+MiscBordersDefault=TRUE
+MiscCursorBlinks=FALSE
+MiscCursorShape=TERMINAL_CURSOR_SHAPE_BLOCK
+MiscDefaultGeometry=80x24
+MiscInheritGeometry=FALSE
+MiscMenubarDefault=TRUE
+MiscMouseAutohide=FALSE
+MiscToolbarDefault=FALSE
+MiscConfirmClose=TRUE
+MiscCycleTabs=TRUE
+MiscTabCloseButtons=TRUE
+MiscTabCloseMiddleClick=TRUE
+MiscTabPosition=GTK_POS_TOP
+MiscHighlightUrls=TRUE
+MiscScrollAlternateScreen=TRUE
+DropdownWidth=100
+DropdownOpacity=48
+DropdownStatusIcon=FALSE
+ColorBold=# 586e75
+
+ColorBoldUseDefault=FALSE
+TabActivityColor=# dc322f
+
+```
+
+
+
+## Replace config file
+
+
+```
+wget https://raw.githubusercontent.com/sgerrand/xfce4-terminal-colors-solarized/master/light/terminalrc
+
+mv terminalrc ~/.config/xfce4/terminal/terminalrc
+```
+
+
+## Set font to bold
+
+
+Open xfce4-terminal, edit -> preference -> appearance -> font, set it to bold.

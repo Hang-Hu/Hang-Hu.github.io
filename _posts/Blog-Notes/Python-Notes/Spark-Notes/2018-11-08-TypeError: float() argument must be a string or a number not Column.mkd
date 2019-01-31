@@ -1,0 +1,31 @@
+---
+layout: post
+author: Hang Hu
+categories: spark
+tags: Blog Python Spark 
+cover: 
+---
+## Details
+
+```
+values = values.withColumn('x', float(x_y.getItem(0)))
+```
+
+
+## Reason
+
+
+`.float()` cannot be applied on column.
+
+
+
+## Solution
+
+
+Use `.cast('float')`
+
+
+```
+values = values.withColumn('x', x_y.getItem(0).cast('float'))
+
+```

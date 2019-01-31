@@ -1,0 +1,12 @@
+---
+layout: post
+author: Hang Hu
+categories: command
+tags: Blog Ubuntu Command 
+cover: 
+---
+## Example
+
+```
+git diff --color-words="[^[:space:],]+" x.csv y.csv
+```

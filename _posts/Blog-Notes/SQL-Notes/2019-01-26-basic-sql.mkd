@@ -1,0 +1,21 @@
+---
+layout: post
+author: Hang Hu
+categories: sql
+tags: Blog SQL 
+cover: 
+---
+## Get year of a date
+
+`year(date)`, date is like `2000-02-23`, date type.
+
+```
+sql = 'select t1.longitude, t1.latitude, t2.avg ' \
+       'from weather t1, (select station, avg(tmax) as avg, count(*) ' \
+       'from weather ' \
+       'where year(date){}{} ' \
+       'group by station) t2 ' \
+       'where t1.station=t2.station'.format(comparator, middle_year)
+w_df = spark.sql(sql)
+```
+

@@ -1,0 +1,26 @@
+---
+layout: post
+author: Hang Hu
+categories: hadoop
+tags: Blog Java Hadoop 
+cover: 
+---
+## Details
+
+```
+java.net.ConnectException: Call From JC/127.0.1.1 to localhost:9000 failed on connection exception: java.net.ConnectException: Connection refused; For more details see: http://wiki.apache.org/hadoop/ConnectionRefused
+```
+
+
+## Reason
+
+
+hadoop not started.
+
+
+## Solution
+
+
+```
+hadoop namenode
+```

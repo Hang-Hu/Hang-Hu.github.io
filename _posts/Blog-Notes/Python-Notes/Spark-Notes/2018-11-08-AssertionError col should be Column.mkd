@@ -1,0 +1,29 @@
+---
+layout: post
+author: Hang Hu
+categories: spark
+tags: Blog Python Spark 
+cover: 
+---
+## Details
+
+```
+data = data.withColumn('test', data.select(data['sum(x)']+data['sum(y)']))
+```
+
+
+## Reason
+
+
+data.select returns DataFrame instead of Column, but `.withColumn` requires the second argument is Column.
+
+
+## Solution
+
+
+Remove data.select, use `data['sum(x)']+data['sum(y)']` directly, which is actually Column
+
+
+```
+data = data.withColumn('test', data['sum(x)']+data['sum(y)'])
+```

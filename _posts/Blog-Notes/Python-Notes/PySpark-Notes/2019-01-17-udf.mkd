@@ -1,0 +1,65 @@
+---
+layout: post
+author: Hang Hu
+categories: pyspark
+tags: Blog Python PySpark 
+cover: 
+---
+## get started
+
+```
+@functions.udf(returnType=types.StringType())
+def path_to_hour(path):
+    return re.search('\d{8}-\d{2}', path).group(0)
+
+wikipedia = spark.read.csv(inputs, schema=wikipedia_schema, sep=' ')\
+    .withColumn('filename', functions.input_file_name())\
+    .withColumn('hour', path_to_hour('filename'))
+```
+
+
+## pass set to udf
+
+
+Since udf doesn't accept types other than column or string as parameter, I have to use a common funtion `tokenizer` to get the set `stopWords`. Wrap `tokenizer` with `functions.udf` and return tokenizer_udf for DataFrame to use.
+
+
+```
+def tokenizer(str, stopWords):
+    """
+    Here is how the tokenizer should work:
+        (1) Use "re.split(r'\W+', string)" to split a string into a set of tokens
+        (2) Convert each token to its lower-case
+        (3) Remove stop words
+    """
+    tokens = re.split(r'\W+', str)
+    tokens = list(map(lambda x: x.lower(), tokens))
+    tokens = list(filter(lambda x: x not in stopWords, tokens))
+    return tokens
+
+tokenizer_udf = functions.udf(lambda x: tokenizer(x, stopWords), types.StringType()) # StringType is return type of udf tokenizer_udf
+
+df = df.withColumn('joinKey', tokenizer_udf('joinKey'))
+```
+
+
+## Pass two columns to udf
+
+
+`joinKey1`, `joinKey2` are the two columns I passed to udf, the same usage to one colum.
+
+
+```
+@functions.udf(returnType=types.FloatType())
+def jaccard_similarity(list1, list2):
+    set1 = set(list1)
+    set2 = set(list2)
+    intersection = len(set.intersection(set1, set2))
+    union = len(set.union(set1, set2))
+    return intersection/union
+```
+
+
+```
+resultDF = candDF.withColumn('jaccard', jaccard_similarity('joinKey1', 'joinKey2'))
+```

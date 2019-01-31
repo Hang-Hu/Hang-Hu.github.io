@@ -1,0 +1,20 @@
+---
+layout: post
+author: Hang Hu
+categories: python
+tags: Blog Python 
+cover: 
+---
+## Reason
+
+There no `PROJ_LIB` in environment variables.
+
+## Solution
+
+In PyCharm, upper right side click Edit Configurations -> Environment variables, add `PROJ_LIB` and its value `/home/hang/anaconda3/share/proj/`.
+
+Or command line
+
+```
+export PROJ_LIB=/home/hang/anaconda3/share/proj/
+```

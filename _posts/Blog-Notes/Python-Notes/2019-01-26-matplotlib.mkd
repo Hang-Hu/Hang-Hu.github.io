@@ -1,0 +1,124 @@
+---
+layout: post
+author: Hang Hu
+categories: python
+tags: Blog Python 
+cover: 
+---
+## legend
+
+```
+import matplotlib.pyplot as plt
+plt.plot(e_all, label=eta)
+plt.legend()
+plt.show()
+```
+
+
+## title
+
+
+```
+plt.title(title)
+```
+
+
+## title is the title of nearest ax
+
+
+Here `plt.title` is before colorbar ax, so it's title of map.
+
+
+```
+map = Basemap(projection='cyl')
+map.drawmapboundary(fill_color='gray')
+map.drawcoastlines()
+x, y = map(lon, lat)
+map.scatter(x, y, c=temp, cmap='coolwarm', marker='o')
+plt.title(title)
+ax = plt.gca()
+divider = make_axes_locatable(ax)
+cax = divider.append_axes("right", size="2%", pad=0.1)
+plt.colorbar(cax=cax)
+plt.show()
+```
+
+
+Here `plt.title` is after colorbar ax(`ax = plt.gca()`), even it's before `plt.colorbar(cax=cax)`, it's still title of map.
+
+
+
+```
+map = Basemap(projection='cyl')
+map.drawmapboundary(fill_color='gray')
+map.drawcoastlines()
+x, y = map(lon, lat)
+map.scatter(x, y, c=temp, cmap='coolwarm', marker='o')
+ax = plt.gca()
+divider = make_axes_locatable(ax)
+cax = divider.append_axes("right", size="2%", pad=0.1)
+plt.title(title)
+plt.colorbar(cax=cax)
+plt.show()
+```
+
+
+## Image bigger size
+
+
+Default is (6.4, 4.8)
+
+
+```
+plt.figure(figsize=(16, 12))
+```
+
+
+[matplotlib.pyplot.figure](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.figure.html)
+
+
+## Marker size
+
+
+Param `s` controls size, I used 4, which is smaller than default one.
+
+
+```
+map.scatter(lon, lat, c=third_param, cmap='coolwarm', marker='o', s=4, alpha=0.3)
+```
+
+
+[matplotlib.pyplot.scatter](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.scatter.html)
+
+
+## Colorbar label
+
+
+```
+clb = plt.colorbar(cax=cax)
+clb.set_label('Temperature')
+```
+
+
+## colorbar width
+
+
+2% is the width.
+
+
+```
+divider = make_axes_locatable(ax)
+cax = divider.append_axes("right", size="2%", pad=0.1)
+clb = plt.colorbar(cax=cax)
+```
+
+
+## pcolormesh
+
+
+```
+plt.pcolormesh(lon, lat, third_param, cmap='terrain')
+```
+
+
+[matplotlib.pyplot.pcolormesh](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.pcolormesh.html)

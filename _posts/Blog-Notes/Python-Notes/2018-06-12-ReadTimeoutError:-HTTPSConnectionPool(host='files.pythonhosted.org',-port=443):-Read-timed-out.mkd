@@ -1,0 +1,13 @@
+---
+layout: post
+author: Hang Hu
+categories: python
+tags: Blog Python 
+cover: 
+---
+
+## Solution
+
+```
+sudo pip install --default-timeout=100 django
+```

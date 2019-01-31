@@ -1,0 +1,21 @@
+---
+layout: post
+author: Hang Hu
+categories: cassandra
+tags: Blog Cassandra 
+cover: 
+---
+
+## connect to remote cassandra
+
+```
+cqlsh --cqlversion=3.4.2 IP_ADDR
+```
+
+
+## generate uuid
+
+
+```
+insert into nasalogs (host, id) values ('host1', uuid());
+```

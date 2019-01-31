@@ -1,0 +1,33 @@
+---
+layout: post
+author: Hang Hu
+categories: python
+tags: Blog Python 
+cover: 
+---
+## Details
+
+```
+np.log(y_all)
+```
+
+
+divide by zero encountered in log.
+
+
+## Reason
+
+
+log of 0 is -infinity.
+
+
+## Solution
+
+
+Use an epsilon.
+
+
+```
+epsilon = 1e-100
+np.log(y_all+epsilon)
+```

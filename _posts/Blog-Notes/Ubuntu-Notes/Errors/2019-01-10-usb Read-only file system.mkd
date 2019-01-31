@@ -1,0 +1,14 @@
+---
+layout: post
+author: Hang Hu
+categories: ubuntu
+tags: Blog Ubuntu 
+cover: 
+---
+## Details
+
+Cannot touch, mv, copy, or delete file, can view file.
+
+## Solution
+
+Restart computer.

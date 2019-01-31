@@ -1,0 +1,26 @@
+---
+layout: post
+author: Hang Hu
+categories: spark
+tags: Blog Python Spark 
+cover: 
+---
+## Reason
+
+```
+conf = SparkConf.setAppName('Load Logs Spark')
+```
+
+
+I forgot `()` after SparkConf.
+
+
+## Solution
+
+
+Use `SparkConf()` instead of `SparkConf`.
+
+
+```
+conf = SparkConf().setAppName('Load Logs Spark')
+``` 

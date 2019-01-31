@@ -1,0 +1,36 @@
+---
+layout: post
+author: Hang Hu
+categories: spark
+tags: Blog Python Spark 
+cover: 
+---
+
+## If PYTHONPATH not set and run pyspark scripts with python3
+
+Will get this error
+
+```
+Py4JError: An error occurred while calling None.org.apache.spark.api.python.PythonAccumulatorV2. Trace:
+py4j.Py4JException: Constructor org.apache.spark.api.python.PythonAccumulatorV2([class java.lang.String, class java.lang.Integer, class java.lang.String]) does not exist
+```
+
+
+## Solution 1: findspark
+
+
+```
+import findspark
+findspark.init()
+```
+
+
+## Solution 2: set environment variable PYTHONPATH
+
+
+Add this line to `/etc/profile`
+
+
+```
+export PYTHONPATH=$SPARK_HOME/python/:$SPARK_HOME/python/lib/py4j-0.10.7-src.zip:$PYTHONPATH
+```

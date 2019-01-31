@@ -1,0 +1,22 @@
+---
+layout: post
+author: Hang Hu
+categories: flask
+tags: Blog Python Flask 
+cover: 
+---
+## Details
+
+The second time opening the same link, image is the old one. I have to refresh the page to have the right image.
+
+## Reason
+
+Flask cache the image it served, so even I change browser, also the old image.
+
+## Solution
+
+Use timestamp as parameter so every time querying the same url. The parameter name can be timestamp or noCache or whatever, the value of parameter should be different.
+
+```
+http://0.0.0.0:5432/images/test.jpeg?timestamp=1213312
+```

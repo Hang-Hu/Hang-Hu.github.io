@@ -1,0 +1,29 @@
+---
+layout: post
+author: Hang Hu
+categories: pytorch
+tags: Blog Python PyTorch 
+cover: 
+---
+## torch.max
+
+```
+In [8]: a = torch.randn(4, 4)                                                  
+In [9]: a                                                                      
+Out[9]: 
+tensor([[-0.4235, -0.5470, -0.3158,  0.9732],
+        [-0.2980,  0.6745, -0.0505,  0.2656],
+        [-0.7697,  0.3670,  1.2200, -0.3435],
+        [ 0.6393, -0.1086, -0.6364, -0.0387]])
+
+In [10]: torch.max(a, 1)                                                       
+Out[10]: (tensor([ 0.9732,  0.6745,  1.2200,  0.6393]), tensor([ 3,  1,  2,  0]))
+```
+
+
+Get the index of max values:
+
+
+```
+_, predicted = torch.max(outputs.data, 1)
+```
