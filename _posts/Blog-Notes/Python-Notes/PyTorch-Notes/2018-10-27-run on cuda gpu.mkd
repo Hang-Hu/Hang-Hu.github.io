@@ -50,6 +50,5 @@ model = model.to(device)
 
 ```
 inputs = inputs.to(device)
-inputs = inputs.to(device)
+labels = labels.to(device)
 ```
-
