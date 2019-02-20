@@ -122,3 +122,55 @@ plt.pcolormesh(lon, lat, third_param, cmap='terrain')
 
 
 [matplotlib.pyplot.pcolormesh](https://matplotlib.org/api/_as_gen/matplotlib.pyplot.pcolormesh.html)
+
+### bar confidence level
+
+Use `yerr`
+
+```
+yerr = [[(pre_l, cur_l), (-pre_u, -cur_u)]]
+series.plot(kind='bar', legend=False, alpha=0.5, grid=True, yerr=yerr)
+```
+
+The `pre_u` is negative, I use `-pre_u` to get positive value.
+
+First row contains the lower errors, the second row contains the upper errors.
+
+Note that all error arrays should have positive values.
+
+
+```
+print(yerr)
+[(0.019, 0.022), (0.018, 0.027)]
+```
+
+### set x label to be horizontal
+
+```
+plt.xticks(rotation=0)
+```
+
+### plot two graph in one line
+
+```
+fig, ax = plt.subplots(1, 2)
+
+pdf_ax = price_df.plot.hist(ax=ax[0], bins=500, xlim=[0,5], alpha=0.5, grid=True, figsize=(15, 3))
+```
+
+### Use one color
+
+```
+ax = sort_df.plot(
+    kind='bar', x='YEAR_BUILT', y='# of Properties', legend=False, figsize=(15, 3),
+    grid=True, alpha=0.5, color=(0.2, 0.4, 0.6, 0.6))
+```
+
+### density
+
+Then I get probability in y axis, the max is 1.
+
+```
+cdf_ax = price_df.plot.hist(
+    ax=ax[1], bins=500, xlim=[0,5], alpha=0.5, grid=True, cumulative=True, figsize=(15, 3), density=True)
+```

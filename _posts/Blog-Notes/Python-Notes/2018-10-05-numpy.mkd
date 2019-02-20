@@ -130,3 +130,25 @@ axis=1 is to calculate along the columns.
 >>> grad_e
 array([0.44299607, 0.47463903, 0.14360159])
 ```
+
+## get index of min in list
+
+```
+In [16]: np.argmin([11,2,3,43,5])
+Out[16]: 1
+```
+
+## get index of max in list
+
+```
+In [16]: np.argmin([11,2,3,43,5])
+Out[16]: 1
+```
+
+## get index list that would sort an list
+
+```
+In [14]: np.argsort([1,2,3,43,5])
+Out[14]: array([0, 1, 2, 4, 3])
+```
+

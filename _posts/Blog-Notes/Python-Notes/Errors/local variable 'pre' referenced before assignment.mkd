@@ -1,0 +1,26 @@
+## Details
+
+local variable 'pre' referenced before assignment.
+
+```
+pre++
+```
+
+## Reason
+
+
+
+Python treats variable as local by default, if I want to use it as global, I have to specify that.
+
+## Solution
+
+```
+global pre
+pre++
+```
+
+### Check if NaN
+
+```
+df['YEAR_BUILT'].isna().sum()/len(df)
+```

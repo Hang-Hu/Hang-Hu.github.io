@@ -1,0 +1,21 @@
+### read json from file
+
+```
+const auth = require('../resource/auth.json');
+```
+
+### write list to file
+
+```
+
+function writeArray(fileName, arr){
+    let file = fs.createWriteStream(fileName);
+    file.on('error', function(err){
+        console.error(err);
+    });
+    arr.forEach((element) => {
+        file.write(`${element}\n`);
+    });
+    file.end();
+}
+```
