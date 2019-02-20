@@ -115,6 +115,21 @@ array([[3, 4, 5],
        [0, 1, 2]])
 ```
 
+## np.random.randint
+
+```
+np.random.randint(low,high,size=size)
+```
+
+`low` inclusive, `high` exclusive, `size` is the list size generated. Return random numbers from range `low` to `high`. `size` default to be None, then return 1 random number.
+
+
+```
+In [2]: np.random.randint(1,3,size=6)
+Out[2]: array([2, 2, 2, 1, 1, 2])
+
+```
+
 ## np.mean
 
 ```
