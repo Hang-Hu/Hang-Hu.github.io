@@ -1,0 +1,3 @@
+
+Note that errors are swallowed "silently" within an async function – just like inside normal Promises. Unless we add try / catch blocks around await expressions, uncaught exceptions – regardless of whether they were raised in the body of your async function or while its suspended during await – will reject the promise returned by the async function.
+

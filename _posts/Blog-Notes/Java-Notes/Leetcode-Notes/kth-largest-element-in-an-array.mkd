@@ -1,0 +1,55 @@
+## Divide and conquer
+
+```
+class Solution {
+    public int findKthLargest(int[] nums, int k) {
+        return findKthLargest(nums, 0, nums.length, k);
+    }
+    // start inclusive, end exclusive
+    private int findKthLargest(int[] nums, int start, int end, int k){
+        if(start+1==end)    return nums[start];
+        int pivot = nums[end-1];
+        int i=start;
+        for(int j=start; j<end; j++){
+            if(nums[j]<=pivot){
+                swap(nums, i, j);
+                i++;
+            }
+        }
+        int rightLen = end-i;
+        if(k<=rightLen){
+            return findKthLargest(nums, i, end, k);
+        }else if(k==rightLen+1){
+            return pivot;
+        }else{//k>rightLen+1
+            return findKthLargest(nums, start, i-1, k-rightLen-1);
+        }
+    }
+    private void swap(int[] nums, int i, int j){
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
+    }
+}
+```
+
+
+Time: O(n) 
+ 
+
+
+## Sort and find
+
+```
+class Solution {
+    public int findKthLargest(int[] nums, int k) {
+        Arrays.sort(nums);
+        return nums[nums.length-k];
+    }
+}
+```
+
+
+Time: O(nlogn)
+
+

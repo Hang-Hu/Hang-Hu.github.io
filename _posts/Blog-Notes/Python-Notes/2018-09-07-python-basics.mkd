@@ -169,6 +169,97 @@ print(f"{name} is {age} years old.")
 ```
 
 
+## Concatenate string
+
+```
+js = "".join(["function getPathTo(node) {",
+              "  var stack = [];",
+              "  while(node.parentNode !== null) {",
+              "    stack.unshift(node.tagName);",
+              "    node = node.parentNode;",
+              "  }",
+              "  return stack.join('/');",
+              "}",
+              "return getPathTo(arguments[0]);"])
+```
+
+
+## string not equal
+
+
+```
+if currentframe != "MainFrame":
+    switch_to_course_registration_frame(driver)
+```
+
+## sort list alphabetically(ignore case)
+
+```
+list = ['Stem', 'constitute', 'Sedge', 'Eflux', 'Whim', 'Intrigue']
+list = sorted(list, key=str.lower)
+```
+
+## args from 3rd to end
+
+```
+orderkeys = []
+for i in range(3, len(sys.argv)):
+    orderkeys.append(int(sys.argv[i]))
+```
+
+## pass function as argument
+
+### Easy Example
+
+```python
+def a(x):
+    return 10**2
+
+def b(f,x):
+    return f(x)
+
+print b(a,10)
+# 100
+```
+
+### My usage:
+
+`output_func_list` is a list of functions applied on `x`.
+
+```python
+def gen(x, output_index_list, output_func_list):
+    for i in range(len(output_index_list)):
+        yield output_func_list[i](x[output_index_list[i]])
+
+def readCSV(filename, output_index_list, output_func_list):
+    raw = sc.textFile(os.path.dirname(__file__) + '/ml-latest-small/' + filename).cache()
+    header = raw.take(1)[0]
+    print(header)
+    data = raw.filter(lambda l: l != header) \
+        .map(lambda l: l.split(',')) \
+        .map(lambda x: list(gen(x, output_index_list, output_func_list))) \
+        .cache()
+    return data
+```
+
+```python
+ratings = readCSV('ratings.csv', [0, 1, 2], [int, int, float])
+```
+
+## construct tuple by index in list
+
+```
+def gen(x, output_index_list, output_func_list):
+    for i in range(len(output_index_list)):
+        yield output_func_list[i](x[output_index_list[i]])
+
+data.map(lambda x: list(gen(x, [0,1,2], [int, int, float])))
+```
+
+## NameError: name '__file__' is not defined
+
+`__file__` not exist in python shell, only exists in file.
+
 
 ## list
 
@@ -518,7 +609,7 @@ myfile.read()
 'This is the first line\nThis is the second line\nThis is the third line'
 ```
 
-### `.readlines()`
+### read lines
 
 ```
 myfile.seek(0)
@@ -527,6 +618,13 @@ myfile.readlines()
 ['This is the first line\n',
  'This is the second line\n',
  'This is the third line']
+```
+
+```
+with open('ladygaga-followings-1008.txt') as f:
+    names = f.readlines()
+    names = list(map(lambda x: x.replace('\n', ''), names))
+    print(names)
 ```
 
 ### `.close()`
@@ -997,3 +1095,239 @@ list(range(0,10,2))
 ```
 
 #### enumerate
+
+## Other tricks
+
+### All file names in a folder
+
+```
+import os
+names = os.listdir("./")
+print(names)
+```
+
+
+### file header for direct run
+
+Add the following in the first line of python file.
+
+```
+#! /usr/bin/env python3                                                     
+```
+
+```
+chmod +x filename.py
+./filename.py
+```
+
+### filter
+
+```
+num_list = list(filter(lambda x: len(x)>0, num_list))
+```
+
+### map
+
+```
+num_list = list(map(lambda x: int(x), num_list))
+```
+
+### string to int
+
+```
+main(inputs, output, int(src_node), int(dst_node))
+```
+
+### int to string
+
+```
+known_paths.saveAsTextFile(output + '/iter-' + str(i))
+```
+
+### reverse list: `reversed()`
+
+```
+finalpath = (reversed(trace_paths))
+```
+
+### read from command line
+
+```
+python3.6 ***.py graph-1/ output-1/
+```
+
+```
+import sys
+inputs = sys.argv[1]
+output = sys.argv[2]
+```
+
+### assert and compare
+
+```
+assert sys.version_info >= (3, 5) # make sure we have Python 3.5+
+assert sc.version >= '2.3'  # make sure we have Spark 2.3+
+```
+
+### split `1: 2 5`
+
+```
+num_list = re.split(':| ', line)
+```
+
+### `? :`: a if True else b
+
+```
+a if distance_a<distance_b else b
+```
+
+
+### replace
+
+```
+area = area.replace('Area: ', '')
+```
+
+###  if a variable exist or not
+
+```
+if 'area' not in locals():
+    area = info.select_one('p:nth-of-type(1)').text.strip()
+```
+
+### trim white space
+
+```
+name = namerank[0].strip()
+```
+
+### Write list per line to file 
+
+```
+def writeList(l, file_name):
+    with open(file_name, 'w') as f:
+        for i in l:
+            f.write('{}\n'.format(i))
+```
+
+### Not NoneType
+
+```
+if h2 is not None:
+    print(h2.text)
+```
+
+### to lowercase
+
+```
+'Hello'.lower()
+```
+
+### if directory exist
+
+```
+# if dirName not exists then create that directory
+if not os.path.exists(dirName):
+    os.mkdir(dirName)
+```
+
+### loop with index
+
+```
+for index, link in enumerate(profileList):
+    res = requests.get(link)
+    with open('{}/{}.txt'.format(dirName, index), mode='w') as f:
+        f.write(res.text)
+```
+
+### loop
+
+First inclusive, second exclusive.
+
+```
+In [2]: for i in range(1, 3):
+   ...:     print(i)
+   ...:     
+1
+2
+```
+
+### Non-fix params for function
+
+```
+def get_column_list_from_df(df, *column_name_list):
+    for column_name in column_name_list:
+        yield df.select(column_name).rdd.map(lambda r: r[column_name]).collect()
+
+lon, lat, temp = get_column_list_from_df(w_df, 'longitude', 'latitude', 'avg')
+```
+
+### zip
+
+Generate tuple list for multiple lists: [(lat1,lon1,ele1), (lat2,lon2,ele2), (lat3,lon3,ele3), ...]
+
+```
+tupleList = list(zip(flat_lats, flat_lons, flat_elevs))
+```
+
+### get year from datetime.date
+
+```
+max_year = max_date.year
+```
+
+### datetime.date to string
+
+```
+selected_date.strftime('%Y-%m-%d')
+```
+
+### middle date of 2 dates (datetime.date)
+
+```
+max_date = max(date)
+min_date = min(date)
+middle_date = min_date+(max_date-min_date)/2
+```
+
+### sort list
+
+```
+cur_m_list.sort()
+```
+
+### sort with descending order
+
+```
+my_list.sort(reverse=True)
+```
+
+### assign NaN to a variable
+
+```
+a = float('nan')
+```
+
+### min value
+
+```
+float("-inf")
+```
+
+### list to file
+
+```
+with open('{}/{}.txt'.format(dirName, user), mode='w') as f:
+    f.write('\n'.join(tweets))
+```
+
+### try except
+
+```
+for user_name in names:
+    try:
+        tweets_from_one_user(user_name)
+    except Exception as e:
+        print(e)
+```
+

@@ -1,0 +1,1571 @@
+---
+layout: post
+author: Hang Hu
+categories: frontend
+tags: FrontEnd 
+cover: 
+---
+
+## basics
+
+### headlines
+
+    <h1></h1>
+
+### paragraph
+
+    <p></p>
+
+### comment
+
+    <!--  -->
+
+### change color of h2 using style
+
+    <h2 style="color: blue">CatPhotoApp</h2>
+
+### css selector
+
+    <style>
+        h2{
+            color:red;
+        }
+    </style>
+
+### css class
+
+Can be used for style multiple elements
+
+    <style>
+        .blue-text {
+          color: blue;
+        }
+    </style>
+    <h2 class="blue-text">CatPhotoApp</h2>
+
+### multiple class to an element
+
+    <img class="class1 class2">
+
+### style font-size in css selector
+
+    <style>
+        p{
+            font-size:16
+          }
+    </style>
+
+### font-family
+
+```
+p {
+    font-size: 16px;
+    font-family:monospace
+  }
+```
+
+### import a google font Lobster
+
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
+
+    h2{
+
+        font-family:Lobster;
+
+    }
+
+### If Loster cannot found,degrad font to Monospace
+
+    h2 {
+
+      font-family: Lobster, Monospace;
+
+     }
+
+### image
+
+All image must have a alt attribute.
+
+
+    <img src="https://bit.ly/fcc-relaxing-cat" alt="cat">
+
+### width that controls element's width
+
+    .smaller-image{
+
+      width:100px;
+
+    }
+
+### border around element
+
+    .thick-green-border{
+
+      border-width:10px;
+
+      border-color:green;
+
+      border-style:solid;
+
+     }
+
+### border-radius for border's rounded corners 
+
+```
+  .thick-green-border {
+    border-color: green;
+    border-width: 10px;
+    border-style: solid;
+    border-radius:10px;(or 50%)
+  }
+```
+
+### anchor for links
+
+```
+<p>
+  View more <a href="http://www.freecatphotoapp.com">cat photos</a>
+</p>
+```
+
+### dead links using hash symbol
+
+    <p>Click here for <a href="#">cat photos</a>.</p>
+
+### surround image with anchor to turn image into link
+
+    <a href="# ">
+
+        <img class="smaller-image thick-green-border" src="https://bit.ly/fcc-relaxing-cat" alt="A cute orange cat lying on its back. ">
+
+    </a>
+
+### unordered list
+
+```
+<ul>
+  <li>milk</li>
+  <li>cheese</li>
+</ul>
+```
+
+### ordered list
+
+```
+<ol>
+  <li>Garfield</li>
+  <li>Sylvester</li>
+</ol>
+```
+
+## Form
+
+### text field
+
+    <input type="text">
+
+`input` elements are self-closing.
+
+### placeholder text
+
+Your placeholder text is what appears in your text input before your user has input anything.
+
+
+    <input type="text" placeholder="cat photo URL">
+
+### action for the address that browser submit
+
+```
+<form action="/submit-cat-photo">
+  <input type="text" placeholder="cat photo URL">
+</form>
+```
+
+### add submit button to a form
+
+```
+    <button type="submit">Submit</button>
+```
+
+### required field
+
+You can require specific form fields so that your user will not be able to submit your form until he or she has filled them out.
+
+```
+<input type="text" placeholder="cat photo URL" required>
+```
+
+### radio button
+
+All related radio buttons should have the same name attribute.
+
+Each radio button should be nested within its own label  
+
+```
+  <label><input type="radio" name="indoor-outdoor" value="indoor">Indoor</label>
+  <label><input type="radio" name="indoor-outdoor" value="outdoor">Outdoor</label>
+```
+
+### checkbox
+
+Each of your checkboxes should be nested within its own label element.  
+
+All related checkbox inputs should have the same name attribute.  
+
+```
+  <label><input type="checkbox" name="personality" value="loving"> Loving</label>
+  <label><input type="checkbox" name="personality" value="lazy"> Lazy</label>
+  <label><input type="checkbox" name="personality" value="energetic"> Energetic</label>
+```
+
+### check radio button and checkbox
+
+```
+  <label><input type="radio" name="indoor-outdoor" checked> Outdoor</label>
+  <label><input type="checkbox" name="personality" checked> Energetic</label>
+```
+
+## Div and id
+
+The div element, also known as a division element, is a general purpose container for other elements.
+
+### nest many elements within div
+
+```
+<div>
+</div>
+```
+
+### give a class to div
+
+```
+    .silver-background{
+      background-color:silver;
+    }
+    <div class="silver-background">
+    </div>
+```
+
+### id
+
+In addition to classes, each HTML element can also have an id attribute.  
+
+id attributes should be unique. Browsers won't enforce this, but it is a widely agreed upon best practice. So please don't give more than one element the same id attribute.
+
+```
+<form id="cat-photo-form" action="/submit-cat-photo">
+<h2 id="cat-photo-app">
+```
+
+### use id cat-photo-form style above form element
+
+Note that inside your style element, you always reference classes by putting a `.` in front of their names. You always reference ids by putting a `#` in front of their names.
+
+```
+#cat-photo-form{
+  background-color:green;
+}
+```
+
+## Padding and margin
+
+### padding, border and margin
+
+An element's padding controls the amount of space between the element and its border.
+
+Margin: the distance between the element's border and surrounding elements.
+
+```
+  .red-box {
+    background-color: red;
+    padding: 20px;
+    margin: 20px;
+  }
+```
+
+### negative margin
+
+If you set an element's margin to a negative value, the element will grow larger.  
+
+Change the margin of the green box to -15px, so it fills the entire horizontal width of the yellow box around it.  
+
+```
+  .green-box {
+    background-color: green;
+    padding: 20px;
+    margin: -15px;
+  }
+```
+
+### different padding to each side
+
+```
+  .green-box {
+    background-color: green;
+    padding-top:40px;
+    padding-right:20px;
+    padding-left:40px;
+    padding-bottom:20px;
+  }
+```
+
+### different margin to each side
+
+```
+  .green-box {
+    background-color: green;
+    margin-top:40px;
+    margin-right:20px;
+    margin-bottom:20px;
+    margin-left:40px;
+  }
+```
+
+### clockwise notation
+
+```
+  .green-box {
+    background-color: green;
+    padding:40px 20px 20px 40px;
+  }
+  .red-box {
+    background-color: red;
+    margin: 20px 40px 20px 40px;
+  }
+```
+
+### style body
+
+Remember, you can style your body element just like any other HTML element, and all your other elements will inherit your body element's styles.  
+
+```
+<style>
+  body{
+    background-color:black;
+  }
+</style>
+```
+
+## override
+
+### class override body
+
+Class override the body element's color: green; CSS property
+
+```
+<style>
+  body {
+    background-color: black;
+    font-family: Monospace;
+    color: green;
+  }
+  .pink-text{
+    color:pink;
+  }
+</style>
+<h1 class="pink-text">Hello World!</h1>
+```
+
+### subsequent class override previous one
+
+The order of the class declarations in the style section are what is important. The **last** declaration will always take precedence over the first.   
+
+```
+<style>
+  body {
+    background-color: black;
+    font-family: Monospace;
+    color: green;
+  }
+  .pink-text {
+    color: pink;
+  }
+  .blue-text{
+    color:blue;
+  }
+</style>
+<h1 class="blue-text pink-text">Hello World!</h1>
+```
+
+### id override class
+
+```
+<style>
+  body {
+    background-color: black;
+    font-family: Monospace;
+    color: green;
+  }
+  .pink-text {
+    color: pink;
+  }
+  .blue-text {
+    color: blue;
+  }
+  # orange-text{
+
+    color:orange;
+  }
+</style>
+<h1 id="orange-text" class="pink-text blue-text">Hello World!</h1>
+```
+
+### inline style override id
+
+```
+<style>
+  body {
+    background-color: black;
+    font-family: Monospace;
+    color: green;
+  }
+  # orange-text {
+
+    color: orange;
+  }
+  .pink-text {
+    color: pink;
+  }
+  .blue-text {
+    color: blue;
+  }
+</style>
+<h1 id="orange-text" class="pink-text blue-text" style="color:white">Hello World!</h1>
+```
+
+### important override all
+
+Remember that our pink-text class was overridden by subsequent class declarations, id declarations, and in-line styles.
+
+class pink-text uses important,so it overrides all other styles.
+
+```
+<style>
+  body {
+    background-color: black;
+    font-family: Monospace;
+    color: green;
+  }
+  # orange-text {
+
+    color: orange;
+  }
+  .pink-text {
+    color: pink !important;
+  }
+  .blue-text {
+    color: blue;
+  }
+</style>
+<h1 id="orange-text" class="pink-text blue-text" style="color: white">Hello World!</h1>
+```
+
+## color
+
+### Hex
+
+In CSS, we can use 6 hexadecimal digits to represent colors, two each for the red (R), green (G), and blue (B) components.
+
+The digit 0 is the lowest number in hex code, and represents a complete absence of color.
+
+The digit F is the highest number in hex code, and represents the maximum possible brightness.
+
+```
+<style>
+  body {
+    background-color: # 000000;
+
+  }
+</style>
+```
+
+Abbreviated Hex Code:
+
+```
+<style>
+  .red-text {
+    color: # F00;
+
+  }
+  .fuchsia-text {
+    color: # F0F;
+
+  }
+  .cyan-text {
+    color: # 0FF;
+
+  }
+  .green-text {
+    color: # 0F0;
+
+  }
+</style>
+```
+
+### RGB
+
+```
+<style>
+  body {
+    background-color: rgb(0,0,0);
+  }
+</style>
+```
+
+### attribute=value selector
+
+```
+			<form action="">
+				name:<input type="text" /><br/>
+				pass:<input type="password" /><br/>
+			</form>
+			<style>
+				input[type='text']{background-color: yellow}
+				input[type='password']{background-color: pink}
+			</style>
+```
+
+### element element selector
+
+Select and style every ```<p>``` element that is inside ```<div>``` elements:
+```
+
+			<div id="d1">
+
+				<div class="dd1">
+
+					<span>span1-1</span>
+
+				</div>
+
+				<div class="dd2">
+
+					<span>span1-2</span>
+
+				</div>
+
+			</div>
+
+			<div id="d2">
+
+				<div class="dd1">
+
+					<span>span1-1</span>
+
+				</div>
+
+				<div class="dd2">
+
+					<span>span1-2</span>
+
+				</div>
+
+			</div>
+
+			<style>
+
+				# d1 .dd2 span{color:red}
+
+			</style>
+
+```
+
+### background-image
+
+### for image repeat style
+
+background-repeat:repeat(default,repeat vertically and horizontally),no-repeat,repeat-y,repeat-x
+```
+
+		body{
+
+			background-color: black;
+
+			background-image: url("images/dog.gif");
+
+			background-repeat: repeat-y;
+
+		}
+
+```
+
+
+## HTML
+
+In sublime, type html and click tab, then it finishes the html prototype for you.
+
+`command + /`: comment the line
+
+`<title></title>` has two functions:
+1. Show in the tab
+
+2. collected by google as title.
+
+block element:
+inline element:
+
+`strong` means a little bit more than `bold`.
+`em` emphasis means more than `i`.
+
+`ol`: ordered list. We have to provide `li` list item inside it.
+
+`ul`: unordered list.
+
+```
+ul {
+  list-style-type: circle;
+}
+
+ol {
+  list-style-type: lower-roman;
+}
+```
+
+Of particular interest is `none`, which is commonly used when marking up **menu navigation** with a `<ul>` list. The `none` value allows the menu’s list items to be styled more like buttons.
+
+![menu structure]({{ site.url }}/assets/posts_img/list-items-for-menus-70abb2.png)
+
+`div`: block level container
+
+`span`: inline container
+
+### Attributes
+
+Key value pair.
+
+MDN attribute reference
+
+`img`: self closing tag.
+
+relative path
+
+thead and tbody.
+
+### `head`
+
+#### UTF-8 for international characters
+
+```
+<meta charset='UTF-8'/>
+```
+
+## form, input and label
+
+## input nested in input
+
+```
+<form action="http://www.wikipedia.org">
+    <label>
+        Username:
+        <input name="username" type="text" placeholder="username">
+    </label>
+    <label>
+        Password:
+        <input name="password" type="password" placeholder="password">
+    </label>
+    <input type="submit">
+</form>
+```
+
+
+## label and input connected by for and id
+
+
+```
+<form action="http://www.wikipedia.org">
+    <label for="username">Username:</label>
+    <input id="username" name="username" type="text" placeholder="username">
+    <label>Password:</label>
+    <input id="password" name="password" type="password" placeholder="password">
+    <input type="submit">
+</form>
+```
+
+`for` in `label` must match `id` in `input`.
+
+### change input's style
+
+```
+<div className="App">
+<input
+  type='file'
+  id='trainImage'
+  accept='image/png, image/jpeg'
+  style={{display: 'none'}}
+/>
+<label for='trainImage'>
+  Upload
+</label>
+```
+
+## Dropdown menu
+
+
+```
+<form action="test_submit" method="get" accept-charset="utf-8">
+    <label for="dog">Dog</label>
+    <input type="radio" id="dog" name="pet" value="dog">
+    <label for="cat">Cat</label>
+    <input type="radio" id="cat" name="pet" value="cat">
+    <select name="color">
+        <option value="red">Red</option>
+        <option value="orange">Orange</option>
+        <option value="yellow">Yellow</option>
+    </select>
+    <input type="text" name="text">
+    <textarea name="textarea" rows="5" cols="10"></textarea>
+    <button type="submit">Submit</button>
+</form>
+```
+
+
+## css
+
+### page-specific styles
+
+```
+<head>
+  <meta charset='UTF-8'/>
+  <title>Dummy</title>
+  <link rel='stylesheet' href='styles.css'/>
+  <style>
+    body {
+      color: #0000FF;    /* Blue */
+    }
+  </style>
+</head>
+```
+
+### inline styles
+
+```
+<p>Want to try crossing out an <a href='nowhere.html' style='color: #990000; text-decoration: line-through;'>obsolete link</a>? This is your chance!</p>
+```
+
+### multiple stylesheets
+
+```
+<head>
+  <link rel='stylesheet' href='styles.css'/>
+  <link rel='stylesheet' href='product.css'/>
+</head>
+```
+
+
+### inline
+
+
+```
+<h1 style="color: purple;">Register</h1>
+```
+
+
+### color rgba
+
+
+a means alpha(transparency) ranging from 0.0 - 1.0
+
+
+```
+h1  {
+    color: rgba(0, 0, 0, .5);
+}
+```
+
+
+Note that `.5` is equal to `0.5`.
+
+
+### Background picture
+
+
+```
+body    {
+    background: url(http://i2.cdn.cnn.com/cnnnext/dam/assets/150306150823-beautiful-japan-mt-daisen-tottori-super-169.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+```
+
+
+## Border
+
+
+border-color, border-width, border-style are required together, a border without color, width or style will show nothing.
+
+
+```
+h1  {
+    border-color: black;
+    border-width:5px;
+    border-style: solid;
+}
+```
+
+
+or
+
+
+```
+h1  {
+    border: 5px solid purple;
+}
+```
+
+### Rounded corner with `border-radius`
+
+```
+body > div:nth-of-type(3) > div > div{
+    border-radius: 30px;
+}
+```
+
+## CSS selectors
+
+
+### element/type
+
+
+```
+li{
+    
+}
+```
+
+
+### class
+
+
+```
+.hello{
+    
+}
+```
+
+
+### id
+
+
+```
+# name {
+
+    
+}
+```
+
+
+### Other selectors
+
+
+```
+
+```
+
+
+[https://code.tutsplus.com/tutorials/the-30-css-selectors-you-must-memorize--net-16048](https://code.tutsplus.com/tutorials/the-30-css-selectors-you-must-memorize--net-16048)
+
+## `nth-of-type`
+
+The `:nth-of-type()` CSS pseudo-class matches one or more elements of a given type, based on their position among **a group of siblings**.
+
+```
+<body>
+    <div>
+        <h2>The great</h2>
+        <h1></h1>
+        <h2>Guessing game</h2>
+    </div>
+    <div>
+        <div>
+            <h3>New colors</h3>
+        </div>
+        <div>
+            <h3>easy</h3>
+            <h3>hard</h3>   
+        </div>
+    </div>
+</body>
+```
+
+```
+div:nth-of-type(1){
+    background-color:blue;
+}
+```
+
+Two div Selected:
+
+1st `div` inside `body`.
+
+```
+<div>
+    <h2>The great</h2>
+    <h1></h1>
+    <h2>Guessing game</h2>
+</div>
+```
+
+1st `div` inside 2nd `div` of `body`
+
+```
+<div>
+    <h3>New colors</h3>
+</div>
+```
+
+### more `nth-of-type()`
+
+`nth-of-type(odd)`/`nth-of-type(2n+1)`: select odd ones
+
+`nth-of-type(even)`/`nth-of-type(2n)`: select even ones
+
+`span:nth-of-type(6n+2)` selects every 6th instance of a `span`, starting from (and including) the second instance.
+
+
+### `last-of-type`
+
+`div:last-of-type` selects the last `div` in every element.
+
+
+### `:empty`
+
+Selects elements that don't have any other elements inside of them.
+
+`div:empty` selects all empty `div` elements.
+
+Select the empty bentos: `bento:empty`
+
+### Attribute Selector
+
+Select all elements that have a specific attribute
+
+`[attribute]`
+Attributes appear inside the opening tag of an element, like this: `<span attribute="value">`. An attribute does not always have a value, it can be blank!
+
+Examples
+
+`a[href]` selects all a elements that have a `href="anything"` attribute.
+`[type]` selects all elements that have a `type="anything"` attribute.
+
+```
+<div class="table">
+    <bento>
+        <apple class="small" />
+    </bento>
+    <apple for="Ethan" />
+    <plate for="Alice">
+        <pickle />
+    </plate>
+    <bento for="Clara">
+        <orange />
+    </bento>
+    <pickle />
+</div>
+```
+
+Select the items for someone: `[for]`
+
+Select the `plates` for someone: `plate[for]`
+
+Select Clara's meal: `[for="Clara"]`
+
+### Attribute Starts With Selector
+
+Select all elements with an attribute value that starts with specific characters
+
+`[attribute^="value"]`
+
+Examples
+
+`.toy[category^="Swim"]` selects elements with class toy and category that starts with "Swim".
+
+### Attribute Ends With Selector
+
+Select all elements with an attribute value that ends with specific characters
+
+`[attribute$="value"]`
+
+Examples
+
+`img[src$=".jpg"]` selects all images ending with `.jpg`.
+
+### Attribute Wildcard Selector
+
+Select all elements with an attribute value that **contains** specific characters anywhere
+
+`[attribute*="value"]
+
+`A useful selector if you can identify a common pattern in things like class, href or src attributes.
+
+Examples
+
+`img[src*="/thumbnails/"]` selects all image elements that show images from the "thumbnails" folder.
+
+`[class*="heading"]` selects all elements with "heading" in their class, like class="main-heading" and class="sub-heading"
+
+## margin auto center
+
+```
+margin: 0 auto 0 auto;
+```
+
+Or
+
+```
+margin: 0 auto;
+```
+
+Or
+
+```
+margin: auto;
+```
+
+## Center h1
+
+```
+h1 {
+  text-align: center;
+}
+
+```
+
+```
+div#main {
+  width: 600px;
+  margin: 0 auto; 
+}
+```
+
+Setting the `width` of a block-level element will prevent it from stretching out to the edges of its container to the left and right. Then, you can set the left and right margins to `auto` to horizontally center that element within its container. The element will take up the width you specify, then the remaining space will be split evenly between the two margins.
+
+The only problem occurs when the browser window is narrower than the width of your element. The browser resolves this by creating a **horizontal scrollbar** on the page. Let's improve the situation...
+
+```
+div#main {
+  max-width: 600px;
+  margin: 0 auto; 
+}
+```
+
+
+Using `max-width` instead of `width` in this situation will improve the browser's handling of small windows. This is important when making a site usable on mobile. Resize this page to check it out!
+
+By the way, max-width is supported by all major browsers including IE7+ so you shouldn't be afraid of using it.
+
+## use float to clear white space between images
+
+```
+body > img {
+  width: 300px;
+  float: left;
+}
+```
+
+## Image Grids with div(better effect than table)
+
+```
+<body>
+    <img src="http://c1.staticflickr.com/9/8450/8026519634_f33f3724ea_b.jpg">
+    <img src="http://c2.staticflickr.com/8/7218/7209301894_c99d3a33c2_h.jpg">
+    <img src="http://c2.staticflickr.com/8/7231/6947093326_df216540ff_b.jpg">
+
+    <img src="http://c1.staticflickr.com/9/8788/17367410309_78abb9e5b6_b.jpg">
+    <img src="http://c2.staticflickr.com/6/5814/20700286354_762c19bd3b_b.jpg">
+    <img src="http://c2.staticflickr.com/6/5647/21137202535_404bf25729_b.jpg">
+
+    <img src="http://c2.staticflickr.com/6/5588/14991687545_5c8e1a2e86_b.jpg">
+    <img src="http://c2.staticflickr.com/4/3888/14878097108_5997041006_b.jpg">
+    <img src="http://c2.staticflickr.com/8/7579/15482110477_0b0e9e5421_b.jpg">
+</body>
+```
+
+```
+body > img {
+    width: 30%;
+    /*use float to clear white space between images*/
+    float: left;
+    /*and then control your own margin*/
+    margin: 1.66%;
+}
+```
+
+## Center img in td
+
+```
+td {
+  text-align: center;
+}
+```
+
+## cut the underline
+
+```
+h1 {
+  border-bottom: 2px solid gray;
+  width: 30%;
+}
+```
+
+## select element with class title
+
+```
+h1.title {
+  background-color: yellow;
+}
+```
+
+## Keep width 700px, while shrink less than 700px, make it 80%
+
+```
+body {
+  border: solid 20px #bdc3c7;
+  max-width: 700px;
+  width: 80%;
+  padding: 20px;
+  /*since width is fixed, use an auto margin*/
+  margin: 20px auto;
+}
+```
+
+## em vs rem
+
+`em`(pronounced like the letter m) is relative to the parent element.
+
+
+```
+body {
+    font-size: 2em;
+}
+h1 {
+    font-size: 2em;
+}
+```
+
+Then body is 2 times the size, and h1 is 4 times.
+
+
+`rem` is relative to the root one.
+
+root em.
+
+```
+body {
+    font-size: 2rem;
+}
+h1 {
+    font-size: 2rem;
+}
+```
+
+Both body and h1 is 2 times the size.
+
+## Bootstrap
+
+### Use form-group to group input and lable for optimum spacing
+
+```
+<div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+</div>
+```
+
+### form-control beauties input
+
+```
+<input type="email" class="form-control" id="exampleInputEmail2" placeholder="jane.doe@example.com">
+```
+
+## use container to quickly get margin spacing
+
+```
+<div class="container">
+</div>
+```
+
+
+## bootstrap 3
+
+```
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+```
+
+## navbar-brand is the company name, directing to homepage
+
+```
+<nav class="navbar navbar-default">
+    <div class="navbar-header">
+        <a href="#" class="navbar-brand">Koke</a>
+    </div>
+</nav>
+```
+
+Or inside `<a></a>`, use img instead of text.
+
+## navbar and dropdown in bootstrap depends on bootstrap Javascript, and bootstrap Javascript relies on jQuery
+
+```
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+```
+
+## nav
+
+```
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"><!--to make content in hamburger appear when clicking-->
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+            <a href="#" class="navbar-brand">Koke</a><!--Brand here-->
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"><!--put content you want to collapse here-->
+            <ul class="nav navbar-nav"><!--left content -->
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right"><!--right content -->
+                <li><a href="#">Sign Up</a></li>
+                <li><a href="#">Login</a></li>
+            </ul>
+        </div>
+        
+    </div>
+</nav>
+```
+
+
+## Add navbar-fixed-top to nav to have a fixed navbar
+
+```
+<nav class="navbar navbar-default navbar-fixed-top">
+```
+
+## Make home link active
+
+```
+<li class="active"><a href="#">Home</a></li>
+```
+
+## Grid For 4 Items, intelligent stacking
+
+When display is large/medium width, 4(4*3=12) items in a row.
+When display is small width,        2(2*6=12) items in a row.
+When display is extra small width,  1 item in a row.
+
+```
+<div class="row">
+    <div class="col-md-3 col-sm-6 pink">ABBB</div>
+    <div class="col-md-3 col-sm-6 pink">VBBB</div>
+    <div class="col-md-3 col-sm-6 pink">VBBB</div>
+    <div class="col-md-3 col-sm-6 pink">VBBB</div>
+</div>
+```
+
+Equals to
+
+```
+<div class="row">
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 pink">ABBB</div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 pink">VBBB</div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 pink">VBBB</div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 pink">VBBB</div>
+</div>
+```
+
+Explain:
+
+1. If medium is specified, large follows the specification
+2. Lower cases which are not specified, use 1 item in a row(stack items)
+
+## Nested row
+
+Note that the `row`  inside `col-xx-x` is required, otherwise the column can't be fully divided.
+
+```
+<div class="row">
+    <div class="col-md-3 col-sm-6 pink">
+        <div class="row"><!--row is required-->
+            <div class="col-lg-6 orange">First</div>
+            <div class="col-lg-6 orange">Second</div>   
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6 pink">VBBB</div>
+    <div class="col-md-3 col-sm-6 pink">VBBB</div>
+    <div class="col-md-3 col-sm-6 pink">VBBB</div>
+</div>
+```
+
+## Google font
+
+```
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet">
+```
+
+```
+body {
+    font-family: "Source Sans Pro";
+    font-weight: 700;
+}
+```
+
+
+## Thumbnail with grid
+
+```
+<div class="row">
+    <div class="col-md-4">
+        <div class="thumbnail">
+            <img src="https://images.unsplash.com/photo-1514806052094-33fd2075458b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=b26259946dcbb583b19161bd161f0a1d&auto=format&fit=crop&w=1050&q=80" alt="">
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="thumbnail">
+            <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=94a1e718d89ca60a6337a6008341ca50&auto=format&fit=crop&w=1050&q=80" alt="">
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="thumbnail">
+            <img src="https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1055&q=80" alt="">
+        </div>
+    </div>
+</div>
+```
+
+## Grid 3->2->1 items/row based on device(images of varying sizes)
+
+1. Use `row` for only one time
+2. Use `flex` to avoid white space bug
+3. `col-md-4` leads to 3/row, `col-sm-6` to 2/row
+
+The reason of white space bug(images of varying sizes):
+1. Images are all of the same width because of column restriction
+2. Images are of different height because they are of different in the beginning, and no stretch performed
+3. If you use multiples `row` for each row, then the `row` can organize images of different height
+4. If you use one `row` for all images to make the switch of 3->2 /row, white space slots may appear in images
+
+Solution of white space bug(images of varying sizes):
+1. Use flex, and the images are still of different height
+
+```
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+```
+
+2. Make images the same height(may lead to stretch)
+```
+.image {
+  width: 100%;
+  height: 250px;
+  background-size: cover;
+  background-position: center;
+}
+```
+
+
+I prefer flex, because fixed height will lead to stretch(for `img`) or crop(for `background-image`).
+
+```
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+```
+
+
+```
+<div class="row flex">
+    <div class="col-md-4 col-sm-6">
+        <div class="thumbnail">
+            <img src="https://images.unsplash.com/photo-1514806052094-33fd2075458b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=b26259946dcbb583b19161bd161f0a1d&auto=format&fit=crop&w=1050&q=80" alt="">
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-6">
+        <div class="thumbnail">
+            <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=94a1e718d89ca60a6337a6008341ca50&auto=format&fit=crop&w=1050&q=80" alt="">
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-6">
+        <div class="thumbnail">
+            <img src="https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1055&q=80" alt="">
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-6">
+        <div class="thumbnail">
+            <img src="https://images.unsplash.com/photo-1514806052094-33fd2075458b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=b26259946dcbb583b19161bd161f0a1d&auto=format&fit=crop&w=1050&q=80" alt="">
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-6">
+        <div class="thumbnail">
+            <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=94a1e718d89ca60a6337a6008341ca50&auto=format&fit=crop&w=1050&q=80" alt="">
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-6">
+        <div class="thumbnail">
+            <img src="https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1055&q=80" alt="">
+        </div>
+    </div>
+</div>
+```
+
+## Font awesome
+
+```
+<script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+```
+
+```
+<i class="fas fa-paw"></i>
+```
+
+
+## Make a landing page
+
+```
+<div id="landing">
+    <h1>Perfect Match</h1>
+    <div id="caption">
+        <h4>The only human-feline dating app</h4>
+    </div>
+    <button class="btn btn-default btn-lg">
+        <i class="fas fa-paw"></i>
+        Get Started!
+    </button>
+</div>
+```
+
+
+```
+#landing {
+    padding: 18%;
+    background-image: url(https://images.unsplash.com/photo-1522198684868-88edd8463fc9?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=19e6b72e6556179d4644fc3830a1ce85&auto=format&fit=crop&w=1050&q=80);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    text-transform: capitalize;
+    color: white;
+    text-align: center;
+}
+```
+
+
+## Decorate hr
+
+```
+hr {
+    width: 400px;
+    border-top: solid 1px #f8f8f8;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2)
+}
+```
+
+## login icon
+
+Note that `<i></i>` should be inside `<a></a>` to keep aligned with text "Login".
+
+```
+<a href="#">Login<i class="fas fa-user"></i></a>
+```
+
+
+## Use text-shadow
+
+```
+text-shadow: 0px 4px 3px rgba(0,0,0,0.4),
+                 0px 8px 13px rgba(0,0,0,0.1),
+                 0px 18px 23px rgba(0,0,0,0.1);
+```
+
+
+## Console Trick in google.com
+
+```
+var logo=document.querySelector("#hplogo");
+setInterval(function(){logo.width+=5;}, 1000)
+```
+
+
+## Bootstrap 4
+
+jQuery.js, popper.js(popup, dropdowns, colapse of navbar, etc), bootstrap.js is required as dependency of boorstrap. We need all of them to get the full bootstrap javascript functionality. Read "Show components requiring JavaScript", if you don't need any, you don't need the three JS imported.
+
+### blockquote
+
+```
+<blockquote class="blockquote">
+    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+    <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+</blockquote>
+```
+
+the cite usually be the work you are citing to, not the author.
+
+Use `text-right` if you want blockquote to be aligned in the right.
+
+```
+<blockquote class="blockquote text-right">
+    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+    <footer class="blockquote-footer">Someone famous in <cite title="Source Title">Source Title</cite></footer>
+</blockquote>
+```
+
+### default font size
+
+Default font size changed to 16 px in Boorstrap 4, which is default size of most browsers.
+
+Since it's using `rem` now, once change the font-size in `<html></html>`, all will be changed accordingly, which is good for mobile browser which has a different default font size.
+
+### border
+
+```
+<span class="border-top rounded-pill border-warning">AAAAAA</span>
+```
+
+
+### padding
+
+```
+<button class="btn btn-info p-5">Help</button>
+```
+
+5 - (by default) for classes that set the margin or padding to $spacer * 3.
+
+By default `spacer` is 1, so it will be 3 rem padding for the button.
+
+### margin
+
+```
+<p class="bg-success m-0">I am margin 0</p>
+```
+
+### breakpoints
+
+When the screen is small and above size, use padding 5.
+
+```
+<button class="btn btn-success p-sm-5">Button</button>
+```
+
+The classes are named using the format `{property}{sides}-{size}` for `xs` and `{property}{sides}-{breakpoint}-{size}` for `sm`, `md`, `lg`, and `xl`.
+
+If want to start from `xs`, then use `p-5` instead, there is no `p-xs-5`.
+
+When xs padding is 0, sm then 1, md then 2, lg then 3, xl then 4.
+
+```
+<button class="btn btn-danger p-0 p-sm-1 p-md-2 p-lg-3 p-xl-4">Button</button>
+```
+
+```
+<button class="btn btn-danger p-0 pl-sm-5 pt-md-5 pr-lg-5 pb-xl-5">Button</button>
+```

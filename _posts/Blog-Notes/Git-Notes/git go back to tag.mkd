@@ -1,0 +1,5 @@
+## Example
+
+```
+git reset --hard cmpt733-2018sp
+```

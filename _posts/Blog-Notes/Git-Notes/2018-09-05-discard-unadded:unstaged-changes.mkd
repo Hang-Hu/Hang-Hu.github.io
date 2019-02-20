@@ -5,6 +5,9 @@ categories: git
 tags: Blog Git 
 cover: 
 ---
+
+
+```
 git stash save --keep-index
 
 git stash drop
