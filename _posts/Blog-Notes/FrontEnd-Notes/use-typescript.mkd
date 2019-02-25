@@ -4,7 +4,13 @@
 npm install -g typescript
 ```
 
+Install tslint in vscode.
+
 ## Usage
+
+```
+tsc --init
+```
 
 ```
 tsc scraper.ts
@@ -12,4 +18,21 @@ tsc scraper.ts
 
 ```
 node scraper.js
+```
+
+
+## tslint with prettier
+
+Some tslint warning or error can be solved by prettier. So just let prettier to do formating and tslint for code quality.
+
+```
+npm i -D tslint-config-prettier
+```
+
+In `tslint.json`:
+
+```
+{
+    "extends": ["tslint:latest", "tslint-config-prettier"]
+}
 ```

@@ -1,0 +1,16 @@
+## install
+
+```
+npm i -D tslint-config-prettier
+```
+
+## Use
+
+```
+prettier --write src/1point3acresCheckin.ts
+```
+
+## format on save (vscode)
+
+Ctrl+Shift+P to open command pallete, choose `Preferences: Open Settings(JSON)`, add `"editor.formatOnSave": true` to user settings.
+
