@@ -1331,3 +1331,32 @@ for user_name in names:
         print(e)
 ```
 
+### append list content to list
+
+```
+res = []
+res.extend(encode)
+```
+
+### bytes to string
+
+use `decode`.
+
+```
+KEY = 'playbyplay20120510040.zip'
+with ZipFile(KEY, 'r') as z:
+    with z.open(KEY.replace('zip', 'txt')) as f:
+        for line in f.readlines():
+            line = line.decode("utf-8")
+```
+
+### read lines from zip file
+
+```
+with ZipFile(KEY, 'r') as z:
+    with z.open(KEY.replace('zip', 'txt')) as f:
+        for line in f.readlines():
+            line = line.decode("utf-8")
+            if 'bryant' in line.lower():
+                bryant.append(line)
+```
