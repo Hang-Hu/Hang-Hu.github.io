@@ -247,6 +247,23 @@ wikipedia = spark.read.csv(inputs, schema=wikipedia_schema, sep=' ')\
     .withColumn('hour', path_to_hour('filename'))
 ```
 
+### udf in function
+
+```
+def one_hot(arr):
+    res = []
+    for index in range(0, len(arr)):
+        if index in indices:
+            encode = [0.0]*len(list[index])
+            encode[list[index].index(arr[index])] = 1.0
+            res.extend(encode)
+        else:
+            res.append(float(arr[index]))
+    return res
+one_hot_udf = udf(lambda x: one_hot(x), ArrayType(FloatType()))
+newDF = newDF.withColumn('features', one_hot_udf('rawFeatures'))
+```
+
 ### list to dataframe pyspark
 
 ```
@@ -493,6 +510,48 @@ w_df = spark.sql(sql)
 df.select(column_name).rdd.map(lambda r: r[column_name]).collect()
 ```
 
+### rename column
+
+```
+newDF = newDF.withColumnRenamed('indexed_rawFeatures[{}]'.format(index), 'rawFeatures[{}]'.format(index))
+```
+
+### delete column
+
+```
+newDF = newDF.drop('rawFeatures[{}]'.format(index))
+```
+
+### split array column into more
+
+```
+features_num = len(df.select('rawFeatures').take(1)[0][0]);
+newDF = df.select([df.id] + [df.rawFeatures] + [df.rawFeatures[i] for i in range(features_num)])
+```
+
+### find unique string list in column
+
+```
+list = [None] * len(indices)
+for index in indices:
+    list[index] = [i[0] for i in newDF.select('rawFeatures[{}]'.format(index)).distinct().collect()]
+```
+
+### join without duplicate column
+
+Use
+
+```
+newDF = df.join(cluster_df, ['prediction'])
+```
+
+Instead of
+
+```
+newDF = df.join(cluster_df, df.prediction==clusterDF.prediction])
+```
+
 ## Reference
 
 [Pyspark 2.3.1 document](https://spark.apache.org/docs/2.3.1/api/python/pyspark.sql.html#pyspark.sql.functions.array)
+

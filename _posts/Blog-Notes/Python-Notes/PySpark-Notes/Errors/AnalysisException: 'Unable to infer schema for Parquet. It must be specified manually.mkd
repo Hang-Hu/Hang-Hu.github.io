@@ -1,0 +1,10 @@
+### Details
+
+```
+self.rawDF = spark.read.parquet(filename).cache()
+```
+
+## Reason
+
+Ususlly you are to read am empty directory
+
