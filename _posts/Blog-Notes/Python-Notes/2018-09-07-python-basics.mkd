@@ -1360,3 +1360,21 @@ with ZipFile(KEY, 'r') as z:
             if 'bryant' in line.lower():
                 bryant.append(line)
 ```
+
+
+### write dict and read
+
+Write dict:
+
+```
+import json
+with open('dict.txt', 'w') as f:
+    f.write(json.dumps(dict))
+```
+
+Read from file, I got a list.
+
+```
+with open('dict.txt', 'r') as f:
+    dictList = json.loads(f.read())
+```
