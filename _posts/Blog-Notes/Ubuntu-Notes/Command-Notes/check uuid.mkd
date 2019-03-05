@@ -1,0 +1,5 @@
+## Example
+
+```
+ls -al /dev/disk/by-uuid
+```
