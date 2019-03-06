@@ -1378,3 +1378,42 @@ Read from file, I got a list.
 with open('dict.txt', 'r') as f:
     dictList = json.loads(f.read())
 ```
+
+### regex match exact word lower/upper case, with/without punctuation
+
+```
+bryant
+bryant is a 
+Bryant has
+bryantant
+AAA
+brant
+bryan
+has Bryant
+asBryant
+Bryant's
+1Bryant1
+```
+
+returns
+
+```
+bryant
+bryant is a 
+Bryant has
+has Bryant
+Bryant's
+```
+
+```
+bryant = []
+KEY = 'log.zip'
+bryant_filename = 'bryant.txt'
+pattern = re.compile(r"\bbryant\b",re.I)
+with ZipFile(KEY, 'r') as z:
+    with z.open(KEY.replace('zip', 'txt')) as f:
+        for line in f.readlines():
+            line = line.decode("utf-8")
+            if len(pattern.findall(line))>0:
+                bryant.append(line)
+```
