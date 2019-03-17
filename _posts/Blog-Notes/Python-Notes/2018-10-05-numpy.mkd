@@ -167,3 +167,17 @@ In [14]: np.argsort([1,2,3,43,5])
 Out[14]: array([0, 1, 2, 4, 3])
 ```
 
+## permutation test
+
+```
+def permutation(a, b, numSamples):
+    count = 0
+    len_a = len(a)
+    con = np.concatenate([a, b])
+    for i in range(0, numSamples):
+        np.random.shuffle(con)
+        shuffled_diff = np.abs(np.mean(con[:len_a])-np.mean(con[len_a:]))
+        if shuffled_diff > diff:
+            count = count + 1
+    return count/numSamples
+```
