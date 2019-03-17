@@ -181,3 +181,6 @@ def permutation(a, b, numSamples):
             count = count + 1
     return count/numSamples
 ```
+
+[Video Youtub on Permutation Test](https://www.youtube.com/watch?v=Iq9DzN6mvYA&feature=youtu.be&t=8m9s)
+
