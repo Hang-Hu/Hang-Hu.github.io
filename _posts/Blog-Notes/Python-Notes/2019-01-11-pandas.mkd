@@ -58,10 +58,6 @@ df['research_interests'] = all_research_interests # all_research_interests is a 
 profileList = df['profile'].tolist()
 ```
 
-### scatter
-
-```
-```
 
 ### Series get min index
 
@@ -206,4 +202,35 @@ Type of column `YEAR_BUILT` was float64 at first.
 
 ```
 sort_df = sort_df.astype({"YEAR_BUILT": int})
+```
+
+### select rows whose `PROPERTY_POSTAL_CODE` starts with `V6A`
+
+Use `na=False` to remove `NaN` after `startswith`(some may not be string so `startswith` returns NaN), solve the error of `cannot index with vector containing NA / NaN values`.
+
+```
+df[df['PROPERTY_POSTAL_CODE'].str.startswith('V6A', na=False)]['PROPERTY_POSTAL_CODE']
+```
+
+### kind='scatter' plot
+
+```
+allyear_size = df.groupby('YEAR_BUILT').size()
+allyear_df = pd.DataFrame({'YEAR_BUILT': allyear_size.index, '# of Properties': allyear_size.values})
+ax = allyear_df[allyear_df['# of Properties']>2000].plot(kind='scatter', x='# of Properties', y='YEAR_BUILT')
+ax.set_ylim(bottom=1900)
+```
+
+### 25th percentile for each year
+
+I first group by year and then use quantile to calculate 25th percentile number for each year.
+
+```
+series_25th = houseDF.groupby('YEAR_BUILT')['HOUSE_PRICE'].quantile(0.25)
+```
+
+### Read mutiple json lines into DataFrame
+
+```
+pd.read_json('searchlog.json', lines=True)
 ```
