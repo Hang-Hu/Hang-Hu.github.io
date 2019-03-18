@@ -22,7 +22,7 @@ area_df = pd.DataFrame({'AREA': area_size.index, '# of Properties': area_size.va
 
 
 ```
-df.to_csv('faculty_table.csv', header=True, index=False)
+df.to_csv('faculty_table.csv', header=True)
 ```
 
 
@@ -234,3 +234,26 @@ series_25th = houseDF.groupby('YEAR_BUILT')['HOUSE_PRICE'].quantile(0.25)
 ```
 pd.read_json('searchlog.json', lines=True)
 ```
+
+### Association of 2 categories using chi-squared test
+
+```
+from scipy import stats
+
+obs = pd.crosstab(searchDF['is_instructor'], searchDF['search_ui'])
+print('===Contingency Table===\n', obs, '\n')
+chi2_stat, p_val, dof, ex = stats.chi2_contingency(obs)
+print('===Chi2 Stat===\n', chi2_stat, '\n')
+print('===Degrees of Freedom===\n', dof, '\n')
+print('===P-Value===\n', p_val, '\n')
+sig = 0.01
+if p_val<sig:
+    print('Some association between the is_instructor and search_ui is present.')
+else:
+    print('There is no association between is_instructor and search_ui.')
+```
+
+
+[chisq](http://www.stat.yale.edu/Courses/1997-98/101/chisq.htm)
+
+[scipy.stats.chi2_contingency](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.chi2_contingency.html?highlight=contingency#scipy.stats.chi2_contingency)

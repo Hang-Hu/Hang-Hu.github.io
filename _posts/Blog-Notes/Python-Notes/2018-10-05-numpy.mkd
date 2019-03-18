@@ -176,7 +176,7 @@ def permutation(a, b, numSamples):
     con = np.concatenate([a, b])
     for i in range(0, numSamples):
         np.random.shuffle(con)
-        shuffled_diff = np.abs(np.mean(con[:len_a])-np.mean(con[len_a:]))
+        shuffled_diff = np.mean(con[:len_a])-np.mean(con[len_a:])
         if shuffled_diff > diff:
             count = count + 1
     return count/numSamples
