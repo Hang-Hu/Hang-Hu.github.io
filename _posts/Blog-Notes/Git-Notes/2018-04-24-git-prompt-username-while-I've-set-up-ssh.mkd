@@ -8,4 +8,4 @@ cover:
 
 ## Solution
 
-Change the url from `HTTPS` to `SSH`, then it works well.
+Change the url from `HTTPS` to `SSH`, then it works well. For instance, use `git@github.com:USERNAME/REPONAME.git`.
