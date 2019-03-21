@@ -1,0 +1,65 @@
+## Description
+
+
+
+## Solution 
+
+Take every node as root, and compute the height, nodes with min height will be returned. I used dfs to compute the height, with depth as parameter. Trick to decrease time is, if current height is bigger than current minHeight in dfs height(), stop recursion and return directly (there is no need to compute any more).
+
+But still Time Exceeds Limit.
+
+```
+class Solution {
+    private int minHeight;
+    public List<Integer> findMinHeightTrees(int n, int[][] edges) {
+        List<Node> nodes = new ArrayList<>();
+        for(int i=0; i<n; i++){
+            nodes.add(new Node());
+        }
+        for(int[] pair: edges){
+            nodes.get(pair[0]).neighbors.add(pair[1]);
+            nodes.get(pair[1]).neighbors.add(pair[0]);
+        }
+        this.minHeight = n-1;
+        List<Integer> rootsOfMHT = new ArrayList<>();
+        for(int i=0; i<n; i++){
+            setUnvisited(nodes);
+            int height = height(i, nodes, 0);
+            if(height<this.minHeight){
+                this.minHeight = height;
+                rootsOfMHT.clear();
+                rootsOfMHT.add(i);
+            }else if(height==this.minHeight){
+                rootsOfMHT.add(i);
+            }
+        }
+        return rootsOfMHT;
+    }
+    private int height(int root, List<Node> nodes, int depth){
+        if(depth>this.minHeight)    return depth;
+        nodes.get(root).visited = true;
+        int max = depth;
+        for(int neighbor: nodes.get(root).neighbors){
+            Node neighborNode = nodes.get(neighbor);
+            if(neighborNode.visited == false){
+                max = Math.max(max, height(neighbor, nodes, depth+1));
+            }
+        }
+        return max;
+    }
+    private void setUnvisited(List<Node> nodes){
+        for(Node node: nodes){
+            node.visited = false;
+        }   
+    }
+}
+class Node {
+    boolean visited = false;
+    List<Integer> neighbors = new ArrayList<>();
+}
+```
+
+n is number of nodes, m is number of edges.
+
+Time: O(nlogn)
+Space: O(n+m)
