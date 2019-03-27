@@ -62,6 +62,10 @@ docker run breakwa11/shadowsocksr
 docker kill 2dfffcb5401a
 ```
 
+```
+docker container stop a896bb57c0c8
+```
+
 ## Remove container
 
 ```
