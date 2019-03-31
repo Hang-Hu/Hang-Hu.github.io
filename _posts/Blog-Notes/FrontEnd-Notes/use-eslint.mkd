@@ -1,75 +1,58 @@
-## Install
+## config
 
 ```
-npm install --save-dev eslint
+eslint --init
 ```
 
-```
-$ ll node_modules/.bin/
-
-total 8
-drwxr-xr-x   2 hang hang 4096 Feb 21 22:12 ./
-drwxr-xr-x 194 hang hang 4096 Feb 21 22:12 ../
-lrwxrwxrwx   1 hang hang   18 Feb 21 22:12 acorn -> ../acorn/bin/acorn*
-lrwxrwxrwx   1 hang hang   23 Feb 21 22:12 eslint -> ../eslint/bin/eslint.js*
-lrwxrwxrwx   1 hang hang   25 Feb 21 22:12 esparse -> ../esprima/bin/esparse.js*
-lrwxrwxrwx   1 hang hang   28 Feb 21 22:12 esvalidate -> ../esprima/bin/esvalidate.js*
-lrwxrwxrwx   1 hang hang   21 Feb 10 16:10 extract-zip -> ../extract-zip/cli.js*
-lrwxrwxrwx   1 hang hang   25 Feb 21 22:12 js-yaml -> ../js-yaml/bin/js-yaml.js*
-lrwxrwxrwx   1 hang hang   14 Feb 10 16:10 mime -> ../mime/cli.js*
-lrwxrwxrwx   1 hang hang   20 Feb 10 16:10 mkdirp -> ../mkdirp/bin/cmd.js*
-lrwxrwxrwx   1 hang hang   16 Feb 10 16:10 rimraf -> ../rimraf/bin.js*
-lrwxrwxrwx   1 hang hang   20 Feb 21 22:12 semver -> ../semver/bin/semver*
-lrwxrwxrwx   1 hang hang   23 Feb 10 16:21 sshpk-conv -> ../sshpk/bin/sshpk-conv*
-lrwxrwxrwx   1 hang hang   23 Feb 10 16:21 sshpk-sign -> ../sshpk/bin/sshpk-sign*
-lrwxrwxrwx   1 hang hang   25 Feb 10 16:21 sshpk-verify -> ../sshpk/bin/sshpk-verify*
-lrwxrwxrwx   1 hang hang   16 Feb 10 16:21 uuid -> ../uuid/bin/uuid*
-lrwxrwxrwx   1 hang hang   18 Feb 21 22:12 which -> ../which/bin/which*
-```
-
-## Setup configuration file for eslint
+### For React
 
 ```
-$ node_modules/eslint/bin/eslint.js src/ --init
-? How would you like to use ESLint? To check syntax and find problems
-? What type of modules does your project use? CommonJS (require/exports)
-? Which framework does your project use? None of these
-? Where does your code run? (Press <space> to select, <a> to toggle all, <i> to invert selection)Browser
-? What format do you want your config file to be in? JSON
-Successfully created .eslintrc.json file in /home/hang/Documents/CodeSpace/code4Javascript/NodeJS/scraper
+{
+    "env": {
+        "browser": true,
+        "es6": true
+    },
+    "extends": ["prettier", "eslint:recommended"],
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 2018,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react"
+    ],
+    "rules": {
+        "no-unused-vars": "off"
+    }
+}
 ```
 
+## Use prettier with eslint in vscode
 
-## Use eslint
-
-```
-$ node_modules/eslint/bin/eslint.js src/
-```
-
-
-Or simply,
+Turn off ESLint's formatting rules
 
 ```
-npx eslint src/
+npm install --save-dev eslint-config-prettier
 ```
 
-
-## Global install
-
-If you want to make ESLint available to tools that run across all of your projects, we recommend installing ESLint globally. You can do so using npm:
+.eslintrc.json:
 
 ```
-$ npm install -g eslint
+{
+  "extends": ["prettier", "eslint:recommended"]
+}
 ```
 
-You should then setup a configuration file:
+### vscode settings for prettier used with eslint
+
+vscode settings.json(Ctrl+Shift+P) to open command pallete, choose `Preferences: Open Settings(JSON)`, add the following to user settings.
 
 ```
-$ eslint --init
-```
-
-After that, you can run ESLint on any file or directory like this:
-
-```
-$ eslint yourfile.js/yourfolder
+"prettier.eslintIntegration": true
 ```

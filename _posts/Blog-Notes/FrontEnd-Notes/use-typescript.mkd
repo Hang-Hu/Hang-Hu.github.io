@@ -6,6 +6,23 @@ npm install -g typescript
 
 Install tslint in vscode.
 
+## config
+
+`tslint.json`:
+
+```
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "sourceMap": true,
+        "esModuleInterop": true,
+        "watch": true
+    },
+
+    "extends": ["tslint:latest", "tslint-config-prettier"]
+}
+```
+
 ## Usage
 
 ```

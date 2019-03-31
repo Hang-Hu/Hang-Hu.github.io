@@ -1,0 +1,9 @@
+## update all packages
+
+```
+ncu
+ncu -u
+rm -r node_modules/
+npm install
+```
+
