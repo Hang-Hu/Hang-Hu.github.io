@@ -10,7 +10,7 @@ mkdir -p src/main/scala/example
 
 ```
 cd src/main/scala/example/
-subl  Hello.scala
+vim  Hello.scala
 ```
 
 ```
@@ -48,6 +48,12 @@ version := "0.1"
 scalaVersion := "2.10.5"
 javacOptions ++= Seq("-source", "1.8", "-target", "1.8")
 mainClass in Compile := Some("Hello") // your class name is Hello
+```
+
+## package
+
+```
+sbt package
 ```
 
 ## Run pyspark and call sayhi in Hello

@@ -5,6 +5,8 @@ categories: react
 tags: Blog FrontEnd React 
 cover: 
 ---
+
+```
 npx create-react-app lumohacks
 ```
 
@@ -64,4 +66,14 @@ npm install @material-ui/core
 
 ```
 npm install @material-ui/icons
+```
+
+### Change port number
+
+Edit `package.json`, add `PORT=3001` before `react-scripts start`.
+
+```
+"scripts": {
+    "start": "PORT=3001 react-scripts start",
+}
 ```

@@ -1,0 +1,41 @@
+### Install express generator
+
+
+```
+npm install express-generator -g
+```
+
+### Generate express skeleton
+
+```
+mkdir fake-news-backend-express
+cd fake-news-backend-express
+```
+
+Run express generator, the name in package.json is directory name, fake-news-backend-express",
+
+
+```
+express --view=pug
+```
+
+```
+npm install
+```
+
+```
+DEBUG=fake-news-backend-express:* npm start
+```
+
+### Enable CORS
+
+```
+npm install cors
+```
+
+Append to app.js
+
+```
+const cors = require("cors");
+app.use(cors());
+```
