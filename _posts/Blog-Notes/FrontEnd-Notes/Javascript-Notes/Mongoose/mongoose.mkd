@@ -1,0 +1,5 @@
+### Close connection to MongoDB
+
+```
+mongoose.connection.close()
+```
