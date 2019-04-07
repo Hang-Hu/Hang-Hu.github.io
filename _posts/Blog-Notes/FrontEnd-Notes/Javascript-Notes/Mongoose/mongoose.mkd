@@ -3,3 +3,69 @@
 ```
 mongoose.connection.close()
 ```
+
+### Schema
+
+```
+const mongoose = require("mongoose");
+// const validator = require("validator");
+
+const newsSchema = new mongoose.Schema({
+  news_id: {
+    type: String,
+    unique: true,
+    required: true
+  },
+  news_keyword: String,
+  news_url: String,
+  news_tokens: String,
+  favorite_count: Number,
+  tweets_tokens: String,
+  comment_time: String,
+  weighted_sentiment_score: Number,
+  datetime: Date
+});
+
+module.exports = mongoose.model("news", newsSchema);
+```
+
+### All unique dates
+
+`news` is the name of a collection.
+
+```
+> db.news.distinct('datetime')
+[ ISODate("2019-04-05T00:00:00Z") ]
+```
+
+### Return array of one field
+
+the first `{}` is query condition, `_id: 0` means don't return object id.
+
+```
+> db.news.find({}, {news_url: 1, _id:0})
+{ "news_url" : "https://www.laineygossip.com/charlize-theron-and-seth-rogen-present-long-shot-at-cinemacon/52384" }
+{ "news_url" : "https://www.thegatewaypundit.com/2019/04/huge-massive-crowd-of-supporters-greets-president-trump-in-calexico-california-video/" }
+{ "news_url" : "https://www.opindia.com/2019/04/rahul-gandhi-2019-election-affidavit-assets-grew-by-1600-under-upa-but-just-by-70-under-modi-government/" }
+{ "news_url" : "https://n.carhur.com/2VphyqL" }
+```
+
+### Find news by certain url
+
+```
+> db.news.find({news_url: "https://n.carhur.com/2VphyqL"})
+```
+
+### Find news by date
+
+```
+db.news.find({ datetime: new Date('2019-04-05') })
+```
+
+### Find news without highest favoriate count
+
+```
+> db.news.find({ datetime: new Date('2019-04-05') }).sort({ favorite_count: -1 }).limit(1)
+{ "_id" : ObjectId("5ca961639682296834f40ab9"), "news_id" : "0b3ee576-7b42-4bd3-a9f5-99f9c7390992", "news_keyword" : "Stars", "news_url" : "https://www.laineygossip.com/charlize-theron-and-seth-rogen-present-long-shot-at-cinemacon/52384", "weighted_sentiment_score" : 0.35103604318439097, "datetime" : ISODate("2019-04-05T00:00:00Z"), "__v" : 0 }
+```
+

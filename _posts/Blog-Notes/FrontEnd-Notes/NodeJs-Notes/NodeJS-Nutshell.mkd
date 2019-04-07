@@ -4,6 +4,13 @@
 const auth = require('../resource/auth.json');
 ```
 
+Or 
+
+```
+const path = require("path");
+const newsArr = JSON.parse(fs.readFileSync(path.join(__dirname, "news.json")));
+```
+
 ### write list to file
 
 ```
