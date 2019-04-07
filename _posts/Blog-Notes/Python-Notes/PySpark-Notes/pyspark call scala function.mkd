@@ -1,0 +1,64 @@
+## Write scale code
+
+```
+mkdir scala-proj
+cd scala-proj
+touch build.sbt
+mkdir -p src/main/scala/example
+```
+
+
+```
+cd src/main/scala/example/
+subl  Hello.scala
+```
+
+```
+package example
+
+object Hello extends App {
+  println("Hello")
+  def sayhi = println("hello world")
+}
+```
+
+## Directory structure
+
+```
+.
+├── build.sbt
+├── project
+├── src
+│   └── main
+│       └── scala
+│           └── example
+│               ├── Hello.scala
+└── target
+    ├── scala-2.10
+    │   ├── project_2.10-0.1.jar
+```
+
+## create build.sbt
+
+In `build.sbt`:
+
+```
+name := "Project"
+version := "0.1"
+scalaVersion := "2.10.5"
+javacOptions ++= Seq("-source", "1.8", "-target", "1.8")
+mainClass in Compile := Some("Hello") // your class name is Hello
+```
+
+## Run pyspark and call sayhi in Hello
+
+```
+pyspark --driver-class-path target/scala-2.10/project_2.10-0.1.jar
+```
+
+```
+>>> o = sc._jvm.example.Hello
+>>> o.sayhi()
+hello world
+```
+
