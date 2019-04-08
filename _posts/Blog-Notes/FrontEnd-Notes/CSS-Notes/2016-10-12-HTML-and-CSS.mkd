@@ -1569,3 +1569,14 @@ When xs padding is 0, sm then 1, md then 2, lg then 3, xl then 4.
 ```
 <button class="btn btn-danger p-0 pl-sm-5 pt-md-5 pr-lg-5 pb-xl-5">Button</button>
 ```
+
+### Select odd date to have left margin and even date to right margin
+
+```
+.vertical-timeline-element:nth-child(2n+1) span.vertical-timeline-element-date {
+    margin-left: 8%;
+}
+.vertical-timeline-element:nth-child(2n) span.vertical-timeline-element-date {
+    margin-right: 8%;
+}
+```
