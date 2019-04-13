@@ -4447,6 +4447,37 @@ promise2
 setTimeout0
 ```
 
+### Promise Chaining in ExpressJS
+
+```
+let findMostPopularByDate = date => {
+  return NewsModel.find({ date: new Date(date) }, { news_id: 1, _id: 0 })
+    .sort({ favorite_count: -1 })
+    .limit(1)
+    .then(news => news[0])
+    .catch(err => {
+      console.error(err);
+    });
+};
+exports.findMostPopularNewsInfoByDate = (req, res) => {
+  findMostPopularByDate(req.params.date).then(id => {
+    NewsModel.find(
+      { news_id: id.news_id },
+      { _id: 0, news_image: 1, news_url: 1, news_title: 1 }
+    )
+      .then(doc => {
+        res.send(doc[0]);
+      })
+      .catch(err => {
+        console.error(err);
+        res.status(500).send({
+          message: "Something wrong with findMostPopularNewsInfoByDate."
+        });
+      });
+  });
+};
+```
+
 ### Promise.all
 Accepts an array of promises and resolves all of them or rejects once a single one of the promises has been first rejected (fail fast).
 
