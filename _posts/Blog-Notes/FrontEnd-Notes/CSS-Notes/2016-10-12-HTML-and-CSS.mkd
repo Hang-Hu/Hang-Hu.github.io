@@ -1580,3 +1580,11 @@ When xs padding is 0, sm then 1, md then 2, lg then 3, xl then 4.
     margin-right: 8%;
 }
 ```
+
+### Best way to handle images of different into the same width and height grid
+
+```
+object-fit: cover;
+```
+
+[object-fit](https://developer.mozilla.org/en-US/docs/Web/CSS/object-fit)
