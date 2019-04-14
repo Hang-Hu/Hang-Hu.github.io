@@ -1591,7 +1591,7 @@ object-fit: cover;
 
 ### Make a landing page
 
-100% `height` makes backgroup the same size as text, background-image sets the background image. `padding-top` and `padding-bottom` give more space to show image and make sure space higher than title and space lower than title are both 18%.
+100% `height` makes backgroup the same size as text, background-image sets the background image. `padding-top` and `padding-bottom` give more space to show image and make sure space higher than title and space lower than title are both 18%. `background-repeat: no-repeat` makes sure image won't be repeated. `background-size: cover` is similiar to `object-fite: cover`, but since it's background image, so `object-fite: cover` won't work here. `background-position: center` is to adjust the cover image's appearing part is the center part. 
 
 ```
 <h1 className='landing'>{this.state.title}</h1>
@@ -1603,5 +1603,8 @@ object-fit: cover;
     height: 100%;
     padding-top: 18%;
     padding-bottom: 18%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 ```
