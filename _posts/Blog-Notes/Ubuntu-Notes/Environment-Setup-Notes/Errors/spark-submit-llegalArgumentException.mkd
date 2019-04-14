@@ -2,11 +2,11 @@
 
 ```
 Traceback (most recent call last):
-File "/home/hha107/Downloads/hha107_a7/anomaly_detection.py", line 106, in <module>
+File "/path/anomaly_detection.py", line 106, in <module>
 anomalies = ad.detect(2, 0.9)
-File "/home/hha107/Downloads/hha107_a7/anomaly_detection.py", line 66, in detect
+File "/path/anomaly_detection.py", line 66, in detect
 df1 = self.cat2Num(self.rawDF, [0, 1]).cache()
-File "/home/hha107/Downloads/hha107_a7/anomaly_detection.py", line 38, in cat2Num
+File "/path/anomaly_detection.py", line 38, in cat2Num
 my_list[index] = [i[0] for i in newDF.select('rawFeatures[{}]'.format(index)).distinct().collect()]
 File "/opt/spark-2.3.1-bin-hadoop2.7/python/lib/pyspark.zip/pyspark/sql/dataframe.py", line 466, in collect
 File "/opt/spark-2.3.1-bin-hadoop2.7/python/lib/py4j-0.10.7-src.zip/py4j/java_gateway.py", line 1257, in __call__
