@@ -38,16 +38,3 @@ Type=Application
 Categories=Application;Development;
 ```
 
-## Prolong
-
-Delete `system.reg` will make navicat collapsed.
-
-Delete `.navicat64` will work.
-
-```
-rm -r /home/joanna/.navicat64
-```
-
-## Restore Font
-
-Tools->Option->General-> GUI Fonts, choose by clicking instead of typing for typing may leads to error.
