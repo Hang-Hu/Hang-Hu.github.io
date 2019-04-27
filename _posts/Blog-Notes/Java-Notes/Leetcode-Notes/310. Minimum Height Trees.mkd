@@ -63,3 +63,115 @@ n is number of nodes, m is number of edges.
 
 Time: O(nlogn)
 Space: O(n+m)
+
+## First Non Time Exceed Solution
+
+Based on typological order. Remove leaves until one node or no node left. If one node left, this one is the one in the middle, whose MHT is minimum. If no node left, the previous set of nodes is MHT.
+
+For example, remove leaves 0, 2, 3, 1 left
+
+```
+Input: n = 4, edges = [[1, 0], [1, 2], [1, 3]]
+
+        0
+        |
+        1
+       / \
+      2   3 
+
+Output: [1]
+```
+
+Example 2, remove leaves 0, 1, 2, 5, I have 3, 4 left, remove leaves 3, 4, nothing remains in graph. Then the previous nodes in graph [3, 4] is the answer.
+
+```
+Input: n = 6, edges = [[0, 3], [1, 3], [2, 3], [4, 3], [5, 4]]
+
+     0  1  2
+      \ | /
+        3
+        |
+        4
+        |
+        5 
+
+Output: [3, 4]
+```
+
+```
+class Solution {
+    public List<Integer> findMinHeightTrees(int n, int[][] edges) {
+        Node[] nodes = new Node[n];
+        initNodes(nodes);
+        addEdges(nodes, edges);
+        List<Node> nodeList = new ArrayList<>();
+        initNodeList(nodeList, nodes);
+        List<Node> preList = new ArrayList<>();
+        while(nodeList.size()>1){
+            preList = new ArrayList<>(nodeList);
+            removeNodeOfOneNeighbor(nodeList);
+        }
+        if(nodeList.size()==0)  return nodeListToIntList(preList);
+        else                    return nodeListToIntList(nodeList);
+    }
+    private void initNodes(Node[] nodes){
+        for(int i=0; i<nodes.length; i++){
+            nodes[i] = new Node(i);
+        }
+    }
+    private Node findNodeByVal(int val, Node[] nodes){
+        return nodes[val];
+    }
+    private void addEdges(Node[] nodes, int[][] edges){
+        for(int i=0; i<edges.length; i++){
+            Node node1 = findNodeByVal(edges[i][0], nodes);
+            Node node2 = findNodeByVal(edges[i][1], nodes);
+            node1.addNeighbor(node2);
+            node2.addNeighbor(node1);
+        }
+    }
+    private void removeNodeOfOneNeighbor(List<Node> nodeList){
+        List<Node> nodesToRemove = new ArrayList<>();
+        for(int i=0; i<nodeList.size(); i++){
+            Node node = nodeList.get(i);
+            if(node.neighbors.size()==1){
+                nodesToRemove.add(node);
+            }
+        }
+        for(Node nodeToRemove: nodesToRemove){
+            nodeList.remove(nodeToRemove);
+            if(!nodeToRemove.neighbors.isEmpty())   nodeToRemove.neighbors.get(0).removeNeighbor(nodeToRemove);
+        }
+    }
+    private void initNodeList(List<Node> nodeList, Node[] nodes){
+        for(int i=0; i<nodes.length; i++){
+            nodeList.add(nodes[i]);
+        }
+    }
+    private List<Integer> nodeListToIntList(List<Node> nodeList){
+        List<Integer> ans = new ArrayList<>();
+        for(Node node: nodeList){
+            ans.add(node.val);
+        }
+        return ans;
+    }
+}
+class Node {
+    int val;
+    List<Node> neighbors;
+    public Node(int val) {
+        this.val = val;
+        this.neighbors = new ArrayList<>();
+    }
+    public void addNeighbor(Node neighbor){
+        neighbors.add(neighbor);
+    }
+    public void removeNeighbor(Node neighbor){
+        neighbors.remove(neighbor);
+    }
+    @Override
+    public String toString(){
+        return "" + this.val;
+    }
+}
+```
