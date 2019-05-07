@@ -179,3 +179,110 @@ class Node {
 Time: O(n^2)
 Space: O(n^2)
 
+## Version 2
+
+First BFS to find a leaf, second BFS from that leaf to mark level for every node. DFS to find nodes with middle level in the path to maxLevel.
+
+
+```
+class Solution {
+    public List<Integer> findMinHeightTrees(int n, int[][] edges) {
+        Node[] nodes = new Node[n];
+        initNodes(nodes);
+        addEdges(nodes, edges);
+        Node leaf = bfs(findNodeByVal(0, nodes));
+        
+        setNotVisited(nodes);
+        int maxLevel = bfs(leaf).level;
+        
+        List<Node> res = new ArrayList<>();
+        setNotVisited(nodes);
+        Set<Integer> levelSet = new HashSet<>();
+        levelSet.add(maxLevel/2);
+        if(maxLevel%2==0){
+            dfs(leaf, res, levelSet, maxLevel);
+        }else{
+            levelSet.add(maxLevel/2+1);
+            dfs(leaf, res, levelSet, maxLevel);
+        }
+        
+        return res.stream().map(node -> node.val).collect(Collectors.toList());
+    }
+    private boolean dfs(Node node, List<Node> res, Set<Integer> levelSet, int maxLevel){
+        if(node.visited==true)              return false;
+        if(levelSet.contains(node.level))   res.add(node);
+        if(node.level == maxLevel)          return true;
+        node.visited = true;
+        for(Node next: node.neighbors){
+            if(dfs(next, res, levelSet, maxLevel)==true)   return true;
+        }
+        res.remove(node);
+        return false;
+    }
+    private void setNotVisited(Node[] nodes){
+        for(Node node: nodes){
+            node.visited = false;
+        }
+    }
+    private Node bfs(Node node){
+        Queue<Node> q = new LinkedList<>();
+        q.add(node);
+        node.level = 0;
+        Node pollNode = null;
+        while(!q.isEmpty()){
+            pollNode = q.poll();
+            pollNode.visited = true;
+            for(Node next: pollNode.neighbors){
+                if(next.visited==false){
+                    q.add(next);
+                    next.level = pollNode.level+1;
+                }
+            }
+        }
+        return pollNode;
+    }
+    private void initNodes(Node[] nodes){
+        for(int i=0; i<nodes.length; i++){
+            nodes[i] = new Node(i);
+        }
+    }
+    private Node findNodeByVal(int val, Node[] nodes){
+        return nodes[val];
+    }
+    private void addEdges(Node[] nodes, int[][] edges){
+        for(int i=0; i<edges.length; i++){
+            Node node1 = findNodeByVal(edges[i][0], nodes);
+            Node node2 = findNodeByVal(edges[i][1], nodes);
+            node1.addNeighbor(node2);
+            node2.addNeighbor(node1);
+        }
+    }
+
+
+}
+class Node {
+    int val;
+    List<Node> neighbors;
+    int level;
+    boolean visited;
+    public Node(int val) {
+        this.val = val;
+        this.neighbors = new ArrayList<>();
+        this.visited = false;
+    }
+    public void addNeighbor(Node neighbor){
+        neighbors.add(neighbor);
+    }
+    public void removeNeighbor(Node neighbor){
+        neighbors.remove(neighbor);
+    }
+    @Override
+    public String toString(){
+        return " " + this.val + " " + this.level;
+    }
+}
+```
+
+
+Time: O(n)
+Space: O(n)
