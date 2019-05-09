@@ -1,0 +1,101 @@
+## Description
+
+```
+There are a total of n courses you have to take, labeled from 0 to n-1.
+
+Some courses may have prerequisites, for example to take course 0 you have to first take course 1, which is expressed as a pair: [0,1]
+
+Given the total number of courses and a list of prerequisite pairs, is it possible for you to finish all courses?
+
+Example 1:
+
+Input: 2, [[1,0]] 
+Output: true
+Explanation: There are a total of 2 courses to take. 
+             To take course 1 you should have finished course 0. So it is possible.
+Example 2:
+
+Input: 2, [[1,0],[0,1]]
+Output: false
+Explanation: There are a total of 2 courses to take. 
+             To take course 1 you should have finished course 0, and to take course 0 you should
+             also have finished course 1. So it is impossible.
+Note:
+
+The input prerequisites is a graph represented by a list of edges, not adjacency matrices. Read more about how a graph is represented.
+You may assume that there are no duplicate edges in the input prerequisites.
+```
+
+## Solution
+
+Find all sources, start from each to detect any cycle(dfs+set). If no cycle, check if exist component that has cycle so there is no source(exist node that not visited but points to other course).
+
+
+```
+// Since 0 to n-1 uniquesly represents the node, use hashmap for node -> nextNodes
+class Solution {
+    Map<Integer, List<Integer>> map = new HashMap<>();
+    Map<Integer, Integer> incomingEdgesMap = new HashMap<>(); // (courseNo, number of incoming edges for this course)
+    Set<Integer> visitedCourses = new HashSet<>();
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        if(prerequisites.length==0) return true;
+        initGraph(prerequisites);
+        List<Integer> sourceList = findSources(numCourses);
+        if(sourceList.size()==0)  return false;
+        // try all sources, if one has cycle, then cannot finish
+        for(Integer source: sourceList){
+            if(hasCycle(source))    return false;
+        }
+        // for any courses not visited, if it has next course, it shows that it's not visited from source, indicating there is a cycle so cannot find a source that can visit this course.
+        // 1--->2
+        //  \<-/
+        for(int i=0; i<numCourses; i++){
+            if(!this.visitedCourses.contains(i) && this.map.containsKey(i)){
+                 return false;
+            }
+        }
+        return true;
+    }
+    private List<Integer> findSources(int numCourses){
+        List<Integer> ans = new ArrayList<>();
+        
+        for(int i=0; i<numCourses; i++){
+            // source has not imcoming edges, and must have next nodes
+            if(this.incomingEdgesMap.containsKey(i)==false && this.map.containsKey(i)) ans.add(i);
+        }
+        return ans;
+    }
+    private boolean hasCycle(int sourceCourse){
+        Set<Integer> visitedPath = new HashSet<>();
+        return dfs(visitedPath, sourceCourse);
+    }
+    private boolean dfs(Set<Integer> visitedPath, int courseNum){
+        this.visitedCourses.add(courseNum);
+        if(visitedPath.contains(courseNum))  return true;
+        visitedPath.add(courseNum);
+        if(this.map.get(courseNum) == null) return false;
+        for(Integer next: this.map.get(courseNum)){
+            if(dfs(visitedPath, next))   return true;
+            visitedPath.remove(next);
+        }
+        // cannot use visitedPath.remove(courseNum); instead of next here because 3rd line return without going through this line, then not remove at all
+        return false;
+    }
+    private void initGraph(int[][] prerequisites){
+        for(int i=0; i<prerequisites.length; i++){
+            int course = prerequisites[i][0];
+            int preCourse = prerequisites[i][1];
+            if(this.incomingEdgesMap.containsKey(course)){
+                this.incomingEdgesMap.put(course, this.incomingEdgesMap.get(course)+1);
+            }else{
+                this.incomingEdgesMap.put(course, 1);
+            }
+            if(this.map.containsKey(preCourse)){
+                this.map.get(preCourse).add(course);
+            }else{
+                this.map.put(preCourse, new ArrayList<Integer>(){{add(course);}});
+            }
+        }
+    }
+}
+```
