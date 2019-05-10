@@ -1,0 +1,83 @@
+##  Course Schedule I
+
+##  Course Schedule II
+
+### Desp
+
+### First Solution
+
+Init graph with hashmap, find all sources(no incoming edge but has next node), loop with each source. For each source, remove node with no incoming edges until so such node, at removal time add the removed node to ans. Finishing all sources, if still remains edge, it shows cycle exists in graph, return empty array. Otherwise add nodes not in prerequisites to ans, with the help of bit map. First round mark node in prerequisites to true, second round add false node to ans.
+
+```
+class Solution {
+    Map<Integer, List<Integer>> map = new HashMap<>();
+    Map<Integer, Integer> incomingEdgesMap = new HashMap<>();
+    Set<Integer> nodesWithNoIncomingEdge = new HashSet<>();
+    List<Integer> ansList = new ArrayList<>();
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+        initGraph(prerequisites);
+        List<Integer> sources = findSources(numCourses);
+        for(int source: sources){
+            this.nodesWithNoIncomingEdge.add(source);
+            while(this.nodesWithNoIncomingEdge.isEmpty() == false){
+                removeNode();
+            }
+        }
+        // if the remian graph has edge after typological order removal, there exists cycle
+        if(anyRemainingEdges()){
+            return new int[]{};
+        }else{
+            boolean[] nodesInPrerequisitesBitMap = new boolean[numCourses];
+            for(int node: ansList){
+                nodesInPrerequisitesBitMap[node] = true;
+            }
+            for(int i=0; i<nodesInPrerequisitesBitMap.length; i++){
+                if(nodesInPrerequisitesBitMap[i]==false)    this.ansList.add(i);
+            }
+            return this.ansList.stream().mapToInt(i->i).toArray();
+        }
+    }
+    private void removeNode(){
+        Set<Integer> nextSet = new HashSet<>();
+        for(int node: this.nodesWithNoIncomingEdge){
+            this.ansList.add(node);
+            List<Integer> nextNodes = this.map.get(node);
+            for(int i=0; nextNodes!=null && i<nextNodes.size(); i++){
+                int nextNode = nextNodes.get(i);
+                int originalNum = this.incomingEdgesMap.get(nextNode);
+                this.incomingEdgesMap.put(nextNode, originalNum-1);
+                if(originalNum-1 == 0)  nextSet.add(nextNode);
+            }
+        }
+        this.nodesWithNoIncomingEdge = nextSet;
+    }
+    private void initGraph(int[][] prerequisites){
+        for(int i=0; i<prerequisites.length; i++){
+            int course = prerequisites[i][0];
+            int pre = prerequisites[i][1];
+            
+            if(this.map.containsKey(pre)){
+                this.map.get(pre).add(course);
+            }else{
+                this.map.put(pre, new ArrayList<Integer>(){{add(course);}});
+            }
+            this.incomingEdgesMap.put(course, this.incomingEdgesMap.getOrDefault(course, 0)+1);
+        }
+    }
+    private List<Integer> findSources(int numCourses){
+        List<Integer> sources = new ArrayList<>();
+        for(int i=0; i<numCourses; i++){
+            // source must have no incoming edges, and points to at least one node
+            if(this.map.containsKey(i)==true && (this.incomingEdgesMap.get(i)==null || this.incomingEdgesMap.get(i)==0))    sources.add(i);
+        }
+        return sources;
+    }
+    // if exist any node without incoming edge >=1, showing the graph still has edge
+    private boolean anyRemainingEdges(){
+        for(int num: this.incomingEdgesMap.values()){
+            if(num!=0)  return true;
+        }
+        return false;
+    }
+}
+```
