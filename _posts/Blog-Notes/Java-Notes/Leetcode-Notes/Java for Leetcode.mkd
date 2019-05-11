@@ -1,0 +1,5 @@
+### List to int[]
+
+```
+this.ansList.stream().mapToInt(i->i).toArray();
+```
