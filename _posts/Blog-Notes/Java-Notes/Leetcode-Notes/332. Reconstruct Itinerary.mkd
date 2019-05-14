@@ -1,0 +1,91 @@
+## Description
+
+```
+Given a list of airline tickets represented by pairs of departure and arrival airports [from, to], reconstruct the itinerary in order. All of the tickets belong to a man who departs from JFK. Thus, the itinerary must begin with JFK.
+
+Note:
+
+If there are multiple valid itineraries, you should return the itinerary that has the smallest lexical order when read as a single string. For example, the itinerary ["JFK", "LGA"] has a smaller lexical order than ["JFK", "LGB"].
+All airports are represented by three capital letters (IATA code).
+You may assume all tickets form at least one valid itinerary.
+Example 1:
+
+Input: [["MUC", "LHR"], ["JFK", "MUC"], ["SFO", "SJC"], ["LHR", "SFO"]]
+Output: ["JFK", "MUC", "LHR", "SFO", "SJC"]
+Example 2:
+
+Input: [["JFK","SFO"],["JFK","ATL"],["SFO","ATL"],["ATL","JFK"],["ATL","SFO"]]
+Output: ["JFK","ATL","JFK","SFO","ATL","SFO"]
+Explanation: Another possible reconstruction is ["JFK","SFO","ATL","JFK","ATL","SFO"].
+             But it is larger in lexical order.
+```
+
+## Solution TLE
+
+graph and path in parameter list.
+
+If an edge walked: remove that edge. When returned back, add that edge back.
+
+If an edge walked, add the dest node to path. When returned back, remove it.
+
+This makes sure the graph and path are changing as I dfs walked the graph.
+
+End condition: if destList is empty or null:
+1. path.size() smaller than proper size: return
+2. path.size() equals than proper size: check if this path is smaller in lexical order compared to this.pathAns and update this.pathAns if it's. Then return.
+
+```
+class Solution {
+    List<String> pathAns;
+    public List<String> findItinerary(List<List<String>> tickets) {
+        Map<String, List<String>> graph = new HashMap<>(); // (start airport, list of destinations)
+        initGraph(tickets, graph);
+        List<String> path = new ArrayList<>();
+        path.add("JFK");
+        dfs(tickets.size()+1, "JFK", path, graph);
+        return this.pathAns;
+    }
+    private void initGraph(List<List<String>> tickets, Map<String, List<String>> graph){
+        for(List<String> ticket: tickets){
+            String from = ticket.get(0);
+            String dest = ticket.get(1);
+            if(graph.get(from)==null){
+                graph.put(from, new ArrayList<String>(){{add(dest);}});             
+            }else{
+                graph.get(from).add(dest);
+            }
+        }
+    }
+    private void dfs(int num, String from, List<String> path, Map<String, List<String>> graph){
+        List<String> destList = graph.get(from);
+        if((destList==null || destList.size()==0) && path.size()==num){
+            if(isSmallerInLexical(path, this.pathAns)==true)    this.pathAns = new ArrayList<>(path);
+        }
+        for(int i=0; destList!=null && i<destList.size(); i++){
+            String dest = destList.get(i);
+            path.add(dest);
+            graph.get(from).remove(i);
+            dfs(num, dest, path, graph);
+            path.remove(path.size()-1);
+            graph.get(from).add(i, dest);
+
+        }
+    }
+    private boolean isSmallerInLexical(List<String> path, List<String> pathAns){
+        if(pathAns==null)   return true;
+        for(int i=0; i<path.size(); i++){
+            int compareRes = path.get(i).compareTo(pathAns.get(i));
+            if(compareRes>0){
+                return false;
+            }else if(compareRes==0){
+                continue;
+            }else{//compareRes<0
+                return true;
+            }
+        }
+        return false; // they are the same
+    }
+}
+```
+
+## Solution Hierholzer’s Algorithm
