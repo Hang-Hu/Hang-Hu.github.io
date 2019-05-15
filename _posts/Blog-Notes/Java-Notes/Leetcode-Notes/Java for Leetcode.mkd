@@ -24,3 +24,10 @@ Use remove(index) and add(index, element) instead of remove(element) and add(ele
 graph.get(from).remove(i);
 graph.get(from).add(i, dest);
 ```
+
+### Sort list
+
+```
+Collections.sort(destList);
+```
+

@@ -1,4 +1,6 @@
-## Description
+## 332.Reconstruct Itinerary
+
+### Description
 
 ```
 Given a list of airline tickets represented by pairs of departure and arrival airports [from, to], reconstruct the itinerary in order. All of the tickets belong to a man who departs from JFK. Thus, the itinerary must begin with JFK.
@@ -20,7 +22,7 @@ Explanation: Another possible reconstruction is ["JFK","SFO","ATL","JFK","ATL","
              But it is larger in lexical order.
 ```
 
-## Solution TLE
+### Solution TLE
 
 graph and path in parameter list.
 
@@ -88,4 +90,105 @@ class Solution {
 }
 ```
 
-## Solution Hierholzer’s Algorithm
+### Solution Hierholzer’s Algorithm
+
+Use DFS, every time visit the `destList` alphabeticalll, add node `from` to the start of path when all outgoings of this node was visited. Make sure one edge visited only once by remove the `dest` from the `destList` before dfs. Use `i--` to compensate for current `dest` removed from `destList`.
+
+```
+class Solution {
+    public List<String> findItinerary(List<List<String>> tickets) {
+        Map<String, List<String>> graph = new HashMap<>(); // (start airport, list of destinations)
+        initGraph(tickets, graph);
+        List<String> path = new ArrayList<>();
+        dfs("JFK", path, graph);
+        return path;
+    }
+    private void initGraph(List<List<String>> tickets, Map<String, List<String>> graph){
+        for(List<String> ticket: tickets){
+            String from = ticket.get(0);
+            String dest = ticket.get(1);
+            if(graph.get(from)==null){
+                graph.put(from, new ArrayList<String>(){{add(dest);}});             
+            }else{
+                graph.get(from).add(dest);
+            }
+        }
+    }
+    private void dfs(String from, List<String> path, Map<String, List<String>> graph){
+        List<String> destList = graph.get(from);
+        if(destList!=null){
+            Collections.sort(destList);// make sure lexical order
+            for(int i=0; i<destList.size(); i++){
+                String dest = destList.get(i);
+                destList.remove(i);
+                dfs(dest, path, graph);
+                i--;
+            }    
+        }
+        path.add(0, from);
+    }
+}
+```
+
+Time: O(m)
+Space: O(m)
+
+### Reference
+
+[eulerian_circuits_and_paths](https://github.com/williamfiset/Algorithms/blob/master/slides/graphtheory/eulerian_circuits_and_paths.pdf)
+
+[Eulerian Path Algorithm(Hierholzer’s Algorithm) | Graph Theory
+](https://www.youtube.com/watch?v=8MpoO2zA2l4)
+
+## 753. Cracking the Safe
+
+### Description
+
+```
+There is a box protected by a password. The password is n digits, where each letter can be one of the first k digits 0, 1, ..., k-1.
+
+You can keep inputting the password, the password will automatically be matched against the last n digits entered.
+
+For example, assuming the password is "345", I can open it when I type "012345", but I enter a total of 6 digits.
+
+Please return any string of minimum length that is guaranteed to open the box after the entire string is inputted.
+
+Example 1:
+Input: n = 1, k = 2
+Output: "01"
+Note: "10" will be accepted too.
+
+Example 2:
+Input: n = 2, k = 2
+Output: "00110"
+Note: "01100", "10011", "11001" will be accepted too.
+
+Note:
+n will be in the range [1, 4].
+k will be in the range [1, 10].
+k^n will be at most 4096.
+```
+
+### Idea
+
+```
+Example 1:
+Input: n = 1, k = 2
+Output: "01"
+```
+
+A digit can be [0, 1], n is 1, n can be `0` or `1`. And `01` contains all possibilities of n.
+
+```
+Example 2:
+Input: n = 2, k = 2
+Output: "00110"
+```
+
+A digit can be 0, 1, n is 2, so n can be `00`, `01`, `10`, `11`. `00110` contains all posisbilities of n.
+
+The output must contains all possibilities of n, and there are k^n possibilities.
+
+Each node has n-1 digits, the outging edge can be 0 to k-1(k possibilities). The last n-2 digit of a node + outging edge is the neighbor node.
+
+Use Hierholzer’s Algorithm(DFS, append to start when all outgoings visited) to traverse the graph and the path returned is the password, making sure every edge is visited once.
