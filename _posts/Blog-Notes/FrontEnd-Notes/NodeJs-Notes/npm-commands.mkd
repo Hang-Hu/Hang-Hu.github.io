@@ -1,3 +1,9 @@
+## init a project
+
+```
+npm init
+```
+
 ## update all packages
 
 ```

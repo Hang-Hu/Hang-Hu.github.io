@@ -1,0 +1,33 @@
+### List to int[]
+
+```
+this.ansList.stream().mapToInt(i->i).toArray();
+```
+
+### Clone Map with List inside
+
+```
+private Map<String, List<String>> cloneMap(Map<String, List<String>> graph){
+    Map<String, List<String>> graphClone = new HashMap<>();
+    for(Map.Entry<String, List<String>> entry: graph.entrySet()){
+        graphClone.put(entry.getKey(), new ArrayList<String>(entry.getValue()));
+    }
+    return graphClone;
+}
+```
+
+### List get and remove
+
+Use remove(index) and add(index, element) instead of remove(element) and add(element). Because `remove(element)` may remove a String with same content. And `add(element)` will add element to the last of list, not the index where it previously lies.
+
+```
+graph.get(from).remove(i);
+graph.get(from).add(i, dest);
+```
+
+### Sort list
+
+```
+Collections.sort(destList);
+```
+
