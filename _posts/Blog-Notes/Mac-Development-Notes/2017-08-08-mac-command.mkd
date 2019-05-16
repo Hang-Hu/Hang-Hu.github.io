@@ -19,3 +19,21 @@ ditto -V hadoop-2.6.0/ ../hadoop-2.6.0
 ```
 pwd
 ```
+
+## schedule mac wake from sleep
+
+```
+sudo pmset repeat wakeorpoweron MTWRFSU 21:58:00
+```
+
+## crontab
+
+Must wake Mac from sleep before executing crontab. Waking mac 2 minutes earlier worked.
+
+```
+crontab -e
+```
+
+```
+env EDITOR=nano crontab -e
+```

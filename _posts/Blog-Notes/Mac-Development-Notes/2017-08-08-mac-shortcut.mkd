@@ -9,6 +9,8 @@ cover:
 ```
 switch in the same application			command+`
 view page source in chrome              command+option+u
+Go to the start of this line            ctrl+a 
+Go to the end of this line              ctrl+e
 **
 ```
 

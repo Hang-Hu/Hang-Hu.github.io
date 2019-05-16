@@ -1417,3 +1417,15 @@ with ZipFile(KEY, 'r') as z:
             if len(pattern.findall(line))>0:
                 bryant.append(line)
 ```
+
+### if a variable is a dict
+
+```
+isinstance(d, dict)// True/False
+```
+
+### merge two dicts
+
+```
+new_dict = {**d1, **d2}
+```

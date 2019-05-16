@@ -1,8 +1,8 @@
 #!/bin/bash
 DATE=`date +%Y-%m-%d`
 echo "$DATE new posts"
-cd ~/Documents/gitRepository/My-Git/Hang-Hu.github.com/
-# git pull ?
+cd /Users/hanghu/Documents/CodeSpace/Other/Hang-Hu.github.io/
+git pull
 git add .
 git commit -m "$DATE new posts"
 git push

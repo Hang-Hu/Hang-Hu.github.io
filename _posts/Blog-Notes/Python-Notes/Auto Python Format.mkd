@@ -1,0 +1,35 @@
+## Comparison
+
+autopep8, yapf and black are formatting tools for python. The autopep8 is worst, just making code confirm to pep8 but no good readability. yapf Google is similiar to autopep8. yapf Facebook is as good as black except that it won't format string quotes. So I chose black as Python formatting tool.
+
+## Install
+
+```
+pip3 install black
+```
+
+## Command
+
+```
+black fileName/directoryName
+```
+
+## IDE Support
+
+### VSCode
+
+Make sure Python plugin by Microsoft is installed.
+
+Ctrl+Shift+P, type "user settings", click `{}`(Open Settings(JSON)) in the upper right of VSCode to open ths `settings.json` file.
+
+Append these lines to `settings.json`.
+
+```
+"python.formatting.provider": "black",
+"python.formatting.blackArgs": [
+    "--line-length",
+    "100",
+    "--experimental"
+]
+```
+

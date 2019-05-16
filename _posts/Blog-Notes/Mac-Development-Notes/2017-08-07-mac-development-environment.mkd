@@ -416,3 +416,9 @@ vi hive-site.xml
   <description>IP address (or fully-qualified domain name) and port of the metastore host</description>
 </property>
 ```
+
+### Create subl command to open sublime text 3
+
+```
+ln -sv "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" /usr/local/bin/subl
+```

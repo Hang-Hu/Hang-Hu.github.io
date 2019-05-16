@@ -1,0 +1,10 @@
+## turn color off
+
+
+```
+vim ~/.vimrc
+```
+
+```
+syntax off
+```

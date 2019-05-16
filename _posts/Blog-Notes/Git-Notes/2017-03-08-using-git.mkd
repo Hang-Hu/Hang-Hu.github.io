@@ -6,6 +6,8 @@ tags: Git
 cover: 
 ---
 
+## Start to use git
+
 ### install
 
 ```
@@ -85,6 +87,15 @@ Push to branch `apiChange`:
 git push origin apiChange
 ```
 
+
+## Advanced Git
+
+### Apply changes in master to branch
+
+```
+git checkout branch_name
+git merge origin/master
+```
 
 ## ERRORS
 
