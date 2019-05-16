@@ -26,3 +26,10 @@ System.out.println()            sout+enter
 Extract method                  ctrl+alt+M
 Run code styling                ctrl+alt+L
 ```
+
+## Python
+
+```
+Add comment                     """(under def) + Enter
+Show comment                    hover+command
+```

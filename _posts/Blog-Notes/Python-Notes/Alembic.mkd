@@ -1,0 +1,50 @@
+[Alembic ops](https://alembic.sqlalchemy.org/en/latest/ops.html)
+
+## Commands
+
+### Create Migration
+
+```
+alembic revision -m 'creates Profile table'
+```
+
+### Apply All Migrations Until Head
+
+```
+alembic upgrade head
+```
+
+### Downgrade Only 1 Migration
+
+```
+alembic downgrade -1
+```
+
+## Development
+
+### add column
+
+`organization` is table name, column to add is `name`.
+
+```
+from alembic import op
+from sqlalchemy import Column, String
+
+op.add_column('organization',
+    Column('name', String())
+)
+```
+
+### drop column
+
+`organization` is table name and `account_id` is column name.
+
+```
+drop_column('organization', 'account_id')
+```
+
+### rename column
+
+```
+op.alter_column('my_table', 'old_col_name', new_column_name='new_col_name')
+```

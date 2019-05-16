@@ -33,3 +33,5 @@ crontab -e
 # 0 5   *   *   1       tar -zcf /var/backups/home.tgz /home/
 # m h  dom mon dow   command
 ```
+
+
