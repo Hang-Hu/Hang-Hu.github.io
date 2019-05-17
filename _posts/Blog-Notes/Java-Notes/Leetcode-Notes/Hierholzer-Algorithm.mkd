@@ -192,3 +192,54 @@ The output must contains all possibilities of n, and there are k^n possibilities
 Each node has n-1 digits, the outging edge can be 0 to k-1(k possibilities). The last n-2 digit of a node + outging edge is the neighbor node.
 
 Use Hierholzer’s Algorithm(DFS, append to start when all outgoings visited) to traverse the graph and the path returned is the password, making sure every edge is visited once.
+
+### Solution
+
+The result is start node + edges visited. Therefore in Hierholzer’s I added edge instead of node into path. Like node which should be added when out edges visited, edge should be added when every node/edges visited from this edge. For node it's after for loop. For edge it's after dfs of the node this edge points to.
+
+Can start from any node since it's euler circuit. Here use 0...0 as start point.
+
+Use a hashset to make sure each edge visited only once. In reconstruct itinerary I used edge removal to do the same thing. Since each node(n-1 digits) + outgoing edge is a password, and since the ans has to be of minimum length, no repeat of possible password is allowed. Use set to store each node(n-1 digits) + outgoing edge, compare if contains or not. If contains, this edge visited, try next edge or return if no next edge.
+
+```
+class Solution {
+    public String crackSafe(int n, int k) {
+        if(n==1){
+            StringBuilder ans = new StringBuilder();
+            for(int i=0; i<k; i++){
+                ans.append(i);
+            }
+            return ans.toString();
+        }
+        if(k==1){
+            StringBuilder ans = new StringBuilder();
+            for(int i=0; i<n; i++){
+                ans.append(0);
+            }
+            return ans.toString();
+        }
+        Set<String> visitedPassword = new HashSet<>();
+        StringBuilder startNode = new StringBuilder();
+        for(int i=1; i<n; i++)  startNode.append("0");
+        StringBuilder path = new StringBuilder();
+        path.append(startNode);
+        dfs(startNode.toString(), visitedPassword, n, k, path);
+        return path.toString();
+    }
+
+    private void dfs(String from, Set<String> visitedPassword, int n, int k, StringBuilder path){
+        String password = "";
+        for(int i=0; i<k; i++){
+            password = from+i;
+            if(visitedPassword.contains(password)){
+                continue;
+            }else{
+                visitedPassword.add(password);
+                dfs(password.substring(1), visitedPassword, n, k, path);
+                // everything in the outgoing edge visited, then add this edge to start of path
+                path.insert(n-1, i);
+            }
+        }
+    }        
+}
+```
