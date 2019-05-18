@@ -1,0 +1,71 @@
+## 329. Longest Increasing Path in a Matrix
+
+### Description
+
+```
+Given an integer matrix, find the length of the longest increasing path.
+
+From each cell, you can either move to four directions: left, right, up or down. You may NOT move diagonally or move outside of the boundary (i.e. wrap-around is not allowed).
+
+Example 1:
+
+Input: nums = 
+[
+  [9,9,4],
+  [6,6,8],
+  [2,1,1]
+] 
+Output: 4 
+Explanation: The longest increasing path is [1, 2, 6, 9].
+Example 2:
+
+Input: nums = 
+[
+  [3,4,5],
+  [3,2,6],
+  [2,2,1]
+] 
+Output: 4 
+Explanation: The longest increasing path is [3, 4, 5, 6]. Moving diagonally is not allowed.
+```
+
+### Solution
+
+1. Start from every node to do dfs.
+2. If `matrix[x][y]<=previousVal`, then reject by returning -1
+3. Plus one distance of current node
+4. Use `distance` array to store the distance of current node in case it's been calculated before. Since a node can be right of left node, left of right node, down of upper node and up of down node, at most can be dfs and calculated 4 times.
+5. Must check if this val bigger than previous one before checking distance[x][y] to avoid a >= number making use of the start node of real Longest Increasing Path.
+
+```
+class Solution {
+    public int longestIncreasingPath(int[][] matrix) {
+        if(matrix.length == 0)  return 0;
+        int[][] distance = new int[matrix.length][matrix[0].length];
+        int max = 0;
+        for(int i=0; i<matrix.length; i++){
+            for(int j=0; j<matrix[0].length; j++){
+                max = Math.max(max, dfs(matrix, i, j, Long.MIN_VALUE, distance));
+            }
+        }
+        return max;
+    }
+    private int dfs(int[][] matrix, int x, int y, long previousVal, int[][] distance){
+        if(x<0 || x>=matrix.length || y<0 || y>=matrix[0].length)   return -1;
+        if(matrix[x][y]<=previousVal)                               return -1;
+        if(distance[x][y]!=0)                                       return distance[x][y];
+        int max = 0;
+        int val = matrix[x][y];
+        max = Math.max(max, dfs(matrix, x-1, y, val, distance));
+        max = Math.max(max, dfs(matrix, x+1, y, val, distance));
+        max = Math.max(max, dfs(matrix, x, y-1, val, distance));
+        max = Math.max(max, dfs(matrix, x, y+1, val, distance));
+        int ans = max+1;
+        distance[x][y] = ans;
+        return ans;
+    }
+}
+```
+
+Time: O(m*n). Suppose one dfs visits every node, then it just goes further enough, say m*n is length of its Longest Increasing Path, then every dfs is calculated. Then the m*n-1 dfs each takes O(1) by `distance[x][y]`. So the time complexity is m*n+(m*n-1)*1 = O(m*n). The idea is similiar to other case where one dfs not visiting all nodes. It takes only O(m*n) to compute distance for each slot in m*n try. So it's m*n+m*n, basically O(m*n). Just like the idea of m+n in dijkstra algo.
+Space: O(m*n), the distance array is m*n in shape.
