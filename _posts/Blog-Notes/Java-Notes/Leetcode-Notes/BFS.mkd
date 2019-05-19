@@ -1,0 +1,185 @@
+## Word Ladder
+
+### Description
+
+### Solution 1
+
+```
+class Solution {
+    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        Map<String, List<String>> graph = new HashMap<>();
+        wordList.add(beginWord);
+        initGraph(graph, wordList);
+        return bfs(graph, beginWord, endWord);
+    }
+    private int bfs(Map<String, List<String>> graph, String beginWord, String endWord){
+        Queue<String> q = new LinkedList<>();
+        Map<String, Integer> level = new HashMap<>();
+        q.add(beginWord);
+        level.put(beginWord, 1);
+        while(q.isEmpty()==false){
+            String word = q.poll();
+            List<String> neighbors = graph.get(word);
+            for(int i=0; neighbors!=null && i<neighbors.size(); i++){
+                String neighbor = neighbors.get(i);
+                if(neighbor.equals(endWord))    return level.get(word)+1;
+                if(level.get(neighbor)!=null)   continue;
+                q.add(neighbor);
+                level.put(neighbor, level.get(word)+1);
+            }
+        }
+        return 0;
+    }
+    private void initGraph(Map<String, List<String>> graph, List<String> wordList){
+        for(int i=0; i<wordList.size(); i++){
+            String word = wordList.get(i);
+            for(int j=i+1; j<wordList.size(); j++){
+                String nextWord = wordList.get(j);
+                if(diffChar(word, nextWord)==1){
+                    // it's undirected graph
+                    if(graph.containsKey(word)==true)       graph.get(word).add(nextWord);
+                    else                                    graph.put(word, new ArrayList<String>(){{add(nextWord);}});
+                    if(graph.containsKey(nextWord)==true)   graph.get(nextWord).add(word);
+                    else                                    graph.put(nextWord, new ArrayList<String>(){{add(word);}});
+                }
+            }
+        }
+    }
+    private int diffChar(String s1, String s2){
+        int count = 0;
+        for(int i=0; i<s1.length(); i++){
+            if(s1.charAt(i)!=s2.charAt(i))  count++;
+        }
+        return count;
+    }
+}
+
+```
+
+n is the length of wordList, x is the length of each word.
+
+Time: O(n^2*x).
+Space: O(n^2). Graph is twice number of edges, edge number m=O(n^2).
+
+### Solution Final
+
+```
+/*
+ * @lc app=leetcode id=127 lang=java
+ *
+ * [127] Word Ladder
+ *
+ * https://leetcode.com/problems/word-ladder/description/
+ *
+ * algorithms
+ * Medium (23.89%)
+ * Total Accepted:    254.3K
+ * Total Submissions: 1.1M
+ * Testcase Example:  '"hit"\n"cog"\n["hot","dot","dog","lot","log","cog"]'
+ *
+ * Given two words (beginWord and endWord), and a dictionary's word list, find
+ * the length of shortest transformation sequence from beginWord to endWord,
+ * such that:
+ * 
+ * 
+ * Only one letter can be changed at a time.
+ * Each transformed word must exist in the word list. Note that beginWord is
+ * not a transformed word.
+ * 
+ * 
+ * Note:
+ * 
+ * 
+ * Return 0 if there is no such transformation sequence.
+ * All words have the same length.
+ * All words contain only lowercase alphabetic characters.
+ * You may assume no duplicates in the word list.
+ * You may assume beginWord and endWord are non-empty and are not the same.
+ * 
+ * 
+ * Example 1:
+ * 
+ * 
+ * Input:
+ * beginWord = "hit",
+ * endWord = "cog",
+ * wordList = ["hot","dot","dog","lot","log","cog"]
+ * 
+ * Output: 5
+ * 
+ * Explanation: As one shortest transformation is "hit" -> "hot" -> "dot" ->
+ * "dog" -> "cog",
+ * return its length 5.
+ * 
+ * 
+ * Example 2:
+ * 
+ * 
+ * Input:
+ * beginWord = "hit"
+ * endWord = "cog"
+ * wordList = ["hot","dot","dog","lot","log"]
+ * 
+ * Output: 0
+ * 
+ * Explanation: The endWord "cog" is not in wordList, therefore no possible
+ * transformation.
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
+class Solution {
+    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        // graph is the mapping of h*t to a List of String that matches the pattern
+        Map<String, List<String>> graph = new HashMap<>(); // (pattern, list of String)
+        wordList.add(beginWord);
+        initGraph(graph, wordList);
+        return bfs(graph, beginWord, endWord);
+    }
+    private int bfs(Map<String, List<String>> graph, String beginWord, String endWord){
+        Queue<String> q = new LinkedList<>();
+        Map<String, Integer> level = new HashMap<>();
+        q.add(beginWord);
+        level.put(beginWord, 1);
+        while(q.isEmpty()==false){
+            String word = q.poll();
+            List<String> neighbors = getNeighbors(graph, word);
+            for(int i=0; neighbors!=null && i<neighbors.size(); i++){
+                String neighbor = neighbors.get(i);
+                if(neighbor.equals(endWord))    return level.get(word)+1;
+                if(level.get(neighbor)!=null)   continue;
+                q.add(neighbor);
+                level.put(neighbor, level.get(word)+1);
+            }
+        }
+        return 0;
+    }
+    private List<String> getNeighbors(Map<String, List<String>> graph, String word){
+        List<String> ans = new ArrayList<>();
+        for(int i=0; i<word.length(); i++){
+            StringBuilder sb = new StringBuilder(word).setCharAt(i, '*');
+            String pattern = sb.toString();
+            List<String> l = graph.get(pattern);
+            if(l==null){
+                for(String s: l){
+                    ans.add(s);                    
+                }
+            }
+        }
+        return ans;
+    }
+    private void initGraph(Map<String, List<String>> graph, List<String> wordList){
+        for(String word: wordList){
+            for(int i=0; i<word.length(); i++){
+                String pattern = new StringBuilder(word).setCharAt(i, '*').toString();
+                if(graph.containsKey(pattern))  graph.get(pattern).add(word);
+                else                            graph.put(pattern, new ArrayList<String>(){{add(word);}});
+            }
+        }
+    }
+
+}
+
+```
