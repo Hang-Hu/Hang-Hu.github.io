@@ -63,73 +63,12 @@ Space: O(n^2). Graph is twice number of edges, edge number m=O(n^2).
 
 ### Solution Final
 
+
+The BFS part is the same as previous solution. There is a graph including beginWord and every word in wordList, two nodes are connected in and only if they differ in one character. Start from a node, like "hit", its level is 1, do BFS and the level of cog is 5, which is the shortest transformation.
+
+The improvement compared to last solution is the presentation of graph. Previously I used (word, list of neighboring word) in `graph` map. Now I use `(pattern, list of word that matches pattern)` in `graph` map. `getNeighbors` is to get list of word that matches with all possible patterns of `word` but is not `word` itself, they are the neighbors of `word`.
+
 ```
-/*
- * @lc app=leetcode id=127 lang=java
- *
- * [127] Word Ladder
- *
- * https://leetcode.com/problems/word-ladder/description/
- *
- * algorithms
- * Medium (23.89%)
- * Total Accepted:    254.3K
- * Total Submissions: 1.1M
- * Testcase Example:  '"hit"\n"cog"\n["hot","dot","dog","lot","log","cog"]'
- *
- * Given two words (beginWord and endWord), and a dictionary's word list, find
- * the length of shortest transformation sequence from beginWord to endWord,
- * such that:
- * 
- * 
- * Only one letter can be changed at a time.
- * Each transformed word must exist in the word list. Note that beginWord is
- * not a transformed word.
- * 
- * 
- * Note:
- * 
- * 
- * Return 0 if there is no such transformation sequence.
- * All words have the same length.
- * All words contain only lowercase alphabetic characters.
- * You may assume no duplicates in the word list.
- * You may assume beginWord and endWord are non-empty and are not the same.
- * 
- * 
- * Example 1:
- * 
- * 
- * Input:
- * beginWord = "hit",
- * endWord = "cog",
- * wordList = ["hot","dot","dog","lot","log","cog"]
- * 
- * Output: 5
- * 
- * Explanation: As one shortest transformation is "hit" -> "hot" -> "dot" ->
- * "dog" -> "cog",
- * return its length 5.
- * 
- * 
- * Example 2:
- * 
- * 
- * Input:
- * beginWord = "hit"
- * endWord = "cog"
- * wordList = ["hot","dot","dog","lot","log"]
- * 
- * Output: 0
- * 
- * Explanation: The endWord "cog" is not in wordList, therefore no possible
- * transformation.
- * 
- * 
- * 
- * 
- * 
- */
 class Solution {
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
         // graph is the mapping of h*t to a List of String that matches the pattern
@@ -159,12 +98,13 @@ class Solution {
     private List<String> getNeighbors(Map<String, List<String>> graph, String word){
         List<String> ans = new ArrayList<>();
         for(int i=0; i<word.length(); i++){
-            StringBuilder sb = new StringBuilder(word).setCharAt(i, '*');
+            StringBuilder sb = new StringBuilder(word);
+            sb.setCharAt(i, '*');
             String pattern = sb.toString();
             List<String> l = graph.get(pattern);
-            if(l==null){
+            if(l!=null){
                 for(String s: l){
-                    ans.add(s);                    
+                    if(s.equals(word)==false)   ans.add(s);                    
                 }
             }
         }
@@ -173,7 +113,145 @@ class Solution {
     private void initGraph(Map<String, List<String>> graph, List<String> wordList){
         for(String word: wordList){
             for(int i=0; i<word.length(); i++){
-                String pattern = new StringBuilder(word).setCharAt(i, '*').toString();
+                StringBuilder sb = new StringBuilder(word);
+                sb.setCharAt(i, '*');
+                String pattern = sb.toString();
+                if(graph.containsKey(pattern))  graph.get(pattern).add(word);
+                else                            graph.put(pattern, new ArrayList<String>(){{add(word);}});
+            }
+        }
+    }
+}
+```
+
+n is the length of wordList, x is the length of each word.
+
+Time: O(x*n)
+Space: O(x*n)
+
+
+## Word Ladder II
+
+### Description
+
+```
+Given two words (beginWord and endWord), and a dictionary's word list, find all shortest transformation sequence(s) from beginWord to endWord, such that:
+
+Only one letter can be changed at a time
+Each transformed word must exist in the word list. Note that beginWord is not a transformed word.
+Note:
+
+Return an empty list if there is no such transformation sequence.
+All words have the same length.
+All words contain only lowercase alphabetic characters.
+You may assume no duplicates in the word list.
+You may assume beginWord and endWord are non-empty and are not the same.
+Example 1:
+
+Input:
+beginWord = "hit",
+endWord = "cog",
+wordList = ["hot","dot","dog","lot","log","cog"]
+
+Output:
+[
+  ["hit","hot","dot","dog","cog"],
+  ["hit","hot","lot","log","cog"]
+]
+Example 2:
+
+Input:
+beginWord = "hit"
+endWord = "cog"
+wordList = ["hot","dot","dog","lot","log"]
+
+Output: []
+
+Explanation: The endWord "cog" is not in wordList, therefore no possible transformation.
+```
+
+### Difference from Word Ladder
+
+Length is not enough, have to output all possible path.
+
+### Solution
+
+1. Change `bfs` to not stop once endWord found, but traverse all nodes and return level map
+2. Use `DFS` to traverse all path,have a `path` to store all nodes, and remove `neighbor` once dfs finished. Clone `path` and add to `ans` once endWord is `curWord` and the distance is the min one in `level`(this is ensured by checking `distance+1==level.get(neighbor)` before `dfs()`). Make sure no repeated node by checking if neighbor to visit contained in `path` or not. Make sure always walk in right direction(min path) by checking if `distance+1==level.get(neighbor)`.
+
+
+```
+class Solution {
+    public List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {
+        // graph is the mapping of h*t to a List of String that matches the pattern
+        Map<String, List<String>> graph = new HashMap<>(); // (pattern, list of String)
+        wordList.add(beginWord);
+        initGraph(graph, wordList);
+        Map<String, Integer> level = bfs(graph, beginWord, endWord);
+        List<List<String>> ans =new ArrayList<>();
+        List<String> path = new ArrayList<>();
+        path.add(beginWord);
+        dfs(graph, level, beginWord, endWord, 1, ans, path);
+        return ans;
+    }
+    private void dfs(Map<String, List<String>> graph, Map<String, Integer> level, String curWord, String endWord, int distance, List<List<String>> ans, List<String> path){
+        if((curWord.equals(endWord)==true)){
+            ans.add(new ArrayList<String>(path));
+            return;
+        }
+        List<String> neighbors = getNeighbors(graph, curWord);
+        if(neighbors == null)   return;
+        for(int i=0; i<neighbors.size(); i++){
+            String neighbor = neighbors.get(i);
+            if(path.contains(neighbor)==false && distance+1==level.get(neighbor)){
+                path.add(neighbor);
+                dfs(graph, level, neighbor, endWord, distance+1, ans, path);
+                path.remove(neighbor);
+            }
+        }
+    }
+    private Map<String, Integer> bfs(Map<String, List<String>> graph, String beginWord, String endWord){
+        Queue<String> q = new LinkedList<>();
+        Map<String, Integer> level = new HashMap<>();
+        q.add(beginWord);
+        level.put(beginWord, 1);
+        while(q.isEmpty()==false){
+            String word = q.poll();
+            List<String> neighbors = getNeighbors(graph, word);
+            for(int i=0; neighbors!=null && i<neighbors.size(); i++){
+                String neighbor = neighbors.get(i);
+                // if(neighbor.equals(endWord)){
+                //     level.put(neighbor, level.get(word)+1);
+                //     return level;
+                // }
+                if(level.get(neighbor)!=null)   continue;
+                q.add(neighbor);
+                level.put(neighbor, level.get(word)+1);
+            }
+        }
+        return level;
+    }
+    private List<String> getNeighbors(Map<String, List<String>> graph, String word){
+        List<String> ans = new ArrayList<>();
+        for(int i=0; i<word.length(); i++){
+            StringBuilder sb = new StringBuilder(word);
+            sb.setCharAt(i, '*');
+            String pattern = sb.toString();
+            List<String> l = graph.get(pattern);
+            if(l!=null){
+                for(String s: l){
+                    if(s.equals(word)==false)   ans.add(s);                    
+                }
+            }
+        }
+        return ans;
+    }
+    private void initGraph(Map<String, List<String>> graph, List<String> wordList){
+        for(String word: wordList){
+            for(int i=0; i<word.length(); i++){
+                StringBuilder sb = new StringBuilder(word);
+                sb.setCharAt(i, '*');
+                String pattern = sb.toString();
                 if(graph.containsKey(pattern))  graph.get(pattern).add(word);
                 else                            graph.put(pattern, new ArrayList<String>(){{add(word);}});
             }
@@ -181,5 +259,4 @@ class Solution {
     }
 
 }
-
 ```
