@@ -1,0 +1,146 @@
+## 269. Alien Dictionary
+
+### Description
+
+```
+There is a new alien language which uses the latin alphabet. However, the order among letters are unknown to you. You receive a list of non-empty words from the dictionary, where words are sorted lexicographically by the rules of this new language. Derive the order of letters in this language.
+
+Example 1:
+
+Input:
+[
+  "wrt",
+  "wrf",
+  "er",
+  "ett",
+  "rftt"
+]
+
+Output: "wertf"
+Example 2:
+
+Input:
+[
+  "z",
+  "x"
+]
+
+Output: "zx"
+Example 3:
+
+Input:
+[
+  "z",
+  "x",
+  "z"
+] 
+
+Output: "" 
+
+Explanation: The order is invalid, so return "".
+Note:
+
+You may assume all letters are in lowercase.
+You may assume that if a is a prefix of b, then a must appear before b in the given dictionary.
+If the order is invalid, return an empty string.
+There may be multiple valid order of letters, return any one of them is fine.
+```
+
+### DFS Solution(slow but less memory)
+
+DFS and append node to return to the start of answer.
+
+```
+class Solution {
+    public String alienOrder(String[] words) {
+        Map<Character, List<Character>> graph = new HashMap<>();
+        initGraph(words, graph);
+        List<Character> sources = new ArrayList<>();
+        findSources(graph, sources);
+        List<Character> path = new ArrayList<>();
+        // have a visited for all sources, when enconter this one, don't continue dfs with this neighbor, but don't need to report false as cycle.
+        Set<Character> visitedAllSources = new HashSet<>();
+        for(char source: sources){
+            Set<Character> visited = new HashSet<>();
+            if(dfs(source, graph, path, visited, visitedAllSources)==false)    return "";
+        }
+        Set<Character> charSet = getCharSet(words);
+        if(hasCycle(charSet, path, graph))  return "";
+        addRemainingNode(charSet, path);
+        return path.stream().map(String::valueOf).collect(Collectors.joining());
+    }
+    private boolean hasCycle(Set<Character> charSet, List<Character> path, Map<Character, List<Character>> graph){
+        for(char c: charSet){
+            if(path.contains(c)==false && graph.containsKey(c))  return true;
+        }
+        return false;
+    }
+    private Set<Character> getCharSet(String[] words){
+        Set<Character> charSet = new HashSet<>();
+        for(int i=0; i<words.length; i++){
+            for(int j=0; j<words[i].length(); j++){
+                charSet.add(words[i].charAt(j));
+            }
+        }
+        return charSet;
+    } 
+    private void addRemainingNode(Set<Character> charSet, List<Character> path){
+        for(char c: charSet){
+            if(path.contains(c)==false) path.add(c);
+        }
+    }
+    private void findSources(Map<Character, List<Character>> graph, List<Character> sources){
+        int[] map = new int['z'-'a'+1];
+        for(char key: graph.keySet()){
+            // System.out.println(key);
+            map[key-'a'] = 1;
+        }
+        for(List<Character> chars: graph.values()){
+            for(char c: chars){
+                map[c-'a']=2;
+            }
+        }
+        for(int i=0; i<map.length; i++){
+            if(map[i]==1)   sources.add((char)(i+'a'));
+        }
+    }
+    //dfs to get tp order
+    private boolean dfs(char node, Map<Character, List<Character>> graph, List<Character> path, Set<Character> visited, Set<Character> visitedAllSources){
+        visited.add(node);
+        visitedAllSources.add(node);
+        List<Character> neighbors = graph.get(node);
+        if(neighbors!=null){
+            for(char neighbor: neighbors){
+                if(visited.contains(neighbor)) return false;
+                if(visitedAllSources.contains(neighbor)) continue;
+                if(dfs(neighbor, graph, path, visited, visitedAllSources)==false) return false;
+                visited.remove(neighbor);
+            }    
+        }
+        path.add(0, node);
+        return true;
+    }
+    private void initGraph(String[] words, Map<Character, List<Character>> graph){
+        if(words.length>0){
+            for(int i=0; i<words.length-1; i++){
+                char firstChar = words[i].charAt(0);
+                char secondChar = words[i+1].charAt(0);
+                if(firstChar==secondChar){
+                    if(words[i].length()>1 && words[i+1].length()>1){
+                        initGraph(new String[] {words[i].substring(1), words[i+1].substring(1)}, graph);
+                    }
+                }else{
+                    if(graph.containsKey(firstChar)){
+                        graph.get(firstChar).add(secondChar);
+                    }else{
+                        graph.put(firstChar, new ArrayList<Character>(){{add(secondChar);}});
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+### In/Out Degree Solution
+
