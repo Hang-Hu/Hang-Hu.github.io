@@ -55,25 +55,18 @@ class Solution {
     public String alienOrder(String[] words) {
         Map<Character, List<Character>> graph = new HashMap<>();
         initGraph(words, graph);
-        List<Character> sources = new ArrayList<>();
-        findSources(graph, sources);
         List<Character> path = new ArrayList<>();
         // have a visited for all sources, when enconter this one, don't continue dfs with this neighbor, but don't need to report false as cycle.
         Set<Character> visitedAllSources = new HashSet<>();
-        for(char source: sources){
-            Set<Character> visited = new HashSet<>();
-            if(dfs(source, graph, path, visited, visitedAllSources)==false)    return "";
+        for(char c: graph.keySet()){
+            if(visitedAllSources.contains(c)==false){
+                Set<Character> visited = new HashSet<>();
+                if(dfs(c, graph, path, visited, visitedAllSources)==false)    return "";    
+            }
         }
         Set<Character> charSet = getCharSet(words);
-        if(hasCycle(charSet, path, graph))  return "";
         addRemainingNode(charSet, path);
         return path.stream().map(String::valueOf).collect(Collectors.joining());
-    }
-    private boolean hasCycle(Set<Character> charSet, List<Character> path, Map<Character, List<Character>> graph){
-        for(char c: charSet){
-            if(path.contains(c)==false && graph.containsKey(c))  return true;
-        }
-        return false;
     }
     private Set<Character> getCharSet(String[] words){
         Set<Character> charSet = new HashSet<>();
@@ -87,21 +80,6 @@ class Solution {
     private void addRemainingNode(Set<Character> charSet, List<Character> path){
         for(char c: charSet){
             if(path.contains(c)==false) path.add(c);
-        }
-    }
-    private void findSources(Map<Character, List<Character>> graph, List<Character> sources){
-        int[] map = new int['z'-'a'+1];
-        for(char key: graph.keySet()){
-            // System.out.println(key);
-            map[key-'a'] = 1;
-        }
-        for(List<Character> chars: graph.values()){
-            for(char c: chars){
-                map[c-'a']=2;
-            }
-        }
-        for(int i=0; i<map.length; i++){
-            if(map[i]==1)   sources.add((char)(i+'a'));
         }
     }
     //dfs to get tp order
@@ -141,6 +119,26 @@ class Solution {
     }
 }
 ```
+
+m is the length of longest word, n is the words.length
+
+
+Time: O(m*n)
+
+initGraph is O(m*n), dfs is O(n) since it's dp order, no cycle or return when find there is a cycle, that means edges number to be visited is n-1 instead of n^2. `getCharSet` is O(n*m). `addRemainingNode` is O(n)
+
+Space: O(m*n)
+
+```
+Map<Character, List<Character>> graph = new HashMap<>(); O(m*n)
+List<Character> path = new ArrayList<>(); O(m*n)
+Set<Character> visitedAllSources = new HashSet<>(); O(m*n)
+Set<Character> visited = new HashSet<>(); O(m*n)
+Set<Character> charSet = getCharSet(words); O(m*n)
+```
+
+
+The time in github slower than 99%, and I found it's due to `path.stream().map(String::valueOf).collect(Collectors.joining());`.
 
 ### In/Out Degree Solution
 
