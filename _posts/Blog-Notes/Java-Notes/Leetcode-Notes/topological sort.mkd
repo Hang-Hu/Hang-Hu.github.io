@@ -122,7 +122,6 @@ class Solution {
 
 m is the length of longest word, n is the words.length
 
-
 Time: O(m*n)
 
 initGraph is O(m*n), dfs is O(n) since it's dp order, no cycle or return when find there is a cycle, that means edges number to be visited is n-1 instead of n^2. `getCharSet` is O(n*m). `addRemainingNode` is O(n)
@@ -138,7 +137,80 @@ Set<Character> charSet = getCharSet(words); O(m*n)
 ```
 
 
-The time in github slower than 99%, and I found it's due to `path.stream().map(String::valueOf).collect(Collectors.joining());`.
+The time in github slower than 99%, and I found it's due to `path.stream().map(String::valueOf).collect(Collectors.joining());`. As I tried, even not use `boolean[]`, simply use `String` to replace `List<Character> path` will beats 100% submissions.
 
-### In/Out Degree Solution
+### Final Solution(use StringBuilder and boolean array)
 
+StringBuilder is used to replace `path.stream().map(String::valueOf).collect(Collectors.joining())`.
+
+Recursively init graph. If char at 0 of 2 lines the same, send sub of two to initGraph, ow firstChar points to second. DFS with all chars in dict, using path(have to remove node when return) and visitedAllRounds. If encounter same node in path, cycle detected. If encounter same node in visitedAllRounds, skip that node. When the all neighbors of node visited, add it to sb, finially reverse sb.
+
+
+```
+class Solution {
+    public String alienOrder(String[] words) {
+        boolean[][] graph = new boolean[26][26];
+        initGraph(words, graph);
+        StringBuilder sb = new StringBuilder();
+        // have visitedAllRounds for all characters, when enconter this one, don't continue dfs with this neighbor, but don't need to report false as cycle.
+        boolean[] visitedAllRounds = new boolean[26];
+        boolean[] chars = getChars(words);
+        for(int i=0; i<26; i++){
+            if(chars[i]==true && visitedAllRounds[i]==false){
+                boolean[] path = new boolean[26];
+                if(dfs(i, graph, sb, path, visitedAllRounds)==false)    return "";    
+            }
+        }
+        return sb.reverse().toString();
+    }
+    private boolean[] getChars(String[] words){
+        boolean[] chars = new boolean[26];
+        for(int i=0; i<words.length; i++){
+            for(int j=0; j<words[i].length(); j++){
+                chars[words[i].charAt(j)-'a'] = true;
+            }
+        }
+        return chars;
+    } 
+    //dfs to get tp order
+    private boolean dfs(int node, boolean[][] graph, StringBuilder sb, boolean[] path, boolean[] visitedAllRounds){
+        path[node] = true;
+        visitedAllRounds[node] = true;
+        for(int i=0; graph[node]!=null&&i<graph[node].length; i++){
+            if(graph[node][i]==true){
+                if(path[i]==true) return false;
+                if(visitedAllRounds[i]==true) continue;
+                if(dfs(i, graph, sb, path, visitedAllRounds)==false) return false;
+                path[i] = false;
+            }
+        }    
+        sb.append((char)('a'+node));
+        return true;
+    }
+    private void initGraph(String[] words, boolean[][] graph){
+        if(words.length>0){
+            for(int i=0; i<words.length-1; i++){
+                int firstChar = words[i].charAt(0)-'a';
+                int secondChar = words[i+1].charAt(0)-'a';
+                if(firstChar==secondChar){
+                    if(words[i].length()>1 && words[i+1].length()>1){
+                        initGraph(new String[] {words[i].substring(1), words[i+1].substring(1)}, graph);
+                    }
+                }else{
+                    if(graph[firstChar]==null){
+                        graph[firstChar] = new boolean[26];
+                    }
+                    graph[firstChar][secondChar] = true;
+                }
+            }
+        }
+    }
+}
+```
+
+The same time and space complexity as previous one.
+
+m is the length of longest word, n is the words.length
+
+Time: O(m*n)
+Space: O(m*n)
