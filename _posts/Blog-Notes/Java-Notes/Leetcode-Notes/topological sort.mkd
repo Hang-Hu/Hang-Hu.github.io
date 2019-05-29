@@ -2,49 +2,7 @@
 
 ### Description
 
-```
-There is a new alien language which uses the latin alphabet. However, the order among letters are unknown to you. You receive a list of non-empty words from the dictionary, where words are sorted lexicographically by the rules of this new language. Derive the order of letters in this language.
-
-Example 1:
-
-Input:
-[
-  "wrt",
-  "wrf",
-  "er",
-  "ett",
-  "rftt"
-]
-
-Output: "wertf"
-Example 2:
-
-Input:
-[
-  "z",
-  "x"
-]
-
-Output: "zx"
-Example 3:
-
-Input:
-[
-  "z",
-  "x",
-  "z"
-] 
-
-Output: "" 
-
-Explanation: The order is invalid, so return "".
-Note:
-
-You may assume all letters are in lowercase.
-You may assume that if a is a prefix of b, then a must appear before b in the given dictionary.
-If the order is invalid, return an empty string.
-There may be multiple valid order of letters, return any one of them is fine.
-```
+[Leetcode](https://leetcode.com/problems/alien-dictionary/)
 
 ### DFS Solution(slow but less memory)
 
@@ -214,3 +172,69 @@ m is the length of longest word, n is the words.length
 
 Time: O(m*n)
 Space: O(m*n)
+
+## 444. Sequence Reconstruction
+
+### Description
+
+```
+Check whether the original sequence org can be uniquely reconstructed from the sequences in seqs. The org sequence is a permutation of the integers from 1 to n, with 1 ≤ n ≤ 104. Reconstruction means building a shortest common supersequence of the sequences in seqs (i.e., a shortest sequence so that all sequences in seqs are subsequences of it). Determine whether there is only one sequence that can be reconstructed from seqs and it is the org sequence.
+
+Example 1:
+
+Input:
+org: [1,2,3], seqs: [[1,2],[1,3]]
+
+Output:
+false
+
+Explanation:
+[1,2,3] is not the only one sequence that can be reconstructed, because [1,3,2] is also a valid sequence that can be reconstructed.
+Example 2:
+
+Input:
+org: [1,2,3], seqs: [[1,2]]
+
+Output:
+false
+
+Explanation:
+The reconstructed sequence can only be [1,2].
+Example 3:
+
+Input:
+org: [1,2,3], seqs: [[1,2],[1,3],[2,3]]
+
+Output:
+true
+
+Explanation:
+The sequences [1,2], [1,3], and [2,3] can uniquely reconstruct the original sequence [1,2,3].
+Example 4:
+
+Input:
+org: [4,1,5,2,6,3], seqs: [[5,2,6,3],[4,1,5,2]]
+
+Output:
+true
+UPDATE (2017/1/8):
+The seqs parameter had been changed to a list of list of strings (instead of a 2d array of strings). Please reload the code definition to get the latest changes.
+
+```
+
+### Concepts - Hamiltonian path
+
+Eulerian path: a path that visits every ***edge*** in the graph and only once.
+
+Hamiltonian path:  a path that passes through every ***vertex*** in the graph exactly one(once and only once). A Hamiltonian path does not necessarily pass through all the edges of the graph, however, a Hamiltonian path which ends in the same place in
+which it began is called a Hamiltonian cycle.
+
+In a DAG, if there is a Hamiltonian path, the topological sort order of this DAG will then be ***unique***. Otherwise, if a topological sort does not form a Hamiltonian path, this DAG will then have more than one valid topological orderings. In this case, it is always possible to form a second valid ordering just by ***swapping two consecutive vertices which are not connected by an edge*** to each other. Therefore, it is possible to test in polynomial time whether a unique topological ordering exists, and whether a Hamiltonian path exists, despite the NP-hardness of the Hamiltonian path problems for more general directed graphs. 
+
+Unlike the situation with Euler Path, there is generally no therom that tells if a Hamiltonian path or curcuit is possible. You just have to try.
+
+### Solution
+
+1. Get one topological order.
+2. Check every two consecutive vertices in tp order, if they are not connected by an edge, then not unique, return false. Otherwise continue to 3.
+3. Compare the tp order with org.
