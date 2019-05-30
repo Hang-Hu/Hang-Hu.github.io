@@ -1,6 +1,6 @@
 ## Introduction
 
-ESLint is a Javascript lint tool with support for ES6. It's better than JSLint, JSHint, and JSCS.
+ESLint is a Javascript lint tool with support for ES6. It's better than `JSLint`, `JSHint`, and `JSCS`.
 
 ## config
 

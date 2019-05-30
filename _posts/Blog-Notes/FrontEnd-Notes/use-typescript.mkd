@@ -53,3 +53,22 @@ In `tslint.json`:
     "extends": ["tslint:latest", "tslint-config-prettier"]
 }
 ```
+
+### tsc all files recursively
+
+Create `tsconfig.json` in project root like below. `rootDir` is the directory to search `.ts` files recursively, and `outDir` is the directory to put the compiled `.js` files, the folder structure will remain the same.
+
+```
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "ES5",
+        "rootDir": "src", // or ./ if want index.ts in project root to be compiled
+        "outDir": "build"
+    }
+}
+```
+
+Command is `tsc --build`, can use it in `package.json`'s `scripts`.
+
+Or you can use `tsc -w` to watch and build as any `.ts` file changes.

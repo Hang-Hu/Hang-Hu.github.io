@@ -13,3 +13,16 @@ rm -r node_modules/
 npm install
 ```
 
+## custom npm commands
+
+In `package.json` `scripts` section add `reload`:
+
+```
+{
+    "scripts": {
+        "reload": "export NODE_PATH=$(pwd) && tsc --build && node build/index.js reload",
+    }
+}
+```
+
+Use `npm run reload` to run it, this is different `npm start` since it's custom commands.

@@ -26,3 +26,41 @@ function writeArray(fileName, arr){
     file.end();
 }
 ```
+
+### get environment variable
+
+```
+process.env.NODE_PATH
+```
+
+### project directory
+
+Set project directory to be environment variable `NODE_PATH`.
+
+Node's Modules system looks for modules in a variety of locations. One of these locations is wherever `process.env.NODE_PATH` points. If you set this environmental variable(ie. in package.json scripts start, use `export NODE_PATH=$(pwd)`), then you can `require` modules with the standard module loader ***without any other changes***.
+
+#### require usage
+
+```
+var auth = require("resource/1point_auth.json");
+```
+
+This will look for `NODE_PATH/resource/1point_auth.json`.
+
+#### get path as string
+
+```
+const COOKIEPATH = path.join(process.env.NODE_PATH, "/resource/cookies.json");
+```
+
+### command line args
+
+`process.argv` is `string[]`.
+
+`process.argv[0]` is `node`.
+
+`process.argv[1]` is filename following node.
+
+Others are the args.
+
+[process.argv nodejs doc](https://nodejs.org/docs/latest/api/process.html#process_process_argv)

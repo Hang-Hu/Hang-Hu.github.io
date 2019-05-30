@@ -1,6 +1,6 @@
 ## Comparison
 
-autopep8, yapf and black are formatting tools for python. The autopep8 is worst, just making code confirm to pep8 but no good readability. yapf Google is similiar to autopep8. yapf Facebook is as good as black except that it won't format string quotes. So I chose black as Python formatting tool.
+`autopep8`, `yapf` and `black` are formatting tools for python. The autopep8 is worst, just making code confirm to pep8 but no good readability. yapf Google is similiar to autopep8. yapf Facebook is as good as black except that it won't format string quotes. So I chose black as Python formatting tool.
 
 ## Install
 

@@ -1,0 +1,20 @@
+## execute another after one command finished
+
+```
+command1 && command2
+```
+
+## Change directory
+
+```
+cd DIR_PATH && npm start && cd -
+```
+
+## Export Environment variable
+
+`$(pwd)` is current directory.
+
+```
+export NODE_PATH=$(pwd)
+```
+
