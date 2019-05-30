@@ -1,0 +1,14 @@
+### Catch
+
+```
+(async () => {
+    try {
+       await someFunc();
+       await safeQuit("Program finished successfully.");
+    } catch (e) {
+        safeQuit("Error happens in check in.").then(() =>
+            console.error(e)
+        );
+    }
+})();
+```
