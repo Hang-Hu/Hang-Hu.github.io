@@ -1429,3 +1429,33 @@ isinstance(d, dict)// True/False
 ```
 new_dict = {**d1, **d2}
 ```
+
+### remove a key from a dict
+
+```
+data_dict.pop('Name', None) # if key Name exists, pop it, otherwise return None
+```
+
+### check the version of a python library
+
+```
+pip3 freeze|grep boto3
+```
+
+### try catch finally
+
+```
+try:
+    f = open("test.txt")
+except Exception as e
+    loggings.error(f'Failed to open file test.txt.\n{e}')
+finally:
+    f.close()
+```
+
+## Errors
+
+### TypeError: a bytes-like object is required, not 'str'
+
+Use `if b'tmp' in str` instead of `if 'tmp' in str`.
+
