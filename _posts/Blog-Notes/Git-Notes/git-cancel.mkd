@@ -1,0 +1,13 @@
+### Cancel `git stash drop`
+
+Use the first 7 characters to create a new branch `tmp` and apply it to current branch.
+
+```
+git stash drop
+Dropped refs/stash@{0} (2ca03e22256be97f9e40f08e6d6773c7d41dbfd1)
+```
+
+```
+git branch tmp 2ca03e2
+git stash apply tmp
+```
