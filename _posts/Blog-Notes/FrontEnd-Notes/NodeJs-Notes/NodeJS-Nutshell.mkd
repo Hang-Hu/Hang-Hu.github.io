@@ -53,6 +53,26 @@ This will look for `NODE_PATH/resource/1point_auth.json`.
 const COOKIEPATH = path.join(process.env.NODE_PATH, "/resource/cookies.json");
 ```
 
+A better way is to just use the relative path and NodeJS can automatically parse it to be under project root, like the two examples below.
+
+```
+const COOKIEPATH = "resource/cookies.json";
+jsonfile.writeFile(COOKIEPATH, COOKIES, { spaces: 2 }, err => {
+    if (err) {
+        console.log(
+            `Failed to write cookies to ${COOKIEPATH}.\n${err}`
+        );
+    }
+    console.log(`Cookies has been save to ${COOKIEPATH}`);
+});
+```
+
+```
+await this.page.screenshot({
+    path: `check-in-${moment().format("YYYY-MM-DD")}.png`,
+});
+```
+
 ### command line args
 
 `process.argv` is `string[]`.
