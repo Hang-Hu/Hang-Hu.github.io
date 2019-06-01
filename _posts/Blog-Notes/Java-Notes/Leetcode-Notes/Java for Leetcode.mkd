@@ -31,3 +31,41 @@ graph.get(from).add(i, dest);
 Collections.sort(destList);
 ```
 
+### UnionFind class
+
+```
+class UnionFind {
+    private int[] arr;
+    private int componentNum;
+
+    public UnionFind(int n){
+        this.arr = new int[n];
+        for(int i=0; i<arr.length; i++){
+            arr[i] = i;
+        }
+        this.componentNum = n;
+    }
+    public int root(int i){
+        while(arr[i] != i){
+            i = arr[i];
+        }
+        return i;
+    }
+    public boolean isConnected(int a, int b){
+        return root(a) == root(b);
+    }
+    public void union(int a, int b){
+        int aRoot = root(a);
+        int bRoot = root(b);
+        if(aRoot == bRoot){
+            return;
+        }else{
+            arr[aRoot] = bRoot;
+        }
+        this.componentNum --;
+    }
+    public int getComponentNum(){
+        return this.componentNum;
+    }
+}
+```
