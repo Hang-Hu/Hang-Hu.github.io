@@ -41,7 +41,7 @@ class Solution {
         int count = 1;
         while(set.contains(num+1)){
             num++;
-            count++;De
+            count++;
         }
         return count;
     }
@@ -53,6 +53,6 @@ class Solution {
 }
 ```
 
-Time: 
+Time: O(n). For example, `[100, 4, 200, 1, 3, 2]`. 100, 200, 1 are sent to `consecutive` and separately explored `100`, `200`, `1,2,3,4`. So it's O(n).
 
-Space: 
+Space: O(n).
