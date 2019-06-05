@@ -1,8 +1,8 @@
 ---
 layout: post
 author: Hang Hu
-categories: python
-tags: Blog Python 
+categories: pyspark
+tags: Blog Python PySpark 
 cover: 
 ---
 
