@@ -11,3 +11,38 @@ Dropped refs/stash@{0} (2ca03e22256be97f9e40f08e6d6773c7d41dbfd1)
 git branch tmp 2ca03e2
 git stash apply tmp
 ```
+
+### Cancel `git add .`
+
+```
+git reset
+```
+
+This will unstage all files added after last commit.
+
+### Discard unstaged changes
+
+```
+git stash save --keep-index
+
+git stash drop
+```
+
+### Cancel local and remote commit
+
+#### First cancel local commit
+
+```
+git reset HEAD~1
+git add .
+git commit -m 'commit message'
+```
+
+#### Then cancel remote commit by force push
+
+```
+git push origin branch_name --force
+```
+
+Note that you have to specify branch name or you might inadvertently modify other branches!
+
