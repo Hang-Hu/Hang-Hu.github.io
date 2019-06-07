@@ -1,0 +1,44 @@
+## 279. Perfect Squares
+
+### Description
+
+```
+Given a positive integer n, find the least number of perfect square numbers (for example, 1, 4, 9, 16, ...) which sum to n.
+
+Example 1:
+
+Input: n = 12
+Output: 3 
+Explanation: 12 = 4 + 4 + 4.
+Example 2:
+
+Input: n = 13
+Output: 2
+Explanation: 13 = 4 + 9.
+```
+
+### Best Solution - DP
+
+OPT(i) = min k=1,2,3...&&k^2<=i {OPT(i-k^2)+OPT(k^2)}
+
+Have to init opt[0] and opt[k^2].
+
+```
+class Solution {
+    public int numSquares(int n) {
+        int[] opt = new int[n+1];
+        opt[0] = 0;
+        // init opt when it comes to square numbers, the number used is just 1
+        for(int k=1; k*k<=n; k++)    opt[k*k] = 1;
+        for(int i=1; i<=n; i++){
+            int min = Integer.MAX_VALUE;
+            for(int k=1; k*k<=i; k++){
+                int tmp = opt[i-k*k]+opt[k*k];
+                if(tmp<min) min=tmp;
+            }
+            opt[i] = min;
+        }
+        return opt[n];
+    }
+}
+```
