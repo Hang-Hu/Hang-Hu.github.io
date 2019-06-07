@@ -165,3 +165,77 @@ m is edges.length
 Time: O(m*logn) = O(n^2*logn)
 Space: O(n)
 
+
+## 305. Number of Islands II
+
+
+### Final Solution - Union Find
+
+UnionFind, `int[][] islands` to record 0 or 1. UF set arr[i] to be -1 as default, UF.initNode(when add a island) init not initiated node by `arr[i]=i`, and componentNum++. UF.union `componentNum--` when union succeeds. Loop positions to call addLand. addLand set islands, initNode, and call union on right, bottom, left, top four direction, and return componentNum.
+
+```
+class Solution {
+    public List<Integer> numIslands2(int m, int n, int[][] positions) {
+        UnionFind graph = new UnionFind(m*n);
+        int[][] islands = new int[m][n];
+        List<Integer> ans = new ArrayList();
+        for(int i=0; i<positions.length; i++){
+            ans.add(addLand(graph, positions[i][0], positions[i][1], islands));
+        }
+        return ans;
+    }
+    // return island number after addLand
+    private int addLand(UnionFind graph, int x, int y, int[][] islands){
+        int index = getIndex(x, y, islands);
+        islands[x][y] = 1;
+        graph.initNode(index);
+        if(x-1 >=0 && islands[x-1][y]==1)                   graph.union(index, index-islands[0].length);
+        if(x+1 < islands.length && islands[x+1][y]==1)      graph.union(index, index+islands[0].length);
+        if(y-1 >=0 && islands[x][y-1]==1)                   graph.union(index, index-1);
+        if(y+1 < islands[0].length && islands[x][y+1]==1)   graph.union(index, index+1);
+        return graph.getComponentNum();
+    }
+    private int getIndex(int x, int y, int[][] islands){
+        return x*islands[0].length+y;
+    }
+}
+class UnionFind{
+    private int[] arr;
+    private int componentNum;
+    public UnionFind(int len){
+        this.arr = new int[len];
+        for(int i=0; i<arr.length; i++){
+            arr[i] = -1;
+        }
+    }
+    // node may already been initiated, do nothing on this case 
+    public void initNode(int i){
+        if(arr[i]==-1){ // -1 shows non initiated before
+            arr[i] = i;
+            this.componentNum++; // add a new island
+        }
+    }
+    private int root(int i){
+        while(arr[i]!=i){
+            i = arr[i];
+        }
+        return i;
+    }
+    public boolean isConnected(int a, int b){
+        return root(a)==root(b);
+    }
+    public void union(int a, int b){
+        int aRoot = root(a);
+        int bRoot = root(b);
+        if(aRoot==bRoot){ // the a and b already in same tree, don't change componentNum
+            return;
+        }else{
+            arr[aRoot] = bRoot;
+            this.componentNum--; // if unioned, componentNum--
+        }                
+    }
+    public int getComponentNum(){
+        return this.componentNum;
+    }
+}
+```

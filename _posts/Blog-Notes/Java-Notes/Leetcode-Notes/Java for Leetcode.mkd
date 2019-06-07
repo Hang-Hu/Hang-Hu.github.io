@@ -69,3 +69,12 @@ class UnionFind {
     }
 }
 ```
+
+
+### Reverse list
+
+`Collections.reverse` do reverse in-place.
+
+```
+Collections.reverse(ans.get(i));
+```
