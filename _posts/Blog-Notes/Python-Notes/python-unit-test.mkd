@@ -1,0 +1,26 @@
+### Project structure
+
+```
+.
+└── package_name
+    ├── __init__.py
+    ├── __main__.py
+    ├── func1.py
+    └── test_func1.py
+```
+
+Must have `__init__.py` and `__main__.py` to ensure `package_name` is recognized as a package, and `python3 -m unittest` can find and run unit test in `test_func1.py`.
+
+```
+cat package_name/test_func1.py 
+```
+
+```
+import unittest
+
+
+class TestStringMethods(unittest.TestCase):
+
+    def test_upper(self):
+        self.assertEqual('foo'.upper(), 'FOO1')
+```
