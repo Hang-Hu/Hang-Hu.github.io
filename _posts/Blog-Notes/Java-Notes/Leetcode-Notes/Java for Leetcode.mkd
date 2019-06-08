@@ -78,3 +78,9 @@ class UnionFind {
 ```
 Collections.reverse(ans.get(i));
 ```
+
+### set to list
+
+```
+new ArrayList<String>(set);
+```
