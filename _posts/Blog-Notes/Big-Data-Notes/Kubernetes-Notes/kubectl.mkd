@@ -1,0 +1,46 @@
+### get pods
+
+```
+kubectl --context prod get pods
+```
+
+#### sort by create time
+
+```
+kubectl get pods --sort-by=.metadata.creationTimestamp
+```
+
+### delete pod
+
+```
+kubectl delete pods POD_NAME
+```
+
+### Show logs
+
+```
+kubectl logs POD_NAME // cat logs 
+kubectl logs -f POD_NAME // like tail -f, stream log
+```
+
+### Attach to the running process in a existing container
+
+You will see the logs or interactive shell, be aware `ctrl+c` here will shut down the process running. To quit from attach, first `ctrl+p` then `ctrl+q`(type Ctrl+P followed by Ctrl+Q).
+
+```
+kubectl attach -it POD_NAME
+```
+
+### Use shell inside a existing container
+
+It actually additionally runs a shell in the container.
+
+```
+kubectl exec -ti POD_NAME -- /bin/sh      
+```
+
+## Reference
+
+[kubectl for Docker Users](https://kubernetes.io/docs/reference/kubectl/docker-cli-to-kubectl/#docker-exec)
+
+[kubectl Cheat Sheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
