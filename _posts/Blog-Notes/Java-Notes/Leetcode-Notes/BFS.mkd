@@ -260,3 +260,189 @@ class Solution {
 
 }
 ```
+
+## 286. Walls and Gates
+
+Use BFS, add 4 directions neighbors if it's INF to queue until queue is empty. To avoid same position added to queue twice from different path, after polling from queue, check if it's still INF. Initing queue by neighbors of 0.
+
+### Solution
+
+```
+class Solution {
+    public void wallsAndGates(int[][] rooms) {
+        bfs(rooms);
+    }
+    private void bfs(int[][] rooms){
+        Queue<Position> q = new LinkedList<>();
+        for(int i=0; i<rooms.length; i++){
+            for(int j=0; j<rooms[0].length; j++){
+                if(rooms[i][j]==0){
+                    addNeighbors(q, i, j, rooms, 1);
+                }
+            }
+        }
+        while(q.isEmpty()==false){
+            Position p = q.poll();
+            if(rooms[p.x][p.y]==Integer.MAX_VALUE){ // earlier reached in dfs get smaller distance
+                rooms[p.x][p.y] = p.distance;
+                addNeighbors(q, p.x, p.y, rooms, p.distance+1);    
+            }
+        }
+    }
+    private void addNeighbors(Queue q, int x, int y, int[][] rooms, int distance){
+        int inf = Integer.MAX_VALUE;
+        if(x-1>=0 && rooms[x-1][y]==inf)                q.add(new Position(x-1, y, distance));
+        if(x+1<rooms.length && rooms[x+1][y]==inf)      q.add(new Position(x+1, y, distance));
+        if(y-1>=0 && rooms[x][y-1]==inf)                q.add(new Position(x, y-1, distance));
+        if(y+1<rooms[0].length && rooms[x][y+1]==inf)   q.add(new Position(x, y+1, distance));
+    }
+    
+}
+class Position{
+    int x;
+    int y;
+    int distance;
+    public Position(int x, int y, int distance){
+        this.x = x;
+        this.y = y;
+        this.distance = distance;
+    }
+}
+```
+
+m is rooms.length, n is rooms[0].length
+
+Time: O(m*n)
+Space: O(m*n)
+
+## 301. Remove Invalid Parentheses
+
+### Description
+
+```
+Remove the minimum number of invalid parentheses in order to make the input string valid. Return all possible results.
+
+Note: The input string may contain letters other than the parentheses ( and ).
+
+Example 1:
+
+Input: "()())()"
+Output: ["()()()", "(())()"]
+Example 2:
+
+Input: "(a)())()"
+Output: ["(a)()()", "(a())()"]
+Example 3:
+
+Input: ")("
+Output: [""]
+```
+
+### First Solution 43%
+
+```
+class Solution {
+    private int maxLength = 0;
+    public List<String> removeInvalidParentheses(String s) {
+        Set<String> set= new HashSet<>();
+        dfs(new StringBuilder(), s, 0, 0, 0, set);
+        return new ArrayList<String>(set);
+    }
+    private void dfs(StringBuilder sb, String s, int index, int left, int right, Set<String> set){
+        if(index>=s.length()){
+            if(left==right){ // valid, won't be )( since this case will be stopped in ) checking
+                if(sb.length()>this.maxLength){
+                    set.clear();
+                    set.add(sb.toString());
+                    this.maxLength = sb.length();
+                }else if(sb.length()==this.maxLength){
+                    set.add(sb.toString());
+                } // if sb.length()<this.maxLength not add to set
+            }
+            return;
+        }
+        if(sb.length()+s.length()-index<this.maxLength)   return; // if final sb always < max, stop here
+        char c = s.charAt(index);
+        if(c=='('){
+            dfs(new StringBuilder(sb), s, index+1, left, right, set); // not add c
+            left++; // )( cannot offset ) because )( won't offset
+            dfs(sb.append(c), s, index+1, left, right, set); // add c
+        }else if(c==')'){
+            dfs(new StringBuilder(sb), s, index+1, left, right, set); // not add c
+            if(left>0){
+                left--; // offset ( 
+                dfs(sb.append(c), s, index+1, left, right, set); // add c
+            }else{ // no ( to offset, definitely invalid, stop here
+                return;
+            }
+        }else{ // other characters like a
+            dfs(sb.append(c), s, index+1, left, right, set);
+        } 
+    }
+}
+```
+
+n is the length of String s.
+
+Time: O(2^n), for each character in s, 2 options into dfs(recursion), add to sb or not add.
+Space: O(2^n*n). 2^n possible strings(sb) and each string(sb) has n in length. The depth of method frame is n since every time we deal with on one character.
+
+### Final Solution -- not finished
+
+```
+class Solution {
+    private int maxLength = 0;
+    public List<String> removeInvalidParentheses(String s) {
+        Set<String> set= new HashSet<>();
+        int left=0, right=0;
+        for(int i=0; i<s.length(); i++){
+            char c = s.charAt(i);
+            if(c=='('){
+                left++; // ( cannot offset previous ) because )( won't offset
+            }else if(c==')'){
+                if(left>0)  left--; // offset left
+                else        right++; // no left to offset
+            }
+        }
+        dfs(new StringBuilder(), s, 0, 0, 0, set, left, right);
+        return new ArrayList<String>(set);
+    }
+    private void dfs(StringBuilder sb, String s, int index, int left, int right, Set<String> set, int leftRemain, int rightRemain){
+        // if(index>=s.length()){
+        //     if(left==right){ // valid, won't be )( since this case will be stopped in ) checking
+        //         if(sb.length()>this.maxLength){
+        //             set.clear();
+        //             set.add(sb.toString());
+        //             this.maxLength = sb.length();
+        //         }else if(sb.length()==this.maxLength){
+        //             set.add(sb.toString());
+        //         } // if sb.length()<this.maxLength not add to set
+        //     }
+        //     return;
+        // }
+        if(leftRemain==0 && rightRemain==0){
+            System.out.println("left:"+left+",right:"+right+",sb:"+sb+" "+leftRemain+" "+rightRemain);
+            set.add(sb.toString());
+            return;
+        }
+        if(leftRemain<0 || rightRemain<0)   return;
+        if(index>=s.length())   return;
+        char c = s.charAt(index);
+        if(c=='('){
+            dfs(new StringBuilder(sb), s, index+1, left, right, set, leftRemain-1, rightRemain); // not add c
+            left++; // ( cannot offset previous ) because )( won't offset
+            dfs(sb.append(c), s, index+1, left, right, set, leftRemain, rightRemain); // add c
+        }else if(c==')'){
+            dfs(new StringBuilder(sb), s, index+1, left, right, set, leftRemain, rightRemain-1); // not add c
+            if(left>0){
+                left--; // offset ( 
+                dfs(sb.append(c), s, index+1, left, right, set, leftRemain, rightRemain); // add c
+            }else{ // no ( to offset, definitely invalid, stop here
+                return;
+            }
+        }else{ // other characters like a
+            dfs(sb.append(c), s, index+1, left, right, set, leftRemain, rightRemain);
+        } 
+    }
+}
+```
