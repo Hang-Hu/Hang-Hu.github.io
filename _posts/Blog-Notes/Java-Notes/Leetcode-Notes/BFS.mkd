@@ -338,27 +338,37 @@ Input: ")("
 Output: [""]
 ```
 
-### First Solution 43%
+### First Solution 29ms
+
+Set limit for max length to save time.
 
 ```
 class Solution {
-    private int maxLength = 0;
+    private int maxLength;
     public List<String> removeInvalidParentheses(String s) {
         Set<String> set= new HashSet<>();
+        this.maxLength = getMaxLength(s);
         dfs(new StringBuilder(), s, 0, 0, 0, set);
         return new ArrayList<String>(set);
     }
+    private int getMaxLength(String s){
+        int left=0, right=0;
+        for(int i=0; i<s.length(); i++){
+            char c = s.charAt(i);
+            if(c=='('){
+                left++; // left cannot offset previous right since )( won't offset
+            }else if(c==')'){
+                if(left>0)  left--; //offset left
+                else        right++;
+            }
+        }
+        return s.length()-left-right;
+    }
     private void dfs(StringBuilder sb, String s, int index, int left, int right, Set<String> set){
         if(index>=s.length()){
-            if(left==right){ // valid, won't be )( since this case will be stopped in ) checking
-                if(sb.length()>this.maxLength){
-                    set.clear();
-                    set.add(sb.toString());
-                    this.maxLength = sb.length();
-                }else if(sb.length()==this.maxLength){
-                    set.add(sb.toString());
-                } // if sb.length()<this.maxLength not add to set
-            }
+            // left==right==0 then valid
+            // don't have to verify 0 since won't be )(, this case will be stopped in ) checking
+            if(left==right && sb.length()==this.maxLength) set.add(sb.toString());
             return;
         }
         if(sb.length()+s.length()-index<this.maxLength)   return; // if final sb always < max, stop here
@@ -387,46 +397,38 @@ n is the length of String s.
 Time: O(2^n), for each character in s, 2 options into dfs(recursion), add to sb or not add.
 Space: O(2^n*n). 2^n possible strings(sb) and each string(sb) has n in length. The depth of method frame is n since every time we deal with on one character.
 
-### Final Solution -- not finished
+
+### Second Solution 4 ms
+
+Pre calculated left and right and set limit for each to further save time.
+
+Brute force. DFS traverse all possibilities. To improve, pre calculate number of `(` and `)` to remove. Use it as end condition in dfs. In dfs, the same logic calc `left` and `right`. And try add and not add current char recursively for all `(`/`)`/`letter` options. When it `)` and no left to offset, return here since it will be valid. End condition of dfs is
 
 ```
 class Solution {
-    private int maxLength = 0;
     public List<String> removeInvalidParentheses(String s) {
         Set<String> set= new HashSet<>();
-        int left=0, right=0;
+        int leftLimit=0, rightLimit=0;
         for(int i=0; i<s.length(); i++){
             char c = s.charAt(i);
             if(c=='('){
-                left++; // ( cannot offset previous ) because )( won't offset
+                leftLimit++; // ( cannot offset previous ) because )( won't offset
             }else if(c==')'){
-                if(left>0)  left--; // offset left
-                else        right++; // no left to offset
+                if(leftLimit>0)  leftLimit--; // offset left
+                else        rightLimit++; // no left to offset
             }
         }
-        dfs(new StringBuilder(), s, 0, 0, 0, set, left, right);
+        dfs(new StringBuilder(), s, 0, 0, 0, set, leftLimit, rightLimit);
         return new ArrayList<String>(set);
     }
     private void dfs(StringBuilder sb, String s, int index, int left, int right, Set<String> set, int leftRemain, int rightRemain){
-        // if(index>=s.length()){
-        //     if(left==right){ // valid, won't be )( since this case will be stopped in ) checking
-        //         if(sb.length()>this.maxLength){
-        //             set.clear();
-        //             set.add(sb.toString());
-        //             this.maxLength = sb.length();
-        //         }else if(sb.length()==this.maxLength){
-        //             set.add(sb.toString());
-        //         } // if sb.length()<this.maxLength not add to set
-        //     }
-        //     return;
-        // }
-        if(leftRemain==0 && rightRemain==0){
-            System.out.println("left:"+left+",right:"+right+",sb:"+sb+" "+leftRemain+" "+rightRemain);
+        // when invalid ( and ) all removed. check index to make sure it won't ignore all valid () after removing invalid ones
+        if(leftRemain==0 && rightRemain==0 && index==s.length()){
             set.add(sb.toString());
             return;
         }
-        if(leftRemain<0 || rightRemain<0)   return;
-        if(index>=s.length())   return;
+        if(leftRemain+rightRemain>s.length()-index)             return; // if chars left < chars to remove, definitely invalid, stop here
+        if(leftRemain<0 || rightRemain<0 || index>=s.length())  return; // invalid, stop here
         char c = s.charAt(index);
         if(c=='('){
             dfs(new StringBuilder(sb), s, index+1, left, right, set, leftRemain-1, rightRemain); // not add c
