@@ -453,8 +453,6 @@ class Solution {
 
 ### First Solution
 
-
-
 ```
 class Solution {
     public int shortestDistance(int[][] grid) {
@@ -520,6 +518,8 @@ class Position{
     }
 }
 ```
+
+m is grid.length, n is grid[0].length.
 
 Time: O(mn*mn)
 Space: O(mn*mn)
