@@ -62,3 +62,42 @@ plugins=(
 )
 ```
 
+
+### Shorten prompt
+
+```
+vim ~/.oh-my-zsh/themes/agnoster.zsh-theme
+```
+
+```
+# Dir: current working directory
+prompt_dir() {
+  prompt_segment blue $CURRENT_FG '%~'
+}
+```
+
+
+Change it to
+
+```
+# Dir: current working directory
+prompt_dir() {
+  prompt_segment blue $CURRENT_FG '%1~'
+}
+```
+
+1 indicates the prompt only contains current directory.
+
+```
+source ~/.zshrc
+```
+
+To upgrade oh my zsh:
+
+```
+git stash
+upgrade_oh_my_zsh
+git stash pop
+```
+
+Or just `git add` and `git commit -m 'CHANGES_I_MADE'`, then I can simply use `upgrade_oh_my_zsh`.
