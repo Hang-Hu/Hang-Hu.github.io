@@ -69,3 +69,150 @@ class Solution {
 
 Time: O(m*n). Suppose one dfs visits every node, then it just goes further enough, say m*n is length of its Longest Increasing Path, then every dfs is calculated. Then the m*n-1 dfs each takes O(1) by `distance[x][y]`. So the time complexity is m*n+(m*n-1)*1 = O(m*n). The idea is similiar to other case where one dfs not visiting all nodes. It takes only O(m*n) to compute distance for each slot in m*n try. So it's m*n+m*n, basically O(m*n). Just like the idea of m+n in dijkstra algo.
 Space: O(m*n), the distance array is m*n in shape.
+
+## 109. Convert Sorted List to Binary Search Tree
+
+### Description
+
+```
+Given a singly linked list where elements are sorted in ascending order, convert it to a height balanced BST.
+
+For this problem, a height-balanced binary tree is defined as a binary tree in which the depth of the two subtrees of every node never differ by more than 1.
+
+Example:
+
+Given the sorted linked list: [-10,-3,0,5,9],
+
+One possible answer is: [0,-3,9,-10,null,5], which represents the following height balanced BST:
+
+      0
+     / \
+   -3   9
+   /   /
+ -10  5
+```
+
+### First Solution - get length and find middle
+
+buildTree recursively, find length and then middle node(this takes space O(1), build a list as index will take space O(n)), build root node with it, assign left list to buildTree(), `root.left = buildTree(leftList)`, the same as right list.
+
+```
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public TreeNode sortedListToBST(ListNode head) {
+        return buildTree(head);
+    }
+    private TreeNode buildTree(ListNode head){
+        int length = getLength(head);
+        if(length==0)   return null;
+        if(length==1){
+            head.next = null;
+            return new TreeNode(head.val);
+        }
+        ListNode cur = head;
+        ListNode pre = null;
+        for(int i=0; i<length/2; i++){
+            pre = cur;
+            cur = cur.next;
+        }
+        pre.next = null;
+        TreeNode root = new TreeNode(cur.val);
+        TreeNode treeNode = root;
+        root.left = buildTree(head);
+        root.right = buildTree(cur.next);
+        return root;
+    }
+    private int getLength(ListNode head){
+        ListNode cur = head;
+        int length = 0;
+        while(cur!=null){
+            length++;
+            cur=cur.next;
+        }
+        return length;
+    }
+}
+```
+
+Time: O(nlogn)
+Space: O(1)
+
+### Second Solution - use list to find middle by O(1)
+
+
+Time: O(n)
+Space: O(n)
+
+### Final Solution
+
+Idea: Doing inorder traversal on binary search tree will get ascending sort list. Therefor simulate inorder traversal will work to build binary search tree now that I already have ascendingly sorted array.
+
+
+
+```
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    private ListNode curListNode;
+    public TreeNode sortedListToBST(ListNode head) {
+        this.curListNode = head;
+        int len = getLength(head);
+        return buildTree(0, len);
+    }
+    // start inclusive, end exclusive
+    private TreeNode buildTree(int start, int end){
+        if(end-start<1)     return null;
+        int mid = (start+end)/2;
+        TreeNode left = buildTree(start, mid);
+        TreeNode root = new TreeNode(this.curListNode.val); // mid
+        this.curListNode = this.curListNode.next;
+        root.left = left;
+        root.right = buildTree(mid+1, end);
+        return root;
+    }
+    private int getLength(ListNode head){
+        ListNode cur = head;
+        int length = 0;
+        while(cur!=null){
+            length++;
+            cur=cur.next;
+        }
+        return length;
+    }
+}
+```
+
+Time: O(n)
+Space: O(1), if consider Java's stack mechanism, then O(logn)
+
