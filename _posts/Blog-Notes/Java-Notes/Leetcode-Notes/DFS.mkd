@@ -159,11 +159,17 @@ Space: O(1)
 Time: O(n)
 Space: O(n)
 
-### Final Solution
+### Final Solution - Simulate inorder traversal
 
 Idea: Doing inorder traversal on binary search tree will get ascending sort list. Therefor simulate inorder traversal will work to build binary search tree now that I already have ascendingly sorted array.
 
+Start building the tree recursively using inorder traversal, only set the val when it's visiting the node in the second time. Use global curListNode, and set it to its next after using the val. Use start and end index to check if it's leaf node.
 
+```
+left=build(start, mid)
+root=new TreeNode(this.cur.val) // mid
+right=build(mid+1, end)
+```
 
 ```
 /**
