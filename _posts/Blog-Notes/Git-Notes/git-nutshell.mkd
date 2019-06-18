@@ -6,3 +6,20 @@ git add -p
 
 For snippet you want to add, use `y`. And then use `q` to quit when it's done.
 
+### delete branch
+
+```
+git branch -d BRANCH_NAME
+```
+
+### switch branch
+
+```
+git checkout BRANCH_NAME
+```
+
+### create new branch
+
+```
+git checkout -b BRANCH_NAME
+```
