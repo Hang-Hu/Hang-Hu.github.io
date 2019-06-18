@@ -1,0 +1,12 @@
+## Example
+
+```
+SELECT * FROM a
+LEFT JOIN b ON a.id = b.id
+UNION
+SELECT * FROM a
+RIGHT JOIN b ON a.id = b.id
+```
+
+## function to turn left join into full join
+
