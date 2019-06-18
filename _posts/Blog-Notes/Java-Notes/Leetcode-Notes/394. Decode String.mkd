@@ -19,18 +19,17 @@ s = "2[abc]3[cd]ef", return "abcabccdcdcdef".
 
 
 
-## Solution
+## First Solution
 
 
 ```
 class Solution {
-    int rightIndex = -1;
     public String decodeString(String s) {
         StringBuilder sb = new StringBuilder(s);
-        decode(sb, 0);
+        decode(sb, 0, true);
         return sb.toString();
     }
-    private void decode(StringBuilder sb, int start) {
+    private void decode(StringBuilder sb, int start, boolean baseLevel) {
         int i=start;
         while(i<sb.length()){
             char c = sb.charAt(i);
@@ -39,29 +38,27 @@ class Solution {
                 while(Character.isDigit(sb.charAt(d))) d++;
                 int k = Integer.parseInt(sb.substring(i, d));
                 int l = d+1;
-                int r = l+1; // r is exclusive of letter
+                int r = l; // r is exclusive of letter
                 while(sb.charAt(r)!=']'){
                     if(Character.isLetter(sb.charAt(r))){
                         r++;
                     }else if(Character.isDigit(sb.charAt(r))){
-                        decode(sb, r);
+                        decode(sb, r, false);
                     }else{
                         System.out.println("It should be eiter letter or digit, but get "+sb.charAt(r));
                     }
                 }
                 // r point to ]
                 sb.replace(i, r+1, stringMul(k, sb.substring(l, r)));
-                if(i==0){
-                    i = r+1; // TODO change it to comply with length of replaced string from stringMul
+                if(i==0||baseLevel){
+                    i = i+k*(r-l); // comply with length of replaced string from stringMul
                 }else{
                     return;
                 }
                 
             }else if(Character.isLetter(c)){
-                sb.append(c);
                 i++;
             }else{
-                System.out.println(i+" "+sb.charAt(i)+" "+sb);
                 System.out.println("Character "+c+" is illegal.");
             }
         }
@@ -71,7 +68,39 @@ class Solution {
         for(int i=0; i<k; i++) sb.append(s);
         return sb.toString();
     }
+}
+```
 
+## Final Solution
 
+```
+class Solution {
+    int curIndex = 0;
+    public String decodeString(String s) {
+        StringBuilder sb = new StringBuilder();
+        int k=0;
+        while(curIndex<s.length()){
+            char c = s.charAt(this.curIndex);
+            if(Character.isLetter(c)){
+                sb.append(c);
+                this.curIndex++;
+            }else if(Character.isDigit(c)){
+                k *= 10;
+                k += c-'0';
+                this.curIndex++;
+            }else if(c=='['){
+                this.curIndex++;
+                String res = decodeString(s);
+                for(int i=0; i<k; i++) sb.append(res);
+                k=0;
+                this.curIndex++;
+            }else if(c==']'){
+                return sb.toString();
+            }else{
+                System.out.println("Character must be either digit, letter, [ or ], "+c+" is illegal.");
+            }
+        }
+        return sb.toString();
+    }
 }
 ```
