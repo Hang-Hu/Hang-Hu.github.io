@@ -25,6 +25,42 @@ class TestStringMethods(unittest.TestCase):
         self.assertEqual('foo'.upper(), 'FOO1')
 ```
 
+### Organize code
+
+`setUp()` and tearDown() will be executed before and after each test method.
+
+### Command
+
+#### Call all unit tests
+
+```
+python3 -m unittest discover
+```
+
+#### Call unit test for one method
+
+```
+python3 -m unittest module_name.file_name.class_name.method_name
+```
+
+### Code example
+
+#### Assert no error
+
+```
+def test_1(self):
+    try:
+        func_name()
+    except ExceptionType:
+        self.fail("Method func_name raised exception ExceptionType.")
+```
+
+#### assert called any times with
+
+```
+mocked_error.assert_any_call('Error: ***.')
+```
+
 ### patch
 
 #### where to patch

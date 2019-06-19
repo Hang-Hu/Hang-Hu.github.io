@@ -10,3 +10,13 @@ RIGHT JOIN b ON a.id = b.id
 
 ## function to turn left join into full join
 
+```
+public String fullJoinStatement(String left){
+    String right = left.replace('LEFT JOIN', 'RIGHT JOIN');
+    return left+' UNION '+right;    
+}
+```
+
+## Reference
+
+[How to use MySQL JOIN? INNER, LEFT, RIGHT, FULL JOIN Explained](https://tableplus.io/blog/2018/07/mysql-join-explained-inner-left-right-full.html)
