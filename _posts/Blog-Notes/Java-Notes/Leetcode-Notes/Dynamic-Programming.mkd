@@ -42,3 +42,81 @@ class Solution {
     }
 }
 ```
+
+## 72. Edit Distance
+
+### Description
+
+```
+Given two words word1 and word2, find the minimum number of operations required to convert word1 to word2.
+
+You have the following 3 operations permitted on a word:
+
+Insert a character
+Delete a character
+Replace a character
+Example 1:
+
+Input: word1 = "horse", word2 = "ros"
+Output: 3
+Explanation: 
+horse -> rorse (replace 'h' with 'r')
+rorse -> rose (remove 'r')
+rose -> ros (remove 'e')
+Example 2:
+
+Input: word1 = "intention", word2 = "execution"
+Output: 5
+Explanation: 
+intention -> inention (remove 't')
+inention -> enention (replace 'i' with 'e')
+enention -> exention (replace 'n' with 'x')
+exention -> exection (replace 'n' with 'c')
+exection -> execution (insert 'u')
+```
+
+### Solution
+
+ignore x, y == delete x, y
+
+delete x == insert y
+
+replace x with y == replace y with x
+
+So insert, delete and replace can be replace by ignoring x(-), ignoring y(|) and replacing(/).
+
+
+`opt(i, j)` is the minimum cost spent when changing string x1...xi to y1...yj(0 is left for empty string)
+
+if i=0, diff(empty, y1...yj): j
+if j=0, diff(x1...xi, empty): i
+
+```
+opt(i, j) = min(
+                opt(i-1, j-1)+0(xi==yj)/1(xi!=yj)
+                opt(i-1, j)+1
+                opt(i, j-1)+1
+            )
+```
+
+```
+class Solution {
+    public int minDistance(String word1, String word2) {
+        if(word1.length()==0) return word2.length();
+        if(word2.length()==0) return word1.length();
+        int[][] opt = new int[word1.length()+1][word2.length()+1];
+        for(int i=0; i<opt.length; i++) opt[i][0] = i;
+        for(int j=0; j<opt[0].length; j++) opt[0][j] = j;
+        for(int i=1; i<opt.length; i++){
+            for(int j=1; j<opt[0].length; j++){
+                opt[i][j] = min(opt[i-1][j-1]+(word1.charAt(i-1)==word2.charAt(j-1)?0:1), opt[i-1][j]+1, opt[i][j-1]+1);
+            }
+        }
+        return opt[opt.length-1][opt[0].length-1];
+    }
+    private int min(int a, int b, int c){
+        return Math.min(a, Math.min(b, c));
+    }
+}
+```
+
