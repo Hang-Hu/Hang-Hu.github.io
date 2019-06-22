@@ -275,7 +275,7 @@ Can you do it like a boss? Do it without using any builtin function like __built
 ```
 
 
-### Solution 1
+### Solution Naive
 
 ```
 class Solution {
@@ -300,3 +300,52 @@ class Solution {
 Time: O(n*logn). Since logn is the number of bits(size) for n.
 Space: O(n)
 
+### Final Solution - DP
+
+opt(i) = last digit(1/0) + opt(i remove last digit). Since after removing last digit it's smaller than i, then that opt already exist, this saves time by reusing previous result.
+
+```
+class Solution {
+    public int[] countBits(int num) {
+        int[] opt = new int[num+1];
+        for(int i=0; i<=num; i++) opt[i] = (i&1) + opt[i>>>1]; // have to use () for i&1 otherwise + will be executed first
+        return opt;
+    }
+}
+```
+
+Time: O(n)
+Space: O(n)
+
+## 32. Longest Valid Parentheses
+
+
+###
+
+```
+class Solution {
+    public int longestValidParentheses(String s) {
+        int max = 0;
+        // i, j inclusive
+        for(int i=0; i<s.length(); i++){
+            for(int j=i+1; j<s.length(); j++){
+                if(valid(s, i, j)) max = j-i+1;
+            }
+        }
+        return max;
+    }
+   // start, end inclusive
+    private boolean valid(String s, int start, int end){
+        int l = 0;
+        int r = 0;
+        for(int i=start; i<=end; i++){
+            if(s.charAt(i)=='(') l++;
+            else if(s.charAt(i)==')'){
+                if(l>0) l--;
+                else    r++;
+            }
+        }
+        return l==0 && r==0;
+    }
+}
+```

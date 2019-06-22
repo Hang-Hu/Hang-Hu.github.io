@@ -114,3 +114,8 @@ class Solution {
 }
 ```
 
+### &
+
+```
+opt[i] = (i&1) + opt[i>>>1]; // have to use () for i&1 otherwise + will be executed first
+```
