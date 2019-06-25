@@ -1,0 +1,69 @@
+## 131. Palindrome Partitioning
+
+### Description
+
+```
+Given a string s, partition s such that every substring of the partition is a palindrome.
+
+Return all possible palindrome partitioning of s.
+
+Example:
+
+Input: "aab"
+Output:
+[
+  ["aa","b"],
+  ["a","a","b"]
+]
+```
+
+### Final Solution
+
+1. Use `path.remove(index)` instead of `path.remove(str)` to avoid bug since there are duplicates string.
+2. If to partition on cur index, check if the substring I sliced is valid or not, only continue recursion if it's valid.
+3. Recursion with some index params, path, ans param is best solution to permutation.
+4. If no good solution, first consider brute force, then improve on that, which may result in a good solution.
+
+
+```
+class Solution {
+    public List<List<String>> partition(String s) {
+        List<List<String>> ans = new ArrayList<>();
+        List<String> path = new ArrayList<>();
+        if(s.length()==0){
+            ans.add(path);
+            return ans;
+        }
+        partition(s, 0, 0, ans, path);
+        return ans;
+    }
+    // if partition in cur, then cur belongs to previous substring
+    // start, cur both inclusive
+    private void partition(String s, int start, int cur, List<List<String>> ans, List<String> path){
+        if(cur==s.length()-1){
+            String sub = s.substring(start, cur+1);
+            if(valid(sub)){
+                path.add(sub);
+                ans.add(new ArrayList<String>(path));
+                path.remove(path.size()-1);    
+            }
+            return;
+        }
+        partition(s, start, cur+1, ans, path); // not partition in cur
+        // partition in cur
+        String sub = s.substring(start, cur+1);
+        if(valid(sub)){
+            path.add(sub);
+            int removeIndex = path.size()-1;
+            partition(s, cur+1, cur+1, ans, path);
+            path.remove(removeIndex);    
+        }
+    }
+    private boolean valid(String s){
+        for(int i=0; i<s.length()-1; i++){
+            if(s.charAt(i)!=s.charAt(s.length()-i-1)) return false;
+        }
+        return true;
+    }
+}
+```

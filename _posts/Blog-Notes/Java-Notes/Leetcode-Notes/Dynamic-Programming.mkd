@@ -419,7 +419,7 @@ Space: O(n)
 
 ### Final Solution - l==r
 
-Greedy. 
+Walk throught string with one index. Only increment l and r, once invalid(r>l) reset l and r. Then walk through from length-1 to 0. l==r shows it's a valid substring, compare l+r with max.
 
 ```
 class Solution {
