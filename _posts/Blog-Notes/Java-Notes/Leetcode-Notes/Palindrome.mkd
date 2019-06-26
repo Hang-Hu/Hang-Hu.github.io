@@ -67,3 +67,74 @@ class Solution {
     }
 }
 ```
+
+## II
+
+### Solution DP
+
+```
+class Solution {
+    public int minCut(String s) {
+        int[][] opt = new int[s.length()][s.length()];
+        boolean[][] palindrome = new boolean[s.length()][s.length()]; // i, j are both inclusive
+        initPalindrome(palindrome, s);
+        System.out.println("---");
+        for(int i=0; i<s.length(); i++){
+            for(int j=i; j<s.length(); j++){
+                if(palindrome[i][j]!=valid2(s, i, j)) System.out.println(i+" "+j+" "+palindrome[i][j]+" ");
+            }
+            System.out.println();
+        }
+        System.out.println("---");
+        for(int start=0; start<s.length(); start++){
+            if(valid(s, start, s.length()-1, palindrome))   opt[start][s.length()-1] = 0;
+            else                                opt[start][s.length()-1] = -1;
+        }
+        for(int start=s.length()-1; start>=0; start--){
+            for(int i=s.length()-2; i>=0; i--){
+                if(valid(s, start, i, palindrome)){
+                    int min = -1;
+                    if(opt[i+1][i+1]!=-1) min = 1+opt[i+1][i+1];
+                    if(opt[start][i+1]!=-1) min = Math.min(min, opt[start][i+1]);
+                    opt[start][i] = min;
+                }else{
+                    opt[start][i] = opt[start][i+1];
+                }
+            }
+        }
+        return opt[0][0];
+    }
+    private void initPalindrome(boolean[][] palindrome, String s){
+        for(int i=0; i<s.length(); i++){
+            palindrome[i][i] = true;
+            initPalindrome(palindrome, s, i-1, i+1);
+        }
+        for(int i=0; i+1<s.length(); i++){
+            if(s.charAt(i)==s.charAt(i+1)) palindrome[i][i+1] = true;
+            initPalindrome(palindrome, s, i-1, i+2);
+        }
+    }
+    private void initPalindrome(boolean[][] palindrome, String s, int i, int j){
+        if(i<0 || j>=s.length()) return;
+        if(s.charAt(i)==s.charAt(j)){
+            palindrome[i][j] = true;
+            initPalindrome(palindrome, s, i-1, j+1);   
+        }
+    }
+    // start and end inclusive
+    private boolean valid(String s, int start, int end, boolean[][] palindrome){
+        // for(int i=start; i<=end; i++){
+        //  if(s.charAt(i)!=s.charAt(start+end-i)) return false;
+        // }
+        // return true;
+        return palindrome[start][end];
+    }
+    private boolean valid2(String s, int start, int end){
+        for(int i=start; i<=end; i++){
+            if(s.charAt(i)!=s.charAt(start+end-i)) return false;
+        }
+        return true;
+    }
+}
+
+```
