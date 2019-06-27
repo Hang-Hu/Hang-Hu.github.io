@@ -72,29 +72,74 @@ class Solution {
 
 ### Solution DP
 
+`opt(start, i)` is the minimum number of cut from start to s.length-1, and every partition is a palindrome.
+
+```
+opt(start, i) = min(
+    1+opt(i+1, i+1) if valid(s[start, i]) else Integer.MAX_VALUE // cut in index i
+    opt(start, i+1) // not cut
+)
+
+if i==s.length()-1, since current one is last index, definitely have to cut.
+
+if s[start, len-1] is palindrome:   opt(start, len-1)=1
+else                                opt(start, len-1)=-1 // invalid
+```
+
+```
+class Solution {
+    public int minCut(String s) {
+        int[][] opt = new int[s.length()][s.length()];
+        for(int start=0; start<s.length(); start++){
+            if(valid(s, start, s.length()-1))   opt[start][s.length()-1] = 0;
+            else                                opt[start][s.length()-1] = -1;
+        }
+        for(int start=s.length()-1; start>=0; start--){
+            for(int i=s.length()-2; i>=0; i--){
+                if(valid(s, start, i)){
+                    int min = -1;
+                    if(opt[i+1][i+1]!=-1) min = 1+opt[i+1][i+1];
+                    if(opt[start][i+1]!=-1) min = Math.min(min, opt[start][i+1]);
+                    opt[start][i] = min;
+                }else{
+                    opt[start][i] = opt[start][i+1];
+                }
+            }
+        }
+        return opt[0][0];
+    }
+    // start and end inclusive
+    private boolean valid(String s, int start, int end){
+        for(int i=start; i<=end; i++){
+            if(s.charAt(i)!=s.charAt(start+end-i)) return false;
+        }
+        return true;
+    }
+}
+```
+
+Time: O(n^3)
+Space: O(n^2)
+
+### Solution DP improved
+
+Improve: instead of traverse to check if valid. Have an array[i][j] to store if si...sj is palindrome or not. Start from i and (i, i+1) to calculate all palindrome.
+
 ```
 class Solution {
     public int minCut(String s) {
         int[][] opt = new int[s.length()][s.length()];
         boolean[][] palindrome = new boolean[s.length()][s.length()]; // i, j are both inclusive
         initPalindrome(palindrome, s);
-        System.out.println("---");
-        for(int i=0; i<s.length(); i++){
-            for(int j=i; j<s.length(); j++){
-                if(palindrome[i][j]!=valid2(s, i, j)) System.out.println(i+" "+j+" "+palindrome[i][j]+" ");
-            }
-            System.out.println();
-        }
-        System.out.println("---");
         for(int start=0; start<s.length(); start++){
             if(valid(s, start, s.length()-1, palindrome))   opt[start][s.length()-1] = 0;
-            else                                opt[start][s.length()-1] = -1;
+            else                                            opt[start][s.length()-1] = -1;
         }
         for(int start=s.length()-1; start>=0; start--){
             for(int i=s.length()-2; i>=0; i--){
                 if(valid(s, start, i, palindrome)){
                     int min = -1;
-                    if(opt[i+1][i+1]!=-1) min = 1+opt[i+1][i+1];
+                    if(opt[i+1][i+1]!=-1)   min = 1+opt[i+1][i+1];
                     if(opt[start][i+1]!=-1) min = Math.min(min, opt[start][i+1]);
                     opt[start][i] = min;
                 }else{
@@ -110,8 +155,10 @@ class Solution {
             initPalindrome(palindrome, s, i-1, i+1);
         }
         for(int i=0; i+1<s.length(); i++){
-            if(s.charAt(i)==s.charAt(i+1)) palindrome[i][i+1] = true;
-            initPalindrome(palindrome, s, i-1, i+2);
+            if(s.charAt(i)==s.charAt(i+1)){
+                palindrome[i][i+1] = true;
+                initPalindrome(palindrome, s, i-1, i+2);
+            }
         }
     }
     private void initPalindrome(boolean[][] palindrome, String s, int i, int j){
@@ -123,18 +170,10 @@ class Solution {
     }
     // start and end inclusive
     private boolean valid(String s, int start, int end, boolean[][] palindrome){
-        // for(int i=start; i<=end; i++){
-        //  if(s.charAt(i)!=s.charAt(start+end-i)) return false;
-        // }
-        // return true;
         return palindrome[start][end];
     }
-    private boolean valid2(String s, int start, int end){
-        for(int i=start; i<=end; i++){
-            if(s.charAt(i)!=s.charAt(start+end-i)) return false;
-        }
-        return true;
-    }
 }
-
 ```
+
+Time: O(n^2)
+Space: O(n^2)
