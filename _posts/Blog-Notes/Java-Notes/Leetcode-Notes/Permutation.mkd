@@ -1,0 +1,121 @@
+## 31. Next Permutation
+
+### Description
+
+```
+Implement next permutation, which rearranges numbers into the lexicographically next greater permutation of numbers.
+
+If such arrangement is not possible, it must rearrange it as the lowest possible order (ie, sorted in ascending order).
+
+The replacement must be in-place and use only constant extra memory.
+
+Here are some examples. Inputs are in the left-hand column and its corresponding outputs are in the right-hand column.
+
+1,2,3 → 1,3,2
+3,2,1 → 1,2,3
+1,1,5 → 1,5,1
+
+```
+
+### Solution - single pass and swap
+
+
+1. find the last consecutive increasing pair (i, i+1), if cannot find this means the whole array is descending, just reverse it.
+2. If the pair is last two elements, simply swap them
+3. Otherwise the structue will definitely be i+1
+                                              /\
+                                             i ...
+                                                 \
+
+(Since i to i+1 is increasing, and they are the last increasing pair, so everything after it is decreasing)
+
+Then I have to find the last element larger than nums[i], which should be the new number as start, and swap it with i, then sort everything after i to be ascending.
+
+
+```
+class Solution {
+    public void nextPermutation(int[] nums) {
+        // find the last consecutive increasing pair
+        for(int i=nums.length-2; i>=0; i--){
+            if(nums[i]<nums[i+1]){
+                if(i+1==nums.length-1){
+                    swap(nums, i, i+1); // simply swap the pair                
+                }else{
+                    // find the last element bigger than nums[i]
+                    int j = -1;
+                    for(j = nums.length-1; j>i; j--){
+                        if(nums[j]>nums[i]) break;
+                    }
+                    swap(nums, i, j);
+                    Arrays.sort(nums, i+1, nums.length);
+                }
+                return;
+            }
+        }
+        // cannot find, all decreasing or keeping same, reverse the array by swap
+        for(int i=0; i<nums.length/2; i++){
+            swap(nums, i, nums.length-1-i);
+        }
+    }
+    private void swap(int[] nums, int i, int j){
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
+    }
+}
+```
+
+## 46. Permutations
+
+### Description
+
+```
+Given a collection of distinct integers, return all possible permutations.
+
+Example:
+
+Input: [1,2,3]
+Output:
+[
+  [1,2,3],
+  [1,3,2],
+  [2,1,3],
+  [2,3,1],
+  [3,1,2],
+  [3,2,1]
+]
+```
+
+
+### Solution
+
+Be careful to remove where it was added, also be careful to add to ith index where it was removed.
+
+Use recursion
+
+```
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> ans = new ArrayList<>();
+        List<Integer> l = new ArrayList<>();
+        List<Integer> integers = new ArrayList<>();
+        for(int n: nums) integers.add(n);
+        permute(integers, 0, nums.length, ans, l);
+        return ans;
+    }
+    private void permute(List<Integer> integers, int cur, int len, List<List<Integer>> ans, List<Integer> l){
+        if(cur>=len){
+            ans.add(new ArrayList<Integer>(l));
+            return;
+        }
+        for(int i=0; i<integers.size(); i++){
+            Integer n = integers.get(i);
+            l.add(n); // add to the end
+            integers.remove(i); // remove ith index
+            permute(integers, cur+1, len, ans, l);
+            l.remove(l.size()-1); // remove the end
+            integers.add(i, n); // add to ith index
+        }
+    }
+}
+```

@@ -119,3 +119,11 @@ class Solution {
 ```
 opt[i] = (i&1) + opt[i>>>1]; // have to use () for i&1 otherwise + will be executed first
 ```
+
+### Sort part of an array
+
+Sort `nums` from index i+1(inclusive) to nums.length(exclusive).
+
+```
+Arrays.sort(nums, i+1, nums.length);
+```
