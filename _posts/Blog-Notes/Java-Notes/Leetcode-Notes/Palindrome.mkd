@@ -24,6 +24,12 @@ Output:
 3. Recursion with some index params, path, ans param is best solution to permutation.
 4. If no good solution, first consider brute force, then improve on that, which may result in a good solution.
 
+Use start index, cur index:
+
+not partition in cur: `partition(start, cur+1)`
+partition in cur if `s.substring(start, cur+1)` is palindrome: `partition(cur+1, cur+1)`
+
+Have a path to remember substrings, add and remove with index, in the end add to `ans`.
 
 ```
 class Solution {
@@ -68,17 +74,31 @@ class Solution {
 }
 ```
 
-## II
+## 132. Palindrome Partitioning II
+
+### Description
+
+```
+Given a string s, partition s such that every substring of the partition is a palindrome.
+
+Return the minimum cuts needed for a palindrome partitioning of s.
+
+Example:
+
+Input: "aab"
+Output: 1
+Explanation: The palindrome partitioning ["aa","b"] could be produced using 1 cut.
+```
 
 ### Solution DP
 
 `opt(start, i)` is the minimum number of cut from start to s.length-1, and every partition is a palindrome.
 
 ```
-opt(start, i) = min(
+opt(start, i) = min{
     1+opt(i+1, i+1) if valid(s[start, i]) else Integer.MAX_VALUE // cut in index i
     opt(start, i+1) // not cut
-)
+}
 
 if i==s.length()-1, since current one is last index, definitely have to cut.
 
@@ -123,7 +143,7 @@ Space: O(n^2)
 
 ### Solution DP improved
 
-Improve: instead of traverse to check if valid. Have an array[i][j] to store if si...sj is palindrome or not. Start from i and (i, i+1) to calculate all palindrome.
+Improve: instead of traverse to check if valid. Have an array[i][j] to store if si...sj is palindrome or not. Start from (i, i) and (i, i+1) to calculate all palindrome.
 
 ```
 class Solution {
@@ -177,3 +197,49 @@ class Solution {
 
 Time: O(n^2)
 Space: O(n^2)
+
+## 214. Shortest Palindrome
+
+
+### Description
+
+```
+
+Given a string s, you are allowed to convert it to a palindrome by adding characters in front of it. Find and return the shortest palindrome you can find by performing this transformation.
+
+Example 1:
+
+Input: "aacecaaa"
+Output: "aaacecaaa"
+Example 2:
+
+Input: "abcd"
+Output: "dcbabcd"
+```
+
+### Solution
+
+```
+class Solution {
+    public String shortestPalindrome(String s) {
+        boolean[][] palindrome = new boolean[s.length()][s.length()]; // palindrome[i][j], i,j are inclusive
+        initPalindrome(palindrome, s);
+    }
+    private void initPalindrome(boolean[][] palindrome, String s){
+        for(int i=0; i<s.length(); i++){
+            palindrome[i][i] = true;
+            initPalindrome(palindrome, s, i-1, i+1);
+        }
+        for(int i=0; i+1<s.length(); i++){
+            if(s.charAt(i)==s.charAt(i+1)){
+                palindrome[i][i+1] = true;
+                initPalindrome(palindrome, s, i-1, i+2);
+            }
+        }
+    }
+    // i, j are inclusive
+    private void initPalindrome(boolean[][] palindrome, String s, int i, int j){
+        
+    }
+}
+```
