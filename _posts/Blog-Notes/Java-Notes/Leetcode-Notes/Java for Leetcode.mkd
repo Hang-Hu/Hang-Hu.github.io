@@ -127,3 +127,12 @@ Sort `nums` from index i+1(inclusive) to nums.length(exclusive).
 ```
 Arrays.sort(nums, i+1, nums.length);
 ```
+
+
+## Map
+
+### Delete key
+
+```
+map.remove(k);
+```
