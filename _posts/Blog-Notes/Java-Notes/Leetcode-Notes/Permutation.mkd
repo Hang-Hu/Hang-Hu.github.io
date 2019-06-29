@@ -91,7 +91,7 @@ Output:
 
 Be careful to remove where it was added, also be careful to add to ith index where it was removed.
 
-Use recursion
+Use recursion, use possible integers and l as param. Try all integers, remove used one(ith), append it to l, call permute() recusively. After permute(), remove it from l(last one), and add back to integers(ith index).
 
 ```
 class Solution {
@@ -113,9 +113,69 @@ class Solution {
             l.add(n); // add to the end
             integers.remove(i); // remove ith index
             permute(integers, cur+1, len, ans, l);
-            l.remove(l.size()-1); // remove the end
+            l.remove(l.size()-1); // remove from the end
             integers.add(i, n); // add to ith index
         }
     }
 }
 ```
+
+Time: O(n!)
+Space: O(n*n!) = O(n!)
+
+## 47. Permutations II
+
+### Description
+
+```
+Given a collection of numbers that might contain duplicates, return all possible unique permutations.
+
+Example:
+
+Input: [1,1,2]
+Output:
+[
+  [1,1,2],
+  [1,2,1],
+  [2,1,1]
+]
+```
+
+### Final Solution - Backtracking+Recursion
+
+Use Map to store (number, occurrences). Try all possible keys, add to path list, decrease in map, call permuteUnique() recursively, then remove it from path(last one), increase in map.
+
+```
+class Solution {
+    public List<List<Integer>> permuteUnique(int[] nums) {
+        List<List<Integer>> ans = new ArrayList<>();
+        Map<Integer, Integer> map = new HashMap<>(); // (number, occurrences)
+        initMap(map, nums);
+        permuteUnique(nums, map, 0, nums.length, ans, new ArrayList<>());
+        return ans;
+    }
+    private void permuteUnique(int[] nums, Map<Integer, Integer> map, int cur, int len, List<List<Integer>> ans, List<Integer> path){
+        if(cur>=len){
+            ans.add(new ArrayList<>(path));
+            return;
+        }
+        for(Map.Entry<Integer, Integer> e: map.entrySet()){
+            if(e.getValue()==0) continue;
+            Integer k = e.getKey();
+            path.add(k);
+            map.put(k, map.get(k)-1);
+            permuteUnique(nums, map, cur+1, len, ans, path);
+            path.remove(path.size()-1);
+            map.put(k, map.get(k)+1);
+        }
+    }
+    private void initMap(Map<Integer, Integer> map, int[] nums){
+        for(int n: nums){
+            map.put(n, 1+map.getOrDefault(n, 0));
+        }
+    }
+}
+```
+
+Time: O(n!)
+Space: O(n*n!) = O(n!)
