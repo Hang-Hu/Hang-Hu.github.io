@@ -179,3 +179,85 @@ class Solution {
 
 Time: O(n!)
 Space: O(n*n!) = O(n!)
+
+
+## 60. Permutation Sequence
+
+### Description
+
+```
+The set [1,2,3,...,n] contains a total of n! unique permutations.
+
+By listing and labeling all of the permutations in order, we get the following sequence for n = 3:
+
+"123"
+"132"
+"213"
+"231"
+"312"
+"321"
+Given n and k, return the kth permutation sequence.
+
+Note:
+
+Given n will be between 1 and 9 inclusive.
+Given k will be between 1 and n! inclusive.
+Example 1:
+
+Input: n = 3, k = 3
+Output: "213"
+Example 2:
+
+Input: n = 4, k = 9
+Output: "2314"
+```
+
+### Final Solution
+
+Recursion. `(n-1)!` is the number of possibilities of substring excluding the first char. Therefore I can use k to know how many possibilities it has skipped and the current index it falls into.
+
+For example, n=3, if first char is `1`, there are two possibilities((3-1)!=2), since k=3, it falls into next first char, which is `2`.
+
+The index of first char is `(k-1)/(n-1)!`, use `boolean[]` path to get the ith number from remaining numbers. call `getPermutation()` recursively with `n-1` and k-skipped possibilities(`k-index*(n-1)!`).
+
+
+```
+class Solution {
+    public String getPermutation(int n, int k) {
+        StringBuilder sb = new StringBuilder();
+        boolean[] path = new boolean[n+1]; // 0 is left empty, 1...n are used to mark if used or not
+        getPermutation(sb, n, k, path);
+        return sb.toString();
+    }
+    // every recursion calculate out one char
+    private void getPermutation(StringBuilder sb, int n, int k, boolean[] path){
+        if(n<=0) return;
+        int count = factorial(n-1);
+        int index = (k-1)/count;
+        sb.append(getNum(path, index));
+        getPermutation(sb, n-1, k-index*count, path);
+    }   
+    // get the ith number which hasn't been used
+    private int getNum(boolean[] path, int index){
+        for(int i=1; i<path.length; i++){
+            if(path[i]==true){ // already used
+                continue;
+            }else{ // not used before
+                if(index>0){
+                    index--;
+                }else{ // index is 0
+                    path[i] = true;
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+    // n!
+    private int factorial(int n){
+        int c = 1;
+        for(int i=n; i>=1; i--) c *= i;
+        return c;
+    }
+}
+```
