@@ -613,7 +613,14 @@ p = "a*c?b"
 Output: false
 ```
 
-### Solution DP (Recursion+Memorization)
+### Final Solution DP (Recursion+Memorization)
+
+Similiar to 10.Regular Expression Matching.
+
+If j is *, try match 0(j+1) and match 1 or more(i+1)
+Otherwise check if first match, yes then try next pari(i+1, j+1)
+
+Use int[][] memo to memory duplicate computation.
 
 ```
 class Solution {
@@ -647,3 +654,117 @@ m is s.length(), n is p.length()
 
 Time: O(m*n)
 Space: I(m*n)
+
+### Solution (KMP)
+
+First time meet *, match 0 time. If encounter firstMatch is false, i and j go back to previous *, match time inc by 1. If all remaining j is *, then return true.
+
+```
+class Solution {
+    public boolean isMatch(String s, String p) {
+        int i=0, j=0, preStarIndexOfI=-1, preStarIndexOfJ=-1, matchNum=-1;
+        while(i<s.length() && j<p.length()+1){ // j can exceed so that j can go back to use last * which is in len-1
+            boolean firstMatch = j<p.length() && (s.charAt(i)==p.charAt(j) || p.charAt(j)=='?');
+            boolean isStar = j<p.length() && (p.charAt(j)=='*');
+            if(isStar){
+                preStarIndexOfI = i;
+                preStarIndexOfJ = j;
+                matchNum = 0;
+                j++; // match 0 time
+            }else{
+                if(firstMatch){
+                    i++; j++;
+                }else{
+                    if(preStarIndexOfJ==-1) return false;
+                    j = preStarIndexOfJ;
+                    i = preStarIndexOfI;
+                    matchNum++;
+                    i += matchNum;
+                    j++;
+                }
+            }
+        }
+        if(i>=s.length()){
+            while(j<p.length()){
+                if(p.charAt(j)!='*') return false;
+                j++;
+            }
+            return true;
+        }else{ // j>=p.length()+1
+            return false;
+        }
+        
+    }
+}
+```
+
+## 62. Unique Paths
+
+### Description
+
+```
+A robot is located at the top-left corner of a m x n grid (marked 'Start' in the diagram below).
+
+The robot can only move either down or right at any point in time. The robot is trying to reach the bottom-right corner of the grid (marked 'Finish' in the diagram below).
+
+How many possible unique paths are there?
+
+
+Above is a 7 x 3 grid. How many possible unique paths are there?
+
+Note: m and n will be at most 100.
+
+Example 1:
+
+Input: m = 3, n = 2
+Output: 3
+Explanation:
+From the top-left corner, there are a total of 3 ways to reach the bottom-right corner:
+1. Right -> Right -> Down
+2. Right -> Down -> Right
+3. Down -> Right -> Right
+Example 2:
+
+Input: m = 7, n = 3
+Output: 28
+```
+
+### Final Solution DP
+
+opt(i, j) is the number of ways to reach bottom right corner from position (i, j).
+
+```
+(i, j)      (i+1, j)
+(i, j+1)
+```
+
+```
+opt(i, j) = opt(i+1, j)(if i+1 exist) + opt(i, j+1)(if j+1 exist)
+```
+
+Why use i+1 and j+1 exist condition?
+
+The position of i+j may be in boundary, for example, i=m-1, j=1, then they only have bottom no right.
+
+`opt[m-1][n-1]` is 1 because:
+
+```
+
+```
+
+```
+class Solution {
+    public int uniquePaths(int m, int n) {
+        if(m==0 || n==0) return 0;
+        int[][] opt = new int[m][n];
+        opt[m-1][n-1] = 1;
+        for(int i=m-1; i>=0; i--){
+            for(int j=n-1; j>=0; j--){
+                if(i+1<m) opt[i][j] += opt[i+1][j];
+                if(j+1<n) opt[i][j] += opt[i][j+1];
+            }
+        }
+        return opt[0][0];
+    }
+}
+```
