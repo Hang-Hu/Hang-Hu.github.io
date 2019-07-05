@@ -731,7 +731,7 @@ Output: 28
 
 ### Final Solution DP
 
-opt(i, j) is the number of ways to reach bottom right corner from position (i, j).
+opt(i, j) is the number of ways to reach bottom right corner(m-1, n-1) from position (i, j).
 
 ```
 (i, j)      (i+1, j)
@@ -746,10 +746,11 @@ Why use i+1 and j+1 exist condition?
 
 The position of i+j may be in boundary, for example, i=m-1, j=1, then they only have bottom no right.
 
-`opt[m-1][n-1]` is 1 because:
+`opt[m-1][n-1]` is 1 because `opt[m-2][n-2]` is definitly 2 ways, from right and from bottom, and it equals `opt[m-1][n-2]+opt[m-2][n-1]`, each should be one. And `opt[m-1][n-2]` equals `opt[m-1][n-1]` since it has no right way to bottom right corner. So `opt[m-1][n-1]` is 1.
 
 ```
-
+(m-2, n-2)  (m-1, n-2)
+(m-2, n-1)  (m-1, n-1) 
 ```
 
 ```
@@ -768,3 +769,129 @@ class Solution {
     }
 }
 ```
+
+## 63. Unique Paths II
+
+### Description
+
+```
+A robot is located at the top-left corner of a m x n grid (marked 'Start' in the diagram below).
+
+The robot can only move either down or right at any point in time. The robot is trying to reach the bottom-right corner of the grid (marked 'Finish' in the diagram below).
+
+Now consider if some obstacles are added to the grids. How many unique paths would there be?
+
+
+
+An obstacle and empty space is marked as 1 and 0 respectively in the grid.
+
+Note: m and n will be at most 100.
+
+Example 1:
+
+Input:
+[
+  [0,0,0],
+  [0,1,0],
+  [0,0,0]
+]
+Output: 2
+Explanation:
+There is one obstacle in the middle of the 3x3 grid above.
+There are two ways to reach the bottom-right corner:
+1. Right -> Right -> Down -> Down
+2. Down -> Down -> Right -> Right
+
+```
+
+### Final Solution - DP
+
+opt(i, j) is the number of ways to reach bottom right corner(m-1, n-1) from position (i, j).
+
+```
+(i, j)      (i+1, j)
+(i, j+1)
+```
+
+```
+opt(i, j) = opt(i+1, j)(if i+1 exist and obstacle[i][j] is 0) + opt(i, j+1)(if j+1 exist and obstacle[i][j] is 0)
+```
+
+```
+class Solution {
+    public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        int[][] opt = new int[obstacleGrid.length][obstacleGrid[0].length];
+        if(obstacleGrid[opt.length-1][opt[0].length-1]==1) return 0; // if finish is obstacle, there is no way to be there
+        opt[opt.length-1][opt[0].length-1] = 1;
+        for(int i=opt.length-1; i>=0; i--){
+            for(int j=opt[0].length-1; j>=0; j--){
+                if(obstacleGrid[i][j]==0){ // if it's obstacle, no need to compute number of ways
+                    if(i+1<opt.length && obstacleGrid[i+1][j]==0) opt[i][j] += opt[i+1][j];
+                    if(j+1<opt[0].length && obstacleGrid[i][j+1]==0) opt[i][j] += opt[i][j+1];    
+                }
+            }
+        }
+        return opt[0][0];
+    }
+}
+```
+
+## 64. Minimum Path Sum
+
+### Description
+
+```
+Given a m x n grid filled with non-negative numbers, find a path from top left to bottom right which minimizes the sum of all numbers along its path.
+
+Note: You can only move either down or right at any point in time.
+
+Example:
+
+Input:
+[
+  [1,3,1],
+  [1,5,1],
+  [4,2,1]
+]
+Output: 7
+Explanation: Because the path 1→3→1→1→1 minimizes the sum.
+
+```
+
+### Final Solution - DP
+
+opt(i, j) is the minimum path sum from (i, j) to (m-1, n-1).
+
+```
+(i, j)      (i, j+1)
+(i+1, j)    (i+1, j+1)
+```
+
+```
+opt(i, j) = grid(i, j) + min{opt(i+1, j)(if i+1 exist), opt(i, j+1)(if j+1 exist)}
+```
+
+opt(m-1, n-1) = grid(m-1, n-1).
+
+return opt(0, 0).
+
+```
+class Solution {
+    public int minPathSum(int[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
+        int[][] opt = new int[m][n];
+        for(int i=m-1; i>=0; i--){
+            for(int j=n-1; j>=0; j--){
+                opt[i][j] = grid[i][j];
+                int min = -1;
+                if(j+1<n) min = opt[i][j+1];
+                if(i+1<m) min = (min==-1 ? opt[i+1][j] : Math.min(min, opt[i+1][j]));
+                if(min!=-1) opt[i][j]+=min;
+            }
+        }
+        return opt[0][0];
+    }
+}
+```
+
