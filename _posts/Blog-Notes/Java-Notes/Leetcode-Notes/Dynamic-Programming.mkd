@@ -900,18 +900,32 @@ class Solution {
 
 ### Description
 
-### Solution
+### DP Solution - Memory Limit Exceeded
 
 ```
 class Solution {
     private int[][][][] memo; // default to be -1, valid values: 0,1,2...
     public int maximalRectangle(char[][] matrix) {
+        if(matrix.length==0 || matrix[0].length==0) return 0;
         int rowLen = matrix.length;
         int colLen = matrix[0].length;
+        // System.out.println("rowLen: "+ rowLen+", colLen: "+ colLen);
         memo = new int[rowLen][colLen][rowLen][colLen];
         initMemo();
-        return opt(matrix, 0, 0, rowLen-1, colLen-1);
-        
+        return maxRec(matrix, rowLen, colLen);
+    }
+    private int maxRec(char[][] matrix, int rowLen, int colLen){
+        int max = 0;
+        for(int i=0; i<rowLen; i++){
+            for(int j=0; j<colLen; j++){
+                for(int m=0; m<rowLen; m++){
+                    for(int n=0; n<colLen; n++){
+                        max = Math.max(max, opt(matrix, i, j, m, n));         
+                    }
+                }
+            }
+        }
+        return max;
     }
     private void initMemo(){
         for(int i=0; i<memo.length; i++){
@@ -927,18 +941,25 @@ class Solution {
     private int opt(char[][] matrix, int i, int j, int m, int n){
         if(memo[i][j][m][n]!=-1) return memo[i][j][m][n];
         if(i==m && j==n) return Integer.parseInt(""+matrix[i][j]);
-        int max = 0;
-        int a = opt(matrix, i+1, j, m, n); int b = opt(matrix, i, j, i, n);
-        if(i+1<=m && a==size(i+1, j, m, n) && b==size(i, j, i, n)) max = Math.max(max, a+b);
-        a = opt(matrix, i, j+1, m, n); b = opt(matrix, i, j, m, j)
-        if(j+1<=n && a== && b==) max = Math.max(max, a+b);
-        memo[i][j][m][n] = max;
-        System.out.println(i+" "+ j+" "+m+" "+n+" "+max);
-        return max;
+        int ans = 0;
+        // some can only fit horizontal cut, some only vertical cut, and some either works
+        // for some that both work, choose one of two is okay
+        if(i+1<=m){ // horizontal cut
+            int a = opt(matrix, i+1, j, m, n); int b = opt(matrix, i, j, i, n);
+            if(a==size(i+1, j, m, n) && b==size(i, j, i, n)) ans = a+b;
+        }else if(j+1<=n){ // vertical cut
+            int a = opt(matrix, i, j+1, m, n); int b = opt(matrix, i, j, m, j);
+            if(a==size(i, j+1, m, n) && b==size(i, j, m, j)) ans = a+b;
+        }
+        memo[i][j][m][n] = ans;
+        return ans;
     }
     private int size(int i, int j, int m, int n){
-        
+        return (m-i+1)*(n-j+1);
     }
-    
 }
 ```
+
+
+Time: O(m^2 * n^2)
+Space: O(m^2 * n^2)
