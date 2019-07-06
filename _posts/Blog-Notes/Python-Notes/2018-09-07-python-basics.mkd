@@ -1462,9 +1462,12 @@ ranked_users = ['jon','bob','jane','alice','chris']
 map(lambda x: {'name':x[1], 'rank':x[0]}, enumerate(ranked_users))
 ```
 
+### String compare
+
+Use `a=='Hello'`, but not `a is 'Hello'`.
+
 ## Errors
 
 ### TypeError: a bytes-like object is required, not 'str'
 
 Use `if b'tmp' in str` instead of `if 'tmp' in str`.
-

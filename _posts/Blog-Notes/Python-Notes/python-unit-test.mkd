@@ -148,6 +148,14 @@ Change it to be:
 c.return_value.d.return_value.__enter__.return_value.e.return_value.f.return_value='expected'
 ```
 
+#### make patched method raise certain exception - side_effect
+
+If the exception requires parameters, have to provide that, None will also work.
+
+```
+mock.side_effect = ExceptionName()
+```
+
 ### Reference
 
 [python-mocking-a-function-from-an-imported-module](https://stackoverflow.com/questions/16134281/python-mocking-a-function-from-an-imported-module)
