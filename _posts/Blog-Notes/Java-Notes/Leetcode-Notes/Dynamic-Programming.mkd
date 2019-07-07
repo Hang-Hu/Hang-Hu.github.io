@@ -963,3 +963,57 @@ class Solution {
 
 Time: O(m^2 * n^2)
 Space: O(m^2 * n^2)
+
+### Solution - consecutive pre sum and histogram
+
+```
+class Solution {
+    public int maximalRectangle(char[][] matrix) {
+        if(matrix.length==0) return 0;
+        int[][] consecutivePreSum = new int[matrix.length][matrix[0].length];
+        init(consecutivePreSum, matrix);
+        int max = 0;
+        for(int i=0; i<consecutivePreSum.length; i++){
+            for(int j=0; j<consecutivePreSum[0].length; j++){
+                if(consecutivePreSum[i][j]!=0) max = Math.max(max, histogram(i, j, consecutivePreSum));
+            }
+        }
+        return max;
+    }
+    private int histogram(int i, int j, int[][] consecutivePreSum){
+        int startI = i;
+        int minWidth = consecutivePreSum[i][j];
+        int maxArea = 0;
+        while(i>=0){
+            if(consecutivePreSum[i][j]>0){
+                minWidth = Math.min(minWidth, consecutivePreSum[i][j]);
+                maxArea = Math.max(maxArea, minWidth * (startI-i+1));
+                i--;
+            }else{
+                break;
+            }
+        }
+        return maxArea;
+    }
+    private void init(int[][] consecutivePreSum, char[][] matrix){
+        for(int i=0; i<consecutivePreSum.length; i++){
+            for(int j=0; j<consecutivePreSum[0].length; j++){
+                if(matrix[i][j]=='1'){
+                    if(j-1>=0)  consecutivePreSum[i][j] =  consecutivePreSum[i][j-1] + 1;
+                    else        consecutivePreSum[i][j] = 1;
+                }else{ // '0'
+                     consecutivePreSum[i][j] = 0;
+                }
+            }
+        }
+    }
+ 
+    
+}
+```
+
+m is matrix.length, n is matrix[0].length
+
+Time: O(m^2 * n)
+Space: O(m*n)
+
