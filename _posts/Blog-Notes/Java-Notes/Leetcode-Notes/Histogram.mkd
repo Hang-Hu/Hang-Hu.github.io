@@ -1,0 +1,80 @@
+## 84. Largest Rectangle in Histogram
+
+### Description
+
+```
+Given n non-negative integers representing the histogram's bar height where the width of each bar is 1, find the area of largest rectangle in the histogram.
+
+ 
+
+
+Above is a histogram where width of each bar is 1, given height = [2,1,5,6,2,3].
+
+ 
+
+
+The largest rectangle is shown in the shaded area, which has area = 10 unit.
+
+ 
+
+Example:
+
+Input: [2,1,5,6,2,3]
+Output: 10
+```
+
+### First Solution
+
+```
+class Solution {
+    public int largestRectangleArea(int[] heights) {
+        int len = heights.length;
+        int maxRec = 0;
+        for(int i=0; i<len; i++){
+            int minHeight = heights[i];
+            int j = i;
+            while(j<len){
+                minHeight = Math.min(minHeight, heights[j]);
+                maxRec = Math.max(maxRec, minHeight * (j-i+1));
+                j++;
+            }
+        }
+        return maxRec;
+    }
+}
+```
+
+Time: O(n^2)
+Space: O(1)
+
+### Final Solution - Stack
+
+```
+class Solution {
+    public int largestRectangleArea(int[] heights) {
+        Stack<Element> s = new Stack<>();
+        s.push(new Element(-1, 0));
+        int max = 0;
+        int i = 0;
+        int times = 1;
+        while(s.isEmpty()==false){
+            if(heights[i]>=s.peek().val){
+                times = 1;
+                s.push(new Status(i, heights[i]));
+            }else{
+                Element e = s.pop();
+                max = Math.max(max, e.val*times);
+                times++;
+            }
+        }
+    }
+}
+class Element {
+    int index;
+    int val;
+    public Element(int index, int val){
+        this.index = index;
+        this.val = val;
+    }
+}
+```
