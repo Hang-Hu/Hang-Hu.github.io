@@ -49,6 +49,14 @@ Space: O(1)
 
 ### Final Solution - Stack
 
+Draw the stack and write down the area size when each height is poped, and figure out how to abstract these numbers using variables.
+
+If i>=heights.length, all heights used up, pop and compare max with current area: popVal*(heights.length-1-peek().index)
+
+If heights[i] >= s.peek().val, push and i++
+If heights[i] < s.peek().val, pop and compare max with current area: popVal*(i-peek().index-1)
+
+
 ```
 class Solution {
     public int largestRectangleArea(int[] heights) {
@@ -56,17 +64,21 @@ class Solution {
         s.push(new Element(-1, 0));
         int max = 0;
         int i = 0;
-        int times = 1;
-        while(s.isEmpty()==false){
-            if(heights[i]>=s.peek().val){
-                times = 1;
-                s.push(new Status(i, heights[i]));
-            }else{
+        while(s.size()>1 || i<heights.length){
+            if(i>=heights.length){
                 Element e = s.pop();
-                max = Math.max(max, e.val*times);
-                times++;
+                max = Math.max(max, e.val*(heights.length-1-s.peek().index));
+            }else{
+                if(heights[i]>=s.peek().val){
+                    s.push(new Element(i, heights[i]));
+                    i++;
+                }else{
+                    Element e = s.pop();
+                    max = Math.max(max, e.val*(i-s.peek().index-1));
+                }    
             }
         }
+        return max;
     }
 }
 class Element {
