@@ -1,7 +1,16 @@
 ## Install
 
 ```
+sudo apt install zsh
+
+
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+```
+
+### Powerline font
+
+```
+sudo apt-get install fonts-powerline
 ```
 
 ## Config
@@ -95,9 +104,20 @@ source ~/.zshrc
 To upgrade oh my zsh:
 
 ```
+cd ~/.oh-my-zsh
+
 git stash
 upgrade_oh_my_zsh
 git stash pop
 ```
 
 Or just `git add` and `git commit -m 'CHANGES_I_MADE'`, then I can simply use `upgrade_oh_my_zsh`.
+
+```
+git add .
+git commit -m 'only use current directory in prompt'
+```
+
+## set zsh as default shell
+
+[How to make ZSH the default shell?](https://askubuntu.com/questions/131823/how-to-make-zsh-the-default-shell)
