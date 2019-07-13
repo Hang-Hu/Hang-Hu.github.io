@@ -1108,3 +1108,100 @@ m is matrix.length, n is matrix[0].length
 
 Time: O(m*n)
 Sapce: O(m)
+
+## 221. Maximal Square
+
+
+### 
+
+### Solution Brute Force
+
+```
+class Solution {
+    public int maximalSquare(char[][] matrix) {
+        int max = 0;
+        if(isAllZero(matrix)){
+            return 0;
+        }else{
+            max = 1;
+        }
+        for(int i=0; i<matrix.length; i++){
+            for(int j=0; j<matrix[0].length; j++){
+                int maxPossibleLen = Math.min(matrix.length-i, matrix[0].length-j);
+                if(matrix[i][j]=='1' && maxPossibleLen*maxPossibleLen>max){
+                    int len=2;
+                    while(len<=maxPossibleLen){
+                        if(isSquareForLen2(i, j, len, matrix) || aroundAllOne(i, j, len, matrix)){
+                            max = Math.max(max, len*len);
+                            len++;
+                        }else{
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return max;
+    }
+    private boolean isSquareForLen2(int i, int j, int len, char[][] matrix){
+        return len==2 && matrix[i][j]=='1' && matrix[i+1][j]=='1' && matrix[i][j+1]=='1' && matrix[i+1][j+1]=='1';
+    }
+    private boolean isAllZero(char[][] matrix){
+        for(int i=0; i<matrix.length; i++){
+            for(int j=0; j<matrix[0].length; j++){
+                if(matrix[i][j]=='1'){
+                    return false;
+                }        
+            }
+        }
+        return true;
+    }
+    private boolean aroundAllOne(int x, int y, int len, char[][] matrix){
+        // right
+        for(int j=y; j<y+len; j++){
+            if(matrix[x][j]=='0') return false;
+        }
+        // down
+        for(int i=x; i<x+len; i++){
+            if(matrix[i][y+len-1]=='0') return false;
+        }
+        // left
+        for(int j=y+len-1; j>=y; j--){
+            if(matrix[x+len-1][j]=='0') return false;
+        }
+        // up
+        for(int i=x+len-1; i>=x; i--){
+            if(matrix[i][y]=='0') return false;
+        }
+        return true;
+    }
+}
+```
+
+##
+
+### First Solution
+
+```
+class Solution {
+    public int numDecodings(String s) {
+        // s = s.replaceAll("0", ""); cannot use replace before 103 cannot be decoded to 13
+        System.out.println(s);
+        if(s.length()==0) return 0;
+        return numDecodings(s, 0, 0);
+    }
+    public int numDecodings(String s, int start, int cur) {
+        if(cur>=s.length()) return 1;
+        int count = 0;
+        if(cur-start==0){
+            count += numDecodings(s, cur+1, cur+1);
+            if(start+2<=s.length() && Integer.parseInt(s.substring(start, start+2))<=26){
+                count += numDecodings(s, start, start+1);
+            }
+        }else if(cur-start==1){ // must cut
+            count += numDecodings(s, cur+1, cur+1);
+        }
+        return count;
+    }
+}
+```

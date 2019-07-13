@@ -121,3 +121,10 @@ git commit -m 'only use current directory in prompt'
 ## set zsh as default shell
 
 [How to make ZSH the default shell?](https://askubuntu.com/questions/131823/how-to-make-zsh-the-default-shell)
+
+## Use colors for different types of directories
+
+```
+# for dircolors
+eval `dircolors /home/hang/.dir_colors/dircolors`
+```
