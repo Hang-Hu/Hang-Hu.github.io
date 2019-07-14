@@ -1109,6 +1109,7 @@ m is matrix.length, n is matrix[0].length
 Time: O(m*n)
 Sapce: O(m)
 
+<<<<<<< HEAD
 ## 221. Maximal Square
 
 
@@ -1172,12 +1173,119 @@ class Solution {
         // up
         for(int i=x+len-1; i>=x; i--){
             if(matrix[i][y]=='0') return false;
+=======
+## 87. Scramble String
+
+### Description
+
+```
+Given a string s1, we may represent it as a binary tree by partitioning it to two non-empty substrings recursively.
+
+Below is one possible representation of s1 = "great":
+
+    great
+   /    \
+  gr    eat
+ / \    /  \
+g   r  e   at
+           / \
+          a   t
+
+To scramble the string, we may choose any non-leaf node and swap its two children.
+
+For example, if we choose the node "gr" and swap its two children, it produces a scrambled string "rgeat".
+
+    rgeat
+   /    \
+  rg    eat
+ / \    /  \
+r   g  e   at
+           / \
+          a   t
+
+We say that "rgeat" is a scrambled string of "great".
+
+Similarly, if we continue to swap the children of nodes "eat" and "at", it produces a scrambled string "rgtae".
+
+    rgtae
+   /    \
+  rg    tae
+ / \    /  \
+r   g  ta  e
+       / \
+      t   a
+
+We say that "rgtae" is a scrambled string of "great".
+
+Given two strings s1 and s2 of the same length, determine if s2 is a scrambled string of s1.
+
+Example 1:
+
+Input: s1 = "great", s2 = "rgeat"
+Output: true
+
+Example 2:
+
+Input: s1 = "abcde", s2 = "caebd"
+Output: false
+```
+
+### First Solution - String (TLE)
+
+Take `rgtae` and `great` as example:
+
+1. divide into 2 substring with i, if i=2, `rgtae.substring(0, 2)` is `rg`, for `great` it's `gr`
+2. compare `rg` with `gr` recursively
+3. compare left substring of s1 with right substring of s2(of the same sub length), for instance `tae` and `eat`, `t|ae ea|t`, compare `t` with `t`, compare `ae` with `ea`.
+4. if length is 1, compare the character.
+
+```
+class Solution {
+    public boolean isScramble(String s1, String s2) {
+        if(s1.length()!=s2.length()) return false;
+        int len = s1.length();
+        if(len==1) return s1.charAt(0)==s2.charAt(0);
+        for(int i=1; i<s1.length(); i++){
+            if(isScramble(s1.substring(0, i), s2.substring(0, i)) && isScramble(s1.substring(i, len), s2.substring(i, len))) return true;
+            if(isScramble(s1.substring(0, i), s2.substring(len-i, len)) && isScramble(s1.substring(i, len), s2.substring(0, len-i))) return true;
+        }
+        return false;
+    }
+}
+```
+
+This exceeds time, using DP Memorization is a good way to avoid duplicate computation.
+
+### Improved Solution 1 - String
+
+Add check in the begining to avoid TLE, to check if they have the same number of each letter. This assumes only 26 letters in s1 and s2.
+
+```
+class Solution {
+    public boolean isScramble(String s1, String s2) {
+        if(check(s1, s2)==false) return false;
+        int len = s1.length();  // if length different, check will return false
+        if(len==1) return s1.charAt(0)==s2.charAt(0);
+        for(int i=1; i<s1.length(); i++){
+            if(isScramble(s1.substring(0, i), s2.substring(0, i)) && isScramble(s1.substring(i, len), s2.substring(i, len))) return true;
+            if(isScramble(s1.substring(0, i), s2.substring(len-i, len)) && isScramble(s1.substring(i, len), s2.substring(0, len-i))) return true;
+        }
+        return false;
+    }
+    private boolean check(String s1, String s2){
+        int[] map = new int[26];
+        for(int i=0; i<s1.length(); i++) map[s1.charAt(i)-'a']++;
+        for(int i=0; i<s2.length(); i++) map[s2.charAt(i)-'a']--;
+        for(int i=0; i<map.length; i++){
+            if(map[i]!=0) return false;
+>>>>>>> f768c0f51b4e8f9fc921074625d8da6b39447560
         }
         return true;
     }
 }
 ```
 
+<<<<<<< HEAD
 ##
 
 ### First Solution
@@ -1202,6 +1310,48 @@ class Solution {
             count += numDecodings(s, cur+1, cur+1);
         }
         return count;
+=======
+### Improved Solution 2(Final Solution) - DP Memorization
+
+The Memorization I used for `String s1, String` is (str in alphabetical order, set of scrambles). It's TLE since sort String alphabetically add O(n) time complexity to each recursion.
+
+Refactor `isScramble` from `String s1, String s2` to `String s1, int start1, int end1, String s2, int start2, int end2`, to `String s1, int start1, String s2, int start2, int len`.
+
+So the `memo` is simply `(start1, start2, len)`.
+
+The logic for `isScramble` is similiar.
+
+1. divide into 2 parts with `subLen`.
+2. compare left of s1 with left of s2(length is `subLen`), right of s1 with right s2(length is `len-subLen`). If true then return true.
+3. compare left of s1 with right of s2(length is `subLen`), right of s1 with left of s2(length is `len-subLen`). If true then return true.
+4. If length is 1, simply compare character.
+
+```
+class Solution {
+    private int[][][] memo; // 0 is default, 1 is true, -1 is false
+    public boolean isScramble(String s1, String s2) {
+        if(s1.length()!=s2.length()) return false;
+        int wordLen = s1.length();
+        memo = new int[wordLen][wordLen][wordLen+1]; // (start1, start2, len)
+        return isScramble(s1, 0, s2, 0, wordLen);
+    }
+    private boolean isScramble(String s1, int start1, String s2, int start2, int len) {
+        if(len==1) return s1.charAt(start1)==s2.charAt(start2);
+        if(memo[start1][start2][len]!=0) return memo[start1][start2][len]==1?true:false;
+        boolean ans = false;
+        for(int subLen = 1; subLen<len; subLen++){
+            if(isScramble(s1, start1, s2, start2, subLen) && isScramble(s1, start1+subLen, s2, start2+subLen, len-subLen)){
+                ans = true;
+                break;
+            }
+            if(isScramble(s1, start1, s2, start2+len-subLen, subLen) && isScramble(s1, start1+subLen, s2, start2, len-subLen)){
+                ans = true;
+                break;
+            }
+        }
+        memo[start1][start2][len] = ans==true?1:-1;
+        return ans;
+>>>>>>> f768c0f51b4e8f9fc921074625d8da6b39447560
     }
 }
 ```
