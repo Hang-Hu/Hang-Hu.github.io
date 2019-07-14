@@ -1109,11 +1109,10 @@ m is matrix.length, n is matrix[0].length
 Time: O(m*n)
 Sapce: O(m)
 
-<<<<<<< HEAD
 ## 221. Maximal Square
 
 
-### 
+### Description
 
 ### Solution Brute Force
 
@@ -1173,7 +1172,13 @@ class Solution {
         // up
         for(int i=x+len-1; i>=x; i--){
             if(matrix[i][y]=='0') return false;
-=======
+        }
+        return true;
+    }
+}
+```
+
+
 ## 87. Scramble String
 
 ### Description
@@ -1278,39 +1283,12 @@ class Solution {
         for(int i=0; i<s2.length(); i++) map[s2.charAt(i)-'a']--;
         for(int i=0; i<map.length; i++){
             if(map[i]!=0) return false;
->>>>>>> f768c0f51b4e8f9fc921074625d8da6b39447560
         }
         return true;
     }
 }
 ```
 
-<<<<<<< HEAD
-##
-
-### First Solution
-
-```
-class Solution {
-    public int numDecodings(String s) {
-        // s = s.replaceAll("0", ""); cannot use replace before 103 cannot be decoded to 13
-        System.out.println(s);
-        if(s.length()==0) return 0;
-        return numDecodings(s, 0, 0);
-    }
-    public int numDecodings(String s, int start, int cur) {
-        if(cur>=s.length()) return 1;
-        int count = 0;
-        if(cur-start==0){
-            count += numDecodings(s, cur+1, cur+1);
-            if(start+2<=s.length() && Integer.parseInt(s.substring(start, start+2))<=26){
-                count += numDecodings(s, start, start+1);
-            }
-        }else if(cur-start==1){ // must cut
-            count += numDecodings(s, cur+1, cur+1);
-        }
-        return count;
-=======
 ### Improved Solution 2(Final Solution) - DP Memorization
 
 The Memorization I used for `String s1, String` is (str in alphabetical order, set of scrambles). It's TLE since sort String alphabetically add O(n) time complexity to each recursion.
@@ -1351,7 +1329,46 @@ class Solution {
         }
         memo[start1][start2][len] = ans==true?1:-1;
         return ans;
->>>>>>> f768c0f51b4e8f9fc921074625d8da6b39447560
     }
 }
 ```
+
+## 91. Decode Ways
+
+### First Solution DP
+
+1. cur-start==0. If cur points to `0`, count+=0. Otherwise, there can be:
+    A.  
+
+
+```
+class Solution {
+    private int[][] memo; // default is -1
+    public int numDecodings(String s) {
+        memo = new int[s.length()][s.length()]; // start, cur => numDecodings
+        for(int i=0; i<memo.length; i++){
+            for(int j=0; j<memo[0].length; j++) memo[i][j] = -1;
+        }
+        if(s.length()==0) return 0;
+        return numDecodings(s, 0, 0);
+    }
+    public int numDecodings(String s, int start, int cur) {
+        if(cur>=s.length()) return 1;
+        if(memo[start][cur]!=-1) return memo[start][cur];
+        int count = 0;
+        if(cur-start==0){
+            if(s.charAt(cur)!='0'){
+                count += numDecodings(s, cur+1, cur+1);
+                if(start+2<=s.length() && Integer.parseInt(s.substring(start, start+2))<=26){
+                    count += numDecodings(s, start, start+1);
+                }    
+            }
+        }else if(cur-start==1){ // must cut
+            count += numDecodings(s, cur+1, cur+1);
+        }
+        memo[start][cur] = count;
+        return count;
+    }
+}
+```
+
