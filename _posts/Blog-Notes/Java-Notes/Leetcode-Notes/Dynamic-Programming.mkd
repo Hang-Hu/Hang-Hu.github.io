@@ -1335,10 +1335,14 @@ class Solution {
 
 ## 91. Decode Ways
 
-### First Solution DP
+### First Solution DP + Memorization (2D)
 
-1. cur-start==0. If cur points to `0`, count+=0. Otherwise, there can be:
-    A.  
+1. cur-start==0. If cur points to `0`, count+=0. Otherwise, there can be 2 possiblities.
+    A. cut
+    B. If the number of cur and next <= 26, not cut now
+2. cur-start==1: must cut. 
+
+And use `int[][] memo` to do memorization to save duplciate computation.
 
 
 ```
@@ -1358,9 +1362,9 @@ class Solution {
         int count = 0;
         if(cur-start==0){
             if(s.charAt(cur)!='0'){
-                count += numDecodings(s, cur+1, cur+1);
-                if(start+2<=s.length() && Integer.parseInt(s.substring(start, start+2))<=26){
-                    count += numDecodings(s, start, start+1);
+                count += numDecodings(s, cur+1, cur+1); // cut
+                if(cur+2<=s.length() && Integer.parseInt(s.substring(cur, cur+2))<=26){
+                    count += numDecodings(s, cur, cur+1); // not cut
                 }    
             }
         }else if(cur-start==1){ // must cut
@@ -1372,3 +1376,25 @@ class Solution {
 }
 ```
 
+### Final Solution
+
+opt(i) is number of ways to decode String (s_i s_i+1 ... s_len-1)
+
+```
+class Solution {
+    public int numDecodings(String s) {
+        int[] opt = new int[s.length()+1]; // opt(i) is number of ways to decode String s_i s_i+1 ... s_len-1
+        opt[s.length()] = 1; // cut and decoded finished, this is one valid way
+        for(int i=s.length()-1; i>=0; i--){
+            if(s.charAt(i)=='0') opt[i] = 0;
+            else{
+                // i+1: decode [si], all after i is in doubt.
+                // i+2: decode [s_i s_i+1], all after i+1 is in doubt.
+                if(i+2<opt.length&&Integer.parseInt(s.substring(i, i+2))<=26) opt[i] = opt[i+1]+opt[i+2];
+                else opt[i] = opt[i+1];
+            }
+        }
+        return opt[0];
+    }
+}
+```
