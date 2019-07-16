@@ -1398,3 +1398,58 @@ class Solution {
     }
 }
 ```
+
+## 120. Triangle
+
+### Description
+
+```
+Given a triangle, find the minimum path sum from top to bottom. Each step you may move to adjacent numbers on the row below.
+
+For example, given the following triangle
+
+[
+     [2],
+    [3,4],
+   [6,5,7],
+  [4,1,8,3]
+]
+The minimum path sum from top to bottom is 11 (i.e., 2 + 3 + 5 + 1 = 11).
+
+Note:
+
+Bonus point if you are able to do this using only O(n) extra space, where n is the total number of rows in the triangle.
+```
+
+### First Solution 2D
+
+opt(i, j) is the minimum path sum from 0th row to ith row and select j in ith row.
+
+```
+class Solution {
+    public int minimumTotal(List<List<Integer>> triangle) {
+        int rowLen = triangle.size();
+        if(rowLen==0) return 0;
+        int maxColLen = triangle.get(rowLen-1).size();
+        int[][] opt = new int[rowLen][maxColLen];
+        opt[0][0] = triangle.get(0).get(0);
+        for(int i=1; i<rowLen; i++){
+            for(int j=0; j<triangle.get(i).size(); j++){
+                int val = triangle.get(i).get(j);
+                boolean jExist = j<triangle.get(i-1).size();
+                boolean preJExist = j-1>=0;
+                if(jExist && preJExist) opt[i][j] = val + Math.min(opt[i-1][j], opt[i-1][j-1]);
+                if(jExist && !preJExist) opt[i][j] = val + opt[i-1][j];
+                if(!jExist && preJExist) opt[i][j] = val + opt[i-1][j-1];
+                // the case j and j-1 both not exist won't happen
+            }
+        }
+        int min = opt[maxColLen-1][0];
+        for(int j=0; j<maxColLen; j++){
+            min = Math.min(min, opt[rowLen-1][j]);
+            
+        }
+        return min;
+    }
+}
+```
