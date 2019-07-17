@@ -1421,7 +1421,7 @@ Note:
 Bonus point if you are able to do this using only O(n) extra space, where n is the total number of rows in the triangle.
 ```
 
-### First Solution 2D
+### First Solution 2D DP
 
 opt(i, j) is the minimum path sum from 0th row to ith row and select j in ith row.
 
@@ -1447,6 +1447,41 @@ class Solution {
         int min = opt[maxColLen-1][0];
         for(int j=0; j<maxColLen; j++){
             min = Math.min(min, opt[rowLen-1][j]);
+            
+        }
+        return min;
+    }
+}
+```
+
+### Improve from 2D to 1D DP (Final Solution)
+
+opt(j) is the min path sum for column j.
+
+
+```
+class Solution {
+    public int minimumTotal(List<List<Integer>> triangle) {
+        int rowLen = triangle.size();
+        if(rowLen==0) return 0;
+        int maxColLen = triangle.get(rowLen-1).size();
+        int[] opt = new int[maxColLen];
+        opt[0] = triangle.get(0).get(0);
+        for(int i=1; i<rowLen; i++){
+            // if j from 0 to len-1 then opt[j] will use opt[j-1], which has been updated before
+            for(int j=triangle.get(i).size()-1; j>=0; j--){
+                int val = triangle.get(i).get(j);
+                boolean jExist = j<triangle.get(i-1).size();
+                boolean preJExist = j-1>=0;
+                if(jExist && preJExist) opt[j] = val + Math.min(opt[j], opt[j-1]);
+                if(jExist && !preJExist) opt[j] = val + opt[j];
+                if(!jExist && preJExist) opt[j] = val + opt[j-1];
+                // the case j and j-1 both not exist won't happen
+            }
+        }
+        int min = opt[0];
+        for(int j=1; j<maxColLen; j++){
+            min = Math.min(min, opt[j]);
             
         }
         return min;
