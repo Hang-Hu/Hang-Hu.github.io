@@ -1458,6 +1458,23 @@ class Solution {
 
 opt(j) is the min path sum for column j.
 
+There are three statements using opt. And everytime I actually use `i-1` to compute i's opt. So I can easily get rid of `i-1` and adjust to `j--` to make sure `opt(j-1)` for this `i` is computed after computing `opt(j)`, since sometimes I use ` opt[i-1][j-1]` to compute `opt[i][j]`.
+
+From:
+
+```
+if(jExist && preJExist) opt[i][j] = val + Math.min(opt[i-1][j], opt[i-1][j-1]);
+if(jExist && !preJExist) opt[i][j] = val + opt[i-1][j];
+if(!jExist && preJExist) opt[i][j] = val + opt[i-1][j-1];
+```
+
+To:
+
+```
+if(jExist && preJExist) opt[j] = val + Math.min(opt[j], opt[j-1]);
+if(jExist && !preJExist) opt[j] = val + opt[j];
+if(!jExist && preJExist) opt[j] = val + opt[j-1];
+```
 
 ```
 class Solution {
@@ -1485,6 +1502,157 @@ class Solution {
             
         }
         return min;
+    }
+}
+```
+
+## 139. Word Break
+
+### Description
+
+```
+Given a non-empty string s and a dictionary wordDict containing a list of non-empty words, determine if s can be segmented into a space-separated sequence of one or more dictionary words.
+
+Note:
+
+The same word in the dictionary may be reused multiple times in the segmentation.
+You may assume the dictionary does not contain duplicate words.
+Example 1:
+
+Input: s = "leetcode", wordDict = ["leet", "code"]
+Output: true
+Explanation: Return true because "leetcode" can be segmented as "leet code".
+Example 2:
+
+Input: s = "applepenapple", wordDict = ["apple", "pen"]
+Output: true
+Explanation: Return true because "applepenapple" can be segmented as "apple pen apple".
+             Note that you are allowed to reuse a dictionary word.
+Example 3:
+
+Input: s = "catsandog", wordDict = ["cats", "dog", "sand", "and", "cat"]
+Output: false
+
+```
+
+### Final Solution (DP+Memorization)
+
+
+
+```
+class Solution {
+    private Map<String, Boolean> memo = new HashMap<>(); // (string, can be nicely segmented or not)
+    public boolean wordBreak(String s, List<String> wordDict) {
+        if(s.length()==0) return true;
+        if(memo.get(s)!=null) return memo.get(s);
+        List<String> words = getMatchWords(s, wordDict);
+        boolean ans = false;
+        for(String w: words){
+            if(wordBreak(s.substring(w.length()), wordDict)==true){
+                ans = true;
+                break;
+            }
+        }
+        memo.put(s, ans);
+        return ans;
+    }
+    private List<String> getMatchWords(String s, List<String> wordDict){
+        List<String> ans = new ArrayList<>();
+        for(String w: wordDict){
+            if(s.startsWith(w)) ans.add(w);
+        }
+        return ans;
+    }
+}
+```
+
+
+Hard to calculate time complexity and space complexity.
+
+### Bonus: DP Solution
+
+```
+class Solution {
+    public boolean wordBreak(String s, List<String> wordDict) {
+        // opt(i) is whether s0 s1 ... si can be segmented.
+        boolean[] opt = new boolean[s.length()];
+        Set<String> wordSet = new HashSet<>(wordDict);
+        for(String w: wordSet){
+            if(w.length() <= s.length() && s.substring(0, w.length()).equals(w)) opt[w.length()-1] = true;
+        }
+        for(int i=0; i<s.length(); i++){
+            for(int j=0; j<i; j++){
+                if(opt[j] && wordSet.contains(s.substring(j+1, i+1))){
+                    opt[i] = true;
+                    break;
+                }
+            }
+        }
+        return opt[s.length()-1];
+    }
+}
+```
+
+### Bonus: Improved DP Solution
+
+opt(i) is whether s_0 s_1 ... s_i-1 can be segmented. Leave out opt[0] to set to true and start the compare. `opt[i]=opt[j] && wordSet.contains(s.substring(j+1, i+1))`
+
+```
+class Solution {
+    public boolean wordBreak(String s, List<String> wordDict) {
+        // opt(i) is whether s_0 s_1 ... s_i-1 can be segmented.
+        boolean[] opt = new boolean[s.length()+1];
+        Set<String> wordSet = new HashSet<>(wordDict);
+        opt[0] = true; // s_-1 can be segmented, no meaning, just to start the compare
+        for(int i=1; i<=s.length(); i++){
+            for(int j=0; j<i; j++){
+                if(opt[j] && wordSet.contains(s.substring(j, i))){
+                    opt[i] = true;
+                    break;
+                }
+            }
+        }
+        return opt[s.length()];
+    }
+}
+```
+
+
+Time: O(n^3)
+Space: O(n)
+
+## 140. Word Break II
+
+### Solution
+
+```
+class Solution {
+    // todo: use memo
+    public List<String> wordBreak(String s, List<String> wordDict) {
+        List<String> l = new ArrayList<>();
+        StringBuilder path = new StringBuilder();
+        wordBreak(s, wordDict, l, path);
+        return l;
+    }
+    public void wordBreak(String s, List<String> wordDict, List<String> l, StringBuilder path) {
+        if(s.length()==0){
+            path.deleteCharAt(path.length()-1);
+            l.add(path.toString());
+            path.append(" ");
+        }
+        List<String> words = getMatchWords(s, wordDict);
+        for(String w: words){
+            path.append(w); path.append(" ");
+            wordBreak(s.substring(w.length()), wordDict, l, path);
+            path.delete(path.length()-w.length()-1, path.length());
+        }
+    }
+    private List<String> getMatchWords(String s, List<String> wordDict){
+        List<String> ans = new ArrayList<>();
+        for(String w: wordDict){
+            if(s.startsWith(w)) ans.add(w);
+        }
+        return ans;
     }
 }
 ```
