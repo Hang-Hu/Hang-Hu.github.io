@@ -1,0 +1,11 @@
+### Config location
+
+```
+vim ~/.config/albert/albert.conf
+```
+
+### Open setting dialog
+
+```
+albert show
+```

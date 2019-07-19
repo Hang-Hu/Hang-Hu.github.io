@@ -1537,7 +1537,10 @@ Output: false
 
 ### Final Solution (DP+Memorization)
 
-
+1. Find the words that match with the prefix of s.
+2. Call `wordBreak` recursively with each `s.substring(w.length())`, either return true then true
+3. End condition: if finally s is empty, then it shows just used up. Otherwise I cannot find match words and return false after for loop.
+4. Use memo to memorize (substring, can be nicely segmented or not)
 
 ```
 class Solution {
@@ -1623,29 +1626,86 @@ Space: O(n)
 
 ## 140. Word Break II
 
-### Solution
+### Description
+
+```
+Given a non-empty string s and a dictionary wordDict containing a list of non-empty words, add spaces in s to construct a sentence where each word is a valid dictionary word. Return all such possible sentences.
+
+Note:
+
+The same word in the dictionary may be reused multiple times in the segmentation.
+You may assume the dictionary does not contain duplicate words.
+Example 1:
+
+Input:
+s = "catsanddog"
+wordDict = ["cat", "cats", "and", "sand", "dog"]
+Output:
+[
+  "cats and dog",
+  "cat sand dog"
+]
+Example 2:
+
+Input:
+s = "pineapplepenapple"
+wordDict = ["apple", "pen", "applepen", "pine", "pineapple"]
+Output:
+[
+  "pine apple pen apple",
+  "pineapple pen apple",
+  "pine applepen apple"
+]
+Explanation: Note that you are allowed to reuse a dictionary word.
+Example 3:
+
+Input:
+s = "catsandog"
+wordDict = ["cats", "dog", "sand", "and", "cat"]
+Output:
+[]
+```
+
+### Final Solution
+
+1. find matched words
+2. for each w, call `recursion(s.substring(w.length()))` to get `List<StringBuilder>`, for each sb in list, insert w and space to begining. combine all lists into one and return.
+3. Use memo to memorize (str, list of possible sentence), be carefully to deepClone list of StringBuilder when put into memo and get from memo to avoid changes on StringBuilder update sb in memo.
 
 ```
 class Solution {
-    // todo: use memo
+    private Map<String, List<StringBuilder>> memo = new HashMap<>(); // (str, list of possible sentence)
     public List<String> wordBreak(String s, List<String> wordDict) {
-        List<String> l = new ArrayList<>();
-        StringBuilder path = new StringBuilder();
-        wordBreak(s, wordDict, l, path);
-        return l;
-    }
-    public void wordBreak(String s, List<String> wordDict, List<String> l, StringBuilder path) {
-        if(s.length()==0){
-            path.deleteCharAt(path.length()-1);
-            l.add(path.toString());
-            path.append(" ");
+        List<StringBuilder> l = recursion(s, wordDict);
+        List<String> ans = new ArrayList<>();
+        for(StringBuilder sb: l){
+            ans.add(sb.substring(1));
         }
+        return ans;
+    }
+    public List<StringBuilder> recursion(String s, List<String> wordDict) {
+        if(s.length()==0) return new ArrayList<StringBuilder>(){{add(new StringBuilder());}};
+        // must use deepClone, since the sb in returned res will be inserted and update that in memo
+        if(memo.get(s)!=null) return deepClone(memo.get(s));
+        List<StringBuilder> ans = new ArrayList<>();
         List<String> words = getMatchWords(s, wordDict);
         for(String w: words){
-            path.append(w); path.append(" ");
-            wordBreak(s.substring(w.length()), wordDict, l, path);
-            path.delete(path.length()-w.length()-1, path.length());
+            List<StringBuilder> res = recursion(s.substring(w.length()), wordDict);
+            for(StringBuilder sb: res){
+                sb.insert(0, w); sb.insert(0, " ");
+            }
+            ans.addAll(res);
         }
+        // must use deepClone, since the ans will be inserted and update that in memo
+        memo.put(s, deepClone(ans));
+        return ans;
+    }
+    private List<StringBuilder> deepClone(List<StringBuilder> l){
+        List<StringBuilder> copy = new ArrayList<>();
+        for(StringBuilder sb: l){
+            copy.add(new StringBuilder(sb));
+        }
+        return copy;
     }
     private List<String> getMatchWords(String s, List<String> wordDict){
         List<String> ans = new ArrayList<>();
@@ -1656,3 +1716,20 @@ class Solution {
     }
 }
 ```
+
+
+Time and space complexity? Have to read docs or watch videos for the analysis for DP memorization. Or transfer to DP to analyze the time complexity?
+
+Time: O(n^3). Convert to DP.
+
+```
+size(i) from 1 to s.length
+    start(j) from 0 to s.length-i
+        sub = s[j, i]
+        opt(i) = each one in opt(j) + sub, if wSet contains sub
+```
+
+i is O(n), j is O(n), `s[j, i]` is O(n), each one in opt(j) is O(n), so O(n^3)
+
+
+Space: O(n^3). key is O(n), list of String is O(n^2).

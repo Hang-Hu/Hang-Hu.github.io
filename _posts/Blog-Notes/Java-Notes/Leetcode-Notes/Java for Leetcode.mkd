@@ -94,24 +94,7 @@ return new int[] {0, 0};
 ### init list
 
 ```
-class Solution {
-    Map<TreeNode, Integer> map = new HashMap<>(); // (root of subtree, max money robbed)
-    public int rob(TreeNode root) {
-        int[] ans = maxArr(root);
-        return Math.max(ans[0], ans[1]);
-    }
-    // ans[0] is max money possible if rob root
-    // ans[1] is max money possible if not rob root
-    private int[] maxArr(TreeNode root){
-        if(root==null)  return new int[] {0, 0};
-        int[] ans = new int[2];
-        int[] l = maxArr(root.left);
-        int[] r = maxArr(root.right);
-        ans[0]  = root.val + l[1] + r[1];
-        ans[1] = Math.max(l[0], l[1])+Math.max(r[0], r[1]);
-        return ans;
-    }
-}
+
 ```
 
 ### &
