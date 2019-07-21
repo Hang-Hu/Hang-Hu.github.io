@@ -1860,8 +1860,18 @@ opt(i, j) = max(
     opt(i-1, j)             // not rob i
 )
 
+If i==0,
+ opt(0, 1) = 0          // last is robbed and adjacent to first one, so first one cannot be robbed
+ opt(0, 0) = nums[0]    // last one is not robbed, so must rob first one to maximize money
 
 
+If i==len-1
+ opt(i, 0) = opt(i-1, 0)            // not rob last one(i)
+ opt(i, 1) = opt(i-2, 1) + nums[i]  // rob last one
+
+return max{opt(len-1, 0), opt(len-1, 1)}
+
+Only when len>=3 then the statement `opt[i][1] = opt[i-2][1] + nums[i]` where i is len-1 can work. So I have to deal with  cases when len is 0, 1, 2 separately.
 
 ```
 class Solution {
@@ -1890,3 +1900,93 @@ class Solution {
 
 Time: O(n)
 Space: O(n)
+
+## 264. Ugly Number II
+
+### Description
+
+Write a program to find the n-th ugly number.
+
+Ugly numbers are positive numbers whose prime factors only include 2, 3, 5. 
+
+Example:
+
+Input: n = 10
+Output: 12
+Explanation: 1, 2, 3, 4, 5, 6, 8, 9, 10, 12 is the sequence of the first 10 ugly numbers.
+Note:  
+
+1 is typically treated as an ugly number.
+n does not exceed 1690.
+
+### First Solution DP+Map - TLE
+
+Use map because I don't know how many times final (i-1)/n can be, previously I used 2*n but exceeds.
+
+```
+class Solution {
+    public int nthUglyNumber(int n) {
+        if(n==0) return 0;
+        Map<Integer, Boolean> opt = new HashMap<>(); // (i, is ugly number or not)
+        int i=1;
+        int count=0;
+        while(count<n){
+            if(isUglyNumber(i, opt)){
+                count++;
+            }
+            i++;
+        }
+        return i-1;
+    }
+    private boolean isUglyNumber(int i, Map<Integer, Boolean> opt){
+        if(i%2==0){
+            opt.put(i, opt.get(i/2));
+        }else if(i%3==0){
+            opt.put(i, opt.get(i/3));
+        }else if(i%5==0){
+            opt.put(i, opt.get(i/5));
+        }else{
+            opt.put(i, i==1);
+        }
+        return opt.get(i);
+    }
+}
+```
+
+### Final Solution - pre compute + 3 pointers + DP
+
+Use static to pre compute result for each possible input n since `n<=1690`.
+
+opt(i) is the ith ugly number.
+
+
+
+```
+// 3 pointers
+class Solution {
+    private static int[] opt = preCompute();
+    private static int[] preCompute(){
+        int[] opt = new int[1691];
+        opt[1] = 1;
+        int n = 2;
+        int i2 = 1;
+        int i3 = 1;
+        int i5 = 1;
+        while(n<opt.length){
+            // use opt[i] because idx cannot be number like 7, must use valid number, which is all in opt
+            opt[n] = min(opt[i2]*2, opt[i3]*3, opt[i5]*5);
+            if(opt[n]==opt[i2]*2) i2++;
+            if(opt[n]==opt[i3]*3) i3++;
+            if(opt[n]==opt[i5]*5) i5++;
+            n++;
+        }
+        return opt;
+    }
+    private static int min(int a, int b, int c){
+        return Math.min(a, Math.min(b, c));
+    }
+    public int nthUglyNumber(int n) {
+        return opt[n];
+    }
+}
+```
