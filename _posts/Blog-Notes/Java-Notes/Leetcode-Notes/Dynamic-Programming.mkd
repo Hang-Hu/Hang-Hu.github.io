@@ -1923,6 +1923,11 @@ n does not exceed 1690.
 
 Use map because I don't know how many times final (i-1)/n can be, previously I used 2*n but exceeds.
 
+opt(i) = opt(i/2) if i%2==0
+       = opt(i/3) if i%3==0
+       = opt(i/5) if i%5==0
+       = (i==1)   o.w. 
+
 ```
 class Solution {
     public int nthUglyNumber(int n) {
@@ -1957,9 +1962,15 @@ class Solution {
 
 Use static to pre compute result for each possible input n since `n<=1690`.
 
-opt(i) is the ith ugly number.
+opt(n) is the nth ugly number.
 
+```
+opt(n) = min(opt(i2)*2, opt(i3)*3, opt(i5)*5)
+```
 
+If used `ix`, then `ix++`.
+
+I used opt(i2) instead of i2 becuase i2 cannot be numbers like 7, so it must use ugly number from small to big.
 
 ```
 // 3 pointers
@@ -1990,3 +2001,4 @@ class Solution {
     }
 }
 ```
+
