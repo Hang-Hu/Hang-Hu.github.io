@@ -2002,3 +2002,101 @@ class Solution {
 }
 ```
 
+## 300. Longest Increasing Subsequence
+
+### Description
+
+```
+Given an unsorted array of integers, find the length of longest increasing subsequence.
+
+Example:
+
+Input: [10,9,2,5,3,7,101,18]
+Output: 4 
+Explanation: The longest increasing subsequence is [2,3,7,101], therefore the length is 4. 
+Note:
+
+There may be more than one LIS combination, it is only necessary for you to return the length.
+Your algorithm should run in O(n2) complexity.
+Follow up: Could you improve it to O(n log n) time complexity?
+```
+
+### First Solution DP
+
+opt(i) is the length of longest increasing subsequence(LIS) ending in index i.
+, starting from anywhere before i.
+
+opt(i) is at least its character in subsequence, so init every opt(i) to be 1.
+
+```
+if opt(i) > opt(j): (0<=j<i)
+    opt(i) = 1 + max(opt(j))
+```
+
+
+```
+class Solution {
+    public int lengthOfLIS(int[] nums) {
+        if(nums.length==0) return 0;
+        int[] opt = new int[nums.length];
+        init(opt);
+        for(int i=0; i<nums.length; i++){
+            for(int j=0; j<i; j++){
+                if(nums[i]>nums[j]) opt[i] = Math.max(opt[i], 1+opt[j]);
+            }
+        }
+        return max(opt);
+    }
+    private int max(int[] opt){
+        int ans = 0;
+        for(int n: opt){
+            ans = Math.max(ans, n);
+        }
+        return ans;
+    }
+    private void init(int[] opt){
+        for(int i=0; i<opt.length; i++){
+            opt[i] = 1;
+        }
+    }
+}
+```
+
+Time: O(n^2)
+Space: O(n)
+
+### Final Solution Greedy+binary search (follow up)
+
+Find out the index to insert by `Arrays.binarySearch`, if it's negative I have to use `j=-j-1` to update to right index, and update `arr[j]` with `nums[i]`. If update index exceeds `len`, `len++`.
+
+For example, `[10,9,2,5,3,7,101,18]`
+
+[10]
+[9]
+[2]
+[2, 5]
+[2, 3]
+[2, 3, 7]
+[2, 3, 7, 101]
+[2, 3, 7, 18]
+
+
+```
+class Solution {
+    public int lengthOfLIS(int[] nums) {
+        if(nums.length==0) return 0;
+        int[] arr = new int[nums.length]; // max is nums.length if nums is asc
+        int len = 0;
+        for(int i=0; i<nums.length; i++){
+            int j = Arrays.binarySearch(arr, 0, len, nums[i]);
+            if(j<0) j = -j-1;
+            arr[j] = nums[i];
+            if(j>len-1) len++;
+        }
+        return len;
+    }
+}
+```
+
+Time: O(nlogn)
+Space: O(n)
