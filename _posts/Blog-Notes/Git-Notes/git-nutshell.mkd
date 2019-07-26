@@ -23,3 +23,9 @@ git checkout BRANCH_NAME
 ```
 git checkout -b BRANCH_NAME
 ```
+
+###  git pull all subdirectories
+
+```
+find . -type d -depth 1 -exec git --git-dir={}/.git --work-tree=$PWD/{} pull origin master \;
+```
