@@ -2157,6 +2157,7 @@ class Solution {
 
 ## 304. Range Sum Query 2D - Immutable
 
+<<<<<<< HEAD
 ### Description
 
 ```
@@ -2187,40 +2188,26 @@ Note:
 ```
 
 ### First Solution
+=======
+### First Solution Brute force
+>>>>>>> 38cc9aefed565e898224b2cb6bac5ded9f9da96c
 
 ```
 class NumMatrix {
     private int[][] matrix;
-    private int[][][][] memo;
     public NumMatrix(int[][] matrix) {
         this.matrix = matrix;
-        int rowLen = matrix.length;
-        int colLen = matrix[0].length;
-        this.memo = new int[rowLen][colLen][rowLen][colLen];
-        for(int i=0; i<rowLen; i++){
-            for(int j=0; j<colLen; j++){
-                for(int x=0; x<rowLen; x++){
-                    for(int y=0; y<colLen; y++){
-                        memo[i][j][x][y] = -1;
-                    }
-                }
-            }
-        }
     }
-    
     public int sumRegion(int row1, int col1, int row2, int col2) {
-        if(memo[row1][col1][row2][col2]!=-1) return memo[row1][col1][row2][col2];
         int sum = 0;
         for(int i=row1; i<=row2; i++){
             for(int j=col1; j<=col2; j++){
                 sum += matrix[i][j];
             }
         }
-        memo[row1][col1][row2][col2] = sum;
         return sum;
     }
 }
-
 /**
  * Your NumMatrix object will be instantiated and called as such:
  * NumMatrix obj = new NumMatrix(matrix);
@@ -2228,6 +2215,7 @@ class NumMatrix {
  */
 ```
 
+<<<<<<< HEAD
 m is the number of rows and n is the number of columns.
 
 Time: O(m*n)
@@ -2352,3 +2340,9 @@ sumRegion time: O(m)
 Space: O(m*n)
 
 
+=======
+m is number of rows and n is number of columns.
+
+Time: O(m*n)
+Space: O(1)
+>>>>>>> 38cc9aefed565e898224b2cb6bac5ded9f9da96c
