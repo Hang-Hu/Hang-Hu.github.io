@@ -2157,7 +2157,6 @@ class Solution {
 
 ## 304. Range Sum Query 2D - Immutable
 
-<<<<<<< HEAD
 ### Description
 
 ```
@@ -2188,9 +2187,6 @@ Note:
 ```
 
 ### First Solution
-=======
-### First Solution Brute force
->>>>>>> 38cc9aefed565e898224b2cb6bac5ded9f9da96c
 
 ```
 class NumMatrix {
@@ -2215,11 +2211,10 @@ class NumMatrix {
  */
 ```
 
-<<<<<<< HEAD
 m is the number of rows and n is the number of columns.
 
 Time: O(m*n)
-Space: O(m^2 * n^2)
+Space: O(m * n)
 
 ### Final Solution - DP + presum
 
@@ -2340,9 +2335,3 @@ sumRegion time: O(m)
 Space: O(m*n)
 
 
-=======
-m is number of rows and n is number of columns.
-
-Time: O(m*n)
-Space: O(1)
->>>>>>> 38cc9aefed565e898224b2cb6bac5ded9f9da96c
