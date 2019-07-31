@@ -2208,6 +2208,16 @@ Explanation: transactions = [buy, sell, cooldown, buy, sell]
 
 ### First Solution - DP
 
+opt(i, j) is the max profix from day 0 to day i after transaction.
+
+First digit is whether hold stock after transaction.
+Second is whether cooled down after transaction.
+
+j==0(00): not hold stock and not cooled down after transaction.
+j==1(01): not hold stock and cooled down after transaction
+j==2(10): hold stock and not cooled down after transaction. This case won't EXIST. 
+j==3(11): hold stock and cooled down after transaction
+
 ```
 class Solution {
     public int maxProfit(int[] prices) {
@@ -2230,6 +2240,9 @@ class Solution {
 ### Improved Solution (Final)
 
 
+Since the fomula always goes from `i-1` to `i`, then just use three variables to replace the `opt` array.
+
+DP improved. 3 variables: `notHoldNotCool`(sell today), `notHoldCool`(nothing today), `holdCool`(buy or nothing today). Walk through every day and return max of three variables.
 
 ```
 class Solution {
@@ -2240,11 +2253,11 @@ class Solution {
         int holdCool =-prices[0];
         for(int i=1; i<prices.length; i++){
             int tmp = notHoldCool;
-            notHoldCool = Math.max(notHoldNotCool, notHoldCool);
-            notHoldNotCool = holdCool+prices[i];
-            holdCool = Math.max(-prices[i]+tmp, holdCool);
+            notHoldCool = Math.max(notHoldNotCool, notHoldCool); // do nothing today
+            notHoldNotCool = holdCool+prices[i]; // sell today
+            holdCool = Math.max(-prices[i]+tmp, holdCool); // buy today or do nothing
         }
-        return Math.max(Math.max(notHoldNotCool, notHoldCool), holdCool);
+        return Math.max(Math.max(notHoldNotCool, notHoldCool), holdCool); // max of all possibilities
     }
 }
 ```
