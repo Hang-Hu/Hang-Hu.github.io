@@ -2261,3 +2261,127 @@ class Solution {
     }
 }
 ```
+
+## 322. Coin Change
+
+### Description
+
+```
+You are given coins of different denominations and a total amount of money amount. Write a function to compute the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return -1.
+
+Example 1:
+
+Input: coins = [1, 2, 5], amount = 11
+Output: 3 
+Explanation: 11 = 5 + 5 + 1
+Example 2:
+
+Input: coins = [2], amount = 3
+Output: -1
+Note:
+You may assume that you have an infinite number of each kind of coin.
+```
+
+### First Solution DP+memorization 2D
+
+```
+class Solution {
+    private int[][] memo;
+    public int coinChange(int[] coins, int amount) {
+        Arrays.sort(coins);
+        memo = new int[coins.length][amount+1];
+        return coinNumber(coins, coins.length-1, amount, 0);        
+    }
+    private int coinNumber(int[] coins, int i, int amount, int coinNum){
+        if(amount==0) return coinNum;
+        if(i<0) return -1;
+        if(memo[i][amount]!=0) return memo[i][amount]==-1?-1:memo[i][amount]+coinNum;
+        int ans = Integer.MAX_VALUE;
+        for(int n=0; n*coins[i]<=amount; n++){
+            int tmp = coinNumber(coins, i-1, amount-n*coins[i], coinNum+n);
+            if(tmp>=0 && tmp<ans) ans = tmp;
+        }
+        memo[i][amount] = ans==Integer.MAX_VALUE?-1:(ans-coinNum);
+        return ans==Integer.MAX_VALUE?-1:ans;
+    }
+}
+```
+
+n is coins.length, m==amount.
+
+Time: O(n*m * m). For every cell, the worst case for loop is when `coins[i]` is 1, then it's m times. So O(m) for each cell. 
+
+Space: O(n*m)
+
+### Final Solution - DP+Memorization (1D)
+
+
+Substract each kind of coin from amount and get min number of coins for this amount. Then the only param is `amount`.
+
+`coinNumber(amount)` is the minimum number of coins for the amount.
+
+```
+class Solution {
+    private int[] memo;
+    public int coinChange(int[] coins, int amount) {
+        memo = new int[amount+1];
+        return coinNumber(coins, amount);
+    }
+    private int coinNumber(int[] coins, int amount){
+        if(memo[amount]!=0) return memo[amount];
+        if(amount==0) return 0;
+        int min = -1;
+        for(int i=0; i<coins.length; i++){
+            if(amount-coins[i]>=0){
+                int tmp = coinNumber(coins, amount-coins[i]);
+                if(tmp!=-1){
+                    if(min==-1 || tmp<min) min = tmp;
+                }    
+            }
+        }
+        int ans = min==-1?-1:min+1;
+        memo[amount] = ans;
+        return ans;
+    }
+    
+}
+```
+
+n is coins.length, m==amount.
+
+Time: O(m*n). As for each cell, the time is for loop, which is O(n)
+Space: O(m)
+
+
+##
+
+###
+
+```
+class Solution {
+    public int mincostTickets(int[] days, int[] costs) {
+        int maxDay = 0;
+        for(int d: days) maxDay = Math.max(maxDay, d);
+        int[][] opt = new int[maxDay+1][costs.length];
+        for(int i=0, j=0; i<=maxDay; i++){
+            if(days[j]==i){
+                if(i-1>=0)  opt[i][0] = min(opt[i-1][0], opt[i-1][1], opt[i-1][2])+costs[0];
+                else        opt[i][0] = costs[0];
+                if(i-7>=0)  opt[i][1] = min(opt[i-7][0], opt[i-7][1], opt[i-7][2])+costs[1];
+                else        opt[i][1] = costs[1];
+                if(i-30>=0) opt[i][2] = min(opt[i-30][0], opt[i-30][1], opt[i-30][2])+costs[2];
+                else        opt[i][2] = costs[2];
+                j++;
+            }else{
+                opt[i][0] = opt[i-1][0];
+            }
+        
+            System.out.println(i+" "+opt[i][0]+" "+opt[i][1]+" "+opt[i][2]);
+        }
+        return min(opt[maxDay][0], opt[maxDay][1], opt[maxDay][2]);
+    }
+    private int min(int a, int b, int c){
+        return Math.min(a, Math.min(b, c));
+    }
+}
+```
