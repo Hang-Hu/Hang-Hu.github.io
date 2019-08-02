@@ -2353,35 +2353,229 @@ Time: O(m*n). As for each cell, the time is for loop, which is O(n)
 Space: O(m)
 
 
-##
+## 983. Minimum Cost For Tickets
 
-###
+### Description
+
+```
+In a country popular for train travel, you have planned some train travelling one year in advance.  The days of the year that you will travel is given as an array days.  Each day is an integer from 1 to 365.
+
+Train tickets are sold in 3 different ways:
+
+a 1-day pass is sold for costs[0] dollars;
+a 7-day pass is sold for costs[1] dollars;
+a 30-day pass is sold for costs[2] dollars.
+The passes allow that many days of consecutive travel.  For example, if we get a 7-day pass on day 2, then we can travel for 7 days: day 2, 3, 4, 5, 6, 7, and 8.
+
+Return the minimum number of dollars you need to travel every day in the given list of days.
+
+ 
+
+Example 1:
+
+Input: days = [1,4,6,7,8,20], costs = [2,7,15]
+Output: 11
+Explanation: 
+For example, here is one way to buy passes that lets you travel your travel plan:
+On day 1, you bought a 1-day pass for costs[0] = $2, which covered day 1.
+On day 3, you bought a 7-day pass for costs[1] = $7, which covered days 3, 4, ..., 9.
+On day 20, you bought a 1-day pass for costs[0] = $2, which covered day 20.
+In total you spent $11 and covered all the days of your travel.
+Example 2:
+
+Input: days = [1,2,3,4,5,6,7,8,9,10,30,31], costs = [2,7,15]
+Output: 17
+Explanation: 
+For example, here is one way to buy passes that lets you travel your travel plan:
+On day 1, you bought a 30-day pass for costs[2] = $15 which covered days 1, 2, ..., 30.
+On day 31, you bought a 1-day pass for costs[0] = $2 which covered day 31.
+In total you spent $17 and covered all the days of your travel.
+ 
+
+Note:
+
+1 <= days.length <= 365
+1 <= days[i] <= 365
+days is in strictly increasing order.
+costs.length == 3
+1 <= costs[i] <= 1000
+
+```
+
+### Final Solution
+
+Assume a ticket bought in day d is valid for (d-len, d], this gives the same result if a ticket bought in day d is valid for [d, d+len). `len` can be 1 or 7 or 30.
+
+`opt(d, j)` is the minimum amount of money spent for day 0 to day d if I buy jth ticket for day d.
+
+```
+opt(d, j) =
+    if j==0: min{ opt(d-1, 0/1/2) } + c(0)
+    if j==1: min{ opt(d-7, 0/1/2) } + c(1)
+    if j==2: min{ opt(d-30, 0/1/2) } + c(2)
+```
+
+In a word:
+
+```
+opt(d, j) = min{ opt(d-len, all possible j) } + c(j)
+```
+
+
+If `d-len < 0`, `opt(d, j) = c(j)`
+
+If `d` not in list of days, `opt(d, j) = opt(d-1, j)`
 
 ```
 class Solution {
     public int mincostTickets(int[] days, int[] costs) {
+        if(days.length==0) return 0;
         int maxDay = 0;
         for(int d: days) maxDay = Math.max(maxDay, d);
         int[][] opt = new int[maxDay+1][costs.length];
-        for(int i=0, j=0; i<=maxDay; i++){
-            if(days[j]==i){
-                if(i-1>=0)  opt[i][0] = min(opt[i-1][0], opt[i-1][1], opt[i-1][2])+costs[0];
-                else        opt[i][0] = costs[0];
-                if(i-7>=0)  opt[i][1] = min(opt[i-7][0], opt[i-7][1], opt[i-7][2])+costs[1];
-                else        opt[i][1] = costs[1];
-                if(i-30>=0) opt[i][2] = min(opt[i-30][0], opt[i-30][1], opt[i-30][2])+costs[2];
-                else        opt[i][2] = costs[2];
-                j++;
-            }else{
-                opt[i][0] = opt[i-1][0];
+        for(int d=0, idx=0; d<=maxDay; d++){
+            if(days[idx]==d){
+                if(d-1>=0)  opt[d][0] = min(opt[d-1][0], opt[d-1][1], opt[d-1][2])+costs[0];
+                else        opt[d][0] = costs[0];
+                if(d-7>=0)  opt[d][1] = min(opt[d-7][0], opt[d-7][1], opt[d-7][2])+costs[1];
+                else        opt[d][1] = costs[1];
+                if(d-30>=0) opt[d][2] = min(opt[d-30][0], opt[d-30][1], opt[d-30][2])+costs[2];
+                else        opt[d][2] = costs[2];
+                idx++;
+            }else if(d-1>=0){
+                for(int j=0; j<=2; j++){
+                    opt[d][j] = opt[d-1][j];
+                }
             }
-        
-            System.out.println(i+" "+opt[i][0]+" "+opt[i][1]+" "+opt[i][2]);
         }
         return min(opt[maxDay][0], opt[maxDay][1], opt[maxDay][2]);
     }
     private int min(int a, int b, int c){
         return Math.min(a, Math.min(b, c));
+    }
+}
+```
+
+N is max day, since `1 <= days[i] <= 365`, N is 365 at most.
+
+Time: O(N)
+Space: O(N)
+
+## 343. Integer Break
+
+### Description
+
+```
+Given a positive integer n, break it into the sum of at least two positive integers and maximize the product of those integers. Return the maximum product you can get.
+
+Example 1:
+
+Input: 2
+Output: 1
+Explanation: 2 = 1 + 1, 1 × 1 = 1.
+Example 2:
+
+Input: 10
+Output: 36
+Explanation: 10 = 3 + 3 + 4, 3 × 3 × 4 = 36.
+Note: You may assume that n is not less than 2 and not larger than 58.
+```
+
+### Final Solution - DP
+
+`opt(i)` is the maximum product for number i.
+
+Break i into `i-j` and `j`, use bigger one of `i-j` itself, or the break up of `i-j`, which is `opt(i-j)`. Same applies to `j`.
+
+```
+opt(i) = max{
+    opt(i-j)/(i-j) * opt(j)/j (4 combinations)
+}
+
+j from 1 to i-1
+```
+
+```
+class Solution {
+    public int integerBreak(int n) {
+        int[] opt = new int[n+1];
+        for(int i=2; i<=n; i++){
+            int max = 0;
+            for(int j=1; j<=i-1; j++){
+                max = max(max, opt[i-j]*opt[j], (i-j)*opt[j], opt[i-j]*j, (i-j)*j);
+            }
+            opt[i] = max;
+        }
+        return opt[n];
+    }
+    private int max(int... nums){
+        int ans = 0;
+        for(int n: nums) ans = Math.max(ans, n);
+        return ans;
+    }
+}
+```
+
+Time: O(n^2)
+Space: O(n)
+
+## 351. Android Unlock Patterns
+
+### Description
+
+https://leetcode.com/problems/android-unlock-patterns/
+
+### 
+
+```
+class Solution {
+    public int numberOfPatterns(int m, int n) {
+        int ans = 0;
+        for(int i=m; i<=n; i++){
+            ans += numberOfPatterns(i);
+        }
+        return ans;
+    }
+    private int numberOfPatterns(int n){
+        Set<Integer> s = new HashSet<>();
+        for(int i=1; i<=9; i++) s.add(i);        
+        return numberOfPatterns(s, new StringBuilder(), n);
+    }
+    private int numberOfPatterns(Set<Integer> s, StringBuilder path, int limit){
+        // System.out.println(s+" "+path);
+        if(path.length()==limit){
+            return valid(path)==true?1:0;
+        }
+        int count = 0;
+        for(int n: s){
+            path.append(n);
+            Set<Integer> newSet = new HashSet<>(s);
+            newSet.remove(n);
+            count += numberOfPatterns(newSet, path, limit);
+            path.deleteCharAt(path.length()-1);
+        }
+        // System.out.println(count);
+        return count;
+    }
+    private boolean valid(StringBuilder path){
+        for(int i=0; i+1<path.length(); i++){
+            char first = path.charAt(i);
+            char second = path.charAt(i+1);
+            char pass = (char)(passThroughChar(first-'0', second-'0')+'0');
+            // System.out.println(pass);
+            if(pass=='0') continue;
+            int passIdx = path.indexOf(pass+"");
+            if(passIdx!=-1 && passIdx<i) continue;
+            return false;
+        }
+        System.out.println("true "+path);
+        return true;
+    }
+    private int passThroughChar(int a, int b){
+        // todo: 24 has no pass but it returns 3 here 
+        if(Math.abs(a-b)==2 || Math.abs(a-b)==6) return (a+b)/2;
+        if(a+b==10) return 5;
+        return 0;
     }
 }
 ```
