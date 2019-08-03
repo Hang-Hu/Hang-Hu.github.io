@@ -2525,61 +2525,64 @@ Space: O(n)
 
 https://leetcode.com/problems/android-unlock-patterns/
 
-### 
+### Final Solution - DFS + Backtracking + Symmetric
+
+Use dfs to try every number and send the rest into dfs.
+ 
+Use `dfs(boolean[] selected, int prev, int remain)`. `boolean[] selected` is used to remember selected keys, and the length is fixed to be 10. Set true before `dfs` and set back to false afterwards. `prev` is previous selected key. `remain` is the remaining length of password.
+
+Use backtracking to stop when it's not possible to e valid password, if prev key and current key is not valid, stop halfway, if goes to remain==0, then return 1.
+
+Use symmetric to save some computation. Password starting with 
 
 ```
 class Solution {
+    int[][] passKeyMap = new int[10][10]; // 0 means no pass through key, ow is the number of pass through key
+    public Solution(){
+        passKeyMap[1][3]=passKeyMap[3][1]=2;
+        passKeyMap[4][6]=passKeyMap[6][4]=passKeyMap[2][8]=passKeyMap[8][2]=passKeyMap[1][9]=passKeyMap[9][1]=passKeyMap[3][7]=passKeyMap[7][3]=5;
+        passKeyMap[7][9]=passKeyMap[9][7]=8;
+        passKeyMap[1][7]=passKeyMap[7][1]=4;
+        passKeyMap[3][9]=passKeyMap[9][3]=6;
+    }
     public int numberOfPatterns(int m, int n) {
         int ans = 0;
-        for(int i=m; i<=n; i++){
-            ans += numberOfPatterns(i);
-        }
+        for(int i=m; i<=n; i++) ans+=numberOfPatterns(i);
         return ans;
     }
     private int numberOfPatterns(int n){
-        Set<Integer> s = new HashSet<>();
-        for(int i=1; i<=9; i++) s.add(i);        
-        return numberOfPatterns(s, new StringBuilder(), n);
-    }
-    private int numberOfPatterns(Set<Integer> s, StringBuilder path, int limit){
-        System.out.println(path);
-        if(path.length()==limit) return 1;
+        boolean[] selected = new boolean[10];
         int count = 0;
-        for(int n: s){
-            path.append(n);
-            if(path.length()>=2 && valid(path, path.length()-2)==false){
-                path.deleteCharAt(path.length()-1);
-                return 0;
-            }
-            Set<Integer> newSet = new HashSet<>(s);
-            newSet.remove(n);
-            count += numberOfPatterns(newSet, path, limit);
-            path.deleteCharAt(path.length()-1);
+        // 1, 3, 7, 9
+        selected[1] = true;
+        count += (4 * dfs(selected, 1, n-1));
+        selected[1] = false;
+        // 2, 4, 6, 8
+        selected[2] = true;
+        count += (4 * dfs(selected, 2, n-1));
+        selected[2] = false;
+        // 5
+        selected[5] = true;
+        count += dfs(selected, 5, n-1);
+        return count;
+    }
+    private int dfs(boolean[] selected, int prev, int remain){
+        if(remain==0) return 1;
+        int count = 0;
+        for(int i=1; i<=9; i++){
+            if(selected[i]==true) continue;
+            if(valid(prev, i, selected)==false) continue;
+            selected[i] = true;
+            count += dfs(selected, i, remain-1);
+            selected[i] = false;
         }
         return count;
     }
-    private boolean valid(StringBuilder path){
-        for(int i=0; i+1<path.length(); i++){
-            if(!valid(path, i)) return false;
-        }
-        return true;
-    }
-    // if char in i to char in i+1 are valid or not, given path
-    private boolean valid(StringBuilder path, int i){
-        char a = path.charAt(i);
-        char b = path.charAt(i+1);
-        char pass = (char)(passThroughChar(a-'0', b-'0')+'0');
-        if(pass=='0') return true;
-        int passIdx = path.indexOf(pass+"");
-        if(passIdx!=-1 && passIdx<i) return true;
-        return false;
-    }
-    private int passThroughChar(int a, int b){
-        if(Math.abs(a-b)==6) return (a+b)/2;
-        if(a+b==10) return 5;
-        if((a==1&&b==3) || (a==3&&b==1)) return 2;
-        if((a==7&&b==9) || (a==9&&b==7)) return 8;
-        return 0;
+    private boolean valid(int a, int b, boolean[] selected){
+        int pass = passKeyMap[a][b];
+        // if a and b are adjacent(no pass) or the pass through key has been selected before => valid
+        if(pass==0 || selected[pass]==true) return true;
+        else                                return false;
     }
 }
 ```
