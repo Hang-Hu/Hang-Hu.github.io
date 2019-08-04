@@ -2829,6 +2829,14 @@ https://leetcode.com/problems/bomb-enemy/
 
 ### Final Solution - Presum DP
 
+Calculate presum from top to bottom, bottom to top, left to right, right to left. Then the number of enemies eliminated by bomb in `(i, j)` is `topToBottom[i][j]+bottomToTop[i][j]+leftToRight[i][j]+rightToLeft[i][j]`.
+
+- it's empty: add 0
+- it's enemy: add 1
+- it's wall: update as 0
+
+Calculating presum for 4 directions then I will know how wall stops bomb easily.
+
 ```
 class Solution {
     public int maxKilledEnemies(char[][] grid) {
