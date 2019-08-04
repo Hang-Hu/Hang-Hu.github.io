@@ -8,7 +8,7 @@ Given a positive integer n, find the least number of perfect square numbers (for
 Example 1:
 
 Input: n = 12
-Output: 3 
+Output: 3
 Explanation: 12 = 4 + 4 + 4.
 Example 2:
 
@@ -59,7 +59,7 @@ Example 1:
 
 Input: word1 = "horse", word2 = "ros"
 Output: 3
-Explanation: 
+Explanation:
 horse -> rorse (replace 'h' with 'r')
 rorse -> rose (remove 'r')
 rose -> ros (remove 'e')
@@ -67,7 +67,7 @@ Example 2:
 
 Input: word1 = "intention", word2 = "execution"
 Output: 5
-Explanation: 
+Explanation:
 intention -> inention (remove 't')
 inention -> enention (replace 'i' with 'e')
 enention -> exention (replace 'n' with 'x')
@@ -84,7 +84,6 @@ delete x == insert y
 replace x with y == replace y with x
 
 So insert, delete and replace can be replace by ignoring x(-), ignoring y(|) and replacing(/).
-
 
 `opt(i, j)` is the minimum cost spent when changing string x1...xi to y1...yj(0 is left for empty string)
 
@@ -192,14 +191,13 @@ class Solution {
             }
         }
         return s.substring(start, end+1);
-        
+
     }
 }
 ```
 
 Time: O(n^2). (n-2)^2/2 = O(n^2). Nearly half of the square.
 Space: O(n^2).
-
 
 ### Final Solution - Recursion
 
@@ -274,7 +272,6 @@ Space complexity should be O(n).
 Can you do it like a boss? Do it without using any builtin function like __builtin_popcount in c++ or in any other language.
 ```
 
-
 ### Solution Naive
 
 ```
@@ -297,7 +294,7 @@ class Solution {
 }
 ```
 
-Time: O(n*logn). Since logn is the number of bits(size) for n.
+Time: O(n\*logn). Since logn is the number of bits(size) for n.
 Space: O(n)
 
 ### Final Solution - DP
@@ -374,8 +371,8 @@ Space: O(1)
 
 ### Solution DP
 
-If s[i-1]=='(':              opt[i] = 2+opt[i-2]; // may-be-valid()
-If s[i-1-opt[i-1]]=='(':     opt[i] = 2+opt[i-1]+opt[i-1-opt[i-1]-1];// may-be-valid(valid-inside)
+If s[i-1]=='(': opt[i] = 2+opt[i-2]; // may-be-valid()
+If s[i-1-opt[i-1]]=='(': opt[i] = 2+opt[i-1]+opt[i-1-opt[i-1]-1];// may-be-valid(valid-inside)
 
 ```
 class Solution {
@@ -455,7 +452,6 @@ class Solution {
 }
 ```
 
-
 ## 10. Regular Expression Matching
 
 ### Description
@@ -509,7 +505,7 @@ Output: false
 
 ### Solution DP(Recursion+Memorization)
 
-Be careful I have many choices for one case, for example, a* can match 0 which is "", or match "a" or match "aaa...". And the differnt matching of a* will influence next matching, for example, the matching of b* following it.
+Be careful I have many choices for one case, for example, a* can match 0 which is "", or match "a" or match "aaa...". And the differnt matching of a* will influence next matching, for example, the matching of b\* following it.
 
 Why Backtracking? some path not call and try because not meet condition.
 
@@ -518,10 +514,11 @@ If j exceed i not: false(nothing to match anymore, but i not finish, so false)
 If j not i finish: maybe it's multiple x* and can be treated as 0 match, so continue.
 firstMatch: the same or j is .
 If j+1 is *:
- 1. match 0 time: i the same, j+2(skip char and *)
- 2. match 1 or more time(only if firstMatch): i+1(next char), j the same
-If j+1 isnot *:
- only if firstMatch, both go to next one(i+1, j+1) (if j+1 is * and firstMatch, for example a and a*, then I can use match 1 and match 0 to solve it, so I have to skip it here, otherwise will be duplicate computation, even it's dp and the earlier one have the true computation, I don't even want to call dup)
+
+1.  match 0 time: i the same, j+2(skip char and \*)
+2.  match 1 or more time(only if firstMatch): i+1(next char), j the same
+    If j+1 isnot _:
+    only if firstMatch, both go to next one(i+1, j+1) (if j+1 is _ and firstMatch, for example a and a\*, then I can use match 1 and match 0 to solve it, so I have to skip it here, otherwise will be duplicate computation, even it's dp and the earlier one have the true computation, I don't even want to call dup)
 
 memo[i][j] uses `s.length()+1` since i may exceed, and since i+1 it will at most exceed one, uses `p.length()` since as long as j exceeds, it returns and not call memo using j.
 
@@ -617,7 +614,7 @@ Output: false
 
 Similiar to 10.Regular Expression Matching.
 
-If j is *, try match 0(j+1) and match 1 or more(i+1)
+If j is \*, try match 0(j+1) and match 1 or more(i+1)
 Otherwise check if first match, yes then try next pari(i+1, j+1)
 
 Use int[][] memo to memory duplicate computation.
@@ -657,7 +654,7 @@ Space: I(m*n)
 
 ### Solution (KMP)
 
-First time meet *, match 0 time. If encounter firstMatch is false, i and j go back to previous *, match time inc by 1. If all remaining j is *, then return true.
+First time meet _, match 0 time. If encounter firstMatch is false, i and j go back to previous _, match time inc by 1. If all remaining j is \*, then return true.
 
 ```
 class Solution {
@@ -693,7 +690,7 @@ class Solution {
         }else{ // j>=p.length()+1
             return false;
         }
-        
+
     }
 }
 ```
@@ -750,7 +747,7 @@ The position of i+j may be in boundary, for example, i=m-1, j=1, then they only 
 
 ```
 (m-2, n-2)  (m-1, n-2)
-(m-2, n-1)  (m-1, n-1) 
+(m-2, n-1)  (m-1, n-1)
 ```
 
 ```
@@ -827,7 +824,7 @@ class Solution {
             for(int j=opt[0].length-1; j>=0; j--){
                 if(obstacleGrid[i][j]==0){ // if it's obstacle, no need to compute number of ways
                     if(i+1<opt.length && obstacleGrid[i+1][j]==0) opt[i][j] += opt[i+1][j];
-                    if(j+1<opt[0].length && obstacleGrid[i][j+1]==0) opt[i][j] += opt[i][j+1];    
+                    if(j+1<opt[0].length && obstacleGrid[i][j+1]==0) opt[i][j] += opt[i][j+1];
                 }
             }
         }
@@ -895,7 +892,6 @@ class Solution {
 }
 ```
 
-
 ## 85. Maximal Rectangle
 
 ### Description
@@ -920,7 +916,7 @@ class Solution {
             for(int j=0; j<colLen; j++){
                 for(int m=0; m<rowLen; m++){
                     for(int n=0; n<colLen; n++){
-                        max = Math.max(max, opt(matrix, i, j, m, n));         
+                        max = Math.max(max, opt(matrix, i, j, m, n));
                     }
                 }
             }
@@ -960,9 +956,8 @@ class Solution {
 }
 ```
 
-
-Time: O(m^2 * n^2)
-Space: O(m^2 * n^2)
+Time: O(m^2 _ n^2)
+Space: O(m^2 _ n^2)
 
 ### Solution - consecutive pre sum and histogram
 
@@ -971,7 +966,7 @@ Space: O(m^2 * n^2)
 
 i=4: 4*1(4-4+1=1) = 4
 i=3: 2*2(4-3+1=2) = 4
-i=2: 2*3(4-2+1=3) = 6
+i=2: 2\*3(4-2+1=3) = 6
 i=1: break
 
 So max area is 6.
@@ -1017,8 +1012,8 @@ class Solution {
             }
         }
     }
- 
-    
+
+
 }
 ```
 
@@ -1031,23 +1026,25 @@ Space: O(m*n)
 
 1. Calculate consecutive pre sum for each row. For example, consecutive pre sum of `["1","0","1","1","1"]` is `[1,0,1,2,3]`.
 2. For each column, use stack to calculate the max histogram. For example, column `[3,0,4,2]`:
-    A. push (-1, 0) into stack
-    B. For `i=0`, 3>0, push 0(3) into stack
-    C. For `i=1`, 0<3, pop 0(3) from stack, 3*1(1-1--1=1), push 1(0)
-    D. For `i=2`, 4>0, push 2(4)
-    E. For `i=3`, 2<4, pop 2(4), 4*1(3-1-1=1), push 3(2)
-    F. `i=4`, i>=consecutivePreSum.length, pop 3(2), 2*2(4-1-1=2)
-    G. `i=4`, i>=consecutivePreSum.length, pop 1(0), 0*4(4-1--1=4)
+   A. push (-1, 0) into stack
+   B. For `i=0`, 3>0, push 0(3) into stack
+   C. For `i=1`, 0<3, pop 0(3) from stack, 3*1(1-1--1=1), push 1(0)
+   D. For `i=2`, 4>0, push 2(4)
+   E. For `i=3`, 2<4, pop 2(4), 4*1(3-1-1=1), push 3(2)
+   F. `i=4`, i>=consecutivePreSum.length, pop 3(2), 2*2(4-1-1=2)
+   G. `i=4`, i>=consecutivePreSum.length, pop 1(0), 0*4(4-1--1=4)
 
-    max is 4.
+   max is 4.
 
-    Stack:
-    | 3(2)|
-    | 2(4)|
-    | 1(0)|
-    | 0(3)|
-    |-1(0)|
-    -------
+   Stack:
+   | 3(2)|
+   | 2(4)|
+   | 1(0)|
+   | 0(3)|
+   |-1(0)|
+
+   ***
+
 ```
 class Solution {
     public int maximalRectangle(char[][] matrix) {
@@ -1106,11 +1103,10 @@ class Status{
 
 m is matrix.length, n is matrix[0].length
 
-Time: O(m*n)
+Time: O(m\*n)
 Sapce: O(m)
 
 ## 221. Maximal Square
-
 
 ### Description
 
@@ -1151,7 +1147,7 @@ class Solution {
             for(int j=0; j<matrix[0].length; j++){
                 if(matrix[i][j]=='1'){
                     return false;
-                }        
+                }
             }
         }
         return true;
@@ -1177,7 +1173,6 @@ class Solution {
     }
 }
 ```
-
 
 ## 87. Scramble String
 
@@ -1338,12 +1333,11 @@ class Solution {
 ### First Solution DP + Memorization (2D)
 
 1. cur-start==0. If cur points to `0`, count+=0. Otherwise, there can be 2 possiblities.
-    A. cut
-    B. If the number of cur and next <= 26, not cut now
-2. cur-start==1: must cut. 
+   A. cut
+   B. If the number of cur and next <= 26, not cut now
+2. cur-start==1: must cut.
 
 And use `int[][] memo` to do memorization to save duplciate computation.
-
 
 ```
 class Solution {
@@ -1365,7 +1359,7 @@ class Solution {
                 count += numDecodings(s, cur+1, cur+1); // cut
                 if(cur+2<=s.length() && Integer.parseInt(s.substring(cur, cur+2))<=26){
                     count += numDecodings(s, cur, cur+1); // not cut
-                }    
+                }
             }
         }else if(cur-start==1){ // must cut
             count += numDecodings(s, cur+1, cur+1);
@@ -1447,7 +1441,7 @@ class Solution {
         int min = opt[maxColLen-1][0];
         for(int j=0; j<maxColLen; j++){
             min = Math.min(min, opt[rowLen-1][j]);
-            
+
         }
         return min;
     }
@@ -1458,7 +1452,7 @@ class Solution {
 
 opt(j) is the min path sum for column j.
 
-There are three statements using opt. And everytime I actually use `i-1` to compute i's opt. So I can easily get rid of `i-1` and adjust to `j--` to make sure `opt(j-1)` for this `i` is computed after computing `opt(j)`, since sometimes I use ` opt[i-1][j-1]` to compute `opt[i][j]`.
+There are three statements using opt. And everytime I actually use `i-1` to compute i's opt. So I can easily get rid of `i-1` and adjust to `j--` to make sure `opt(j-1)` for this `i` is computed after computing `opt(j)`, since sometimes I use `opt[i-1][j-1]` to compute `opt[i][j]`.
 
 From:
 
@@ -1499,7 +1493,7 @@ class Solution {
         int min = opt[0];
         for(int j=1; j<maxColLen; j++){
             min = Math.min(min, opt[j]);
-            
+
         }
         return min;
     }
@@ -1569,7 +1563,6 @@ class Solution {
 }
 ```
 
-
 Hard to calculate time complexity and space complexity.
 
 ### Bonus: DP Solution
@@ -1619,7 +1612,6 @@ class Solution {
     }
 }
 ```
-
 
 Time: O(n^3)
 Space: O(n)
@@ -1717,7 +1709,6 @@ class Solution {
 }
 ```
 
-
 Time and space complexity? Have to read docs or watch videos for the analysis for DP memorization. Or transfer to DP to analyze the time complexity?
 
 Time: O(n^3). Convert to DP.
@@ -1730,7 +1721,6 @@ size(i) from 1 to s.length
 ```
 
 i is O(n), j is O(n), `s[j, i]` is O(n), each one in opt(j) is O(n), so O(n^3)
-
 
 Space: O(n^3). key is O(n), list of String is O(n^2).
 
@@ -1782,16 +1772,15 @@ Space: O(n^2)
 
 `opt[i][0]` is the minimum product of subarray from index 0 to i(inclusive), `opt[i][1]` is the maximum product of subarray from index 0 to i(inclusive).
 
-MINMAX: `negative i-1 min` * `negtive nums[i]` > `positive i-1 max` * `negative nums[i]`.
+MINMAX: `negative i-1 min` _ `negtive nums[i]` > `positive i-1 max` _ `negative nums[i]`.
 
-If min of `i-1` is minus, and `nums[i]` is also minus, then product will be positive number, it's larger than positive*negtive, even positive is max for `i-1`
+If min of `i-1` is minus, and `nums[i]` is also minus, then product will be positive number, it's larger than positive\*negtive, even positive is max for `i-1`
 
 For example, [1,-2,3,-4]
 
 Only remember max: 1, -2, 3, -4, max is 3
 
 Remember max and min: (1,1),(-2,-2),(-6,3),(-12,24), max is 24
-
 
 ```
 class Solution {
@@ -1822,7 +1811,6 @@ class Solution {
     }
 }
 ```
-
 
 Time: O(n)
 Space: O(n)
@@ -1856,22 +1844,21 @@ Explanation: Rob house 1 (money = 1) and then rob house 3 (money = 3).
 opt(i, j) is the maximum amount of money robbed one night for house 0 to house i, j==1 means last house is robbed, j==0 means last house isn't robbed.
 
 opt(i, j) = max(
-    opt(i-2, j) + nums[i]   // rob i
-    opt(i-1, j)             // not rob i
+opt(i-2, j) + nums[i] // rob i
+opt(i-1, j) // not rob i
 )
 
 If i==0,
- opt(0, 1) = 0          // last is robbed and adjacent to first one, so first one cannot be robbed
- opt(0, 0) = nums[0]    // last one is not robbed, so must rob first one to maximize money
-
+opt(0, 1) = 0 // last is robbed and adjacent to first one, so first one cannot be robbed
+opt(0, 0) = nums[0] // last one is not robbed, so must rob first one to maximize money
 
 If i==len-1
- opt(i, 0) = opt(i-1, 0)            // not rob last one(i)
- opt(i, 1) = opt(i-2, 1) + nums[i]  // rob last one
+opt(i, 0) = opt(i-1, 0) // not rob last one(i)
+opt(i, 1) = opt(i-2, 1) + nums[i] // rob last one
 
 return max{opt(len-1, 0), opt(len-1, 1)}
 
-Only when len>=3 then the statement `opt[i][1] = opt[i-2][1] + nums[i]` where i is len-1 can work. So I have to deal with  cases when len is 0, 1, 2 separately.
+Only when len>=3 then the statement `opt[i][1] = opt[i-2][1] + nums[i]` where i is len-1 can work. So I have to deal with cases when len is 0, 1, 2 separately.
 
 ```
 class Solution {
@@ -1907,26 +1894,26 @@ Space: O(n)
 
 Write a program to find the n-th ugly number.
 
-Ugly numbers are positive numbers whose prime factors only include 2, 3, 5. 
+Ugly numbers are positive numbers whose prime factors only include 2, 3, 5.
 
 Example:
 
 Input: n = 10
 Output: 12
 Explanation: 1, 2, 3, 4, 5, 6, 8, 9, 10, 12 is the sequence of the first 10 ugly numbers.
-Note:  
+Note:
 
 1 is typically treated as an ugly number.
 n does not exceed 1690.
 
 ### First Solution DP+Map - TLE
 
-Use map because I don't know how many times final (i-1)/n can be, previously I used 2*n but exceeds.
+Use map because I don't know how many times final (i-1)/n can be, previously I used 2\*n but exceeds.
 
 opt(i) = opt(i/2) if i%2==0
-       = opt(i/3) if i%3==0
-       = opt(i/5) if i%5==0
-       = (i==1)   o.w. 
+= opt(i/3) if i%3==0
+= opt(i/5) if i%5==0
+= (i==1) o.w.
 
 ```
 class Solution {
@@ -2012,8 +1999,8 @@ Given an unsorted array of integers, find the length of longest increasing subse
 Example:
 
 Input: [10,9,2,5,3,7,101,18]
-Output: 4 
-Explanation: The longest increasing subsequence is [2,3,7,101], therefore the length is 4. 
+Output: 4
+Explanation: The longest increasing subsequence is [2,3,7,101], therefore the length is 4.
 Note:
 
 There may be more than one LIS combination, it is only necessary for you to return the length.
@@ -2032,7 +2019,6 @@ opt(i) is at least its character in subsequence, so init every opt(i) to be 1.
 if opt(i) > opt(j): (0<=j<i)
     opt(i) = 1 + max(opt(j))
 ```
-
 
 ```
 class Solution {
@@ -2071,15 +2057,10 @@ Find out the index to insert by `Arrays.binarySearch`, if it's negative I have t
 
 For example, `[10,9,2,5,3,7,101,18]`
 
-[10]
-[9]
-[2]
-[2, 5]
-[2, 3]
-[2, 3, 7]
-[2, 3, 7, 101]
-[2, 3, 7, 18]
-
+[10][9]
+[2][2, 5]
+[2, 3][2, 3, 7]
+[2, 3, 7, 101][2, 3, 7, 18]
 
 ```
 class Solution {
@@ -2110,7 +2091,7 @@ Given an unsorted array return whether an increasing subsequence of length 3 exi
 
 Formally the function should:
 
-Return true if there exists i, j, k 
+Return true if there exists i, j, k
 such that arr[i] < arr[j] < arr[k] given 0 ≤ i < j < k ≤ n-1 else return false.
 Note: Your algorithm should run in O(n) time complexity and O(1) space complexity.
 
@@ -2127,6 +2108,7 @@ Output: false
 ### Final Solution small and big var
 
 Have 2 variables small and big, set to max. Walk through nums:
+
 1. if n<= small: small = n
 2. else if n<=big: big = n
 3. else: return true
@@ -2154,27 +2136,72 @@ class Solution {
 }
 ```
 
-
 ## 304. Range Sum Query 2D - Immutable
 
-### First Solution Brute force
+### Description
+
+```
+Given a 2D matrix matrix, find the sum of the elements inside the rectangle defined by its upper left corner (row1, col1) and lower right corner (row2, col2).
+
+Range Sum Query 2D
+The above rectangle (with the red border) is defined by (row1, col1) = (2, 1) and (row2, col2) = (4, 3), which contains sum = 8.
+
+Example:
+
+Given matrix = [
+  [3, 0, 1, 4, 2],
+  [5, 6, 3, 2, 1],
+  [1, 2, 0, 1, 5],
+  [4, 1, 0, 1, 7],
+  [1, 0, 3, 0, 5]
+]
+
+sumRegion(2, 1, 4, 3) -> 8
+sumRegion(1, 1, 2, 2) -> 11
+sumRegion(1, 2, 2, 4) -> 12
+
+Note:
+
+    You may assume that the matrix does not change.
+    There are many calls to sumRegion function.
+    You may assume that row1 ≤ row2 and col1 ≤ col2.
+```
+
+### First Solution
 
 ```
 class NumMatrix {
     private int[][] matrix;
+    private int[][][][] memo;
     public NumMatrix(int[][] matrix) {
         this.matrix = matrix;
+        int rowLen = matrix.length;
+        int colLen = matrix[0].length;
+        this.memo = new int[rowLen][colLen][rowLen][colLen];
+        for(int i=0; i<rowLen; i++){
+            for(int j=0; j<colLen; j++){
+                for(int x=0; x<rowLen; x++){
+                    for(int y=0; y<colLen; y++){
+                        memo[i][j][x][y] = -1;
+                    }
+                }
+            }
+        }
     }
+    
     public int sumRegion(int row1, int col1, int row2, int col2) {
+        if(memo[row1][col1][row2][col2]!=-1) return memo[row1][col1][row2][col2];
         int sum = 0;
         for(int i=row1; i<=row2; i++){
             for(int j=col1; j<=col2; j++){
                 sum += matrix[i][j];
             }
         }
+        memo[row1][col1][row2][col2] = sum;
         return sum;
     }
 }
+
 /**
  * Your NumMatrix object will be instantiated and called as such:
  * NumMatrix obj = new NumMatrix(matrix);
@@ -2182,10 +2209,129 @@ class NumMatrix {
  */
 ```
 
-m is number of rows and n is number of columns.
+m is the number of rows and n is the number of columns.
 
 Time: O(m*n)
-Space: O(1)
+
+Space: O(m^2 * n^2)
+
+### Final Solution - DP + presum
+
+```
+For every row, calculate the presum from col 0 to current col.
+
+In sumRegion, use presum[i][col2]-presum[i][col1-1] or presum[i][col2] if col1==0 and add up for every row.
+
+class NumMatrix {
+    int[][] presum; // in every row, calculate the presum
+    public NumMatrix(int[][] matrix) {
+        if(matrix.length!=0){
+            presum = new int[matrix.length][matrix[0].length];
+            for(int i=0; i<matrix.length; i++){
+                for(int j=0; j<matrix[0].length; j++){
+                    if(j==0)    presum[i][j] = matrix[i][j];
+                    else        presum[i][j] = presum[i][j-1] + matrix[i][j];
+                }
+            }
+        }
+    }
+    public int sumRegion(int row1, int col1, int row2, int col2) {
+        int sum = 0;
+        for(int i=row1; i<=row2; i++){
+            if(col1-1>=0)   sum += (presum[i][col2]-presum[i][col1-1]);
+            else            sum += presum[i][col2];
+        }
+        return sum;
+    }
+}
+```
+
+m is the number of rows and n is the number of columns.
+
+Time: O(m)
+
+Space: O(m*n)
+
+## 308. Range Sum Query 2D - Mutable
+
+### Description
+
+```
+Given a 2D matrix matrix, find the sum of the elements inside the rectangle defined by its upper left corner (row1, col1) and lower right corner (row2, col2).
+
+Range Sum Query 2D
+The above rectangle (with the red border) is defined by (row1, col1) = (2, 1) and (row2, col2) = (4, 3), which contains sum = 8.
+
+Example:
+
+Given matrix = [
+  [3, 0, 1, 4, 2],
+  [5, 6, 3, 2, 1],
+  [1, 2, 0, 1, 5],
+  [4, 1, 0, 1, 7],
+  [1, 0, 3, 0, 5]
+]
+
+sumRegion(2, 1, 4, 3) -> 8
+update(3, 2, 2)
+sumRegion(2, 1, 4, 3) -> 10
+
+Note:
+
+    The matrix is only modifiable by the update function.
+    You may assume the number of calls to update and sumRegion function is distributed evenly.
+    You may assume that row1 ≤ row2 and col1 ≤ col2.
+```
+
+### Final Solution - DP+presum+update presum
+
+Same logic of NumMatrix and update as 304. When update a value, get prevVal by presum, simply update from current col to the end of this row, with val-preVal.
+
+```
+class NumMatrix {
+    private int[][] presum;
+    public NumMatrix(int[][] matrix) {
+        if(matrix.length!=0){
+            presum = new int[matrix.length][matrix[0].length];
+            for(int i=0; i<matrix.length; i++){
+                for(int j=0; j<matrix[0].length; j++){
+                    if(j==0)    presum[i][j] = matrix[i][j];
+                    else        presum[i][j] = presum[i][j-1]+matrix[i][j];
+                }
+            }        
+        }
+    }
+    public void update(int row, int col, int val) {
+        int preVal = (col==0? presum[row][col]:presum[row][col]-presum[row][col-1]);
+        for(int j=col; j<presum[0].length; j++){
+            presum[row][j] += (val-preVal);
+        }
+    }
+    
+    public int sumRegion(int row1, int col1, int row2, int col2) {
+        int sum = 0;
+        for(int i=row1; i<=row2; i++){
+            if(col1==0) sum += presum[i][col2];
+            else        sum += (presum[i][col2]-presum[i][col1-1]);
+        }
+        return sum;
+    }
+}
+/**
+ * Your NumMatrix object will be instantiated and called as such:
+ * NumMatrix obj = new NumMatrix(matrix);
+ * obj.update(row,col,val);
+ * int param_2 = obj.sumRegion(row1,col1,row2,col2);
+ */
+```
+
+m is the number of rows and n is the number of columns.
+
+update time: O(n)
+
+sumRegion time: O(m)
+
+Space: O(m*n)
 
 ## 309. Best Time to Buy and Sell Stock with Cooldown
 
@@ -2201,7 +2347,7 @@ After you sell your stock, you cannot buy stock on next day. (ie, cooldown 1 day
 Example:
 
 Input: [1,2,3,0,2]
-Output: 3 
+Output: 3
 Explanation: transactions = [buy, sell, cooldown, buy, sell]
 
 ```
@@ -2215,7 +2361,7 @@ Second is whether cooled down after transaction.
 
 j==0(00): not hold stock and not cooled down after transaction.
 j==1(01): not hold stock and cooled down after transaction
-j==2(10): hold stock and not cooled down after transaction. This case won't EXIST. 
+j==2(10): hold stock and not cooled down after transaction. This case won't EXIST.
 j==3(11): hold stock and cooled down after transaction
 
 ```
@@ -2226,7 +2372,7 @@ class Solution {
         opt[0][0]=Integer.MIN_VALUE/2;
         opt[0][1]=0;
         opt[0][3]=-prices[0];
-        
+
         for(int i=1; i<prices.length; i++){
             opt[i][0] = opt[i-1][3]+prices[i];
             opt[i][1] = Math.max(opt[i-1][0], opt[i-1][1]);
@@ -2238,7 +2384,6 @@ class Solution {
 ```
 
 ### Improved Solution (Final)
-
 
 Since the fomula always goes from `i-1` to `i`, then just use three variables to replace the `opt` array.
 
@@ -2272,7 +2417,7 @@ You are given coins of different denominations and a total amount of money amoun
 Example 1:
 
 Input: coins = [1, 2, 5], amount = 11
-Output: 3 
+Output: 3
 Explanation: 11 = 5 + 5 + 1
 Example 2:
 
@@ -2290,7 +2435,7 @@ class Solution {
     public int coinChange(int[] coins, int amount) {
         Arrays.sort(coins);
         memo = new int[coins.length][amount+1];
-        return coinNumber(coins, coins.length-1, amount, 0);        
+        return coinNumber(coins, coins.length-1, amount, 0);
     }
     private int coinNumber(int[] coins, int i, int amount, int coinNum){
         if(amount==0) return coinNum;
@@ -2309,12 +2454,11 @@ class Solution {
 
 n is coins.length, m==amount.
 
-Time: O(n*m * m). For every cell, the worst case for loop is when `coins[i]` is 1, then it's m times. So O(m) for each cell. 
+Time: O(n*m * m). For every cell, the worst case for loop is when `coins[i]` is 1, then it's m times. So O(m) for each cell.
 
-Space: O(n*m)
+Space: O(n\*m)
 
 ### Final Solution - DP+Memorization (1D)
-
 
 Substract each kind of coin from amount and get min number of coins for this amount. Then the only param is `amount`.
 
@@ -2336,22 +2480,21 @@ class Solution {
                 int tmp = coinNumber(coins, amount-coins[i]);
                 if(tmp!=-1){
                     if(min==-1 || tmp<min) min = tmp;
-                }    
+                }
             }
         }
         int ans = min==-1?-1:min+1;
         memo[amount] = ans;
         return ans;
     }
-    
+
 }
 ```
 
 n is coins.length, m==amount.
 
-Time: O(m*n). As for each cell, the time is for loop, which is O(n)
+Time: O(m\*n). As for each cell, the time is for loop, which is O(n)
 Space: O(m)
-
 
 ## 983. Minimum Cost For Tickets
 
@@ -2369,13 +2512,13 @@ The passes allow that many days of consecutive travel.  For example, if we get a
 
 Return the minimum number of dollars you need to travel every day in the given list of days.
 
- 
+
 
 Example 1:
 
 Input: days = [1,4,6,7,8,20], costs = [2,7,15]
 Output: 11
-Explanation: 
+Explanation:
 For example, here is one way to buy passes that lets you travel your travel plan:
 On day 1, you bought a 1-day pass for costs[0] = $2, which covered day 1.
 On day 3, you bought a 7-day pass for costs[1] = $7, which covered days 3, 4, ..., 9.
@@ -2385,12 +2528,12 @@ Example 2:
 
 Input: days = [1,2,3,4,5,6,7,8,9,10,30,31], costs = [2,7,15]
 Output: 17
-Explanation: 
+Explanation:
 For example, here is one way to buy passes that lets you travel your travel plan:
 On day 1, you bought a 30-day pass for costs[2] = $15 which covered days 1, 2, ..., 30.
 On day 31, you bought a 1-day pass for costs[0] = $2 which covered day 31.
 In total you spent $17 and covered all the days of your travel.
- 
+
 
 Note:
 
@@ -2420,7 +2563,6 @@ In a word:
 ```
 opt(d, j) = min{ opt(d-len, all possible j) } + c(j)
 ```
-
 
 If `d-len < 0`, `opt(d, j) = c(j)`
 
@@ -2528,15 +2670,14 @@ https://leetcode.com/problems/android-unlock-patterns/
 ### Final Solution - DFS + Backtracking + Symmetric
 
 Use dfs to try every number and send the rest into dfs.
- 
+
 Use `dfs(boolean[] selected, int prev, int remain)`. `boolean[] selected` is used to remember selected keys, and the length is fixed to be 10. Set true before `dfs` and set back to false afterwards. `prev` is previous selected key. `remain` is the remaining length of password.
 
 Use backtracking to stop when it's not possible to e valid password, if prev key and current key is not valid, stop halfway, if goes to remain==0, then return 1.
 
 Use symmetric to save some computation. Password starting with 1, 3, 7, 9, since they are symmetric, their number of possible passwords are the same. This also applies to 2, 4, 6, 8. So just calculate one time and multiply 4.
 
-To remember the key that is passed through between two keys, use an array. For example, `passKeyMap[1][3]=passKeyMap[3][1]=2`, 2 is the key passed through by `13` and `31`. 
-
+To remember the key that is passed through between two keys, use an array. For example, `passKeyMap[1][3]=passKeyMap[3][1]=2`, 2 is the key passed through by `13` and `31`.
 
 ```
 class Solution {
@@ -2600,8 +2741,8 @@ Given a non-negative integer n, count all numbers with unique digits, x, where 0
 Example:
 
 Input: 2
-Output: 91 
-Explanation: The answer should be the total numbers in the range of 0 ≤ x < 100, 
+Output: 91
+Explanation: The answer should be the total numbers in the range of 0 ≤ x < 100,
              excluding 11,22,33,44,55,66,77,88,99
 ```
 
@@ -2654,7 +2795,7 @@ First divide the problem into count for different length of digit. length can be
 
 Select digit one by one until length used up.
 
-9 * 9 * 8 * 7 * 6 ...
+9 _ 9 _ 8 _ 7 _ 6 ...
 
 First digit cannot be 0 except the number is right 0(this special case will be added in the end), so 9 possibilities. The second digit can be 0-9, but have to eliminate first digit that has been used, so it's 10-1=9 possibilities. All the following will get 1 substracted compared to previous digit.
 
@@ -2687,8 +2828,6 @@ class Solution {
 https://leetcode.com/problems/bomb-enemy/
 
 ### Final Solution - Presum DP
-
-
 
 ```
 class Solution {
