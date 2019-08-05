@@ -252,7 +252,19 @@ Space: I(n)
 
 ## 267. Palindrome Permutation II
 
-### Solution Brute Force
+### Solution 5.5%
+
+Use map to store char and its occurrences.
+
+If the number of odd keys > 1, then definitely cannot make a palindrome.
+
+Append all possible keys to StringBuilder, decrease in map, and call `gen()` with cur+1. After that delete that char from sb, increase it back to map.
+
+If occurrence is 0, skip to next key.
+
+If it's the right half and not same as char at `len-1-cur`, stop here.
+
+sb is built from 0 to `len-1`.
 
 ```
 class Solution {
@@ -261,36 +273,33 @@ class Solution {
         if(s.length()==0) return ans;
         Map<Character, Integer> map = new HashMap<>();// (char, occurrences)
         initMap(s, map);
+        if(isPalindromic(map)==false) return ans;
         gen(new StringBuilder(), map, 0, ans, s.length());
         return ans;
     }
-    private boolean palindrome(StringBuilder sb){
-        for(int i=0; i<=sb.length()/2; i++){
-            if(sb.charAt(i)!=sb.charAt(sb.length()-i-1)) return false;
+    private boolean isPalindromic(Map<Character, Integer> map){
+        int oddCount = 0;
+        for(int n: map.values()){
+            if(n%2!=0) oddCount++;
         }
-        return true;
+        return oddCount<=1;
     }
     private void gen(StringBuilder sb, Map<Character, Integer> map, int cur, List<String> ans, int len){
         if(sb.length()>=len){
-            if(palindrome(sb)) ans.add(sb.toString());
+            ans.add(sb.toString());
             return;
         }
-        for(Character c: map.keySet()){
+        for(Map.Entry<Character, Integer> e: map.entrySet()){
+            if(e.getValue()==0) continue;
+            Character c = e.getKey();
+            if(cur>=len/2 && cur!=len-1-cur && c!=sb.charAt(len-1-cur)) continue;
             sb.append(c);
-            Map<Character, Integer> newMap = decreaseMap(map, c);
-            gen(sb, newMap, cur+1, ans, len);
+            map.put(c, map.get(c)-1);
+            gen(sb, map, cur+1, ans, len);
             sb.deleteCharAt(cur);
+            map.put(c, map.get(c)+1);
         }
         
-    }
-    private Map<Character, Integer> decreaseMap(Map<Character, Integer> map, Character c){
-        Map<Character, Integer> newMap = new HashMap<>(map);
-        if(newMap.get(c)==1){
-            newMap.remove(c);
-        }else{
-            newMap.put(c, map.get(c)-1);
-        }
-        return newMap;
     }
     private void initMap(String s, Map<Character, Integer> map){
         for(int i=0; i<s.length(); i++){
@@ -301,3 +310,75 @@ class Solution {
 }
 ```
 
+### Final Solution
+
+Use map to store char and its occurrences.
+
+if oddCount==0, cannot make any palindrome.
+if oddCount==1, append that additional key to StringBuilder, decrease in map, then every key is even now.
+if oddCount==0, go with that.
+
+append key to both the start and end of StringBuilder, decrease map by 2, call `gen()` with cur+2. After gen(), recover sb and map.
+
+In the end, add `sb.toString()` to ans.
+
+sb is built from middle around.
+
+```
+class Solution {
+    public List<String> generatePalindromes(String s) {
+        List<String> ans = new ArrayList<>();
+        if(s.length()==0) return ans;
+        Map<Character, Integer> map = new HashMap<>();// (char, occurrences)
+        initMap(s, map);
+        int oddCount = oddCount(map);
+        StringBuilder sb = new StringBuilder();
+        if(oddCount>1){
+            return ans;
+        }else if(oddCount==1){
+            for(Map.Entry<Character, Integer> e: map.entrySet()){
+                if(e.getValue()%2!=0){
+                    Character c = e.getKey();
+                    sb.append(c);
+                    map.put(c, map.get(c)-1);
+                }
+            }
+            gen(sb, map, 1, ans, s.length());            
+        }else{
+            gen(sb, map, 0, ans, s.length());
+        }
+        return ans;
+    }
+    private int oddCount(Map<Character, Integer> map){
+        int ans = 0;
+        for(int n: map.values()){
+            if(n%2!=0) ans++;
+        }
+        return ans;
+    }
+    private void gen(StringBuilder sb, Map<Character, Integer> map, int cur, List<String> ans, int len){
+        if(sb.length()>=len){
+            ans.add(sb.toString());
+            return;
+        }
+        for(Map.Entry<Character, Integer> e: map.entrySet()){
+            if(e.getValue()==0) continue;
+            Character c = e.getKey();
+            sb.insert(0, c);
+            sb.append(c);
+            map.put(c, map.get(c)-2);
+            gen(sb, map, cur+2, ans, len);
+            sb.deleteCharAt(cur+1);
+            sb.deleteCharAt(0);
+            map.put(c, map.get(c)+2);
+        }
+        
+    }
+    private void initMap(String s, Map<Character, Integer> map){
+        for(int i=0; i<s.length(); i++){
+            char c = s.charAt(i);
+            map.put(c, map.getOrDefault(c, 0)+1);
+        }
+    }
+}
+```
