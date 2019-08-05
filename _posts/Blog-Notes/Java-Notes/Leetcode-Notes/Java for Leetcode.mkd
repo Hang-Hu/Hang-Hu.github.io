@@ -112,6 +112,24 @@ Arrays.sort(nums, i+1, nums.length);
 ```
 
 
+### max of variable length of parameters
+
+```
+private int max(int... nums){
+    int ans = 0;
+    for(int n: nums) ans = Math.max(ans, n);
+    return ans;
+}
+```
+
+### StringBuilder
+
+#### delete last character
+
+```
+path.deleteCharAt(path.length()-1);
+```
+
 ## Map
 
 ### Delete key
@@ -119,3 +137,4 @@ Arrays.sort(nums, i+1, nums.length);
 ```
 map.remove(k);
 ```
+
