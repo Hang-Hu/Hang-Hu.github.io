@@ -128,3 +128,11 @@ git commit -m 'only use current directory in prompt'
 # for dircolors
 eval `dircolors /home/hang/.dir_colors/dircolors`
 ```
+
+### Fix vscode terminal in ubuntu
+
+Add this line in user settings, `PowerlineSymbols` is installed by `sudo apt-get install fonts-powerline`.
+
+```
+"terminal.integrated.fontFamily": "'monospace', 'PowerlineSymbols'"
+```
