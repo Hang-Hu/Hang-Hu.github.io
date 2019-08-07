@@ -2261,6 +2261,18 @@ class NumMatrix {
 m is the number of rows and n is the number of columns.
 
 Time: O(m*n)
+<<<<<<< HEAD
+Space: O(m * n)
+
+### Final Solution - DP + presum
+
+For every row, calculate the presum from col 0 to current col.
+
+In `sumRegion`, use `presum[i][col2]-presum[i][col1-1]` or `presum[i][col2]` if col1==0 and add up for every row.
+
+
+```
+=======
 
 Space: O(m^2 * n^2)
 
@@ -2271,6 +2283,7 @@ For every row, calculate the presum from col 0 to current col.
 
 In sumRegion, use presum[i][col2]-presum[i][col1-1] or presum[i][col2] if col1==0 and add up for every row.
 
+>>>>>>> 8b79d0c26090606346df4299885563c5574796c6
 class NumMatrix {
     int[][] presum; // in every row, calculate the presum
     public NumMatrix(int[][] matrix) {
@@ -2298,7 +2311,10 @@ class NumMatrix {
 m is the number of rows and n is the number of columns.
 
 Time: O(m)
+<<<<<<< HEAD
+=======
 
+>>>>>>> 8b79d0c26090606346df4299885563c5574796c6
 Space: O(m*n)
 
 ## 308. Range Sum Query 2D - Mutable
@@ -2334,7 +2350,12 @@ Note:
 
 ### Final Solution - DP+presum+update presum
 
+<<<<<<< HEAD
+Same logic of `NumMatrix` and `update` as 304. When update a value, get `prevVal` by `presum`, simply update from current `col` to the end of this row, with `val-preVal`.
+
+=======
 Same logic of NumMatrix and update as 304. When update a value, get prevVal by presum, simply update from current col to the end of this row, with val-preVal.
+>>>>>>> 8b79d0c26090606346df4299885563c5574796c6
 
 ```
 class NumMatrix {
@@ -2377,11 +2398,17 @@ class NumMatrix {
 m is the number of rows and n is the number of columns.
 
 update time: O(n)
+<<<<<<< HEAD
+=======
 
+>>>>>>> 8b79d0c26090606346df4299885563c5574796c6
 sumRegion time: O(m)
 
 Space: O(m*n)
 
+<<<<<<< HEAD
+
+=======
 ## 309. Best Time to Buy and Sell Stock with Cooldown
 
 ### Description
@@ -2933,6 +2960,7 @@ class Solution {
     }
 }
 ```
+<<<<<<< HEAD
 
 
 ## 368. Largest Divisible Subset
@@ -3115,3 +3143,6 @@ class Solution {
     }
 }
 ```
+=======
+>>>>>>> 8b79d0c26090606346df4299885563c5574796c6
+>>>>>>> 3ae7a9005ed4ed768450b18ed71d4ae54f4fdb54
