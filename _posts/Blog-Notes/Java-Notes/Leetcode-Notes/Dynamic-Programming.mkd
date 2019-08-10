@@ -3305,12 +3305,12 @@ Space: O(1)
 
 Select all the tops and valleys, then this subsequence is longest wiggle subsequence.
 
-If goes down or if goes up, then add 1 to count. The count added in `i` means top or valley in `i-1`. Init first `preDiff` as `-diff` to make sure the second element will get 1 count.
+If it changes direction to go down(-) or up(+) from either the same = or another direction+/-, then add 1 to count. The count added in `i` means top or valley in `i-1`. Init first `preDiff` as `-diff` to make sure the second element will get 1 count.
 
 Go down(`diff<0&&preDiff>=0`):
 
-__
-  \   preDiff is= and diff is -
+_
+ \   preDiff is = and diff is -
 
 or
 
@@ -3318,7 +3318,16 @@ or
 
 Go up(`diff>0&&preDiff<=0`):
 
-__/
+_/   preDiff is = and diff is +
+
+\/    preDiff is - and diff is +
+
+Only update `preDiff` when it changes to go down or up, becuase if it goes up, then keeps the same, then goes up, if preDiff is = then the second up is considered to add to `count`, while it should not. If preDiff updates when it changes direction, then preDiff is still +, then second up won't add to `count`.
+
+```
+ _ _/
+/
+```
 
 ```
 class Solution {
