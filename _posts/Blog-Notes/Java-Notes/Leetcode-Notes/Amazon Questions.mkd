@@ -1,0 +1,88 @@
+## 937. Reorder Log Files
+
+### Description
+
+```
+You have an array of logs.  Each log is a space delimited string of words.
+
+For each log, the first word in each log is an alphanumeric identifier.  Then, either:
+
+Each word after the identifier will consist only of lowercase letters, or;
+Each word after the identifier will consist only of digits.
+We will call these two varieties of logs letter-logs and digit-logs.  It is guaranteed that each log has at least one word after its identifier.
+
+Reorder the logs so that all of the letter-logs come before any digit-log.  The letter-logs are ordered lexicographically ignoring identifier, with the identifier used in case of ties.  The digit-logs should be put in their original order.
+
+Return the final order of the logs.
+
+ 
+
+Example 1:
+
+Input: ["a1 9 2 3 1","g1 act car","zo4 4 7","ab1 off key dog","a8 act zoo"]
+Output: ["g1 act car","a8 act zoo","ab1 off key dog","a1 9 2 3 1","zo4 4 7"]
+ 
+
+Note:
+
+0 <= logs.length <= 100
+3 <= logs[i].length <= 100
+logs[i] is guaranteed to have an identifier, and a word after the identifier.
+```
+
+### Edge Cases
+
+```
+["a1 9 2 3 1","g1 act car","zo4 4 7","ab1 off key dog","a8 act zoo","a2 act car"]
+```
+
+The letter-logs are ordered lexicographically ignoring identifier, with the identifier used in case of ties.
+
+`ties` is when words are the same, then have to use indetifier to order.
+
+
+### Final Solution
+
+Runtime: 2 ms, faster than 99.29% of Java online submissions for Reorder Log Files.
+Memory Usage: 37.5 MB, less than 85.29% of Java online submissions for Reorder Log Files.
+
+```
+class Solution {
+    public String[] reorderLogFiles(String[] logs) {
+        List<Integer> digitLogs = new ArrayList<>();
+        List<Log> letterLogs = new ArrayList<>();
+        for(int i=0; i<logs.length; i++){
+            int spaceIdx  = logs[i].indexOf(" ");
+            String identifier = logs[i].substring(0, spaceIdx);
+            String words = logs[i].substring(spaceIdx+1);
+            if(words.charAt(0)>='0'&&words.charAt(0)<='9'){
+                digitLogs.add(i);
+            }else{
+                letterLogs.add(new Log(i, identifier, words));            
+            }
+        }
+        Collections.sort(letterLogs, new Comparator<Log>(){
+            @Override
+            public int compare(Log l1, Log l2){
+                int wordsCmp = l1.words.compareTo(l2.words);
+                if(wordsCmp!=0) return wordsCmp;
+                return l1.identifier.compareTo(l2.identifier);
+            }
+        });
+        String[] ans = new String[logs.length];
+        for(int i=0; i<letterLogs.size(); i++) ans[i] = logs[letterLogs.get(i).index];
+        for(int i=0; i<digitLogs.size(); i++) ans[i+letterLogs.size()] = logs[digitLogs.get(i)];
+        return ans;
+    }
+}
+class Log{
+    int index;
+    String identifier;
+    String words;
+    public Log(int index, String identifier, String words){
+        this.identifier = identifier;
+        this.index = index;
+        this.words = words;
+    }
+}
+```
