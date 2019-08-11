@@ -1,0 +1,7 @@
+## Use underline
+
+Note that normal space cannot be underlined.
+
+1. Insert -> Special Characters, search PUNCTUATION SPACE, click PUNCTUATION SPACE(U+2008).
+2. Select inserted white spaces and word, click Underline or use `Ctrl+u`.
+3. I can copy and paste to get more these PUNCTUATION SPACE that can be underlined.
