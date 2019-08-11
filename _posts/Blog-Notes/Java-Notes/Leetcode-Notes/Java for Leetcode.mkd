@@ -130,6 +130,20 @@ private int max(int... nums){
 path.deleteCharAt(path.length()-1);
 ```
 
+## String
+
+### Remove special characters
+
+```
+paragraph = paragraph.replaceAll("[!?',;.]", "")
+```
+
+### Split String by one or more spaces
+
+```
+String[] wordArr = str.split("\\s+")
+```
+
 ## Map
 
 ### Delete key
