@@ -41,10 +41,18 @@ The letter-logs are ordered lexicographically ignoring identifier, with the iden
 `ties` is when words are the same, then have to use indetifier to order.
 
 
-### Final Solution
+### Final Solution - OOP + Sort
 
 Runtime: 2 ms, faster than 99.29% of Java online submissions for Reorder Log Files.
 Memory Usage: 37.5 MB, less than 85.29% of Java online submissions for Reorder Log Files.
+
+1. Have a new class `Log(index, identifier, words)`.
+2. Use `List<Integer> digitLogs` and `List<Log> letterLogs`
+3. Walk through logs to add them into digitLogs and letterLogs
+4. sort letterLogs by `Collections.sort` and `new Comparator`, first `l1.words.compareTo(l2.words)`, if same, compare identifier.
+5. Add sorted letterLogs into ans, then add digitLogs into ans.
+
+
 
 ```
 class Solution {
@@ -83,6 +91,79 @@ class Log{
         this.identifier = identifier;
         this.index = index;
         this.words = words;
+    }
+}
+```
+
+n is logs.length, m is the max length of a log.
+
+Time: O(nlogn)
+Space: O(n*m)
+
+## 819. Most Common Word
+
+### Description
+
+```
+Given a paragraph and a list of banned words, return the most frequent word that is not in the list of banned words.  It is guaranteed there is at least one word that isn't banned, and that the answer is unique.
+
+Words in the list of banned words are given in lowercase, and free of punctuation.  Words in the paragraph are not case sensitive.  The answer is in lowercase.
+
+ 
+
+Example:
+
+Input: 
+paragraph = "Bob hit a ball, the hit BALL flew far after it was hit."
+banned = ["hit"]
+Output: "ball"
+Explanation: 
+"hit" occurs 3 times, but it is a banned word.
+"ball" occurs twice (and no other word does), so it is the most frequent non-banned word in the paragraph. 
+Note that words in the paragraph are not case sensitive,
+that punctuation is ignored (even if adjacent to words, such as "ball,"), 
+and that "hit" isn't the answer even though it occurs more because it is banned.
+ 
+
+Note:
+
+1 <= paragraph.length <= 1000.
+0 <= banned.length <= 100.
+1 <= banned[i].length <= 10.
+The answer is unique, and written in lowercase (even if its occurrences in paragraph may have uppercase symbols, and even if it is a proper noun.)
+paragraph only consists of letters, spaces, or the punctuation symbols !?',;.
+There are no hyphens or hyphenated words.
+Words only consist of letters, never apostrophes or other punctuation symbols.
+```
+
+### Final Solution - String(Map+Set)
+
+Filter out punctuation and split by one or more spaces. Use set for banned. Use map for (String, frequency).
+
+Walk through words and construct frequency map.
+
+Walk through frequency map, if not in banned set, then compare with max to word with highest frequency.
+
+```
+class Solution {
+    public String mostCommonWord(String paragraph, String[] banned) {
+        String[] words = paragraph.replaceAll("[!?',;.]", " ").split("\\s+");
+        Set<String> set = new HashSet<>();
+        for(String s: banned) set.add(s);
+        Map<String, Integer> map = new HashMap<>(); // (String, frequency)
+        for(String w: words){
+            w = w.toLowerCase();
+            map.put(w, map.getOrDefault(w, 0)+1);
+        }
+        int max = 0;
+        String ans = "";
+        for(Map.Entry<String, Integer> entry: map.entrySet()){
+            if(entry.getValue()>max && set.contains(entry.getKey())==false){
+                max = entry.getValue();
+                ans = entry.getKey();
+            }
+        }
+        return ans;
     }
 }
 ```
