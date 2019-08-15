@@ -1,0 +1,8 @@
+## Date
+
+### Use local time zone
+
+```
+let now = new Date();
+now.toLocaleDateString();
+```

@@ -170,19 +170,68 @@ class Solution {
 
 ## 165. Compare Version Numbers
 
-### Solution
+### Description
+
+```
+Compare two version numbers version1 and version2.
+If version1 > version2 return 1; if version1 < version2 return -1;otherwise return 0.
+
+You may assume that the version strings are non-empty and contain only digits and the . character.
+
+The . character does not represent a decimal point and is used to separate number sequences.
+
+For instance, 2.5 is not "two and a half" or "half way to version three", it is the fifth second-level revision of the second first-level revision.
+
+You may assume the default revision number for each level of a version number to be 0. For example, version number 3.4 has a revision number of 3 and 4 for its first and second level revision number. Its third and fourth level revision number are both 0.
+
+ 
+
+Example 1:
+
+Input: version1 = "0.1", version2 = "1.1"
+Output: -1
+Example 2:
+
+Input: version1 = "1.0.1", version2 = "1"
+Output: 1
+Example 3:
+
+Input: version1 = "7.5.2.4", version2 = "7.5.3"
+Output: -1
+Example 4:
+
+Input: version1 = "1.01", version2 = "1.001"
+Output: 0
+Explanation: Ignoring leading zeroes, both “01” and “001" represent the same number “1”
+Example 5:
+
+Input: version1 = "1.0", version2 = "1.0.0"
+Output: 0
+Explanation: The first version number does not have a third level revision number, which means its third level revision number is default to "0"
+ 
+
+Note:
+
+Version strings are composed of numeric strings separated by dots . and this numeric strings may have leading zeroes.
+Version strings do not start or end with dots, and they will not be two consecutive dots.
+```
+
+### Final Solution - String + recursion
+
+1. If not empty and not end with dot, append dot
+2. Get dot index, if -1 then set version number to 0, otherwise calculate version number before first dot
+3. Compare 2 version numbers, if different then return, if same then call compareVersion() recursively with substring.
 
 ```
 class Solution {
     public int compareVersion(String version1, String version2) {
         if(version1.length()==0 && version2.length()==0) return 0;
-        if(!version2.endsWith(".")) version2 = version2+".";
-        if(!version1.endsWith(".")) version1 = version1+".";
+        if(version1.length()!=0&&!version1.endsWith(".")) version1 = version1+".";
+        if(version2.length()!=0&&!version2.endsWith(".")) version2 = version2+".";
         int dotIdx1 = version1.indexOf(".");
         int dotIdx2 = version2.indexOf(".");
         int v1 = dotIdx1!=-1 ? getVersionNum(version1.substring(0, dotIdx1)) : 0;
         int v2 = dotIdx2!=-1 ? getVersionNum(version2.substring(0, dotIdx2)) : 0;
-        // System.out.println(version1+" "+version2+" "+v1+" "+v2);
         if(v1>v2){
             return 1;
         }else if(v1<v2){
@@ -196,3 +245,134 @@ class Solution {
     }
 }
 ```
+
+n1 is version1.length(), n2 is version2.length().
+
+Time: O(max(n1, n2))
+Space: O(1)
+
+
+## 273. Integer to English Words
+
+### Description
+
+```
+Convert a non-negative integer to its english words representation. Given input is guaranteed to be less than 231 - 1.
+
+Example 1:
+
+Input: 123
+Output: "One Hundred Twenty Three"
+Example 2:
+
+Input: 12345
+Output: "Twelve Thousand Three Hundred Forty Five"
+Example 3:
+
+Input: 1234567
+Output: "One Million Two Hundred Thirty Four Thousand Five Hundred Sixty Seven"
+Example 4:
+
+Input: 1234567891
+Output: "One Billion Two Hundred Thirty Four Million Five Hundred Sixty Seven Thousand Eight Hundred Ninety One"
+```
+
+### Final Solution - String+Recursion
+
+1. Have a map to save 1-9, 10-19, 20-90, 2 zeros(Hundred), 3 zeros(Thousand), 6 zeros(Million), 9 zeros(Billion).
+2. Format the num based on 3, and divide it into hundres digit, tens digit, unit digit inside the 3. For example, Format 1234567891 to 1,234,567,891. Take 567 as instance, 5 is hundred digit, 6 is tens digit, 7 is unit digit.
+2. call `numberToWords(int num, int numOfZero)` recursively by num/10 and numOfZero+1, num is from 1234 => 123 => 12 => 1, numOfZero is from 0 => 1 => 2 => 3, to show the position of current digit is.
+3. Append current digit words after `numberToWords` returns. For 10 digits, append 10 times for 10/11 calls. Divide it into 3 cases: hundres digit, tens digit, unit digit.
+
+
+Special handling for 10<=x<=19.
+
+In tens digit case, if current digit is 1, append "1" to res, so that unit digit can check if `res` ends with "1". If it does, use 10+currentDigit to get xteen.
+
+Edge case:
+
+1. In the end of unit digit case, if `numOfZero!=0`, which indicates it's the unit digit of 1,234's 1, I have to append Thousand or Million or Billion to whatever unit digit added before. However, be carefully about one special case, `1,000,000` "One Million", where "One Million Thousand" won't work. So if current digit is 0, and `res` ends with "Million " or "Billion ", I shouldn't append "Thousand" or "Million".
+2. 0 is not said out, for instance 1000 is "One Thousand" instead of "One Thousand Zero Hundred null Zero", unless it's the only digit(0 is "Zero" not "").
+
+
+```
+class Solution {
+    private String[][] numberMap = new String[3][20];
+    public Solution(){
+        // 1-9
+        numberMap[0][1] = "One";
+        numberMap[0][2] = "Two";
+        numberMap[0][3] = "Three";
+        numberMap[0][4] = "Four";
+        numberMap[0][5] = "Five";
+        numberMap[0][6] = "Six";
+        numberMap[0][7] = "Seven";
+        numberMap[0][8] = "Eight";
+        numberMap[0][9] = "Nine";
+        // 10-19
+        numberMap[0][10] = "Ten";
+        numberMap[0][11] = "Eleven";
+        numberMap[0][12] = "Twelve";
+        numberMap[0][13] = "Thirteen";
+        numberMap[0][14] = "Fourteen";
+        numberMap[0][15] = "Fifteen";
+        numberMap[0][16] = "Sixteen";
+        numberMap[0][17] = "Seventeen";
+        numberMap[0][18] = "Eighteen";
+        numberMap[0][19] = "Nineteen";
+        //20-90
+        numberMap[1][2] = "Twenty";
+        numberMap[1][3] = "Thirty";
+        numberMap[1][4] = "Forty";
+        numberMap[1][5] = "Fifty";
+        numberMap[1][6] = "Sixty";
+        numberMap[1][7] = "Seventy";
+        numberMap[1][8] = "Eighty";
+        numberMap[1][9] = "Ninety";
+        // 3, 6, 9
+        numberMap[2][2] = "Hundred";
+        numberMap[2][3] = "Thousand";
+        numberMap[2][6] = "Million";
+        numberMap[2][9] = "Billion";
+    }
+    public String numberToWords(int num) {
+        if(num==0) return "Zero";
+        String ans = numberToWords(num, 0);
+        return ans.substring(0, ans.length()-1);
+    }
+    private String numberToWords(int num, int numOfZero){
+        if(num==0) return "";
+        String res = numberToWords(num/10, numOfZero+1);
+        int currentDigit = num%10;
+        if(numOfZero%3==2){ // HUNDREDS DIGIT
+            if(currentDigit!=0) res+= (numberMap[0][currentDigit]+" "+numberMap[2][2])+" ";
+        }else if(numOfZero%3==1){ // TENS DIGIT
+            if(currentDigit==1){ // 10<=x<=19
+                res += "1";
+            }else if(currentDigit!=0){ // 20<=x<=99
+                res+=(numberMap[1][currentDigit]+" ");
+            }
+        }else if(numOfZero%3==0){ // UNITS DIGIT
+            if(res.endsWith("1")){ // 10<=x<=19
+                res = res.substring(0, res.length()-1)+numberMap[0][10+currentDigit]+" ";
+            }else if(currentDigit!=0){ // 0<x<=9
+                res += (numberMap[0][currentDigit]+" ");
+            }
+            // Thousand or Million or Billion
+            if(numOfZero!=0){
+                if(currentDigit==0 && (res.endsWith("Billion ")||res.endsWith("Million "))){
+                    // not add Thousand or Million
+                }else{
+                    res += (numberMap[2][numOfZero]+" ");
+                }
+            }
+        }
+        return res;
+    }
+}
+```
+
+n is number of digits in num.
+
+Time: O(n)
+Space: O(n)
