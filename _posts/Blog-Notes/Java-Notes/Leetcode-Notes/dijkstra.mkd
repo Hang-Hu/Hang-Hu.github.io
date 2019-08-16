@@ -1,0 +1,57 @@
+## 743. Network Delay Time
+
+###
+
+### Solution
+
+```
+class Solution {
+    public int networkDelayTime(int[][] times, int N, int K) {
+        boolean[] selected = new boolean[N+1];
+        int[] distance = new int[N+1]; // distance from start node K to each node
+        Map<Integer, List<Next>> map = new HashMap<>();
+        init(map, times);
+        initDis(distance);
+        distance[K] = 0;
+        int selectedNum = 0;
+        while(selectedNum<=N){
+            int next = nextNodeNotSelectedOfMinDis(distance, selected);
+            selected[next] = true;
+            for(Next n: map.get(next)){
+                // update neighbors of selected one
+                
+            }
+        }
+    }
+    private void initDis(int[] distance){
+        for(int i=0; i<distance.length; i++){
+            distance[i] = -1;
+        }
+    }
+    private void init(Map<Integer, Next> map, int[][] times){
+        for(int i=0; i<times.length; i++){
+            if(map.containsKey(times[i][0])==false) map.put(times[i][0], new ArrayList<Next>());
+            map.get(times[i][0]).add(new Next(times[i][1], times[i][2]));
+        }
+    }
+    private int nextNodeNotSelectedOfMinDis(int[] distance, boolean[] selected){
+        int min = Integer.MAX_VALUE;
+        int node = 0;
+        for(int i=0; i<distance.length; i++){
+            if(selected[i]==false && min<distance[i]){
+                min = distance[i];
+                node = i;
+            }
+        }
+        return node;
+    }
+}
+class Next{
+    int nextNodeVal;
+    int distanceToNextNode;
+    public Next(int nextNodeVal, int distanceToNextNode){
+        this.nextNodeVal = nextNodeVal;
+        this.distanceToNextNode = distanceToNextNode;
+    }
+}
+```
