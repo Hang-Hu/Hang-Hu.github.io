@@ -19,3 +19,10 @@ convert -density 300 session1.pdf -quality 75 session1.jpeg
 ```
 convert -density 150 session1.pdf -quality 45 session1.jpeg
 ```
+
+
+```
+pdfimages -j  filename.pdf outputfilename
+```
+
+`outputfilename.jpg` will be saved to the same directory.
