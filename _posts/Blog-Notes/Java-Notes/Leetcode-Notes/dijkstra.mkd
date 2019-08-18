@@ -96,10 +96,177 @@ Time: O((m+n)*n) = O(m*n)
 
 Space: O(m+n) = O(m)
 
-### heap solution
 
-Traverse `distance` to find the min distance not from S, it takes O(n), to save it, use heap which only take O(logn) for distance.
+### heap solution - Dijkstra+MIN Heap
+
+Traverse `distance` to find the min distance not from S, it takes O(n), to save it, use heap which only take O(logn) to select each min distance.
+
+Use `PriorityQueue` for min heap, `Set` for set S, `Map<Integer, List<Node>> graph` to have the graph.
+
+Loop until all nodes added into `S`.
+1. get the node with min `d(start, node)`.
+2. update neighbor d of this node. Here unlike non heap solution, since java `PriorityQueue` doesn't provice update inner node and adjust method. As long as neighbor hasn't been added into set S, I will create a new Node with its value and use `d(start, node)+len(node, neighbor)` as distance to add into heap.
+
+Since each node will be added into set S once, and add neighbors not in S, every edge can be added into heap only once. The time complexity for `poll` and `add` will be O(logm)
+
 
 ```
+class Solution {
+    public int networkDelayTime(int[][] times, int N, int K) {
+        Set<Integer> s = new HashSet<>();
+        // Use a min heap for distance from start to node
+        Queue<Node> distanceHeap = new PriorityQueue<>(new Comparator<Node>(){
+            @Override
+            public int compare(Node n1, Node n2){
+                return n1.distance - n2.distance;
+            }
+        });
+        Map<Integer, List<Node>> graph = new HashMap<>(); // (node, List of (neighbor, distance from node to neighbor))
+        initMap(graph, times);
+        distanceHeap.add(new Node(K, 0)); // d(start, start)==0
+        int max = 0; // d(start, start) is 0
+        while(s.size()<N){ // until |S| == |V|
+            // use the min d not from S
+            Node node = distanceHeap.poll(); // node definitely not in S, otherwise polled before
+            if(node==null) return -1; // cannot find a non-S node, exist unreachable node from start node
+            max = Math.max(max, node.distance); // d of the pulled is the min d from start to node
+            s.add(node.val);
+            // update distance from start to each neighbor of selected one
+            List<Node> neighbors = graph.get(node.val);
+            for(int i=0; neighbors!=null && i<neighbors.size(); i++){
+                Node neighbor = neighbors.get(i);
+                // add neighbor with new distance when neighbor not from S
+                if(s.contains(neighbor.val)==false) distanceHeap.add(new Node(neighbor.val, node.distance+neighbor.distance));
+            }
+        }
+        return max;
+    }
+    private void initMap(Map<Integer, List<Node>> graph, int[][] times){
+        for(int i=0; i<times.length; i++){
+            if(graph.containsKey(times[i][0])==false) graph.put(times[i][0], new ArrayList<Node>());
+            graph.get(times[i][0]).add(new Node(times[i][1], times[i][2]));
+        }
+    }
+}
+class Node{
+    int val;
+    int distance;
+    public Node(int val, int distance){
+        this.val = val;
+        this.distance = distance;
+    }
+}
+```
+
+m is the number of edges, and n is the number of nodes, which is N.
+
+Time: O((m+n)*logm)=O(mlogm)
+
+Space: O(m+n)=O(m)
+
+## 787. Cheapest Flights Within K Stops
+
+### Solution - Improved Bellman Ford
+
+1. Init 0th layer d(start, node)=max, d(start, start)=0.
+2. In Bellman Ford, repeat |V|-1 times because longest path have |V|-1 edges based on cycle definition. Here repeat K+2 times so that at most K stops, 2 is for start and dest node, i==0 is for init where only start is accessible.
+3. In loop I am not using in place update to d(Bellman ford uses in place), because I want to strictly add one more layer per iteration. I cannot update based on current layer, must update based on `i-1` layer.
+4. init current layer using `i-1`th d
+5. for all edges (u, v)(for all flight (u, v)), if d(u)!=MAX(to avoid add MAX with value and then overflow) and `d(u)+len(u, v)<d(v)`, update `d(v)`.
+6. return `d[last_layer][dest]`, if it's MAX return -1, otherwise return it directly.
 
 ```
+class Solution {
+    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int K) {
+        int[][] distance = new int[K+2][n];
+        init(distance, src);
+        // repeat K+2 times to make sure K stops
+        for(int i=1; i<K+2; i++){
+            for(int j=0; j<distance[0].length; j++) distance[i][j] = distance[i-1][j];
+            for(int[] flight: flights){
+                if(distance[i-1][flight[0]]!=Integer.MAX_VALUE) distance[i][flight[1]] = Math.min(distance[i][flight[1]], distance[i-1][flight[0]]+flight[2]);
+            }
+        }
+        int ans = distance[distance.length-1][dst];
+        return ans==Integer.MAX_VALUE ? -1 : ans;
+    }
+    private void init(int[][] distance, int src){
+        for(int j=0; j<distance[0].length; j++){
+            if(j==src) distance[0][src] = 0;
+            else distance[0][j] = Integer.MAX_VALUE;
+        }
+    }
+    
+}
+```
+
+
+n is number of nodes, m is number of edges(flights), K is max number of stops.
+
+Time: O(K*(n+m)) = O(K*m)
+
+Space: O(K*n)
+
+Space can be improved because we only need d of `i-1` and `i`. Using them alternatively would work. It can be improved to O(n)
+
+### Final Solution - Dijkstra+min heap
+
+Use dijkstra and min heap just like final solution of 743. Network Delay Time, the only difference is that `preNodeNum` added into class `Node`, which is used to track number of nodes prior to current node(parent, parant's parant, ..., src). If `node.preNodeNum>K`, node's neighbors will definitely exceed stop limit, cannot update neighbor and add to heap.
+
+
+```
+class Solution {
+    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int K) {
+        Set<Integer> s = new HashSet<>();
+        Map<Integer, List<Node>> graph = new HashMap<>();
+        initGraph(graph, flights);
+        Queue<Node> distanceMinHeap = new PriorityQueue<>(new Comparator<Node>(){
+            @Override
+            public int compare(Node n1, Node n2){
+                return n1.distance-n2.distance;
+            }
+        });
+        distanceMinHeap.add(new Node(src, 0, 0)); // d(src, src)=0
+        while(s.size()<n){
+            Node node = distanceMinHeap.poll();
+            if(node==null) return -1;
+            if(node.val==dst) return node.distance;
+            s.add(node.val);
+            if(node.preNodeNum>K) continue; // its neighbor will exceed stop limit, cannot add, try next node
+            // update neighbors of node and add into heap
+            List<Node> neighbors = graph.get(node.val);
+            for(int i=0; neighbors!=null && i<neighbors.size(); i++){
+                Node neighbor = neighbors.get(i);
+                if(s.contains(neighbor)==false) distanceMinHeap.add(new Node(neighbor.val, node.distance+neighbor.distance, node.preNodeNum+1));
+            }
+        }
+        return -1;
+    }
+    private void initGraph(Map<Integer, List<Node>> graph, int[][] flights){
+        for(int[] flight: flights){
+            int src = flight[0];
+            if(graph.containsKey(src)==false) graph.put(src, new ArrayList<Node>());
+            graph.get(src).add(new Node(flight[1], flight[2], -2));
+        }
+    }
+}
+class Node{
+    int val;
+    int distance;
+    // if preNodeNum==-2, then distance is from connected to node, ow d is from src to node
+    // if preNodeNum==-1, then distance is MAX
+    int preNodeNum;
+    public Node(int val, int distance, int preNodeNum){
+        this.val = val;
+        this.distance = distance;
+        this.preNodeNum = preNodeNum;
+    }
+}
+```
+
+m is number of edges and n is number of nodes.
+
+Time: O((m+n)*logm)=O(mlogm)
+
+Space: O(m+n)=O(m)
+
