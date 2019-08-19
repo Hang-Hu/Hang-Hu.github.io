@@ -616,3 +616,130 @@ m is grid.length, n is grid[0].length.
 
 Time: O(mn*mn)
 Space: O(mn*mn)
+
+## 1162. As Far from Land as Possible
+
+### Descritpion
+
+```
+Given an N x N grid containing only values 0 and 1, where 0 represents water and 1 represents land, find a water cell such that its distance to the nearest land cell is maximized and return the distance.
+
+The distance used in this problem is the Manhattan distance: the distance between two cells (x0, y0) and (x1, y1) is |x0 - x1| + |y0 - y1|.
+
+If no land or water exists in the grid, return -1.
+
+ 
+
+Example 1:
+
+
+
+Input: [[1,0,1],[0,0,0],[1,0,1]]
+Output: 2
+Explanation: 
+The cell (1, 1) is as far as possible from all the land with distance 2.
+Example 2:
+
+
+
+Input: [[1,0,0],[0,0,0],[0,0,0]]
+Output: 4
+Explanation: 
+The cell (2, 2) is as far as possible from all the land with distance 4.
+ 
+
+Note:
+
+1 <= grid.length == grid[0].length <= 100
+grid[i][j] is 0 or 1
+```
+
+### First Solution - BFS
+
+Start bfs from every land, inside one bfs, use `added` to avoid node added to queue repeatedly; when meets another land, not continue in that direction but still continue in other direction.
+
+When start from position (0, 3), when bfs until (0, 5), stop explore in this direction, but explore in (0, 1) won't stop. The bad thing is that when depth is 3, the explore in (1, 5) should be stopped since it's more near to land (0, 5) but it won't. 
+
+```
+0001010
+0000000
+0001010
+```
+
+```
+class Solution {
+    public int maxDistance(int[][] grid) {
+        if(anyOne(grid)==false) return -1;
+        int ans = -1;
+        int[][] dis = new int[grid.length][grid[0].length];
+
+        for(int i=0; i<grid.length; i++){
+            for(int j=0; j<grid[0].length; j++){
+                if(grid[i][j]==1){
+                    bfs(i, j, grid, dis);
+                }
+            }
+        }
+        
+        for(int i=0; i<dis.length; i++){
+            for(int j=0; j<dis[0].length; j++){
+                // if(grid[i][j]==0) System.out.println("dis "+i+" "+j+" "+dis[i][j]);
+                if(grid[i][j]==0) ans = Math.max(ans, dis[i][j]);
+            }
+        }
+        return ans;
+    }
+    private boolean anyOne(int[][] grid){
+        for(int [] r: grid){
+            for(int x: r){
+                if(x==1) return true;
+            }
+        }
+        return false;
+    }
+    private void bfs(int i, int j, int[][] grid, int[][] dis){
+        Queue<Pos> q = new LinkedList<>();
+        boolean[][] added = new boolean[grid.length][grid[0].length]; // if one node has been added into queue already
+        q.add(new Pos(i, j, 0));
+        while(q.isEmpty()==false){
+            Pos pos = q.poll();
+            if(added[pos.x][pos.y]==true) continue;
+            added[pos.x][pos.y] = true;
+            if(grid[pos.x][pos.y]==1 && pos.dis!=0) continue; // when meet one land then not continue in this direction
+            if(grid[pos.x][pos.y]==0){
+                if(dis[pos.x][pos.y]==0){
+                    dis[pos.x][pos.y] = pos.dis;
+                }else{
+                    if(dis[pos.x][pos.y]>pos.dis){
+                        dis[pos.x][pos.y] = pos.dis;
+                    }else{
+                        continue;
+                    }
+                }
+            }
+            if(pos.x-1>=0) q.add(new Pos(pos.x-1, pos.y, pos.dis+1));
+            if(pos.x+1<grid.length) q.add(new Pos(pos.x+1, pos.y, pos.dis+1));
+            if(pos.y-1>=0) q.add(new Pos(pos.x, pos.y-1, pos.dis+1));
+            if(pos.y+1<grid[0].length) q.add(new Pos(pos.x, pos.y+1, pos.dis+1));
+        }
+    }
+}
+class Pos{
+    int x;
+    int y;
+    int dis;
+    public Pos(int x, int y, int dis){
+        this.x=x;
+        this.y=y;
+        this.dis=dis;
+        
+    }
+}
+```
+
+### Final Solution - BFS
+
+```
+
+```
+
