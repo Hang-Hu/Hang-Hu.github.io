@@ -740,6 +740,40 @@ class Pos{
 ### Final Solution - BFS
 
 ```
-
+class Solution {
+    public int maxDistance(int[][] grid) {
+        Queue<Pos> q = new LinkedList<>();
+        boolean[][] added = new boolean[grid.length][grid[0].length];
+        for(int i=0; i<grid.length; i++){
+            for(int j=0; j<grid[0].length; j++){
+                if(grid[i][j]==1) q.add(new Pos(i, j, 0));
+            }
+        }
+        int level = -1; // if all land no water || all water no land, have to return -1
+        while(q.isEmpty()==false){
+            Pos pos = q.poll();
+            if(added[pos.x][pos.y]==true) continue;
+            added[pos.x][pos.y] = true;
+            // every water will be accessed once in its smallest distance, next time it's added and will be ignored. Compare with each  the max distance here.
+            if(grid[pos.x][pos.y]==0) level = Math.max(level, pos.dis); // level is only for water
+            if(pos.x-1>=0) q.add(new Pos(pos.x-1, pos.y, pos.dis+1));
+            if(pos.x+1<grid.length) q.add(new Pos(pos.x+1, pos.y, pos.dis+1));
+            if(pos.y-1>=0) q.add(new Pos(pos.x, pos.y-1, pos.dis+1));
+            if(pos.y+1<grid[0].length) q.add(new Pos(pos.x, pos.y+1, pos.dis+1));
+        }
+        return level;
+    }
+}
+class Pos{
+    int x;
+    int y;
+    int dis;
+    public Pos(int x, int y, int dis){
+        this.x=x;
+        this.y=y;
+        this.dis=dis;
+        
+    }
+}
 ```
 
