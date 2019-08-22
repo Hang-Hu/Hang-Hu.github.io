@@ -739,6 +739,12 @@ class Pos{
 
 ### Final Solution - BFS
 
+Start from all lands together instead of starting from each land separately. Then their growing actually will meet each other, the water claimed earlier belongs to that land, as in BFS they are growing in the same speed. This way a lot of duplicate computation can be saved as one water can be visited only once.
+
+1. Class Pos(x, y, dis).
+2. Add all lands to queue together with dis 0.
+3. While queue is not empty, for each polled Pos, compare dis with ans, add 4 direction Pos to queue with `dis+1`.
+
 ```
 class Solution {
     public int maxDistance(int[][] grid) {
@@ -749,19 +755,19 @@ class Solution {
                 if(grid[i][j]==1) q.add(new Pos(i, j, 0));
             }
         }
-        int level = -1; // if all land no water || all water no land, have to return -1
+        int ans = -1; // if all land no water || all water no land, have to return -1
         while(q.isEmpty()==false){
             Pos pos = q.poll();
             if(added[pos.x][pos.y]==true) continue;
             added[pos.x][pos.y] = true;
-            // every water will be accessed once in its smallest distance, next time it's added and will be ignored. Compare with each  the max distance here.
-            if(grid[pos.x][pos.y]==0) level = Math.max(level, pos.dis); // level is only for water
+            // every water will be accessed once in its smallest distance, next time it's added and will be ignored
+            if(grid[pos.x][pos.y]==0) ans = Math.max(ans, pos.dis); // ans is only for water
             if(pos.x-1>=0) q.add(new Pos(pos.x-1, pos.y, pos.dis+1));
             if(pos.x+1<grid.length) q.add(new Pos(pos.x+1, pos.y, pos.dis+1));
             if(pos.y-1>=0) q.add(new Pos(pos.x, pos.y-1, pos.dis+1));
             if(pos.y+1<grid[0].length) q.add(new Pos(pos.x, pos.y+1, pos.dis+1));
         }
-        return level;
+        return ans;
     }
 }
 class Pos{
@@ -776,4 +782,10 @@ class Pos{
     }
 }
 ```
+
+m is grid.length, n is grid[0].length
+
+Time: O(m*n)
+
+Space: O(m*n)
 
