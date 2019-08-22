@@ -8,7 +8,8 @@ cover:
 
 ```
 brew install mysql
-brew services start mysql
+brew services start mysql or mysql.server start
+mysqladmin -u root password // set password
 
 brew cask install java
 brew install wget
