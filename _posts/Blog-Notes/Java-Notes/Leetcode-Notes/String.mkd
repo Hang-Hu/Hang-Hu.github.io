@@ -43,6 +43,8 @@ target consists only of English lowercase letters.
 
 1. input char, return its x y by / and %.
 2. For each char in `target`, start from `a`, use `move(pre, cur)` to return action String to do that move.
+3. In `move(Position from, Position to)`, lopp while not moved to target. If `x<to.x` and x+1 is valid then add `D` and `x++`. If `x>to.x` and x-1 valid, append `U` and `x--`. The same applies to y.
+4. After loop, append ! and return.
 
 ```
 class Solution {
