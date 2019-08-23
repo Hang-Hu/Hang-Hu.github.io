@@ -271,3 +271,107 @@ Time: O((m+n)*logm)=O(mlogm)
 Space: O(m+n)=O(m)
 
 
+## 882. Reachable Nodes In Subdivided Graph
+
+### First Solution - DFS(TLE)
+
+Problem is duplicate visit of same edge.
+
+When 0->1 is 10, 0->2 is 1, 2->1 is 1, M is 11, then even it's second time to visit 1, I have to continue so that I can visit nodes in 1->3.
+
+```
+ 0
+/  \
+1--2
+|
+3
+```
+
+When 0->1 is 4, 0->2 is 1, 2->1 is 1, 1->3 is 1, M is 8. 
+
+First visit 1->3: 0->1->3->4
+Second visit 1->3: 0->2->1->3->4
+
+Even it's the second time visiting edge 1->3 in full, I have to continue to let more nodes in 3->4 can be visited. So the important thing is to make sure dis(0, 3) is shortest so that more nodes in 3->4 can be visited. The DFS version visit edges repeatedly to solve the problem, causing TLE.
+
+```
+ 0
+/  \
+1--2
+|
+3
+|
+4
+```
+
+```
+class Solution {
+    public int reachableNodes(int[][] edges, int M, int N) {
+        if(M==0) return 0;
+        boolean[] nodeVisited = new boolean[N];
+        int[][] visitedNodesInEdge = new int[N][N];
+        Map<Integer, List<NodeDis>> graph = new HashMap<>();
+        init(graph, edges);
+        dfs(graph, 0, M, nodeVisited, visitedNodesInEdge, -1);
+        int ans = 0;
+        for(int[] edge: edges){
+            int i = edge[0];
+            int j = edge[1];
+            // System.out.println(i+" "+j+" "+visitedNodesInEdge[i][j]+" "+visitedNodesInEdge[j][i]);
+
+            ans += Math.min(visitedNodesInEdge[i][j]+visitedNodesInEdge[j][i], edge[2]);
+        }
+        System.out.println(ans);
+        // start from 1, in case 0 is also visited
+        for(int i=1; i<N; i++){
+            if(nodeVisited[i]) ans++;
+        }
+        // System.out.println(ans);
+        return ans+1;
+    }
+    private void dfs(Map<Integer, List<NodeDis>> graph, int nodeVal, int remainingNodeNum, boolean[] nodeVisited, int[][] visitedNodesInEdge, int parent){
+        List<NodeDis> neighbors = graph.get(nodeVal);
+        if(neighbors!=null){
+            for(NodeDis neighbor: neighbors){
+                // System.out.println("Start: "+nodeVal+" "+neighbor);
+                if(neighbor.val==parent) continue;
+                // if(visitedNodesInEdge[nodeVal][neighbor.val]==neighbor.dis) continue;
+                // }else{
+                if(remainingNodeNum-neighbor.dis>1){ // node will be visited and next edge
+                    visitedNodesInEdge[nodeVal][neighbor.val] = neighbor.dis;
+                    nodeVisited[neighbor.val] = true;
+                    dfs(graph, neighbor.val, remainingNodeNum-neighbor.dis-1, nodeVisited, visitedNodesInEdge, nodeVal);
+                }else if(remainingNodeNum-neighbor.dis==1){ // node will be visited
+                    visitedNodesInEdge[nodeVal][neighbor.val] = neighbor.dis;
+                    nodeVisited[neighbor.val] = true;
+                }else{ // node won't be visited
+                    // in case this is second visit of the edge a is shorter
+                    if(remainingNodeNum>visitedNodesInEdge[nodeVal][neighbor.val]) visitedNodesInEdge[nodeVal][neighbor.val] = remainingNodeNum;
+                }
+                // }
+                // System.out.println(nodeVal+" "+neighbor.val+" "+visitedNodesInEdge[nodeVal][neighbor.val]);
+            }
+        }
+    }
+    private void init(Map<Integer, List<NodeDis>> graph, int[][] edges){
+        for(int[] edge: edges){
+            if(graph.containsKey(edge[0])==false) graph.put(edge[0], new ArrayList<NodeDis>());
+            graph.get(edge[0]).add(new NodeDis(edge[1], edge[2]));
+            if(graph.containsKey(edge[1])==false) graph.put(edge[1], new ArrayList<NodeDis>());
+            graph.get(edge[1]).add(new NodeDis(edge[0], edge[2]));
+        }
+    }
+}
+class NodeDis{
+    int val;
+    int dis;
+    public NodeDis(int val, int dis){
+        this.val = val;
+        this.dis = dis;
+    }
+    @Override
+    public String toString(){
+        return "("+val+" "+dis+")";
+    }
+}
+```
