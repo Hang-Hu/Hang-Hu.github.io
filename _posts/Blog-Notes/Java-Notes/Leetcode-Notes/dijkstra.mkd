@@ -375,3 +375,52 @@ class NodeDis{
     }
 }
 ```
+
+## 505. The Maze II
+
+### Description
+
+[the-maze-ii](https://leetcode.com/problems/the-maze-ii/)
+
+### First Solution - DFS
+
+Improve upon DFS solution of Maze I. Previously I used Set to avoid same slot that has been visited before. Here since we want shortest distance, same slot is good as long as the distance to this slot is smaller than previous distance. So I have a Map for `(position, min distance from start to this position)`, if current distance >= record, return MAX, otherwise put this distance in map.
+
+```
+class Solution {
+    public int shortestDistance(int[][] maze, int[] start, int[] destination) {
+        Map<Integer, Integer> map = new HashMap<>(); // (position, min distance from start to this position)
+        int res = dfs(maze, start, destination, 0, map);
+        return res==Integer.MAX_VALUE ? -1 : res;
+    }
+    private int dfs(int[][] maze, int[] cur, int[] dst, int distance, Map<Integer, Integer> map){
+        int i=cur[0], j=cur[1];
+        if(i==dst[0] && j==dst[1]) return distance;
+        int pos = position(i, j, maze[0].length);
+        if(map.containsKey(pos) && map.get(pos)<=distance) return Integer.MAX_VALUE;
+        map.put(pos, distance);
+        int ans = Integer.MAX_VALUE;
+        //left
+        int jL = j;
+        while(jL>0 && maze[i][jL-1]==0) jL--;
+        if(jL!=j) ans = Math.min(ans, dfs(maze, new int[]{i, jL}, dst, distance+j-jL, map));
+        // right
+        int jR = j;
+        while(jR<maze[0].length-1 && maze[i][jR+1]==0) jR++;
+        if(jR!=j) ans = Math.min(ans, dfs(maze, new int[]{i, jR}, dst, distance+jR-j, map));
+        // up
+        int iU = i;
+        while(iU>0 && maze[iU-1][j]==0) iU--;
+        if(iU!=i) ans = Math.min(ans, dfs(maze, new int[]{iU, j}, dst, distance+i-iU, map));
+        // down
+        int iD = i;
+        while(iD<maze.length-1 && maze[iD+1][j]==0) iD++;
+        if(iD!=i) ans = Math.min(ans, dfs(maze, new int[]{iD, j}, dst, distance+iD-i, map));
+        return ans;
+    }
+    private int position(int i, int j, int colLen){
+        return i*colLen+j;
+    }
+}
+```
+
