@@ -376,6 +376,105 @@ class NodeDis{
 }
 ```
 
+### Final Solution
+
+To improve on first DFS solution, where I tried every path from node 0 to each other node, to make sure distance to node is shortest so that usage from node to neighbor can be maximized.
+
+In this solution, I first find the shortest distance from 0 to each node, then update the usage from this polled node to all its neighbors, so that the usage can be maximized easily.
+
+As for distance from 0 to a node, it's the sum of nodes from 0 to that node, 0 is exclusive and that node is inclusive, just like the definition of M, so that they can be easily compared to know if limit reached or not. And for `dis` from node to neighbor, it's the length excluding node and neighbor.
+
+To update usage, I have `int[][] edgeUsage` and `boolean[] nodeUsage`. `edgeUsage` is only for edge excluding 2 nodes in both sides connected to the edge, and `nodeUsage` will indicate if this node reached or not. `Math.min(edgeUsage[i][j]+edgeUsage[j][i], dis)` is the final usage.
+
+i -2/5-> j
+i <-1/5- j
+
+i 11001 j
+
+The final usage is `min(2+1, 5)=3`
+
+```
+class Solution {
+    public int reachableNodes(int[][] edges, int M, int N) {
+        if(N==1) return M==0 ? 0 : 1;
+        Set<Integer> s = new HashSet<>();
+        Map<Integer, List<NodeDis>> graph = new HashMap<>();
+        initGraph(graph, edges);
+        Queue<NodeDis> minDisHeap = new PriorityQueue<>(new Comparator<NodeDis>() {
+            @Override
+            public int compare(NodeDis a, NodeDis b) {
+                return a.dis - b.dis;
+            }
+        });
+        int[][] edgeUsage = new int[N][N];
+        boolean[] nodeUsage = new boolean[N];
+        minDisHeap.add(new NodeDis(0, 0));
+        while (s.size() < N && minDisHeap.isEmpty()==false) {
+            NodeDis node = minDisHeap.poll();
+            if(node.dis>=M) break; // distance polled after will also be larger than limit M, no need to continue
+            if(s.contains(node.val)) continue; // it's possible that to a node there are 2 path, 1 and 2, both smaller than other distance, so the second makes an error
+            s.add(node.val);
+            List<NodeDis> neighbors = graph.get(node.val);
+            if (neighbors == null) continue;
+            for (NodeDis neighbor: neighbors) {
+                // update usage for all neighbors of the polled node, since distance to polled node is shortest
+                updateUsage(node, neighbor, edgeUsage, nodeUsage, M);
+                // update neighbor
+                if (s.contains(neighbor.val) == false) {
+                    int newDis = node.dis + neighbor.dis + 1; // neighbor.dis is len(node, neighbor) excluding node and neighbor
+                    minDisHeap.add(new NodeDis(neighbor.val, newDis));
+                }
+            }
+        }
+        return countUsage(edges, edgeUsage, nodeUsage);
+    }
+    private void updateUsage(NodeDis node, NodeDis neighbor, int[][] edgeUsage, boolean[] nodeUsage, int M){
+        int newDis = node.dis + neighbor.dis + 1;
+        if (M>=newDis) {
+            edgeUsage[node.val][neighbor.val] = neighbor.dis;
+            nodeUsage[neighbor.val] = true;
+        } else{ // M<newDis
+            edgeUsage[node.val][neighbor.val] = Math.max(edgeUsage[node.val][neighbor.val], M-node.dis);
+        }
+    }
+    private int countUsage(int[][] edges, int[][] edgeUsage, boolean[] nodeUsage){
+        int ans = 0;
+        for(int edge[]: edges){
+            int i=edge[0], j=edge[1], dis = edge[2];
+            ans += Math.min(edgeUsage[i][j]+edgeUsage[j][i], dis);
+        }
+        for(int i=1; i<nodeUsage.length; i++){
+            if(nodeUsage[i]) ans++;
+        }
+        return ans+1;
+    }
+    private void initGraph(Map<Integer, List<NodeDis>> graph, int[][] edges) {
+        for (int[] edge: edges) {
+            int src = edge[0];
+            int dst = edge[1];
+            if (graph.containsKey(src) == false) graph.put(src, new ArrayList<NodeDis>());
+            graph.get(src).add(new NodeDis(dst, edge[2]));
+            if (graph.containsKey(dst) == false) graph.put(dst, new ArrayList<NodeDis>());
+            graph.get(dst).add(new NodeDis(src, edge[2]));
+        }
+    }
+
+}
+class NodeDis {
+    int val;
+    int dis;
+    public NodeDis(int val, int dis) {
+        this.val = val;
+        this.dis = dis;
+    }
+}
+```
+
+Time: O((m+n)*logm)=O(mlogm). For each node, visiting all its neighbors, then actually each edge will be visited twice, for instance, a->b and b->a, so the time complexity for all `updateUsage` is O(m).
+
+Space: O(m+n+n^2) = O(m)
+
+
 ## 505. The Maze II
 
 ### Description
@@ -424,3 +523,78 @@ class Solution {
 }
 ```
 
+### Final Solution - Dijkstra + min heap
+
+
+Use dijkstra and min heap to get the shortest distance from start to dest, if cannot find return -1.
+
+1. End condition is not |S|!=|V| since I don't know how many nodes there. It's min heap not empty.
+2. The node is not represented as value but x and y.
+3. Check the polled node if it's same as dest, if same then return its `dis`. As first polled node of the position will have the minimum distance from start.
+4. To update neighbors of polled node, there will be at most 4 neighbors since 4 direction, use `while` loop to find their position, and update if they are not in set.
+
+```
+class Solution {
+    public int shortestDistance(int[][] maze, int[] start, int[] destination) {
+        return dijkstra(maze, start, destination);
+    }
+    private int dijkstra(int[][] maze, int[] start, int[] dst){
+        Set<Integer> s = new HashSet<>(); // position of 1D
+        Queue<Pos> minDisHeap = new PriorityQueue<>(new Comparator<Pos>(){
+            @Override
+            public int compare(Pos a, Pos b){
+                return a.dis - b.dis;
+            }
+        });
+        minDisHeap.add(new Pos(start[0], start[1], 0));
+        while(minDisHeap.isEmpty()==false){
+            Pos pos = minDisHeap.poll();
+            if(pos.x==dst[0] && pos.y==dst[1]) return pos.dis;
+            s.add(position(pos.x, pos.y, maze[0].length));
+            // update neighbors, 0 <= neighbors <= 4
+            int upI = pos.x;
+            while(upI>0 && maze[upI-1][pos.y]==0) upI--;
+            if(upI!=pos.x) update(upI, pos.y, pos.dis+pos.x-upI, minDisHeap, s, maze[0].length);
+            int downI = pos.x;
+            while(downI<maze.length-1 && maze[downI+1][pos.y]==0) downI++;
+            if(downI!=pos.x) update(downI, pos.y, pos.dis+downI-pos.x, minDisHeap, s, maze[0].length);
+            int rightJ = pos.y;
+            while(rightJ<maze[0].length-1 && maze[pos.x][rightJ+1]==0) rightJ++;
+            if(rightJ!=pos.y) update(pos.x, rightJ, pos.dis+rightJ-pos.y, minDisHeap, s, maze[0].length);
+            int leftJ = pos.y;
+            while(leftJ>0 && maze[pos.x][leftJ-1]==0) leftJ--;
+            if(leftJ!=pos.y) update(pos.x, leftJ, pos.dis+pos.y-leftJ, minDisHeap, s, maze[0].length);
+        }
+        return -1;
+    }
+    private void update(int i, int j, int newDis, Queue<Pos> minDisHeap, Set<Integer> s, int colLen){
+        int key = position(i, j, colLen);
+        if(s.contains(key)==false){
+            minDisHeap.add(new Pos(i, j, newDis));
+        }
+    }
+    private int position(int i, int j, int colLen){
+        return i*colLen+j;
+    }
+}
+class Pos{
+    int x;
+    int y;
+    int dis;
+    public Pos(int x, int y, int dis){
+        this.x = x;
+        this.y = y;
+        this.dis = dis;
+    }
+}
+```
+
+
+m is maze.length, n is maze[0].length. There are at most O(m*n) possible stop points, so space of s is O(mn), space of minDisHeap is O(mn).
+
+Time: O(mn*log(mn)). As ++ and -- can be at most O(mn) in all rounds, less than mnlog(mn), so ignored.
+
+Space: O(mn)
+
+dijkstra is actally similar to BFS. The same part is that
+The difference is 
