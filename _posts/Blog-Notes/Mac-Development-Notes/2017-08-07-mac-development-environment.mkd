@@ -6,11 +6,9 @@ tags: Mac-Development
 cover: 
 ---
 
-```
-brew install mysql
-brew services start mysql or mysql.server start
-mysqladmin -u root password // set password
+## brew install
 
+```
 brew cask install java
 brew install wget
 brew install curl
@@ -42,6 +40,29 @@ sudo python get-pip.py
 ```
 
 Don't use `brew cask install sublime-text`, download it directly from the website and install.
+
+## install mysql
+
+### install mysql 5.7
+
+```
+brew install mysql@5.7
+sudo rm -rf /usr/local/var/mysql
+mysqld --initialize // init and set a random password
+ps -e|grep mysql
+// kill running mysql
+
+mysql.server status
+mysql.server start
+```
+
+### install mysql 8.0
+
+```
+brew install mysql
+brew services start mysql(not work) or mysql.server start
+mysqladmin -u root password // set password
+```
 
 ## Check the availability
 
