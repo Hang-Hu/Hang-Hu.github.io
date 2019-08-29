@@ -596,5 +596,6 @@ Time: O(mn*log(mn)). As ++ and -- can be at most O(mn) in all rounds, less than 
 
 Space: O(mn)
 
-dijkstra is actally similar to BFS. The same part is that
-The difference is 
+dijkstra is actally similar to BFS. The same part is that they both have a queue and a while loop and poll from queue in the beginning, they add Position into Queue in certain condition.
+
+The difference is BFS has a LinkedList as Queue, while dijkstra uses min heap as Queue. The polled node in BFS is first in first out, while for dijkstra it always polls the node with minimum dis. And BFS will add all neighbors into Queue, while dijkstra only add neighbors not in set into Queue.
