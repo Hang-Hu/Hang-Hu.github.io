@@ -1,0 +1,21 @@
+## Download tarball
+
+## 
+
+```
+mv heroku-linux-x64.tar.gz ~/Programs
+tar xzvf heroku-linux-x64.tar.gz
+```
+
+```
+sudo vim /etc/profile
+```
+
+Add the following lines:
+
+```
+# for heroku cli
+export PATH=$PATH:/home/hang/Programs/heroku/bin   
+```
+
+Instead of `source` in zsh, restart Unbountu, since source will be conflict with zsh.
