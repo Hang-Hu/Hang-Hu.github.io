@@ -37,6 +37,28 @@ eslint --init
 }
 ```
 
+
+### For NodeJS and ExpressJS
+
+```
+{
+  "env": {
+    "node": true,
+    "commonjs": true,
+    "es6": true
+  },
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parserOptions": {
+    "ecmaVersion": 2018
+  },
+  "rules": {},
+  "extends": ["prettier", "eslint:recommended"]
+}
+```
+
 ## Use prettier with eslint in vscode
 
 Turn off ESLint's formatting rules

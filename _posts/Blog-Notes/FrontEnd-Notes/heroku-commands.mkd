@@ -1,0 +1,66 @@
+### Login
+
+```
+heroku login
+```
+
+### Create app
+
+```
+heroku create
+```
+
+### Test locally
+
+Update the code.
+
+```
+npm install // if there is new dependency
+heroku local
+```
+
+### Set environment variable in heroku
+
+`TIMES` is the environment variable I want to set
+
+```
+heroku config:set TIMES=2
+```
+
+
+### Deploy to heroku
+
+```
+git add .
+git commit -m "COMMIT MESSAGE"
+git push heroku master
+heroku open or heroku open ROUTING_URL
+```
+
+Check by `heroku ps`.
+
+Scale to 1 instance:
+
+```
+heroku ps:scale web=1
+```
+
+Scale down to 0: `heroku ps:scale web=0`.
+
+
+### View logs
+
+```
+heroku logs --tail
+```
+
+
+### Start a bash
+
+```
+heroku run bash
+```
+
+### Environment Variables
+
+Set them in `.env` file.
