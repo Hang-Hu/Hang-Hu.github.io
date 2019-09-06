@@ -1,6 +1,7 @@
-## Download tarball
+## Install
 
-## 
+### Download tarball
+
 
 ```
 mv heroku-linux-x64.tar.gz ~/Programs
@@ -19,3 +20,15 @@ export PATH=$PATH:/home/hang/Programs/heroku/bin
 ```
 
 Instead of `source` in zsh, restart Unbountu, since source will be conflict with zsh.
+
+### Run script and use apt
+
+```
+curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
+```
+
+## Install autocomplete
+
+Run `heroku autocomplete` to generate `heroku/autocomplete/zsh_setup`.
+
+In `.zshrc`'s `plugins` add `heroku`.
