@@ -1,0 +1,11 @@
+### Install eCryptFS
+
+```
+sudo apt install ecryptfs-utils
+```
+
+### Have a Private folder
+
+```
+ecryptfs-setup-private
+```

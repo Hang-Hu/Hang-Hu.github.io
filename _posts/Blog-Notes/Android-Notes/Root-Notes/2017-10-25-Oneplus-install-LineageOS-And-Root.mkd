@@ -103,3 +103,16 @@ Once installation has finished, return to the main menu, select Reboot, and then
 4. Swift right to install without versify signature
 5. Reboot to system
 6. You get your lineage unrooted
+
+### Difference between root and unrooted device
+
+On Lineage OS official builds, root access is allowed via ADB only. After root, we can select between Apps only, ADB only, Apps and ADB.
+
+1. Enable Developer Option.
+
+Settings -> Phone -> Tap Build number 7 times
+
+2. Enable Root Access
+
+
+Settings -> Developer Option -> Root access, select Apps and ADB or Apps only or ADB only.

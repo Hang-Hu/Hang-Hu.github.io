@@ -1,0 +1,5 @@
+## Command
+
+```
+sha256sum addonsu-remove-14.1-arm64-signed.zip
+```
