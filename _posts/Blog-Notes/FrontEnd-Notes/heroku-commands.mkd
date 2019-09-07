@@ -64,3 +64,24 @@ heroku run bash
 ### Environment Variables
 
 Set them in `.env` file.
+
+### Set up postgresql
+
+```
+heroku addons:create heroku-postgresql:hobby-dev
+npm install pg
+```
+
+Use `heroku pg:psql` to login to PostgreSQL cli.
+
+
+### Set up MongoDB
+
+Set up mongodb in mlab, whitelist all IPs, copy the uri.
+
+Set `MONGODB_URI` in `heroku config` and `.env`.
+
+```
+const URI = process.env.MONGODB_URI || 'mongodb://localhost/'
+```
+
