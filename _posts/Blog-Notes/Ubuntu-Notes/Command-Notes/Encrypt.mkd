@@ -9,3 +9,20 @@ sudo apt install ecryptfs-utils
 ```
 ecryptfs-setup-private
 ```
+
+Record your encryption passphrase
+
+To encrypt your home directory or "Private" folder, a passphrase has been typed by you or automatically generated. Usually your directory is unlocked with your user password, but if you ever need to manually recover this directory, you will need this passphrase. If you click "Run this action now", enter your login password at the "Passphrase" prompt and you can display your randomly generated passphrase. Otherwise, you will need to run "ecryptfs-unwrap-passphrase" from the command line to retrieve and record your generated passphrase.
+
+
+`ecryptfs-umount-private` then you won't be able to access it.
+
+`ecryptfs-mount-private` then you can access it again.
+
+During login, it will mount private with your login password automatically.
+
+If you forget the login password or your system is damaged, you can still boot from a Live CD or USB. If it can find a wrapped passphrase file on your system, you can use login password, otherwise you will need recovery password passphrase from `ecryptfs-unwrap-passphrase`.
+
+
+
+[how-to-recover-an-encrypted-home-directory](https://www.howtogeek.com/116297/how-to-recover-an-encrypted-home-directory-on-u)
