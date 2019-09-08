@@ -26,3 +26,92 @@ If you forget the login password or your system is damaged, you can still boot f
 
 
 [how-to-recover-an-encrypted-home-directory](https://www.howtogeek.com/116297/how-to-recover-an-encrypted-home-directory-on-u)
+
+### Mount to recover Private folder
+
+#### backup Private folder
+
+```
+cp -r .Private/ test2/
+```
+
+#### Get fnek passphrase for 
+
+
+```
+ecryptfs-add-passphrase --fnek
+```
+
+```
+Passphrase: 
+Inserted auth tok with sig [****************] into the user session keyring
+Inserted auth tok with sig [****************] into the user session keyring
+```
+
+Copy the second passphrase in bracket.
+
+
+#### Default config for Private folder
+
+aes cipher, 16 key bytes, no plaintext passthrough, has filename encryption.
+
+#### Mount
+
+```
+sudo mkdir /mnt/dec-test2
+sudo mount -t ecryptfs test2 /mnt/dec-test2
+```
+
+```
+Passphrase: 
+Select cipher: 
+ 1) aes: blocksize = 16; min keysize = 16; max keysize = 32
+ 2) blowfish: blocksize = 8; min keysize = 16; max keysize = 56
+ 3) des3_ede: blocksize = 8; min keysize = 24; max keysize = 24
+ 4) twofish: blocksize = 16; min keysize = 16; max keysize = 32
+ 5) cast6: blocksize = 16; min keysize = 16; max keysize = 32
+ 6) cast5: blocksize = 8; min keysize = 5; max keysize = 16
+Selection [aes]: 
+Select key bytes: 
+ 1) 16
+ 2) 32
+ 3) 24
+Selection [16]: 
+Enable plaintext passthrough (y/n) [n]: 
+Enable filename encryption (y/n) [n]: y
+Filename Encryption Key (FNEK) Signature [FIRST-PASSPHRASE]: SECOND-PASSPHRASE-I-COPIED
+Attempting to mount with the following options:
+  ecryptfs_unlink_sigs
+  ecryptfs_fnek_sig=edc1d8878e8cdead
+  ecryptfs_key_bytes=16
+  ecryptfs_cipher=aes
+  ecryptfs_sig=50b2a18dfca6b10a
+WARNING: Based on the contents of [/root/.ecryptfs/sig-cache.txt],
+it looks like you have never mounted with this key 
+before. This could mean that you have typed your 
+passphrase wrong.
+
+Would you like to proceed with the mount (yes/no)? : yes
+Would you like to append sig [50b2a18dfca6b10a] to
+[/root/.ecryptfs/sig-cache.txt] 
+in order to avoid this warning in the future (yes/no)? : no
+Not adding sig to user sig cache file; continuing with mount.
+Mounted eCryptfs
+```
+
+
+#### Check result
+
+```
+sudo ls /mnt/dec-test2
+```
+
+### Copy to other folders without encryption
+
+```
+mkdir Downloads/decrypted-test2-destination
+sudo cp -r /mnt/dec-test2 Downloads/decrypted-test2-destination
+sudo chown -R USERNAME:USERNAME ./*
+sudo umount /mnt/dec-test2
+```
+
