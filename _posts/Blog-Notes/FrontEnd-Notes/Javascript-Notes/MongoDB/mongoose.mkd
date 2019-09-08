@@ -1,10 +1,49 @@
-### Close connection to MongoDB
+## Basic setup
+
+### Init connection
+
+
+In `app.js`(start code, where `express()` is called) of server:
 
 ```
-mongoose.connection.close()
+const DB = require("./mongodb/database");
 ```
 
-### Schema
+Even DB won't be used in `app.js`, it actually connects to MongoDB in the beginning of the application and is used by future calls to MongoDB.
+
+In `./mongodb/database.js`:
+
+```
+const mongoose = require("mongoose");
+const server = "localhost:27017";
+const database = "fakenews";
+class Database {
+  constructor() {
+    this._connect();
+    this.connection = mongoose.connection;
+  }
+  _connect() {
+    mongoose
+      .connect(`mongodb://${server}/${database}`)
+      .then(() => {
+        console.log("Successfully connects to MongoDB.");
+      })
+      .catch(err => {
+        console.error("Failed to connect to MongoDB");
+        console.log(err);
+      });
+  }
+  _close() {
+    this.connection.close();
+  }
+}
+
+module.exports = new Database();
+```
+
+### Define Schema and Export it as a Model
+
+`mongoose.model()` create model based on schema.
 
 ```
 const mongoose = require("mongoose");
@@ -23,11 +62,62 @@ const newsSchema = new mongoose.Schema({
   tweets_tokens: String,
   comment_time: String,
   weighted_sentiment_score: Number,
-  datetime: Date
+  date: Date,
+  news_title: String,
+  prediction: String,
+  favorite_count: Number,
+  tweets_comment: [String],
+  like_counts: [Number],
+  news_text: String,
+  news_image: String,
+  tweet_url: String
 });
 
 module.exports = mongoose.model("news", newsSchema);
 ```
+
+### Import model and use it to get data
+
+```
+const NewsModel = require("../mongodb/models/news");
+
+exports.findOneByNewsId = (req, res) => {
+  NewsModel.find({ news_id: req.params.newsId })
+    .then(news => {
+      if (!news) {
+        return res.status(404).send({
+          message: `News not found with id ${req.params.newsId}`
+        });
+      } else {
+        return res.send(news[0]);
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      if (err.kind === "ObjectId") {
+        return res.status(404).send({
+          message: `News not found with id ${req.params.newsId}`
+        });
+      } else {
+        return res.status(500).send({
+          message: `Something wrong retrieving news with id ${
+            req.params.newsId
+          }`
+        });
+      }
+    });
+};
+```
+
+## Connection
+
+### Close connection to MongoDB
+
+```
+mongoose.connection.close()
+```
+
+## Get Data
 
 ### All unique dates
 
