@@ -1,0 +1,161 @@
+## Development config
+
+### React
+
+Set proxy in package.json. When react uses port 3000, in fetch, url `/api/news/all/date` is representation of `http://localhost:3000/api/news/all/date`. And proxy lead to a call to `http://localhost:3001/api/news/all/date`.
+
+```
+{
+    "proxy": "http://localhost:3001",
+}
+```
+
+Example of url and fetch.
+
+```
+getNewsArr() {
+  const url = `/api/news/all/date/${
+    this.props.match.params.date
+  }`;
+  this.setState(
+    {
+      loading: true
+    },
+    () => {
+      fetch(url, {
+        method: "GET",
+        headers: {}
+      })
+        .then(handleErrors)
+        .then(res => res.json())
+        .then(data => {
+          // console.log(data);
+          this.setState({
+            loading: false,
+            newsIdArr: data
+          });
+        })
+        .catch(err => {
+          // console.error(err);
+          this.setState({ loading: false });
+        });
+    }
+  );
+}
+```
+
+## NodeJS
+
+### Modify port
+
+As default port for React is 3000, NodeJS have to use a different one.
+
+In `bin/www`, replace 3000 with 3001.
+
+```
+var port = normalizePort(process.env.PORT || "3001");
+```
+
+### Use nodemon
+
+In server's `package.json`, use nodemon instead of node, so that nodemon can restart server if any of its files get changed.
+
+```
+{
+    "scripts": {
+        "start": "NODE_ENV=development nodemon ./bin/www"
+    }
+}
+```
+
+```
+npm install nodemon --save-dev
+```
+
+### In full_stack directory
+
+There will be three `package.json`, one for React, one for NodeJS, and one for the directory that contains server and client.
+
+```
+cd full_stack
+npm init -y
+```
+
+In package.json:
+
+```
+{
+    "scripts": {
+        "start": "concurrently - kill-others 'npm run server' 'npm run client'",
+        "server": "cd server && npm start",
+        "client": "cd client && npm start",
+    }
+}
+```
+
+
+```
+npm install concurrently --save-dev
+```
+
+### Run dev mode
+
+```
+cd full_stack
+npm start
+```
+
+Now react is running in 3000 and express is running in 3001, perfect for development.
+
+And `npm start` is development, `npm run production` is production in all `package.json`.
+
+## Production config
+
+### Serve front end files
+
+Note I have to serve them after backend routing, so that `/*` won't catch backend routing as well, because after serving js,css,html files with server, client routing and server routing are using the sname ip and port, `http://localhost:3001` when it's development.
+
+```
+// if NODE_ENV not specified then it's production
+const NODE_ENV = process.env.NODE_ENV || "production";
+
+if (NODE_ENV == "production") {
+  // serve front end files
+  app.use(express.static(path.join(__dirname, "../client/build")));
+  // /* is used to capture client routing like news/news_id
+  app.get("/*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../client/build/index.html"));
+  });
+}
+```
+
+### package.json in server
+
+```
+{
+    "scripts": {
+        "production": "node ./bin/www"
+    }
+}
+```
+
+### package.json in full_stack
+
+```
+{
+    "scripts": {
+        "build": "cd client && npm install && npm run build",
+        "production": "cd server && npm run production",
+    }
+}
+```
+
+
+## Reference
+
+https://www.codementor.io/kakarganpat/how-to-setup-react-and-node-js-in-a-project-koxwqbssl
+
+
+https://medium.com/@chloechong.us/how-to-deploy-a-create-react-app-with-an-express-backend-to-heroku-32decfee6d18
+
+https://create-react-app.dev/docs/deployment
