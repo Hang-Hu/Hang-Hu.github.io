@@ -10,6 +10,14 @@ heroku login
 heroku create
 ```
 
+### rename app
+
+In app directory,
+
+```
+heroku apps:rename news-monitor-app
+```
+
 ### Test locally
 
 Update the code.
