@@ -1,0 +1,15 @@
+## Set environment in command
+
+
+```
+NODE_ENV=development nodemon ./bin/www
+```
+
+## Use dotenv
+
+```
+touch .env
+npm install dotenv --save-dev
+```
+
+Add `.env` to `.gitignore`.
