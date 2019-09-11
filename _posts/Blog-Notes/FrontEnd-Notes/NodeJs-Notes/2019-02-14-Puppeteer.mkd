@@ -1,0 +1,61 @@
+---
+layout: post
+author: Hang Hu
+categories: nodejs
+tags: Blog FrontEnd NodeJs 
+cover: 
+---
+### Turn off headless for debug
+
+```
+const browser = await puppeteer.launch({headless: false});
+```
+
+
+### Go to a page and wait until less network
+
+
+```
+await page.goto(url, {
+    waitUntil: 'networkidle2'
+});
+```
+
+
+### Click into a page and wait until less network
+
+
+```
+await Promise.all([
+    page.click('button[type=submit]', {
+        button: 'left',
+        clickCount: 3
+    }),
+    page.waitForNavigation({
+        waitUntil: 'networkidle0'
+    })
+]);
+```
+
+
+### document.querySelectorAll
+
+
+```
+var res = await page.$$('div > div > div.ProfileCard-userFields > span > a > span > b');
+```
+
+
+### run Javascript in browser
+
+
+```
+var res = await page.evaluate(()=> {
+    let elements = document.querySelectorAll('div > div > div.ProfileCard-userFields > span > a > span > b');
+    let followingUserNames = [];
+    elements.forEach((ele)=>{
+        followingUserNames.push(ele.textContent);
+    });
+    return followingUserNames;
+});
+```

@@ -1,0 +1,12 @@
+---
+layout: post
+author: Hang Hu
+categories: command
+tags: Blog Ubuntu Command 
+cover: 
+---
+## When dpkg failed becuase a package is not installed
+
+```
+sudo apt --fix-broken install
+```

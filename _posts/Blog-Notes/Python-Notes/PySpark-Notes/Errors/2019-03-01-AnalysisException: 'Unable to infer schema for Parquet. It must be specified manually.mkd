@@ -1,0 +1,19 @@
+---
+layout: post
+author: Hang Hu
+categories: pyspark
+tags: Blog Python PySpark 
+cover: 
+---
+### Details
+
+```
+self.rawDF = spark.read.parquet(filename).cache()
+```
+
+
+## Reason
+
+
+Ususlly you are to read am empty directory
+

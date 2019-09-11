@@ -1,0 +1,10 @@
+---
+layout: post
+author: Hang Hu
+categories: frontend
+tags: Blog FrontEnd 
+cover: 
+---
+## auto completion
+
+`button.btn.btn + Tab` then I get <button class="btn btn-info"></button>

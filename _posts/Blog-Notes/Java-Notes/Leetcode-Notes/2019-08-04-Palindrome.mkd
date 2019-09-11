@@ -1,0 +1,443 @@
+---
+layout: post
+author: Hang Hu
+categories: leetcode
+tags: Blog Java Leetcode 
+cover: 
+---
+## 131. Palindrome Partitioning
+
+### Description
+
+```
+Given a string s, partition s such that every substring of the partition is a palindrome.
+
+Return all possible palindrome partitioning of s.
+
+Example:
+
+Input: "aab"
+Output:
+[
+  ["aa","b"],
+  ["a","a","b"]
+]
+```
+
+
+### Final Solution
+
+
+1. Use `path.remove(index)` instead of `path.remove(str)` to avoid bug since there are duplicates string.
+
+2. If to partition on cur index, check if the substring I sliced is valid or not, only continue recursion if it's valid.
+
+3. Recursion with some index params, path, ans param is best solution to permutation.
+
+4. If no good solution, first consider brute force, then improve on that, which may result in a good solution.
+
+
+Use start index, cur index:
+
+
+not partition in cur: `partition(start, cur+1)`
+
+partition in cur if `s.substring(start, cur+1)` is palindrome: `partition(cur+1, cur+1)`
+
+
+Have a path to remember substrings, add and remove with index, in the end add to `ans`.
+
+
+```
+class Solution {
+    public List<List<String>> partition(String s) {
+        List<List<String>> ans = new ArrayList<>();
+        List<String> path = new ArrayList<>();
+        if(s.length()==0){
+            ans.add(path);
+            return ans;
+        }
+        partition(s, 0, 0, ans, path);
+        return ans;
+    }
+    // if partition in cur, then cur belongs to previous substring
+    // start, cur both inclusive
+    private void partition(String s, int start, int cur, List<List<String>> ans, List<String> path){
+        if(cur==s.length()-1){
+            String sub = s.substring(start, cur+1);
+            if(valid(sub)){
+                path.add(sub);
+                ans.add(new ArrayList<String>(path));
+                path.remove(path.size()-1);    
+            }
+            return;
+        }
+        partition(s, start, cur+1, ans, path); // not partition in cur
+        // partition in cur
+        String sub = s.substring(start, cur+1);
+        if(valid(sub)){
+            path.add(sub);
+            int removeIndex = path.size()-1;
+            partition(s, cur+1, cur+1, ans, path);
+            path.remove(removeIndex);    
+        }
+    }
+    private boolean valid(String s){
+        for(int i=0; i<s.length()-1; i++){
+            if(s.charAt(i)!=s.charAt(s.length()-i-1)) return false;
+        }
+        return true;
+    }
+}
+```
+
+
+## 132. Palindrome Partitioning II
+
+
+### Description
+
+
+```
+Given a string s, partition s such that every substring of the partition is a palindrome.
+
+Return the minimum cuts needed for a palindrome partitioning of s.
+
+Example:
+
+Input: "aab"
+Output: 1
+Explanation: The palindrome partitioning ["aa","b"] could be produced using 1 cut.
+```
+
+
+### Solution DP
+
+
+`opt(start, i)` is the minimum number of cut from start to s.length-1, and every partition is a palindrome.
+
+
+```
+opt(start, i) = min{
+    1+opt(i+1, i+1) if valid(s[start, i]) else Integer.MAX_VALUE // cut in index i
+    opt(start, i+1) // not cut
+}
+
+if i==s.length()-1, since current one is last index, definitely have to cut.
+
+if s[start, len-1] is palindrome:   opt(start, len-1)=1
+else                                opt(start, len-1)=-1 // invalid
+```
+
+
+```
+class Solution {
+    public int minCut(String s) {
+        int[][] opt = new int[s.length()][s.length()];
+        for(int start=0; start<s.length(); start++){
+            if(valid(s, start, s.length()-1))   opt[start][s.length()-1] = 0;
+            else                                opt[start][s.length()-1] = -1;
+        }
+        for(int start=s.length()-1; start>=0; start--){
+            for(int i=s.length()-2; i>=0; i--){
+                if(valid(s, start, i)){
+                    int min = -1;
+                    if(opt[i+1][i+1]!=-1) min = 1+opt[i+1][i+1];
+                    if(opt[start][i+1]!=-1) min = Math.min(min, opt[start][i+1]);
+                    opt[start][i] = min;
+                }else{
+                    opt[start][i] = opt[start][i+1];
+                }
+            }
+        }
+        return opt[0][0];
+    }
+    // start and end inclusive
+    private boolean valid(String s, int start, int end){
+        for(int i=start; i<=end; i++){
+            if(s.charAt(i)!=s.charAt(start+end-i)) return false;
+        }
+        return true;
+    }
+}
+```
+
+
+Time: O(n^3)
+
+Space: O(n^2)
+
+
+### Solution DP improved
+
+
+Improve: instead of traverse to check if valid. Have an array[i][j] to store if si...sj is palindrome or not. Start from (i, i) and (i, i+1) to calculate all palindrome.
+
+
+```
+class Solution {
+    public int minCut(String s) {
+        int[][] opt = new int[s.length()][s.length()];
+        boolean[][] palindrome = new boolean[s.length()][s.length()]; // i, j are both inclusive
+        initPalindrome(palindrome, s);
+        for(int start=0; start<s.length(); start++){
+            if(valid(s, start, s.length()-1, palindrome))   opt[start][s.length()-1] = 0;
+            else                                            opt[start][s.length()-1] = -1;
+        }
+        for(int start=s.length()-1; start>=0; start--){
+            for(int i=s.length()-2; i>=0; i--){
+                if(valid(s, start, i, palindrome)){
+                    int min = -1;
+                    if(opt[i+1][i+1]!=-1)   min = 1+opt[i+1][i+1];
+                    if(opt[start][i+1]!=-1) min = Math.min(min, opt[start][i+1]);
+                    opt[start][i] = min;
+                }else{
+                    opt[start][i] = opt[start][i+1];
+                }
+            }
+        }
+        return opt[0][0];
+    }
+    private void initPalindrome(boolean[][] palindrome, String s){
+        for(int i=0; i<s.length(); i++){
+            palindrome[i][i] = true;
+            initPalindrome(palindrome, s, i-1, i+1);
+        }
+        for(int i=0; i+1<s.length(); i++){
+            if(s.charAt(i)==s.charAt(i+1)){
+                palindrome[i][i+1] = true;
+                initPalindrome(palindrome, s, i-1, i+2);
+            }
+        }
+    }
+    private void initPalindrome(boolean[][] palindrome, String s, int i, int j){
+        if(i<0 || j>=s.length()) return;
+        if(s.charAt(i)==s.charAt(j)){
+            palindrome[i][j] = true;
+            initPalindrome(palindrome, s, i-1, j+1);   
+        }
+    }
+    // start and end inclusive
+    private boolean valid(String s, int start, int end, boolean[][] palindrome){
+        return palindrome[start][end];
+    }
+}
+```
+
+
+Time: O(n^2)
+
+Space: O(n^2)
+
+
+## 214. Shortest Palindrome
+
+
+
+### Description
+
+
+```
+
+Given a string s, you are allowed to convert it to a palindrome by adding characters in front of it. Find and return the shortest palindrome you can find by performing this transformation.
+
+Example 1:
+
+Input: "aacecaaa"
+Output: "aaacecaaa"
+Example 2:
+
+Input: "abcd"
+Output: "dcbabcd"
+```
+
+
+### Solution
+
+
+accade
+
+
+1. get right index that makes s_0...s_rIndex is the longest palindrome, for example, acca.
+
+2. s.substring(rIndex+1) and reverse and append to start of s. de -> ed -> edaccade
+
+
+```
+class Solution {
+    public String shortestPalindrome(String s) {
+        if(s.length()==0) return "";
+        int rIndex = 0;        
+        for(int j=0; j<s.length(); j++){
+            if(palindrome(s, 0, j)) rIndex = j;
+        }
+        StringBuilder sb = new StringBuilder();
+        for(int i=s.length()-1; i>=rIndex+1; i--) sb.append(s.charAt(i));
+        sb.append(s);
+        return sb.toString();
+    }
+    // start and end are inclusive
+    private boolean palindrome(String s, int start, int end){
+        for(int i=start; i<=(start+end)/2; i++){
+            if(s.charAt(i)!=s.charAt(start+end-i)) return false;
+        }
+        return true;
+    }
+}
+```
+
+
+Time: O(n^2)
+
+Space: I(n)
+
+
+## 267. Palindrome Permutation II
+
+
+### Solution 5.5%
+
+
+Use map to store char and its occurrences.
+
+
+If the number of odd keys > 1, then definitely cannot make a palindrome.
+
+
+Append all possible keys to StringBuilder, decrease in map, and call `gen()` with cur+1. After that delete that char from sb, increase it back to map.
+
+
+If occurrence is 0, skip to next key.
+
+
+If it's the right half and not same as char at `len-1-cur`, stop here.
+
+
+sb is built from 0 to `len-1`.
+
+
+```
+class Solution {
+    public List<String> generatePalindromes(String s) {
+        List<String> ans = new ArrayList<>();
+        if(s.length()==0) return ans;
+        Map<Character, Integer> map = new HashMap<>();// (char, occurrences)
+        initMap(s, map);
+        if(isPalindromic(map)==false) return ans;
+        gen(new StringBuilder(), map, 0, ans, s.length());
+        return ans;
+    }
+    private boolean isPalindromic(Map<Character, Integer> map){
+        int oddCount = 0;
+        for(int n: map.values()){
+            if(n%2!=0) oddCount++;
+        }
+        return oddCount<=1;
+    }
+    private void gen(StringBuilder sb, Map<Character, Integer> map, int cur, List<String> ans, int len){
+        if(sb.length()>=len){
+            ans.add(sb.toString());
+            return;
+        }
+        for(Map.Entry<Character, Integer> e: map.entrySet()){
+            if(e.getValue()==0) continue;
+            Character c = e.getKey();
+            if(cur>=len/2 && cur!=len-1-cur && c!=sb.charAt(len-1-cur)) continue;
+            sb.append(c);
+            map.put(c, map.get(c)-1);
+            gen(sb, map, cur+1, ans, len);
+            sb.deleteCharAt(cur);
+            map.put(c, map.get(c)+1);
+        }
+        
+    }
+    private void initMap(String s, Map<Character, Integer> map){
+        for(int i=0; i<s.length(); i++){
+            char c = s.charAt(i);
+            map.put(c, map.getOrDefault(c, 0)+1);
+        }
+    }
+}
+```
+
+
+### Final Solution
+
+
+Use map to store char and its occurrences.
+
+
+if oddCount==0, cannot make any palindrome.
+
+if oddCount==1, append that additional key to StringBuilder, decrease in map, then every key is even now.
+
+if oddCount==0, go with that.
+
+
+append key to both the start and end of StringBuilder, decrease map by 2, call `gen()` with cur+2. After gen(), recover sb and map.
+
+
+In the end, add `sb.toString()` to ans.
+
+
+sb is built from middle around.
+
+
+```
+class Solution {
+    public List<String> generatePalindromes(String s) {
+        List<String> ans = new ArrayList<>();
+        if(s.length()==0) return ans;
+        Map<Character, Integer> map = new HashMap<>();// (char, occurrences)
+        initMap(s, map);
+        int oddCount = oddCount(map);
+        StringBuilder sb = new StringBuilder();
+        if(oddCount>1){
+            return ans;
+        }else if(oddCount==1){
+            for(Map.Entry<Character, Integer> e: map.entrySet()){
+                if(e.getValue()%2!=0){
+                    Character c = e.getKey();
+                    sb.append(c);
+                    map.put(c, map.get(c)-1);
+                }
+            }
+            gen(sb, map, 1, ans, s.length());            
+        }else{
+            gen(sb, map, 0, ans, s.length());
+        }
+        return ans;
+    }
+    private int oddCount(Map<Character, Integer> map){
+        int ans = 0;
+        for(int n: map.values()){
+            if(n%2!=0) ans++;
+        }
+        return ans;
+    }
+    private void gen(StringBuilder sb, Map<Character, Integer> map, int cur, List<String> ans, int len){
+        if(sb.length()>=len){
+            ans.add(sb.toString());
+            return;
+        }
+        for(Map.Entry<Character, Integer> e: map.entrySet()){
+            if(e.getValue()==0) continue;
+            Character c = e.getKey();
+            sb.insert(0, c);
+            sb.append(c);
+            map.put(c, map.get(c)-2);
+            gen(sb, map, cur+2, ans, len);
+            sb.deleteCharAt(cur+1);
+            sb.deleteCharAt(0);
+            map.put(c, map.get(c)+2);
+        }
+        
+    }
+    private void initMap(String s, Map<Character, Integer> map){
+        for(int i=0; i<s.length(); i++){
+            char c = s.charAt(i);
+            map.put(c, map.getOrDefault(c, 0)+1);
+        }
+    }
+}
+```

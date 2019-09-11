@@ -1,0 +1,99 @@
+---
+layout: post
+author: Hang Hu
+categories: frontend
+tags: Blog FrontEnd 
+cover: 
+---
+## install
+
+```
+npm install -g typescript
+```
+
+
+Install tslint in vscode.
+
+
+## config
+
+
+`tslint.json`:
+
+
+```
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "sourceMap": true,
+        "esModuleInterop": true,
+        "watch": true
+    },
+
+    "extends": ["tslint:latest", "tslint-config-prettier"]
+}
+```
+
+
+## Usage
+
+
+```
+tsc --init
+```
+
+
+```
+tsc scraper.ts
+```
+
+
+```
+node scraper.js
+```
+
+
+
+## tslint with prettier
+
+
+Some tslint warning or error can be solved by prettier. So just let prettier to do formating and tslint for code quality.
+
+
+```
+npm i -D tslint-config-prettier
+```
+
+
+In `tslint.json`:
+
+
+```
+{
+    "extends": ["tslint:latest", "tslint-config-prettier"]
+}
+```
+
+
+### tsc all files recursively
+
+
+Create `tsconfig.json` in project root like below. `rootDir` is the directory to search `.ts` files recursively, and `outDir` is the directory to put the compiled `.js` files, the folder structure will remain the same.
+
+
+```
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "ES5",
+        "rootDir": "src", // or ./ if want index.ts in project root to be compiled
+        "outDir": "build"
+    }
+}
+```
+
+
+Command is `tsc --build`, can use it in `package.json`'s `scripts`.
+
+
+Or you can use `tsc -w` to watch and build as any `.ts` file changes.

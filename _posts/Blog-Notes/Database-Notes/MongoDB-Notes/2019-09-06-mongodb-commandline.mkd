@@ -1,0 +1,27 @@
+---
+layout: post
+author: Hang Hu
+categories: mongodb
+tags: Blog Database MongoDB 
+cover: 
+---
+## Basic Commands
+
+```
+mongo
+
+> show databases
+admin          0.000GB
+config         0.000GB
+fakenews       0.000GB
+local          0.000GB
+myNewDatabase  0.000GB
+> use fakenews
+switched to db fakenews
+
+> show collections
+news
+
+db.news.deleteMany({"news_id": "0b3ee576-7b42-4bd3-a9f5-99f9c7390992"})
+db.news.find()
+```

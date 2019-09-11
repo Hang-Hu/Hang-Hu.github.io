@@ -1,0 +1,57 @@
+---
+layout: post
+author: Hang Hu
+categories: leetcode
+tags: Blog Java Leetcode 
+cover: 
+---
+## Brute Force
+
+Recursion, and go over all array to find the min number >= A[i], or max number <= A[i].
+
+```
+class Solution {
+    public int oddEvenJumps(int[] A) {
+        int count=0;
+        for(int i=0; i<A.length; i++){
+            if(jumpFromI(A, i, true)==true)   count++;
+        }
+        return count;
+    }
+    private boolean jumpFromI(int[] A, int i, boolean isOdd){
+        if(i==A.length-1)   return true;
+        if(isOdd==true){
+            int min = Integer.MAX_VALUE;
+            int minIndex = -1;
+            for(int j=i+1; j<A.length; j++){
+                if(A[i]<=A[j] && A[j]<min){
+                    min = A[j];
+                    minIndex = j;
+                }
+            }
+            if(minIndex==-1)    return false;
+            if(minIndex==A.length-1)    return true;
+            return              jumpFromI(A, minIndex, false);
+        }else{// even jump
+            int max = Integer.MIN_VALUE;
+            int maxIndex = -1;
+            for(int j=i+1; j<A.length; j++){
+                if(A[i]>=A[j] && A[j]>max){
+                    max = A[j];
+                    maxIndex = j;
+                }
+            }
+            if(maxIndex==-1)    return false;
+            if(maxIndex==A.length-1)    return true;
+            return              jumpFromI(A, maxIndex, true);
+            
+        }
+    }
+}
+```
+
+
+Time: O(n^2*logn)
+
+
+### 

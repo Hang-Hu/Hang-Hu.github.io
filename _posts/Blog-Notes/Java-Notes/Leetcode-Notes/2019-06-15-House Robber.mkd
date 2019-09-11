@@ -1,0 +1,125 @@
+---
+layout: post
+author: Hang Hu
+categories: leetcode
+tags: Blog Java Leetcode 
+cover: 
+---
+## 337. House Robber III
+
+```
+The thief has found himself a new place for his thievery again. There is only one entrance to this area, called the "root." Besides the root, each house has one and only one parent house. After a tour, the smart thief realized that "all houses in this place forms a binary tree". It will automatically contact the police if two directly-linked houses were broken into on the same night.
+
+Determine the maximum amount of money the thief can rob tonight without alerting the police.
+
+Example 1:
+
+Input: [3,2,3,null,3,null,1]
+
+     3
+    / \
+   2   3
+    \   \ 
+     3   1
+
+Output: 7 
+Explanation: Maximum amount of money the thief can rob = 3 + 3 + 1 = 7.
+
+Example 2:
+
+Input: [3,4,5,1,3,null,1]
+
+     3
+    / \
+   4   5
+  / \   \ 
+ 1   3   1
+
+Output: 9
+Explanation: Maximum amount of money the thief can rob = 4 + 5 = 9.
+```
+
+
+### First Solution - simple recursion 581 ms
+
+
+Max of rob and not rob. 
+
+
+- If rob, add root.val, and go with grandchild.
+
+- If not rob, go with child.
+
+
+```
+class Solution {
+    public int rob(TreeNode root) {
+        if(root==null)  return 0;
+        int rob = root.val;
+        if(root.left!=null) rob += rob(root.left.left) + rob(root.left.right);
+        if(root.right!=null) rob += rob(root.right.left) + rob(root.right.right);
+        int notRob = 0;
+        notRob += rob(root.left);
+        notRob += rob(root.right);
+        return Math.max(rob, notRob);
+    }
+}
+```
+
+
+### Second Solution - Map memory duplicate subproblems
+
+
+It calls `rob(root.left.left)` and `rob(root.left)`, in `rob(root.left)`, will definitely call `rob(root.left.left)` when calculating `notRob`. There are so many duplicate subproblems so have to use either recursion + map or dp.
+
+
+```
+class Solution {
+    Map<TreeNode, Integer> map = new HashMap<>(); // (root of subtree, max money robbed)
+    public int rob(TreeNode root) {
+        if(root==null)  return 0;
+        if(map.containsKey(root))   return map.get(root);
+        int rob = root.val;
+        if(root.left!=null) rob += rob(root.left.left) + rob(root.left.right);
+        if(root.right!=null) rob += rob(root.right.left) + rob(root.right.right);
+        int notRob = 0;
+        notRob += rob(root.left);
+        notRob += rob(root.right);
+        int max = Math.max(rob, notRob);
+        map.put(root, max);
+        return max;
+    }
+}
+```
+
+
+### Third Solution - greedy 1 ms
+
+
+Previously `rob()` is defined to return max amount of money possible, no matter rob root or not, this causes confusion and hence duplicate subproblems.
+
+
+Redefine `rob()` to return max amount if root robbed, and max amount if not rob root. This will clear the confusion and make the problem to be a greedy one.
+
+
+```
+class Solution {
+    Map<TreeNode, Integer> map = new HashMap<>(); // (root of subtree, max money robbed)
+    public int rob(TreeNode root) {
+        int[] ans = maxArr(root);
+        return Math.max(ans[0], ans[1]);
+    }
+    // ans[0] is max money possible if rob root
+    // ans[1] is max money possible if not rob root
+    private int[] maxArr(TreeNode root){
+        if(root==null)  return new int[] {0, 0};
+        int[] ans = new int[2];
+        int[] l = maxArr(root.left);
+        int[] r = maxArr(root.right);
+        ans[0]  = root.val + l[1] + r[1];
+        ans[1] = Math.max(l[0], l[1])+Math.max(r[0], r[1]);
+        return ans;
+    }
+}
+```
+
