@@ -1,0 +1,73 @@
+---
+layout: post
+author: Hang Hu
+categories: nodejs
+tags: Blog FrontEnd NodeJs 
+cover: 
+---
+## init a project
+
+```
+npm init
+```
+
+
+## update all packages
+
+
+```
+ncu
+ncu -u
+rm -r node_modules/
+npm install
+```
+
+
+## custom npm commands
+
+
+In `package.json` `scripts` section add `reload`:
+
+
+```
+{
+    "scripts": {
+        "reload": "export NODE_PATH=$(pwd) && tsc --build && node build/index.js reload",
+    }
+}
+```
+
+
+Use `npm run reload` to run it, this is different `npm start` since it's custom commands.
+
+
+### npm start specify path
+
+
+1. `cd path && npm start`
+
+2. `npm start --prefix path`
+
+
+### npm install as dev dependency
+
+
+```
+npm install nodemon --save-dev
+```
+
+
+### Use environment variables
+
+
+
+in package.json:
+
+
+```
+{
+    "scripts": {
+        "start": "PORT=3001 react-scripts start"
+    }
+}
+```

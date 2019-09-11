@@ -1,0 +1,15 @@
+---
+layout: post
+author: Hang Hu
+categories: python
+tags: Blog Python 
+cover: 
+---
+## Usage
+
+```
+pip3 install virtualenv
+python3 -m virtualenv venv
+. venv/bin/activate
+pip install -r app/requirements.txt
+```

@@ -1,3 +1,0 @@
-## auto completion
-
-`button.btn.btn + Tab` then I get <button class="btn btn-info"></button>

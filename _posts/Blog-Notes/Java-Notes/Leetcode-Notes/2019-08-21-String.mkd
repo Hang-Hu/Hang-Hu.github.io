@@ -1,0 +1,111 @@
+---
+layout: post
+author: Hang Hu
+categories: leetcode
+tags: Blog Java Leetcode 
+cover: 
+---
+## 1138. Alphabet Board Path
+
+### Description
+
+```
+On an alphabet board, we start at position (0, 0), corresponding to character board[0][0].
+
+Here, board = ["abcde", "fghij", "klmno", "pqrst", "uvwxy", "z"], as shown in the diagram below.
+
+
+
+We may make the following moves:
+
+'U' moves our position up one row, if the position exists on the board;
+'D' moves our position down one row, if the position exists on the board;
+'L' moves our position left one column, if the position exists on the board;
+'R' moves our position right one column, if the position exists on the board;
+'!' adds the character board[r][c] at our current position (r, c) to the answer.
+(Here, the only positions that exist on the board are positions with letters on them.)
+
+Return a sequence of moves that makes our answer equal to target in the minimum number of moves.  You may return any path that does so.
+
+ 
+
+Example 1:
+
+Input: target = "leet"
+Output: "DDR!UURRR!!DDD!"
+Example 2:
+
+Input: target = "code"
+Output: "RR!DDRR!UUL!R!"
+ 
+
+Constraints:
+
+1 <= target.length <= 100
+target consists only of English lowercase letters.
+
+```
+
+
+### Final Solution
+
+
+1. input char, return its x y by / and %.
+
+2. For each char in `target`, start from `a`, use `move(pre, cur)` to return action String to do that move.
+
+3. In `move(Position from, Position to)`, lopp while not moved to target. If `x<to.x` and x+1 is valid then add `D` and `x++`. If `x>to.x` and x-1 valid, append `U` and `x--`. The same applies to y.
+
+4. After loop, append ! and return.
+
+
+```
+class Solution {
+    public String alphabetBoardPath(String target) {
+        StringBuilder sb = new StringBuilder();
+        Position pre = new Position('a');
+        for(int i=0; i<target.length(); i++){
+            Position cur = new Position(target.charAt(i));
+            sb.append(move(pre, cur));
+            pre = cur;
+        }
+        return sb.toString();
+    }
+    private String move(Position from, Position to){
+        StringBuilder sb = new StringBuilder();
+        int x = from.x;
+        int y = from.y;
+        while(x!=to.x || y!=to.y){
+            if(x<to.x && valid(x+1, y)){
+                sb.append("D");
+                x++;
+            }else if(x>to.x && valid(x-1, y)){
+                sb.append("U");
+                x--;
+            } 
+            if(y<to.y && valid(x, y+1)){
+                sb.append("R");
+                y++;
+            }else if(y>to.y && valid(x, y-1)){
+                sb.append("L");
+                y--;
+            }
+        }
+        sb.append("!");
+        return sb.toString();
+    }
+    private boolean valid(int x, int y){
+        if(y!=0 && x==5) return false;
+        return true;
+    }
+}
+class Position{
+    int x;
+    int y;
+    public Position(char c){
+        int idx = c-'a';
+        this.x = idx/5;
+        this.y = idx%5;
+    }
+}
+```

@@ -1,0 +1,12 @@
+---
+layout: post
+author: Hang Hu
+categories: convert-formats
+tags: Blog Ubuntu Application Convert-Formats 
+cover: 
+---
+## Commands
+
+```
+convert -colorspace GRAY color.pdf gray.pdf
+```

@@ -1,0 +1,89 @@
+---
+layout: post
+author: Hang Hu
+categories: nodejs
+tags: Blog FrontEnd NodeJs 
+cover: 
+---
+### Install express generator
+
+
+```
+npm install express-generator -g
+```
+
+
+### Generate express skeleton
+
+
+```
+mkdir fake-news-backend-express
+cd fake-news-backend-express
+```
+
+
+Run express generator, the name in package.json is directory name, fake-news-backend-express",
+
+
+
+```
+express --view=pug
+```
+
+
+```
+npm install
+```
+
+
+```
+DEBUG=fake-news-backend-express:* npm start
+```
+
+
+### Enable CORS
+
+
+```
+npm install cors
+```
+
+
+Append to app.js
+
+
+```
+const cors = require("cors");
+app.use(cors());
+```
+
+
+### Serve dynamic content (no client routing like React Router)
+
+
+```
+app.use(express.static(path.join(__dirname, 'build')));
+
+app.get('/', function(req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+```
+
+
+### Serve client routing content
+
+
+> If you use routers that use the HTML5 pushState history API under the hood (for example, React Router with browserHistory), many static file servers will fail. For example, if you used React Router with a route for /todos/42, the development server will respond to localhost:3000/todos/42 properly, but an Express serving a production build as above will not.
+
+> This is because when there is a fresh page load for a /todos/42, the server looks for the file build/todos/42 and does not find it. The server needs to be configured to respond to a request to /todos/42 by serving index.html. For example, we can amend our Express example above to serve index.html for any unknown paths:
+
+
+
+```
+// serve front end files
+app.use(express.static(path.join(__dirname, "../client/build")));
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/build/index.html"));
+});
+```
+

@@ -1,0 +1,13 @@
+---
+layout: post
+author: Hang Hu
+categories: pyspark
+tags: Blog Python PySpark 
+cover: 
+---
+## Assign more memory to avoid Java out of heap
+
+
+```
+spark-submit --executor-memory 10G  aomaly.py
+```

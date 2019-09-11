@@ -1,0 +1,21 @@
+---
+layout: post
+author: Hang Hu
+categories: frontend
+tags: Blog FrontEnd 
+cover: 
+---
+### Catch
+
+```
+(async () => {
+    try {
+       await someFunc();
+       await safeQuit("Program finished successfully.");
+    } catch (e) {
+        safeQuit("Error happens in check in.").then(() =>
+            console.error(e)
+        );
+    }
+})();
+```

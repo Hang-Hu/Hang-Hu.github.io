@@ -1,0 +1,91 @@
+---
+layout: post
+author: Hang Hu
+categories: python
+tags: Blog Python 
+cover: 
+---
+
+### SOQL parent relationship queries
+
+Check parent children relationship: In workbench, choose Standard & Custom Objects
+
+If you’re familiar with SQL the first thing you might want to do is join the two tables and run a query against their fields. SOQL supports this through relationship queries. Relationship queries, established by look up and master detail fields, allow developers to retrieve data through parent-child and child-parent relationships. Relationship queries can be bi-directional: from a child object looking at a single parent or from a parent object looking at zero or more children. The cardinality of a relationship query has a large impact on SOQL construction as we’ll soon see.
+
+
+[basic-soql-relationship-queries](https://developer.salesforce.com/blogs/developer-relations/2013/05/basic-soql-relationship-queries.html)
+
+```
+Select Id, LastName, Account.Name from Contact
+```
+
+
+The parent child relationship and SOQL Query can be queried here: https://workbench.developerforce.com
+
+
+Be careful on Id.
+
+
+In Standard Object User's Child Relationships:
+
+
+Attachment.OwnerId
+
+Then it's actually `Owner.Name` instead of `User.Name`. And `Name` is a filed of Object `User`.
+
+
+```
+Select Owner.Name from Attachment
+```
+
+
+#### Standard vs Custom Object
+
+
+[How to query child to parent](https://salesforce.stackexchange.com/questions/127838/how-to-query-child-to-parent)
+
+
+```
+//Ways of writing Parent - Child Queries for Standard Objects
+
+Select Id, LastName, Account.Name from Contact
+//Ways of writing Parent - Child Queries for Custom Objects
+
+Select Id, Name, Custom_Object1__r.Name from Custom_Object2__c
+```
+
+
+#### Easy search to do the job
+
+
+Search the object names you are you join along with SOSQL if they are standard objects, for instance "SOSQL Attachment User".
+
+
+## Errors
+
+
+### no viable alternative at character '"'
+
+
+Must use `'` but not `"` when it comes to string in where.
+
+
+### The Id field should not be specified in the sobject data
+
+
+#### Reason
+
+
+Now that use Id as key to search for sobject, cannot modify it in data.
+
+
+#### Solution
+
+
+Delete it in parameter `data` dict of method `upsert`.
+
+
+```
+data_dict.pop('Id', None) # if key Id exists, remove Id pair, otherwise return None.
+
+```

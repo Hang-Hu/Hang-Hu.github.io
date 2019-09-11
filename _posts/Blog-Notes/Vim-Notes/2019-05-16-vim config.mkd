@@ -1,0 +1,18 @@
+---
+layout: post
+author: Hang Hu
+categories: vim
+tags: Blog Vim 
+cover: 
+---
+## turn color off
+
+
+```
+vim ~/.vimrc
+```
+
+
+```
+syntax off
+```

@@ -1,0 +1,27 @@
+---
+layout: post
+author: Hang Hu
+categories: docker
+tags: Blog Docker 
+cover: 
+---
+## run docker
+
+```
+docker run IMAGENAME shell run_app.sh
+```
+
+
+Or use `npm start`/`python3 -m MODULENAME` to replace `shell run_app.sh`.
+
+
+## Add environment variables
+
+
+```
+docker run \
+    -e USERNAME='admin' \
+    -e PASSWORD='admin' \
+    IMAGENAME \
+    shell run_app.sh
+```

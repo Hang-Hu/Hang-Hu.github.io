@@ -1,0 +1,81 @@
+---
+layout: post
+author: Hang Hu
+categories: environment-setup
+tags: Blog Ubuntu Environment-Setup 
+cover: 
+---
+
+chmod +x ./kubectl
+
+sudo mv ./kubectl /usr/local/bin/kubectl
+
+kubectl version
+
+
+
+## Set up cluster config
+
+
+
+```
+
+vim ~/.kube/config﻿
+
+```
+
+
+
+
+
+
+## Run
+
+
+kubectl get pods
+
+
+## autocompletion
+
+
+
+### Upgrade Bash in Mac
+
+
+macOS includes Bash 3.2 by default. The kubectl completion script requires Bash 4.1+ and doesn’t work with Bash 3.2.
+
+
+[Upgrading Bash on macOS
+
+](https://itnext.io/upgrading-bash-on-macos-7138bd1066ba)
+
+
+### Install bash-completion
+
+
+
+```
+brew install bash-completion@2
+```
+
+
+
+`vim ~/.bashrc`, append the following line
+
+
+```
+[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
+```
+
+
+### Enable kubectl autocompletion
+
+
+Add the completion script to `/usr/local/etc/bash_completion.d`. The completion script is added to `/usr/local/etc/bash_completion.d/kubectl` if install using brew.
+
+
+
+```
+kubectl completion bash >/usr/local/etc/bash_completion.d/kubectl
+```
+

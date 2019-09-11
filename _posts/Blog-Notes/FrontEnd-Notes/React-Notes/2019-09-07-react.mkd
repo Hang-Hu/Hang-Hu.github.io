@@ -1,0 +1,20 @@
+---
+layout: post
+author: Hang Hu
+categories: react
+tags: Blog FrontEnd React 
+cover: 
+---
+## package.json
+
+### Change port
+
+Use `PORT=3001` to change default port from 3000 to 3001.
+
+```
+{
+    "scripts": {
+        "start": "PORT=3001 react-scripts start"
+    }
+}
+```

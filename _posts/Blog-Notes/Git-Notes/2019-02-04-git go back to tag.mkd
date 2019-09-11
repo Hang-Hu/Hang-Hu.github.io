@@ -1,0 +1,12 @@
+---
+layout: post
+author: Hang Hu
+categories: git
+tags: Blog Git 
+cover: 
+---
+## Example
+
+```
+git reset --hard cmpt733-2018sp
+```

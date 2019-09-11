@@ -1,0 +1,103 @@
+---
+layout: post
+author: Hang Hu
+categories: frontend
+tags: Blog FrontEnd 
+cover: 
+---
+## Introduction
+
+ESLint is a Javascript lint tool with support for ES6. It's better than `JSLint`, `JSHint`, and `JSCS`.
+
+## config
+
+```
+eslint --init
+```
+
+
+### For React
+
+
+```
+{
+    "env": {
+        "browser": true,
+        "es6": true
+    },
+    "extends": ["prettier", "eslint:recommended"],
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 2018,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react"
+    ],
+    "rules": {
+        "no-unused-vars": "off"
+    }
+}
+```
+
+
+
+### For NodeJS and ExpressJS
+
+
+```
+{
+  "env": {
+    "node": true,
+    "commonjs": true,
+    "es6": true
+  },
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parserOptions": {
+    "ecmaVersion": 2018
+  },
+  "rules": {},
+  "extends": ["prettier", "eslint:recommended"]
+}
+```
+
+
+## Use prettier with eslint in vscode
+
+
+Turn off ESLint's formatting rules
+
+
+```
+npm install --save-dev eslint-config-prettier
+```
+
+
+.eslintrc.json:
+
+
+```
+{
+  "extends": ["prettier", "eslint:recommended"]
+}
+```
+
+
+### vscode settings for prettier used with eslint
+
+
+vscode settings.json(Ctrl+Shift+P) to open command pallete, choose `Preferences: Open Settings(JSON)`, add the following to user settings.
+
+
+```
+"prettier.eslintIntegration": true
+```

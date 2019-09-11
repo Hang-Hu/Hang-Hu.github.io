@@ -1,0 +1,56 @@
+---
+layout: post
+author: Hang Hu
+categories: python
+tags: Blog Python 
+cover: 
+---
+## Details
+
+When calling `json.loads` it outputs each an error.
+
+## Reason
+
+```
+In [4]: json.loads('[{}, {}]')
+Out[4]: [{}, {}]
+```
+
+
+```
+In [5]: json.loads('{}{}')
+---------------------------------------------------------------------------
+JSONDecodeError                           Traceback (most recent call last)
+<ipython-input-5-0285b42a3a05> in <module>()
+----> 1 json.loads('{}{}')
+
+~/anaconda3/lib/python3.6/json/__init__.py in loads(s, encoding, cls, object_hook, parse_float, parse_int, parse_constant, object_pairs_hook, **kw)
+    352             parse_int is None and parse_float is None and
+    353             parse_constant is None and object_pairs_hook is None and not kw):
+--> 354         return _default_decoder.decode(s)
+    355     if cls is None:
+    356         cls = JSONDecoder
+
+~/anaconda3/lib/python3.6/json/decoder.py in decode(self, s, _w)
+    340         end = _w(s, end).end()
+    341         if end != len(s):
+--> 342             raise JSONDecodeError("Extra data", s, end)
+    343         return obj
+    344 
+
+JSONDecodeError: Extra data: line 1 column 3 (char 2)
+```
+
+
+Every line I have one json.
+
+
+## Solution
+
+
+```
+import json
+with open('searchlog.json', 'r') as f:
+    for line in f:
+        print(json.loads(line))
+```

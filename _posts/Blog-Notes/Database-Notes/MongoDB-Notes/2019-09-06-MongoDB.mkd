@@ -1,0 +1,65 @@
+---
+layout: post
+author: Hang Hu
+categories: mongodb
+tags: Blog Database MongoDB 
+cover: 
+---
+## Basic
+
+### find() and send data back
+
+```
+express()
+  .use(express.static(path.join(__dirname, 'public')))
+  .get('/mongo', getDataFromMongoDB)
+```
+
+
+```
+async function getDataFromMongoDB(req, res) {
+  try {
+    const URI = process.env.MONGODB_URI || 'mongodb://localhost/'
+    const CLIENT = new MongoClient(URI, {
+      useNewUrlParser: true
+    })
+    const CONN = await CLIENT.connect()
+    let db = CONN.db('fakenews')
+    let collection = db.collection('news')
+    let cursor = await collection.find({})
+    let resultArr = await cursor.toArray()
+    res.send(resultArr)
+  } catch (err) {
+    console.error(err)
+    res.send('Error: ' + err)
+  }
+}
+```
+
+
+### show collections
+
+
+```
+let resultArr = await db.listCollections().toArray()
+res.send(resultArr)
+```
+
+
+## Error
+
+
+### toArray() gets nothing
+
+
+`toArray()` returns a Promise, so either use callback to deal with it, or use `.then()`, or use `await`. Otherwise it won't wait for completion of `toArray()`.
+
+
+### Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+
+
+> The res object in Express is a subclass of Node.js's http.ServerResponse (read the http.js source). You are allowed to call res.setHeader(name, value) as often as you want until you call res.writeHead(statusCode). After writeHead, the headers are baked in and you can only call res.write(data), and finally res.end(data).
+
+
+I have `res.send()` executed before `res.json()`, then `res.json()` will prompt the error.
+

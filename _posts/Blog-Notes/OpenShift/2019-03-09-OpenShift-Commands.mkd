@@ -1,0 +1,97 @@
+---
+layout: post
+author: Hang Hu
+categories: blog
+tags: Blog 
+cover: 
+---
+oc login
+Authentication required for https://192.168.99.100:8443 (openshift)
+Username: developer
+Password: 
+Login successful.
+
+You have access to the following projects and can switch between them with 'oc project <projectname>':
+
+  * myproject
+    national-park-map
+
+Using project "myproject".
+
+oc project
+
+Using project "myproject" from context named "minishift" on server "https://192.168.99.100:8443".
+
+oc get pods
+
+NAME                             READY     STATUS      RESTARTS   AGE
+nationalparks-katacoda-1-2f9db   1/1       Running     1          7d
+nationalparks-katacoda-1-build   0/1       Completed   0          7d
+parksmap-katacoda-1-2bbt7        1/1       Running     1          7d
+
+oc delete pod/nationalparks-katacoda-1-2f9db
+
+pod "nationalparks-katacoda-1-2f9db" deleted
+
+oc get pods
+NAME                             READY     STATUS      RESTARTS   AGE
+nationalparks-katacoda-1-build   0/1       Completed   0          7d
+nationalparks-katacoda-1-lmw6v   1/1       Running     0          15s
+parksmap-katacoda-1-2bbt7        1/1       Running     1          7d
+
+hang@JC:~$ oc get pods nationalparks-katacoda-1-lmw6v
+NAME                             READY     STATUS    RESTARTS   AGE
+nationalparks-katacoda-1-lmw6v   1/1       Running   0          1m
+hang@JC:~$ oc get pods -l 'app=nationalparks-katacoda'
+NAME                             READY     STATUS    RESTARTS   AGE
+nationalparks-katacoda-1-lmw6v   1/1       Running   0          2m
+
+```
+
+
+### List label for service `a2-frontend`
+
+
+```
+$ oc describe svc a2-frontend
+Name:              a2-frontend
+Namespace:         assign2
+Labels:            app=a2-frontend
+Annotations:       openshift.io/generated-by=OpenShiftWebConsole
+Selector:          deploymentconfig=a2-frontend
+Type:              ClusterIP
+IP:                172.30.214.253
+Port:              8080-tcp  8080/TCP
+TargetPort:        8080/TCP
+Endpoints:         <none>
+Session Affinity:  None
+Events:            <none>
+```
+
+
+The label of service `a2-frontend` is `app=a2-frontend`.
+
+
+### delete by label `app=a2-frontend`
+
+
+```
+$ oc delete all -l app=a2-frontend
+replicationcontroller "a2-frontend-1" deleted
+replicationcontroller "a2-frontend-2" deleted
+service "a2-frontend" deleted
+deploymentconfig.apps.openshift.io "a2-frontend" deleted
+buildconfig.build.openshift.io "a2-frontend" deleted
+build.build.openshift.io "a2-frontend-1" deleted
+build.build.openshift.io "a2-frontend-2" deleted
+imagestream.image.openshift.io "a2-frontend" deleted
+route.route.openshift.io "a2-frontend" deleted
+```
+
+
+### copy file from pod to local
+
+
+```
+oc cp a2-frontend-1-lvc4l:/opt/app-root/src/out.txt .
+```

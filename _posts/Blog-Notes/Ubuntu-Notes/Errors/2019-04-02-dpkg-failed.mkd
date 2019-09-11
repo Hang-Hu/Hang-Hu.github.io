@@ -1,0 +1,17 @@
+---
+layout: post
+author: Hang Hu
+categories: ubuntu
+tags: Blog Ubuntu 
+cover: 
+---
+## Solution
+
+```
+sudo apt update
+sudo apt upgrade
+sudo apt --fix-broken install
+```
+
+
+Use `dpkg` to install again.
