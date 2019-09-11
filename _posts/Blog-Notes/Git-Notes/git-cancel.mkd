@@ -46,3 +46,25 @@ git push origin branch_name --force
 
 Note that you have to specify branch name or you might inadvertently modify other branches!
 
+### Cancel/Delete files in commit history
+
+For example, sensitive data and large files. The folder or file can be folder or file that has been already deleted in previous commit but still in first few commit history.
+
+If it's folder.
+
+```
+git filter-branch --force --index-filter "git rm --cached --ignore-unmatch -r PATH_TO_FOLDER" --prune-empty -- --all
+```
+
+Or if it's file
+
+```
+git filter-branch --force --index-filter "git rm --cached --ignore-unmatch PATH_TO_FILE" --prune-empty -- --all
+```
+
+Also add it to `.gitignore`, and commit.
+
+```
+git push origin --force --all
+```
+
