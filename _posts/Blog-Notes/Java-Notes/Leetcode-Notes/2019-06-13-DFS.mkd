@@ -256,3 +256,60 @@ Time: O(n)
 
 Space: O(1), if consider Java's stack mechanism, then O(logn)
 
+## 490. The Maze
+
+### Description
+
+[The Maze](https://leetcode.com/problems/the-maze/)
+
+### Final Solution - DFS+Set
+
+1. if cur position same as dest, return true
+2. Go up/right/down/left until hitting the wall, call dfs with new position.
+3. If false in 4 directions, return false
+4. if one of 4 directions is valid, return true
+5. Use `Set` to store all positions the ball stops, avoid repeated stop position, because if the ball stopped in this position before, it has already explored all directions. Explorig repeatedly will cause stack overflow.
+
+```
+class Solution {
+    public boolean hasPath(int[][] maze, int[] start, int[] destination) {
+        return dfs(maze, start, destination, new HashSet<Integer>());
+    }
+    private boolean dfs(int[][] maze, int[] cur, int[] destination, Set<Integer> set){
+        int i = cur[0], j = cur[1];
+        int position = position(i, j, maze[0].length);
+        if(set.contains(position)) return false;
+        set.add(position);
+        if(i==destination[0] && j==destination[1]) return true;
+        // up
+        int upI = i;
+        while(upI>0 && maze[upI-1][j]==0) upI--;
+        if(upI!=i && dfs(maze, new int[]{upI, j}, destination, set)) return true;
+        // right
+        int rightJ = j;
+        while(rightJ<maze[0].length-1 && maze[i][rightJ+1]==0) rightJ++;
+        if(rightJ!=j && dfs(maze, new int[]{i, rightJ}, destination, set)) return true;
+        // down
+        int downI = i;
+        while(downI<maze.length-1 && maze[downI+1][j]==0) downI++;
+        if(downI!=i && dfs(maze, new int[]{downI, j}, destination, set)) return true;
+        // left
+        int leftJ = j;
+        while(leftJ>0 && maze[i][leftJ-1]==0) leftJ--;
+        if(leftJ!=j && dfs(maze, new int[]{i, leftJ}, destination, set)) return true;
+        return false;
+    }
+    private int position(int i, int j, int colLen){
+        return i*colLen+j;
+    }
+}
+```
+
+
+m is maze.length, n is maze[0].length.
+
+
+Time: O(mn). Because of the set check, each position can be stopped once. I have mn slots, so at most stop in every slots, which is mn stops.
+
+
+Space: O(mn)
