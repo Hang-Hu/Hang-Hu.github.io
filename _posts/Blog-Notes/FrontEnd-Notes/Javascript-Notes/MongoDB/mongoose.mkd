@@ -15,7 +15,8 @@ In `./mongodb/database.js`:
 
 ```
 const mongoose = require("mongoose");
-const server = "localhost:27017";
+const URI = process.env.MONGODB_URI || "mongodb://localhost:27017";
+
 const database = "fakenews";
 class Database {
   constructor() {
@@ -24,7 +25,7 @@ class Database {
   }
   _connect() {
     mongoose
-      .connect(`mongodb://${server}/${database}`)
+      .connect(`${URI}/${database}`)
       .then(() => {
         console.log("Successfully connects to MongoDB.");
       })
@@ -40,6 +41,14 @@ class Database {
 
 module.exports = new Database();
 ```
+
+### MONGODB_URL from mlab
+
+Mlab gives link as `mongodb+srv://USERNAME:PASSWORD@***.mongodb.net/test?retryWrites=true&w=majority`.
+
+Be careful that here `test` is database, `?retryWrites=true&w=majority` are options.
+
+Should use `mongodb+srv://USERNAME:PASSWORD@***.mongodb.net/MYDATABASE` for Mongoose.
 
 ### Define Schema and Export it as a Model
 
@@ -158,4 +167,3 @@ db.news.find({ datetime: new Date('2019-04-05') })
 > db.news.find({ datetime: new Date('2019-04-05') }).sort({ favorite_count: -1 }).limit(1)
 { "_id" : ObjectId("5ca961639682296834f40ab9"), "news_id" : "0b3ee576-7b42-4bd3-a9f5-99f9c7390992", "news_keyword" : "Stars", "news_url" : "https://www.laineygossip.com/charlize-theron-and-seth-rogen-present-long-shot-at-cinemacon/52384", "weighted_sentiment_score" : 0.35103604318439097, "datetime" : ISODate("2019-04-05T00:00:00Z"), "__v" : 0 }
 ```
-
