@@ -1,6 +1,0 @@
-## Assign more memory to avoid Java out of heap
-
-
-```
-spark-submit --executor-memory 10G  aomaly.py
-```

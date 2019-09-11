@@ -1,0 +1,16 @@
+---
+layout: post
+author: Hang Hu
+categories: frontend
+tags: Blog FrontEnd 
+cover: 
+---
+## Detail
+
+`news.sort()` won't work, the type of news[i] is Date.
+
+## Solution
+
+```
+news = news.sort((a, b) => new Date(a) - new Date(b))
+```

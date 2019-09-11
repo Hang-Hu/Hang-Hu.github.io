@@ -1,0 +1,15 @@
+---
+layout: post
+author: Hang Hu
+categories: frontend
+tags: Blog FrontEnd 
+cover: 
+---
+## Date
+
+### Use local time zone
+
+```
+let now = new Date();
+now.toLocaleDateString();
+```

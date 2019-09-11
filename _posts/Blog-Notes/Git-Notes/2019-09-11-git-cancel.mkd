@@ -1,0 +1,99 @@
+---
+layout: post
+author: Hang Hu
+categories: git
+tags: Blog Git 
+cover: 
+---
+### Cancel `git stash drop`
+
+Use the first 7 characters to create a new branch `tmp` and apply it to current branch.
+
+```
+git stash drop
+Dropped refs/stash@{0} (2ca03e22256be97f9e40f08e6d6773c7d41dbfd1)
+```
+
+
+```
+git branch tmp 2ca03e2
+git stash apply tmp
+```
+
+
+### Cancel `git add .`
+
+
+```
+git reset
+```
+
+
+This will unstage all files added after last commit.
+
+
+### Discard unstaged changes
+
+
+```
+git stash save --keep-index
+
+git stash drop
+```
+
+
+### Cancel local and remote commit
+
+
+#### First cancel local commit
+
+
+```
+git reset HEAD~1
+git add .
+git commit -m 'commit message'
+```
+
+
+#### Then cancel remote commit by force push
+
+
+```
+git push origin branch_name --force
+```
+
+
+Note that you have to specify branch name or you might inadvertently modify other branches!
+
+
+### Cancel/Delete files in commit history
+
+
+For example, sensitive data and large files. The folder or file can be folder or file that has been already deleted in previous commit but still in first few commit history.
+
+
+If it's folder.
+
+
+```
+git filter-branch --force --index-filter "git rm --cached --ignore-unmatch -r PATH_TO_FOLDER" --prune-empty -- --all
+```
+
+
+Or if it's file
+
+
+```
+git filter-branch --force --index-filter "git rm --cached --ignore-unmatch PATH_TO_FILE" --prune-empty -- --all
+```
+
+
+Also add it to `.gitignore`, and commit.
+
+
+```
+git push origin --force --all
+```
+
+
+[Reference in Github](https://help.github.com/en/articles/removing-sensitive-data-from-a-repository)

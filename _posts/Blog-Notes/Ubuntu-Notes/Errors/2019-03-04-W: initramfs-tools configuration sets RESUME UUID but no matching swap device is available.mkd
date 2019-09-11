@@ -1,0 +1,53 @@
+---
+layout: post
+author: Hang Hu
+categories: ubuntu
+tags: Blog Ubuntu 
+cover: 
+---
+Processing triggers for initramfs-tools (0.130ubuntu3.7) ...
+update-initramfs: Generating /boot/initrd.img-4.15.0-45-generic
+W: initramfs-tools configuration sets RESUME=UUID=8912f31a-6ca4-4904-8093-1ad6d97388fd
+W: but no matching swap device is available.
+I: The initramfs will attempt to resume from /dev/sda8
+I: (UUID=5e8f4061-57e6-4f81-9555-ce7cdf6a7e92)
+I: Set the RESUME variable to override this.
+```
+
+
+Check `/dev/sda8`.
+
+
+```
+sudo fdisk -l
+```
+
+
+```
+Device         Start        End    Sectors   Size Type
+/dev/sda8  232079360  299188223   67108864    32G Linux swap
+```
+
+
+`/dev/sda8` is swap.
+
+
+Check its uuid.
+
+
+```
+ll /dev/disk/by-uuid
+```
+
+
+```
+lrwxrwxrwx 1 root root  10 Mar  4 20:36 5e8f4061-57e6-4f81-9555-ce7cdf6a7e92 -> ../../sda8
+```
+
+
+```
+sudo vim /etc/initramfs-tools/conf.d/resume
+```
+
+
+Replace `8912f31a-6ca4-4904-8093-1ad6d97388fd` with `5e8f4061-57e6-4f81-9555-ce7cdf6a7e92`.

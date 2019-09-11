@@ -1,0 +1,53 @@
+---
+layout: post
+author: Hang Hu
+categories: command
+tags: Blog Ubuntu Command 
+cover: 
+---
+```
+pip3 install awscli --upgrade --user
+
+python3 -m awscli
+
+hang@JC:~$ python3 -m awscli configure
+AWS Access Key ID [None]: AKIAIROPN46KUFMAHTIQ
+AWS Secret Access Key [None]: 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
+Default region name [None]: us-east-2
+Default output format [None]: json
+hang@JC:~$ python3 -m awscli s3 mb s3://bigdata2-a7
+make_bucket: bigdata2-a7
+hang@JC:~$ python3 -m awscli s3 ls
+2019-03-01 20:37:17 bigdata2-a7
+
+
+ubuntu@ip-172-31-18-160:~/anaconda3/bin$ ./pip install awscli
+ubuntu@ip-172-31-18-160:~/anaconda3/bin$ aws configure
+AWS Access Key ID [None]: AKIAIROPN46KUFMAHTIQ
+AWS Secret Access Key [None]: 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
+Default region name [None]: us-east-2
+Default output format [None]: json
+```
+
+
+### create bucket with cli
+
+
+```
+python3 -m awscli s3 mb s3://bigdata2-a7
+```
+
+
+```
+python3 -m awscli s3 ls
+```
+
+
+## Reference
+
+
+[https://docs.aws.amazon.com/cli/latest/userguide/cli-services-s3-commands.html](cli-services-s3-commands)
+
+
+
+[install-linux-al2017](https://docs.aws.amazon.com/cli/latest/userguide/install-linux-al2017.html)

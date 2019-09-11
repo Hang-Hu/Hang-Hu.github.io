@@ -1,0 +1,25 @@
+---
+layout: post
+author: Hang Hu
+categories: nodejs
+tags: Blog FrontEnd NodeJs 
+cover: 
+---
+## Set environment in command
+
+
+```
+NODE_ENV=development nodemon ./bin/www
+```
+
+
+## Use dotenv
+
+
+```
+touch .env
+npm install dotenv --save-dev
+```
+
+
+Add `.env` to `.gitignore`.

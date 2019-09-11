@@ -1,0 +1,16 @@
+---
+layout: post
+author: Hang Hu
+categories: python
+tags: Blog Python 
+cover: 
+---
+hang@JC:bin$ which pip3
+/usr/local/bin/pip3
+
+hang@JC:bin$ sudo vim /usr/local/bin/pip3
+```
+
+
+Change `pip._internal import main` into `from pip import main`.
+

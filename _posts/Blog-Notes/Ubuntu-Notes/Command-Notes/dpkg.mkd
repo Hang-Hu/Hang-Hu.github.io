@@ -1,5 +1,0 @@
-## When dpkg failed becuase a package is not installed
-
-```
-sudo apt --fix-broken install
-```

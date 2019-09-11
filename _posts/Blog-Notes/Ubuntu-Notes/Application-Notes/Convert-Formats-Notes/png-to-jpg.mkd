@@ -1,5 +1,0 @@
-## Example
-
-```
-convert liveness.png liveness.jpg
-```

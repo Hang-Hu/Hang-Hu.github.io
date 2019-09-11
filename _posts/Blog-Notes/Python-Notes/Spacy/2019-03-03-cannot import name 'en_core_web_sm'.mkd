@@ -1,0 +1,23 @@
+---
+layout: post
+author: Hang Hu
+categories: python
+tags: Blog Python 
+cover: 
+---
+## Details
+
+```
+import en_core_web_sm
+```
+
+
+I got `No module named 'en_core_web_sm`.
+
+
+## Solution
+
+
+```
+python3.6 -m spacy download en
+```

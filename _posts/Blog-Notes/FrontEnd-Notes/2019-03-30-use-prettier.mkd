@@ -1,0 +1,65 @@
+---
+layout: post
+author: Hang Hu
+categories: frontend
+tags: Blog FrontEnd 
+cover: 
+---
+## config
+
+`.prettierrc.json`:
+
+### For React
+
+I have to disable Beautify Plugin in VSCode otherwise ctrl+c will break the HTML tag in formatting.
+
+```
+{
+  "arrowParens": "avoid",
+  "htmlWhitespaceSensitivity": "css",
+  "insertPragma": false,
+  "jsxBracketSameLine": false,
+  "jsxSingleQuote": false,
+  "parser": "babylon",
+  "proseWrap": "preserve",
+  "requirePragma": false,
+  "useTabs": false,
+  "trailingComma": "none",
+  "tabWidth": 2,
+  "semi": true,
+  "singleQuote": false,
+  "bracketSpacing": true,
+  "printWidth": 80
+}
+
+```
+
+
+### For Other Code
+
+
+```
+{
+    "trailingComma": "none",
+    "tabWidth": 4,
+    "semi": true,
+    "singleQuote": false,
+    "bracketSpacing": true,
+    "printWidth": 80
+}
+```
+
+
+## Use
+
+
+```
+prettier --write src/1point3acresCheckin.ts
+```
+
+
+## format on save (vscode)
+
+
+Ctrl+Shift+P to open command pallete, choose `Preferences: Open Settings(JSON)`, add `"editor.formatOnSave": true` to user settings.
+

@@ -1,0 +1,30 @@
+---
+layout: post
+author: Hang Hu
+categories: python
+tags: Blog Python 
+cover: 
+---
+### Cross validation
+
+```
+from pyspark.ml.tuning import CrossValidator, ParamGridBuilder
+
+paramGrid = ParamGridBuilder() \
+    .addGrid(hashingTF.numFeatures, [1000, 5000, 10000]) \
+    .addGrid(lr.regParam, [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]) \
+    .build()
+crossval = CrossValidator(estimator=pipeline,
+                          estimatorParamMaps=paramGrid,
+                          evaluator=BinaryClassificationEvaluator(),
+                          numFolds=2)  # use 3+ folds in practice
+
+cvModel = crossval.fit(trainDF)
+
+# Evaluate the model on testing data
+
+testDF = spark.read.parquet("20news_test.parquet")
+prediction = cvModel.transform(testDF)
+evaluator = BinaryClassificationEvaluator()
+print(evaluator.evaluate(prediction))
+```

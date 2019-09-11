@@ -1,9 +1,0 @@
-## pip install with `setup.py` failed
-
-Use pip to install specific version one by one.
-
-Search dependency in `https://pypi.org/project/`, in release history find the specific version and click into, then click download files, find the link of `tar.gz` and copy link address.
-
-```
-pip install -Iv LINK_ADDRESS
-```

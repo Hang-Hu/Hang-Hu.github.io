@@ -1,0 +1,305 @@
+---
+layout: post
+author: Hang Hu
+categories: leetcode
+tags: Blog Java Leetcode 
+cover: 
+---
+## 31. Next Permutation
+
+### Description
+
+```
+Implement next permutation, which rearranges numbers into the lexicographically next greater permutation of numbers.
+
+If such arrangement is not possible, it must rearrange it as the lowest possible order (ie, sorted in ascending order).
+
+The replacement must be in-place and use only constant extra memory.
+
+Here are some examples. Inputs are in the left-hand column and its corresponding outputs are in the right-hand column.
+
+1,2,3 → 1,3,2
+3,2,1 → 1,2,3
+1,1,5 → 1,5,1
+
+```
+
+
+### Solution - single pass and swap
+
+
+
+1. find the last consecutive increasing pair (i, i+1), if cannot find this means the whole array is descending, just reverse it.
+
+2. If the pair is last two elements, simply swap them
+
+3. Otherwise the structue will definitely be i+1
+
+                                              /\
+
+                                             i ...
+
+                                                 \
+
+
+(Since i to i+1 is increasing, and they are the last increasing pair, so everything after it is decreasing)
+
+
+Then I have to find the last element larger than nums[i], which should be the new number as start, and swap it with i, then sort everything after i to be ascending.
+
+
+
+```
+class Solution {
+    public void nextPermutation(int[] nums) {
+        // find the last consecutive increasing pair
+        for(int i=nums.length-2; i>=0; i--){
+            if(nums[i]<nums[i+1]){
+                if(i+1==nums.length-1){
+                    swap(nums, i, i+1); // simply swap the pair                
+                }else{
+                    // find the last element bigger than nums[i]
+                    int j = -1;
+                    for(j = nums.length-1; j>i; j--){
+                        if(nums[j]>nums[i]) break;
+                    }
+                    swap(nums, i, j);
+                    Arrays.sort(nums, i+1, nums.length);
+                }
+                return;
+            }
+        }
+        // cannot find, all decreasing or keeping same, reverse the array by swap
+        for(int i=0; i<nums.length/2; i++){
+            swap(nums, i, nums.length-1-i);
+        }
+    }
+    private void swap(int[] nums, int i, int j){
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
+    }
+}
+```
+
+
+## 46. Permutations
+
+
+### Description
+
+
+```
+Given a collection of distinct integers, return all possible permutations.
+
+Example:
+
+Input: [1,2,3]
+Output:
+[
+  [1,2,3],
+  [1,3,2],
+  [2,1,3],
+  [2,3,1],
+  [3,1,2],
+  [3,2,1]
+]
+```
+
+
+
+### Solution
+
+
+Be careful to remove where it was added, also be careful to add to ith index where it was removed.
+
+
+Use recursion, use possible integers and l as param. Try all integers, remove used one(ith), append it to l, call permute() recusively. After permute(), remove it from l(last one), and add back to integers(ith index).
+
+
+```
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> ans = new ArrayList<>();
+        List<Integer> l = new ArrayList<>();
+        List<Integer> integers = new ArrayList<>();
+        for(int n: nums) integers.add(n);
+        permute(integers, 0, nums.length, ans, l);
+        return ans;
+    }
+    private void permute(List<Integer> integers, int cur, int len, List<List<Integer>> ans, List<Integer> l){
+        if(cur>=len){
+            ans.add(new ArrayList<Integer>(l));
+            return;
+        }
+        for(int i=0; i<integers.size(); i++){
+            Integer n = integers.get(i);
+            l.add(n); // add to the end
+            integers.remove(i); // remove ith index
+            permute(integers, cur+1, len, ans, l);
+            l.remove(l.size()-1); // remove from the end
+            integers.add(i, n); // add to ith index
+        }
+    }
+}
+```
+
+
+Time: O(n!)
+
+Space: O(n*n!) = O(n!)
+
+
+## 47. Permutations II
+
+
+### Description
+
+
+```
+Given a collection of numbers that might contain duplicates, return all possible unique permutations.
+
+Example:
+
+Input: [1,1,2]
+Output:
+[
+  [1,1,2],
+  [1,2,1],
+  [2,1,1]
+]
+```
+
+
+### Final Solution - Backtracking+Recursion
+
+
+Use Map to store (number, occurrences). Try all possible keys, add to path list, decrease in map, call permuteUnique() recursively, then remove it from path(last one), increase in map.
+
+
+```
+class Solution {
+    public List<List<Integer>> permuteUnique(int[] nums) {
+        List<List<Integer>> ans = new ArrayList<>();
+        Map<Integer, Integer> map = new HashMap<>(); // (number, occurrences)
+        initMap(map, nums);
+        permuteUnique(nums, map, 0, nums.length, ans, new ArrayList<>());
+        return ans;
+    }
+    private void permuteUnique(int[] nums, Map<Integer, Integer> map, int cur, int len, List<List<Integer>> ans, List<Integer> path){
+        if(cur>=len){
+            ans.add(new ArrayList<>(path));
+            return;
+        }
+        for(Map.Entry<Integer, Integer> e: map.entrySet()){
+            if(e.getValue()==0) continue;
+            Integer k = e.getKey();
+            path.add(k);
+            map.put(k, map.get(k)-1);
+            permuteUnique(nums, map, cur+1, len, ans, path);
+            path.remove(path.size()-1);
+            map.put(k, map.get(k)+1);
+        }
+    }
+    private void initMap(Map<Integer, Integer> map, int[] nums){
+        for(int n: nums){
+            map.put(n, 1+map.getOrDefault(n, 0));
+        }
+    }
+}
+```
+
+
+Time: O(n!)
+
+Space: O(n*n!) = O(n!)
+
+
+
+## 60. Permutation Sequence
+
+
+### Description
+
+
+```
+The set [1,2,3,...,n] contains a total of n! unique permutations.
+
+By listing and labeling all of the permutations in order, we get the following sequence for n = 3:
+
+"123"
+"132"
+"213"
+"231"
+"312"
+"321"
+Given n and k, return the kth permutation sequence.
+
+Note:
+
+Given n will be between 1 and 9 inclusive.
+Given k will be between 1 and n! inclusive.
+Example 1:
+
+Input: n = 3, k = 3
+Output: "213"
+Example 2:
+
+Input: n = 4, k = 9
+Output: "2314"
+```
+
+
+### Final Solution
+
+
+Recursion. `(n-1)!` is the number of possibilities of substring excluding the first char. Therefore I can use k to know how many possibilities it has skipped and the current index it falls into.
+
+
+For example, n=3, if first char is `1`, there are two possibilities((3-1)!=2), since k=3, it falls into next first char, which is `2`.
+
+
+The index of first char is `(k-1)/(n-1)!`, use `boolean[]` path to get the ith number from remaining numbers. call `getPermutation()` recursively with `n-1` and k-skipped possibilities(`k-index*(n-1)!`).
+
+
+
+```
+class Solution {
+    public String getPermutation(int n, int k) {
+        StringBuilder sb = new StringBuilder();
+        boolean[] path = new boolean[n+1]; // 0 is left empty, 1...n are used to mark if used or not
+        getPermutation(sb, n, k, path);
+        return sb.toString();
+    }
+    // every recursion calculate out one char
+    private void getPermutation(StringBuilder sb, int n, int k, boolean[] path){
+        if(n<=0) return;
+        int count = factorial(n-1);
+        int index = (k-1)/count;
+        sb.append(getNum(path, index));
+        getPermutation(sb, n-1, k-index*count, path);
+    }   
+    // get the ith number which hasn't been used
+    private int getNum(boolean[] path, int index){
+        for(int i=1; i<path.length; i++){
+            if(path[i]==true){ // already used
+                continue;
+            }else{ // not used before
+                if(index>0){
+                    index--;
+                }else{ // index is 0
+                    path[i] = true;
+                    return i;
+                }
+            }
+        }
+        return -1;
+    }
+    // n!
+    private int factorial(int n){
+        int c = 1;
+        for(int i=n; i>=1; i--) c *= i;
+        return c;
+    }
+}
+```

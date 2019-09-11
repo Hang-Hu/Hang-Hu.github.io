@@ -1,0 +1,22 @@
+---
+layout: post
+author: Hang Hu
+categories: python
+tags: Blog Python 
+cover: 
+---
+## Details
+
+After `pip3 install --user --upgrade pip`, I got this error.
+
+## Solution
+
+```
+hang@JC:bin$ which pip3
+/usr/local/bin/pip3
+
+hang@JC:bin$ sudo vim /usr/local/bin/pip3
+```
+
+
+Change `from pip import main` to `from pip._internal import main`.

@@ -1,0 +1,20 @@
+---
+layout: post
+author: Hang Hu
+categories: application
+tags: Blog Ubuntu Application 
+cover: 
+---
+### Config location
+
+```
+vim ~/.config/albert/albert.conf
+```
+
+
+### Open setting dialog
+
+
+```
+albert show
+```
