@@ -1,0 +1,51 @@
+## Use request
+
+```
+const request=require('request');
+const fs=require('fs');
+
+let proxiedRequest= request.defaults({
+    'proxy': 'https://USERNAME:'+KEY+'@'+proxyUrl,
+    'rejectUnauthorized':false
+});
+let body=JSON.parse(fs.readFileSync('searchES.json', 'utf8'));
+let esOptions = {
+    method: 'post',
+    body: body,
+    json: true,
+    url: 'http://USERNAME:PASSWORD@URL/_search'
+}
+proxiedRequest(esOptions, function(err, response, body){
+    if(err){
+        throw err;
+    }
+    // work on body
+});
+```
+
+## Use elasticsearch.js
+
+```
+let esURL = 'http://USERNAME:PASSWORD@URL:PORT';
+let nodeAgent = new proxy('https://USERNAME:' + KEY + '@' + proxyUrl);
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+let esClient = new es.Client({
+    host: esURL,
+    log: 'trace',
+    requestTimeout: 500000,
+    createNodeAgent: () => nodeAgent
+});
+esClient.search({
+    body: JSON.parse(fs.readFileSync('searchES.json', 'utf8'))
+}, function(err, res) {
+    if (err) {
+        throw err;
+    }
+    // work on res
+    callback && callback(VAR_TO_RETURN);
+});
+```
+
+## References
+
+[How should I pass json data in the request payload of http post request](https://stackoverflow.com/questions/16188137/how-should-i-pass-json-data-in-the-request-payload-of-http-post-request)
