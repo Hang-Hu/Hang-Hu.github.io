@@ -13,3 +13,12 @@ convert img{0..19}.jpg merged.pdf
 ```
 convert $(ls *.jpg) merged.pdf
 ```
+
+### keep pdf pages the same size and fill with white background
+
+```
+i=150; convert $(ls *.jpg) -compress jpeg -quality 70 \
+      -density ${i}x${i} -units PixelsPerInch \
+      -resize $((i*827/100))x$((i*1169/100)) \
+      -repage $((i*827/100))x$((i*1169/100)) multipage.pdf
+```
