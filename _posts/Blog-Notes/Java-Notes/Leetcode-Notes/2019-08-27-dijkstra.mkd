@@ -682,3 +682,126 @@ dijkstra is actally similar to BFS. The same part is that they both have a queue
 
 
 The difference is BFS has a LinkedList as Queue, while dijkstra uses min heap as Queue. The polled node in BFS is first in first out, while for dijkstra it always polls the node with minimum dis. And BFS will add all neighbors into Queue, while dijkstra only add neighbors not in set into Queue.
+
+## 499. The Maze III
+
+### Final Solution - Dijkstra + minDisHeap
+
+The solution is similar to Maze II.
+
+Run dijkstra with minDisHeap, and get `resList` with minimum distance, then sort the list and return the first String.
+
+I need direction and parent inside class Node to trace back easily.
+
+I have 4 directions as 4 neighbors to go, the difference is that I need to check if the move from current node to neighbor will go through the hole or not, if yes I have to use position of hole as neighbor to add into minDisHeap because the ball will drop inside and won't continue.
+
+Another change is I need to add node 1 dimensional position to set only when it's not hole, because this time I need multiple path toward target all with minimum distance.
+
+When node is hole, compare with global minDis,
+- if node.dis<=minDis, traceback and add to reList, and update minDis with node.dis
+- Otherwise stop dijkstra as the distance is not minimum anymore.
+
+```
+class Solution {
+    private int minDis = Integer.MAX_VALUE;
+    public String findShortestWay(int[][] maze, int[] ball, int[] hole) {
+        List<String> resList = new ArrayList<>();
+        dijkstra(maze, ball, hole, resList);
+        if(resList.size()==0) return "impossible";
+        Collections.sort(resList);
+        return resList.get(0);
+    }
+    private void dijkstra(int[][] maze, int[] ball, int[] hole, List<String> resList){
+        Queue<Node> minDisHeap = new PriorityQueue<Node>(new Comparator<Node>(){
+            @Override
+            public int compare(Node n1, Node n2){
+                return n1.dis-n2.dis;
+            }
+        });
+        Set<Integer> s = new HashSet<>();
+        minDisHeap.add(new Node(ball[0], ball[1], 0, null, 'x'));
+        while(minDisHeap.isEmpty()==false){
+            Node node = minDisHeap.poll();
+            if(node.x==hole[0] && node.y==hole[1]){
+                if(node.dis<=minDis){
+                    resList.add(traceback(node));
+                    minDis = node.dis;
+                }else{
+                    return;
+                }
+            }else{
+                s.add(position1D(node.x, node.y, maze[0].length));
+            }
+            // update neighbors
+            int xUp = node.x;
+            while(xUp-1>=0 && maze[xUp-1][node.y]==0) xUp--;
+            if(xUp!=node.x) updateNeighbor(s, xUp, node.y, node.dis+node.x-xUp, node, minDisHeap, maze[0].length, 'u', hole);
+            
+            int xDown = node.x;
+            while(xDown+1<maze.length && maze[xDown+1][node.y]==0) xDown++;
+            if(xDown!=node.x) updateNeighbor(s, xDown, node.y, node.dis+xDown-node.x, node, minDisHeap, maze[0].length, 'd', hole);
+            
+            int yLeft = node.y;
+            while(yLeft-1>=0 && maze[node.x][yLeft-1]==0) yLeft--;
+            if(yLeft!=node.y) updateNeighbor(s, node.x, yLeft, node.dis+node.y-yLeft, node, minDisHeap, maze[0].length, 'l', hole);
+            
+            int yRight = node.y;
+            while(yRight+1<maze[0].length && maze[node.x][yRight+1]==0) yRight++;
+            if(yRight!=node.y) updateNeighbor(s, node.x, yRight, node.dis+yRight-node.y, node, minDisHeap, maze[0].length, 'r', hole);
+                        
+        }
+    }
+    private String traceback(Node node){
+        StringBuilder sb = new StringBuilder();
+        while(node.parent!=null){
+            sb.append(node.direction);
+            node = node.parent;
+        }
+        return sb.reverse().toString();
+    }
+    private boolean crossHole(Node node, int[] hole){
+        Node parent = node.parent;
+        switch(node.direction){
+            case 'u':
+                return node.y==hole[1] && hole[0]>=node.x && hole[0]<parent.x;
+            case 'd':
+                return node.y==hole[1] && hole[0]>parent.x && hole[0]<=node.x;
+            case 'l':
+                return node.x==hole[0] && hole[1]>=node.y && hole[1]<parent.y;
+            case 'r':
+                return node.x==hole[0] && hole[1]>parent.y && hole[1]<=node.y;
+        }
+        return false;
+    }
+    private void updateNeighbor(Set<Integer> s, int x, int y, int dis, Node parent, Queue<Node> minDisHeap, int colLen, char direction, int[] hole){
+        Node node = new Node(x, y, dis, parent, direction);
+        if(crossHole(node, hole)){
+            node = new Node(hole[0], hole[1], dis-Math.abs(hole[0]-node.x+hole[1]-node.y), parent, direction);
+        }
+        if(s.contains(position1D(node.x, node.y, colLen))==false) minDisHeap.add(node);   
+    }
+    private int position1D(int x, int y, int colLen){
+        return x*colLen+y;
+    }
+}
+class Node{
+    int x;
+    int y;
+    int dis;
+    Node parent;
+    char direction;
+    public Node(int x, int y, int dis, Node parent, char direction){
+        this.x = x;
+        this.y = y;
+        this.dis = dis;
+        this.parent = parent;
+        this.direction = direction;
+    }
+}
+```
+
+m is maze.length, n is maze[0].length
+
+Time: O(m*n*log(m*n))
+
+Space: m*n
