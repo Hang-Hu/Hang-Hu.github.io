@@ -553,7 +553,35 @@ Time: O(nlog(n))
 
 Space: O(n)
 
-### Final Solution
+### Final Solution - kthSmallest(Divide and Conquer)
+
+As order of ans is not required, I can first find the kth smallest distance, and then walk through the array to add those <= kthSmallestDis.
+
+To get kth smallest distance, sorting will cost O(nlogn) time since it even sort the other part that is not useful to get kthSmallest. So actually using divide and conquer to get kthSmallest() first will only cost O(n).
+
+start is inclusive and end is exclusive
+kthSmallest(k, start, end):
+
+1. Select last element as pivot, walk through the array to do pivoting
+
+```
+<pivot | pivot | >=pivot
+L                   R
+```
+
+2.
+
+- if k<=|L|, call `kthSmallest(k, start, start+|L|)`
+- if k==|L|+1, return pivot
+- if k>|L|+1, call `kthSmallest(k-|L|-1, start+|L|+1, end)`
+
+For example,
+
+```
+123 | 4 | 56
+L         R
+```
+
 
 ```
 class Solution {
@@ -562,11 +590,11 @@ class Solution {
         for(int i=0; i<disArr.length; i++){
             disArr[i] = distance(points[i][0], points[i][1]);
         }
-        int disOfKthPoint = kthSmallest(disArr, K, 0, disArr.length);
+        int kthDis = kthSmallest(disArr, K, 0, disArr.length);
         int ans[][] = new int[K][2];
         int x = 0;
         for(int i=0; i<points.length && x<K; i++){
-            if(distance(points[i][0], points[i][1])<=disOfKthPoint){
+            if(distance(points[i][0], points[i][1])<=kthDis){
                 ans[x] = points[i];
                 x++;
             }
@@ -574,7 +602,7 @@ class Solution {
         return ans;
     }
     // start is inclusive, end is exclusive
-    private int kthSmallest(int arr, int k, int start, int end){
+    private int kthSmallest(int[] arr, int k, int start, int end){
         int pivot = arr[end-1];
         int i = start;
         for(int j=start; j<end-1; j++){
@@ -583,19 +611,25 @@ class Solution {
                 i++;
             }
         }
-        swap(i, end-1);
+        swap(arr, i, end-1);
         int lenOfLeft = i-start;
         if(k<=lenOfLeft){
-            return kthSmallest();
+            return kthSmallest(arr, k, start, start+lenOfLeft);
         }else if(k==lenOfLeft+1){
             return pivot;
         }else{ // k>lenOfLeft+1
-            return kthSmallest();
+            return kthSmallest(arr, k-lenOfLeft-1, start+lenOfLeft+1, end);
         }
     }
     private int distance(int x, int y){
         return x*x+y*y;
     }
+    private void swap(int[] arr, int i, int j){
+        int tmp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = tmp;
+    }
 }
-
 ```
+
+
