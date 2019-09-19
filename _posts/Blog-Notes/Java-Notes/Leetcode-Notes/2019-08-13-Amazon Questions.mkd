@@ -633,3 +633,50 @@ class Solution {
 ```
 
 
+
+##
+
+```
+// todo the poll have to remove certain key not the key in front of q, use List interface
+class LRUCache {
+    private Queue<Integer> q; // queue of keys
+    private Map<Integer, Integer> map; // (key, value)
+    private int capacity;
+    public LRUCache(int capacity) {
+        this.q = new LinkedList<>();
+        this.capacity = capacity;
+        this.map = new HashMap<>();
+    }
+    
+    public int get(int key) {
+        if(!map.containsKey(key)) return -1;
+        q.poll();
+        q.add(key);
+        return map.get(key);
+    }
+    
+    public void put(int key, int value) {
+        if(map.containsKey(key)){
+            map.put(key, value);
+            q.poll();
+            q.add(key);
+        }else{
+            if(q.size()>=capacity){
+                int popedKey = q.poll();   
+                map.remove(popedKey);
+            }
+            q.add(key);
+            map.put(key, value);    
+        }
+        
+        
+    }
+}
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache obj = new LRUCache(capacity);
+ * int param_1 = obj.get(key);
+ * obj.put(key,value);
+ */
+```
