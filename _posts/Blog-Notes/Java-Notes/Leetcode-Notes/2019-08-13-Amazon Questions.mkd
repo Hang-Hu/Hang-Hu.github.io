@@ -682,7 +682,7 @@ class LRUCache {
     
     public int get(int key) {
         if(!map.containsKey(key)) return -1;
-        l.remove(l.indexOf(key));
+        l.remove(new Integer(key));
         l.add(key);
         return map.get(key);
     }
@@ -690,7 +690,7 @@ class LRUCache {
     public void put(int key, int value) {
         if(map.containsKey(key)){
             map.put(key, value);
-            l.remove(l.indexOf(key));
+            l.remove(new Integer(key));
             l.add(key);
         }else{
             if(l.size()>=capacity){
@@ -713,3 +713,12 @@ class LRUCache {
  * obj.put(key,value);
  */
 ```
+
+n is number of elements in LRU cache.
+
+get time: O(n)
+
+put time: O(n)
+
+Because `l.remove(new Integer(key))` will take O(n) time.
+
