@@ -1,0 +1,123 @@
+## 642. Design Search Autocomplete System
+
+### Description
+
+https://leetcode.com/problems/design-search-autocomplete-system/
+
+### Final Solution
+
+```
+class AutocompleteSystem {
+    private Trie trie;
+    public AutocompleteSystem(String[] sentences, int[] times) {
+        trie = new Trie();
+        for(int i=0; i<sentences.length; i++){
+            trie.insert(sentences[i], times[i]);
+        }
+    }
+    
+    public List<String> input(char c) {
+        if(c=='#'){
+            trie.saveSearchAsHistory();
+            return new ArrayList<String>();
+        }
+        List<Pair> l = trie.search(c);
+        Collections.sort(l, new Comparator<Pair>(){
+           @Override
+            public int compare(Pair p1, Pair p2){
+                if(p2.frequency != p1.frequency) return p2.frequency - p1.frequency;
+                return p1.s.compareTo(p2.s);
+            }
+        });
+        List<String> ans = new ArrayList<>();
+        for(int i=0; i<3 && i<l.size(); i++){
+            ans.add(l.get(i).s);
+        }
+        return ans;
+    }
+}
+
+/**
+ * Your AutocompleteSystem object will be instantiated and called as such:
+ * AutocompleteSystem obj = new AutocompleteSystem(sentences, times);
+ * List<String> param_1 = obj.input(c);
+ */
+class Node{
+    Map<Character, Node> children;
+    boolean endOfWord;
+    int frequency;
+    public Node(){
+        children = new HashMap<>();
+        endOfWord = false;
+    }
+}
+class Trie{
+    private Node root;
+    private Node searchCur;
+    private StringBuilder searchStr;
+    private boolean canFind;
+    public Trie(){
+        root = new Node();
+        searchCur = root;
+        searchStr = new StringBuilder();
+        canFind = true;
+    }
+    public void saveSearchAsHistory(){
+        searchCur.endOfWord = true;
+        searchCur.frequency += 1;
+        searchCur = root;
+        searchStr = new StringBuilder();
+        canFind = true;
+    }
+    public void insert(String s, int frequency){
+        Node cur = root;
+        for(int i=0; i<s.length(); i++){
+            char c = s.charAt(i);
+            if(cur.children.get(c)==null){
+                cur.children.put(c, new Node());
+            }
+            cur = cur.children.get(c);
+        }
+        cur.endOfWord = true;
+        cur.frequency = frequency;
+    }
+    public List<Pair> search(char c){
+        searchStr.append(c);
+        if(canFind==false){
+            insert(c);
+            return new ArrayList<Pair>();
+        }
+        if(searchCur.children.get(c)==null){
+            canFind = false;
+            insert(c);
+            return new ArrayList<Pair>();
+        }else{
+            searchCur = searchCur.children.get(c);
+            return getWords(searchCur, new StringBuilder(searchStr));
+        }
+    }
+    private void insert(char c){
+        searchCur.children.put(c, new Node());
+        searchCur = searchCur.children.get(c);
+    }
+    private List<Pair> getWords(Node node, StringBuilder path){
+        List<Pair> ans = new ArrayList<>();
+        // endOfWord is not the end, there maybe ab and abcd both exist
+        if(node.endOfWord==true) ans.add(new Pair(path.toString(), node.frequency));
+        for(Map.Entry<Character, Node> e: node.children.entrySet()){
+            path.append(e.getKey());
+            ans.addAll(getWords(e.getValue(), path));
+            path.deleteCharAt(path.length()-1);
+        }
+        return ans;
+    }
+}
+class Pair{
+    String s;
+    int frequency;
+    public Pair(String s, int frequency){
+        this.s = s;
+        this.frequency = frequency;
+    }
+}
+```
