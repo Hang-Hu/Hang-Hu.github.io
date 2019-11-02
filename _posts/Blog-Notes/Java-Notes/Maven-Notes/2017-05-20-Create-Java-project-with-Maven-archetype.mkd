@@ -6,7 +6,7 @@ tags: Java Maven
 cover: 
 ---
 
-## Create project:
+## Create standard project:
 
 ```
 mvn archetype:generate
@@ -40,7 +40,7 @@ package: com.huhang.process
 
 ```
 cd ProcessMKD/
-idea pom.xml 
+idea ./ 
 ```
 
 
