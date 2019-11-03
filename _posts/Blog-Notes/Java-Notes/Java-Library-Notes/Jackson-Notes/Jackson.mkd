@@ -1,0 +1,55 @@
+### JsonParseException
+
+1. Quote around key and value must be double quotes not single quotes
+2. No tralling comma
+
+Like below, the comma after 22 is trailing comma.
+
+```
+{
+    "Name": "John",
+    "Age": "22",
+}
+```
+
+### Traverse key/value in JsonNode
+
+```
+for(Iterator<Map.Entry<String, JsonNode>> i = rootJsonNode.fields(); i.hasNext(); ){
+            Map.Entry<String, JsonNode> entry = i.next();
+}
+```
+
+### Decide if a JsonNode is JSON or value
+
+The value of `Name` is a value, but value of `Config` is still a json.
+
+```
+{
+    "Name": "Prod",
+    "Config": {
+        "Version": "1.0.0",
+        "URL": "www.****.com"
+    }
+}
+```
+
+```
+entry.getValue().isValueNode()
+```
+
+### Update value in JsonNode
+
+JsonNode is immutable, have to convert it into ObjectNode first. And update the objectNode will influence the jsonNode which converts to automatically.
+
+```
+ObjectNode objectNode = (ObjectNode)jsonNode;
+objectNode.put(key, newValueJsonNode);
+```
+
+
+### Pretty print JsonNode tree
+
+```
+String output = new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(rootJsonNode);
+```

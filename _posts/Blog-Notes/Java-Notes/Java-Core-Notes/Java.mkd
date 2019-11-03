@@ -1,0 +1,81 @@
+## Basic
+
+### Constant
+
+```
+public static final int RED = 3;
+```
+
+## File
+
+### Read file into String
+
+I use `getResource` because file is in `src/main/resources`.
+
+```
+private Path getPath(String resourceName) throws URISyntaxException {
+    URI uri = Thread.currentThread().getContextClassLoader().getResource(resourceName).toURI();
+    return Paths.get(uri);
+}
+String str = null;
+try {
+    str = new String(Files.readAllBytes(getPath(filename)));
+} catch (IOException | URISyntaxException e) {
+    System.out.println("Cannot open file "+ filename);
+}
+```
+
+### Write String to File
+
+```
+try {
+    BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME));
+    writer.write(str);
+    writer.close();
+} catch (IOException e) {
+    System.out.println("Failed to write to file "+FILENAME);
+    e.printStackTrace();
+}
+```
+
+## JSON
+
+### Parse JSON with duplicate key
+
+Actually using `eval("var obj=" + str)` in NodeJS is easier because Javascript have less strict rule for JavaScript Object.
+
+```
+JsonNode rootJsonNode = new ObjectMapper().readTree(str);
+```
+
+## Regex
+
+### Remove trailing comma in json
+
+Like below, the comma after 22 is trailing comma.
+
+```
+{
+    "Name": "John",
+    "Age": "22",
+}
+```
+
+```
+str = Pattern.compile(",$\\s+}", Pattern.MULTILINE).matcher(str).replaceAll("}");
+```
+
+### Match multiple lines
+
+Use `Pattern.MULTILINE` in `Pattern.compile()`.
+
+### Replace single quotes around key/value with double quotes
+
+`()` is simply used to have group for string inside single quote, here it's group 1, `$1` specifies group 1.
+
+```
+// replace 'key': with "key":
+str = Pattern.compile("'(.+)':", Pattern.MULTILINE).matcher(str).replaceAll("\"$1\":");
+// replace :'value' with :"value"
+str = Pattern.compile(": *'(.+)'", Pattern.MULTILINE).matcher(str).replaceAll(": \"$1\"");
+```
