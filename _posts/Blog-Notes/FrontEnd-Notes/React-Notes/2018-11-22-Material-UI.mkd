@@ -5,6 +5,13 @@ categories: react
 tags: Blog FrontEnd React 
 cover: 
 ---
+
+## Install
+
+```
+npm install @material-ui/core
+```
+
 ## File uploader
 
 Must use `component='span'` otherwise no response clicking Upload button.
@@ -22,4 +29,33 @@ Must use `component='span'` otherwise no response clicking Upload button.
         <CloudUploadIcon className='icon-right' />
     </Button>
 </label>
+```
+
+
+### Use theme with Class-Based components
+
+```
+import { createMuiTheme } from "@material-ui/core/styles";
+
+
+const styles = () => {
+  const theme = createMuiTheme();
+  return {
+    modal: {
+      justifyContent: "center"
+    },
+    paper: {
+      backgroundColor: theme.palette.background.paper,
+    }
+  };
+};
+
+class TransitionsModal extends Component {
+    // ...
+    // <div className={classes.modal}>
+    // ...
+    // <div className={classes.paper}>
+}
+
+export default withStyles(styles)(TransitionsModal);
 ```

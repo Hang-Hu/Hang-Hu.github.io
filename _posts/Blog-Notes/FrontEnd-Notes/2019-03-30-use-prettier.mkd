@@ -20,7 +20,7 @@ I have to disable Beautify Plugin in VSCode otherwise ctrl+c will break the HTML
   "insertPragma": false,
   "jsxBracketSameLine": false,
   "jsxSingleQuote": false,
-  "parser": "babylon",
+  "parser": "babel",
   "proseWrap": "preserve",
   "requirePragma": false,
   "useTabs": false,
@@ -63,3 +63,8 @@ prettier --write src/1point3acresCheckin.ts
 
 Ctrl+Shift+P to open command pallete, choose `Preferences: Open Settings(JSON)`, add `"editor.formatOnSave": true` to user settings.
 
+## Error
+
+### Cannot find module 'eslint-plugin-react' in Prettier Extension in VSCode
+
+Remove `react` in `.eslintrc.json`'s `plugins` section.

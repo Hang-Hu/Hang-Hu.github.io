@@ -18,3 +18,15 @@ Use `PORT=3001` to change default port from 3000 to 3001.
     }
 }
 ```
+
+## require vs import
+
+They can be replaced with each other.
+
+```
+import { getCode, getName, getData } from "country-list";
+```
+
+```
+const { getCode, getName, getData } = require("country-list");
+```

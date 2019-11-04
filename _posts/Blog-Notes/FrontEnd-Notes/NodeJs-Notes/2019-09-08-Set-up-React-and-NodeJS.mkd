@@ -11,6 +11,9 @@ cover:
 
 Set proxy in package.json. When react uses port 3000, in fetch, url `/api/news/all/date` is representation of `http://localhost:3000/api/news/all/date`. And proxy lead to a call to `http://localhost:3001/api/news/all/date`.
 
+Note that even in development mode, cors is not required as request from client actually calls `http://localhost:3000/api/news/all/date` at first and this is the same origin as the server that serves static resources.
+
+
 ```
 {
     "proxy": "http://localhost:3001",
