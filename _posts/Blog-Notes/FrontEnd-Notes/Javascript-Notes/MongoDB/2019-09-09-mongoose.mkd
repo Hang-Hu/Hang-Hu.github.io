@@ -102,6 +102,7 @@ const newsSchema = new mongoose.Schema({
 module.exports = mongoose.model("news", newsSchema);
 ```
 
+Note that the `news` in `mongoose.model("news", newsSchema)` must be the name of the collection.
 
 ### Import model and use it to get data
 

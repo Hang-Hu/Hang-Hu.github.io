@@ -160,6 +160,11 @@ Set `MONGODB_URI` in `heroku config` and `.env`.
 const URI = process.env.MONGODB_URI || 'mongodb://localhost/'
 ```
 
+### clone repo from heroku git
+
+```
+heroku git:clone -a NAME_OF_YOUR_APP
+```
 
 ## Errors
 
