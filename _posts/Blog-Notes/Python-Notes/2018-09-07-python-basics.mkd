@@ -1466,8 +1466,15 @@ map(lambda x: {'name':x[1], 'rank':x[0]}, enumerate(ranked_users))
 
 Use `a=='Hello'`, but not `a is 'Hello'`.
 
+### Start a simple http server
+
+```
+python -m SimpleHTTPServer 8080
+```
+
 ## Errors
 
 ### TypeError: a bytes-like object is required, not 'str'
 
 Use `if b'tmp' in str` instead of `if 'tmp' in str`.
+
