@@ -9,11 +9,11 @@ cover:
 ## Play music
 
 ```
-mpv *.mp4 --no-video --loop
+mpv *.mp4 --no-video --keep-open=no
 ```
 
 
-`--loop` to loop the playlist, `--loop-file` to loop playlist entries.
+Note that `--loop` is no longer used, and `--keep-open=no` is used instead to loop the playlist, `--loop-file` to loop playlist entries.
 
 
 ## Shuffle
@@ -28,5 +28,5 @@ mpv *.mp4 --no-video --loop
 
 
 ```
-mpv ./* --shuffle --loop --no-video
+mpv ./* --shuffle --keep-open=no --no-video
 ```
