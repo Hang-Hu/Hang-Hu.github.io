@@ -327,10 +327,6 @@ colors.pop();
 //pop() returns the removed element
 var col = colors.pop();  //orange
 
-var colors = ["red", "orange", "yellow"];
-colors.unshift("infrared")
-//["infrared", "red", "orange", "yellow"]
-
 //Use unshift to add to the front of an array:
 var colors = ["red", "orange", "yellow"];
 colors.unshift("infrared")
@@ -406,7 +402,7 @@ Here things get weird.
 
 console.log([] + {});
 console.log({} + []);
-console.log({} + []);
+console.log([] + []);
 console.log({} + {});
 Whenever possible, minimize the use of automatic casting.
 
@@ -1232,7 +1228,7 @@ The following has the same effect.
 
 ```
 document.body.addEventListener("click", function(){
-    alert("addEventListener");
+    alert("click");
 });
 ```
 
@@ -1265,7 +1261,6 @@ document.body.addEventListener("click", function(eventObj){
 1. target: I hold the object on which the event occurred. I can be different kinds of objects, but most often I’m an element object.
 2. type: I’m a string, like “click” or “load”, that tells you what just happened.
 3. timeStamp: Want to know when your event happened? I’m the property for you.
-Want
 4. keyCode: I’ll tell you what key the user just pressed.
 5. clientX: Want to know how far from the left side of the browser window the user clicked? Use me.
 6. clientY: Want to know how far from the top of the browser window the user clicked? Use me.
@@ -1296,7 +1291,7 @@ function init(){
     });
 }
 function useClearImage(eventObj){
-    var clickedImageElement = eventObj.target;
+    var clickedImageElement = eventObj.target; // or this
     clickedImageElement.setAttribute("src", clickedImageElement.getAttribute("id") + ".png");
     setTimeout(blurImage, 3000, clickedImageElement);//clickedImageElement is argument of function blurImage
 }
@@ -1365,264 +1360,6 @@ As you type in 9000:
 `change`: 9000
 
 `input`: 9 -> 90 -> 900 -> 9000
-
-
-### `line-through`
-
-```
-.delete-effect {
-    text-decoration: line-through;
-}
-```
-
-### `width = 50%`/`height = 50%`
-
-TL;DR: "When you specify the height or width as a percentage, that's a percentage with respect to the element's parent."
-
-In the case of `width`, all block elements are, unless specified otherwise, as wide as their parent all the way back up to `<html>`; so, the `width` of a block element is **independent of its content** and saying `width: 50%` yields a well defined number of pixels.
-
-However, the `height` of a block element **depends on its content** unless you specify a specific height. So saying `height: 50%` doesn't yield a well defined value unless you break the feedback loop by giving the parent element **a specific height**.
-
-### padding with percentage
-
-The size of the `padding` as a percentage, relative to the `width` of the containing block.
-
-```
-.square{
-    width: 30%;
-    padding: 15% 0;    
-}
-```
-
-### use margin 0 to remove white stripe
-
-```
-body {
-    margin: 0;
-}
-```
-
-### Use `display: inline-block` and `height: 100%` to remove bottom white space between inner `span` and outer `div`
-
-```
-div#stripe {
-    height: 20px;
-}
-#left, #right > span{
-    display: inline-block;
-    line-height: 20px;
-}
-```
-
-### Material Design Button CSS
-
-```
-#stripe > button{
-    height: 100%;/*Remove white space/stripe between inner button and outer div*/
-    border: none;/*No border*/
-    background: none;/*No background*/
-    outline: none;/*no blue outline after click the button*/
-    color: #4878AB;
-    font-weight: bold;
-    letter-spacing: .1rem;
-    text-transform: uppercase;
-    transition: all 0.3s;/*when hover, it takes 0.3 seconds to change color and background-color*/
-}
-#stripe > button:hover{
-    background-color: #4878AB;
-    color: white;
-}
-```
-
-### Material Design Color Square
-
-```
-#palette{
-    padding-top: 20px;
-    width: 600px;
-    margin: auto;/*centralize inner boxes*/
-}
-#palette > div {
-    /*display: inline-block;*/
-    width: 30%;/*30% of browser width*/
-    float: left;/*make div an inline element, remove white space between boxes */
-    padding: 15% 0;/*top 15% + bottom 15% = 30%*/
-    margin: 1.5%;
-    border-radius: 20%;
-}
-```
-
-
-### Remove white space between box and make div an inline element
-
-```
-float: left
-```
-
-### 600px width if lg or md, width will be smaller if sm or xs
-
-```
-max-width: 600px;
-```
-
-### spacing between characters: `letter-spacing`
-
-```
-#left, #right > span{
-    letter-spacing: .1rem;
-}
-```
-
-### Use `style.backgroundColor` rather than `style.background`
-
-`style.background` doesn't work in firefox, while `style.backgroundColor` works in all browsers.
-
-### fix transition for all browsers
-
-A website to fix transition automatically.
-
-<a href="https://autoprefixer.github.io/">Autoprefixer</a>
-
-```
-.transition-effect {
-    transition-duration: 0.5s;
-    transition-property: background;
-    -webkit-transition: background 0.5s;/* For Webkit browser(Chrome, Safari...)*/
-    -moz-transition: background 0.5s;/*For Mozilla browser*/
-    -o-transition: background 0.5s;/*For Opera browser*/
-    -ms-transition: background 0.5s;/*For Microsoft browser*/
-}
-```
-
-### `display`
-
-`display` is CSS's most important property for controlling layout. Every element has a default `display` value depending on what type of element it is. The default for most elements is usually `block` or `inline`. A `block` element is often called a block-level element. An `inline` element is always just called an inline element.
-
-`block`:
-
-`div` is the standard block-level element. A block-level element starts on a new line and stretches out to the left and right as far as it can. Other common block-level elements are `p` and `form`, and new in HTML5 are `header`, `footer`, `section`, and more.
-
-`inline`:
-
-`span` is the standard inline element. An inline element can wrap some text inside a paragraph `<span> like this </span>` without disrupting the flow of that paragraph. The `a` element is the most common inline element, since you use them for links.
-
-`none`:
-
-Another common `display` value is `none`. Some specialized elements such as `script` use this as their default. It is commonly used with JavaScript to hide and show elements without really deleting and recreating them.
-
-This is different from `visibility`. Setting `display` to `none` will render the page **as though the element does not exist**. `visibility: hidden;` will hide the element, but the element will **still take up the space it would if it was fully visible**.
-
-other display values:
-
-There are plenty of more exotic display values, such as `list-item` and `table`. Here is an exhaustive list. We'll discuss `inline-block` and `flex` later on.
-
-extra credit:
-
-As I mentioned, every element has a default `display` type. However, you can always **override** this! Though it wouldn't make sense to make an inline `div`, you can use this to customize the `display` of elements that have particular semantics. A common example is making inline `li` elements for horizontal menus.
-
-### the box model
-
-While we're talking about `width`, we should talk about `width`'s big caveat: the box model. When you set the `width` of an element, the element can actually appear bigger than what you set: the element's `border` and `padding` will stretch out the element beyond the specified `width`. Look at the following example, where two elements with the same width value end up different sizes in the result.
-
-```
-.simple {
-  width: 500px;
-  margin: 20px auto;
-}
-```
-
-Final width: 500px
-
-```
-.fancy {
-  width: 500px;
-  margin: 20px auto;
-  padding: 50px;
-  border-width: 10px;
-}
-```
-
-Final width: 500px + 50px + 10px =560px
-
-For generations, the solution to this problem has been extra **math**. CSS authors have always just written a smaller width value than what they wanted, subtracting out the padding and border. Thankfully, you don't have to do that anymore...
-
-#### `box-sizing`
-
-The original box model behavior was eventually considered unintuitive, so a new CSS property called `box-sizing` was created. When you set `box-sizing: border-box;` on an element, the `padding` and `border` of that element **no longer increase its width**. Here is the same example as the previous page, but with `box-sizing: border-box;` on both elements:
-
-```
-.simple {
-  width: 500px;
-  margin: 20px auto;
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
-}
-```
-
-```
-.fancy {
-  width: 500px;
-  margin: 20px auto;
-  padding: 50px;
-  border: solid blue 10px;
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
-}
-```
-
-Since this is so much better, some authors want all elements on all their pages to always work this way. Such authors put the following CSS on their pages:
-
-```
-* {
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
-}
-```
-
-This ensures that all elements are always sized in this more intuitive way.
-
-Since box-sizing is pretty new, you should use the `-webkit-` and `-moz-` prefixes for now, as I have in these examples. This technique enables experimental features in specific browsers. Also, keep in mind that this one is IE8+.
-
-### absolute, relative, and root-relative links
-
-#### 1. Absolute link
-
-```
-<a href='https://developer.mozilla.org/en-US/docs/Web/HTML'>Mozilla
-```
-
-#### 2. Relative link
-
-```
-<a href='misc/extras.html'>
-```
-
-```
-<a href='../../elsewhere.html'>
-```
-
-#### 3. Root-relative link
-
-Not work in Github Page Jekyll Blog or small project with one html, one css and one js file.
-
-That initial forward slash(`/`) represents the root of your site.
-
-```
-<a href='/images.html'>
-```
-
-### `target` in `a`
-
-`_self`: Load the URL into the same browsing context as the current one. This is the default behavior.
-
-`_blank:` Load the URL into a new browsing context. This is usually a tab, but users can configure browsers to use new windows instead.
-
-```
-<a href='https://developer.mozilla.org/en-US/docs/Web/HTML' target='_blank'>
-```
 
 ### print object properties recursively
 
@@ -1724,7 +1461,7 @@ outer();
     }
 ```
 
-You can execute the function return.
+You can execute the function returned by `outer()`.
 
 ```
 (outer())();
@@ -2023,7 +1760,7 @@ func();// VM3946:4 Uncaught TypeError: Cannot set property 'person' of undefined
 
 ### Implicit/Object
 
-When the keyword 'this' IS inside of a declared object.
+When the keyword 'this' is inside of a declared object.
 
 ```
 var person = {
@@ -2296,7 +2033,7 @@ var colt = {
 colt.sayHi(); // Hi undefined
 ```
 
-`.bind(this)` is belongs to the first argument of `window.setTimeout`, therefore `this` inside `.bind(this)` refers to object `colt`. 
+`.bind(this)` belongs to the first argument of `window.setTimeout`, therefore `this` inside `.bind(this)` refers to object `colt`. 
 
 After using `bind` to set the correct context of `this`, `this` inside `this.firstName` now refers to object `colt`, and it just returns a new setTimeout function whose `this` is object `colt`.
 
