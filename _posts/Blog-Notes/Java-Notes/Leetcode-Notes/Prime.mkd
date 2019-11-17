@@ -40,3 +40,257 @@ class Solution {
     }
 }
 ```
+
+##  866. Prime Palindrome
+
+### Description
+
+```
+Find the smallest prime palindrome greater than or equal to N.
+
+Recall that a number is prime if it's only divisors are 1 and itself, and it is greater than 1. 
+
+For example, 2,3,5,7,11 and 13 are primes.
+
+Recall that a number is a palindrome if it reads the same from left to right as it does from right to left. 
+
+For example, 12321 is a palindrome.
+
+ 
+
+Example 1:
+
+Input: 6
+Output: 7
+Example 2:
+
+Input: 8
+Output: 11
+Example 3:
+
+Input: 13
+Output: 101
+ 
+
+Note:
+
+1 <= N <= 10^8
+The answer is guaranteed to exist and be less than 2 * 10^8.
+```
+
+### Solution TLE
+
+
+Mark off all prime until 10^8. Find next palindrome to see if it's prime or not.
+
+```
+class Solution {
+    public int primePalindrome(int N) {
+        int limit = (int)Math.round(Math.pow(10, 8));
+        boolean[] notPrime = new boolean[limit]; // 1 to 2N-1 used, as answer is guaranteed to be < 2*10^8
+        markOff(notPrime, limit);
+        // System.out.println(notPrime.length);
+        int palindrome = N;
+        do{
+            // System.out.println(palindrome+" "+notPrime[palindrome]);
+            
+            palindrome = nextPalindrome(palindrome);
+        }while(notPrime[palindrome]);
+        return palindrome;
+    }
+    private void markOff(boolean[] notPrime, int limit){
+        for(int i=2; i*i<limit; i++){
+            if(notPrime[i]==false){// i is prime
+                for(int j=i*i; j<limit; j+=i){ // mark off prime*n
+                    notPrime[j] = true;
+                }
+            }
+        }
+    }
+    // find next palindrome that is >= num
+    private int nextPalindrome(int num){
+        if(num<=8){ // 1-8
+            // System.out.println(num+1);
+            return num+1;
+        }else if(num==9){ // 9
+            return 11;
+        }else{ // >= 10
+            int midIdx = (length(num)-1)/2;
+            int palindrome = copyToRight(new StringBuilder(num+""), midIdx);
+            if(palindrome>num) return palindrome;
+            // System.out.println(midIdx+ " "+ palindrome);
+            // inc midIdx by 1
+            num += Math.round(Math.pow(10, length(num)-midIdx-1));
+            StringBuilder numSB = new StringBuilder(num+"");
+            // System.out.println("Here"+numSB);
+            
+            return copyToRight(numSB, midIdx);
+        }
+    }
+    // copy to right of midIdx reversely with values whose positions are <= midIdx
+    private int copyToRight(StringBuilder sb, int midIdx){
+        // System.out.println(midIdx+ " "+ sb);
+
+        for(int i=midIdx+1; i<sb.length(); i++){
+            sb.setCharAt(i, sb.charAt(sb.length()-i-1));
+        }
+        return Integer.parseInt(sb.toString());
+    }
+    // number of digits in a number
+    private int length(int num){
+        int count = 0;
+        while(num>0){
+            num /= 10;
+            count++;
+        }
+        return count;
+    }
+}
+```
+
+### Solution 2 TLE
+
+Mark off those smaller than input, use a map to remember the last index of j marked off for each i.
+
+```
+class Solution {
+    Set<Integer> nonPrimeSet;
+    Map<Integer, Integer> lastIdx;
+    public Solution(){
+        nonPrimeSet = new HashSet<>();
+        nonPrimeSet.add(1);
+        lastIdx = new HashMap<>();
+    }
+    public int primePalindrome(int N) {
+        int next = N;
+        if(isPrime(next) && isPalindrome(next)) return next;
+        do{
+            next = nextPalindrome(next);
+        }while(isPrime(next)==false);
+        return next;
+    }
+    private boolean isPalindrome(int num){
+        return copyToRight(new StringBuilder(num+""), middleIndex(num)) == num;
+    }
+    private boolean isPrime(int num){
+        for(int i=2; i*i<num+1; i++){
+            if(nonPrimeSet.contains(i)==false){ // i is prime
+                for(int j=Math.max(i*i, lastIdx.containsKey(i)?lastIdx.get(i)+i:0); j<num+1; j+=i){ // mark off i*n
+                    nonPrimeSet.add(j);
+                    lastIdx.put(i, j);
+                }
+            }
+        }
+        return !nonPrimeSet.contains(num);
+    }
+    // find next palindrome that is >= num
+    private int nextPalindrome(int num){
+        if(num<=8){ // 1-8
+            // System.out.println(num+1);
+            return num+1;
+        }else if(num==9){ // 9
+            return 11;
+        }else{ // >= 10
+            int midIdx = middleIndex(num);
+            int next = copyToRight(new StringBuilder(num+""), midIdx);
+            if(next>num) return next;
+            // inc digit in midIdx by 1
+            next += Math.round(Math.pow(10, length(next)-middleIndex(next)-1));
+            return copyToRight(new StringBuilder(next+""), middleIndex(next));
+        }
+    }
+    // copy to right of midIdx reversely with values whose positions are <= midIdx
+    private int copyToRight(StringBuilder sb, int midIdx){
+        for(int i=midIdx+1; i<sb.length(); i++){
+            sb.setCharAt(i, sb.charAt(sb.length()-i-1));
+        }
+        return Integer.parseInt(sb.toString());
+    }
+    private int middleIndex(int num){
+        return (length(num)-1)/2;
+    }
+    // number of digits in a number
+    private int length(int num){
+        int count = 0;
+        while(num>0){
+            num /= 10;
+            count++;
+        }
+        return count;
+    }
+}
+```
+
+
+Time: O(n)
+
+Space: O(n)
+
+### Final Solution
+
+Use tranditional `isPrime` method, compare `num%i==0` until `i*i<num+1`.
+
+To generate next palindrome, first find midIdx, copy <= midIdx to right of midIdx. If generated number is bigger than original number, return as next palindrome. Otherwise, increase digit in midIdx by 1(add 10^x to original num), copy to right using the same way and return as next palindrome.
+
+Generate next palindrome repeatedly until one palindrome is also a prime.
+
+```
+class Solution {
+    public int primePalindrome(int N) {
+        int next = N;
+        if(isPrime(next) && isPalindrome(next)) return next;
+        do{
+            next = nextPalindrome(next);
+        }while(isPrime(next)==false);
+        return next;
+    }
+    private boolean isPalindrome(int num){
+        return copyToRight(new StringBuilder(num+""), middleIndex(num)) == num;
+    }
+    private boolean isPrime(int num){
+        if(num==1) return false;
+        for(int i=2; i*i<num+1; i++){
+            if(num%i==0) return false;
+        }
+        return true;
+    }
+    private int nextPalindrome(int num){
+        if(num<=8){ // 1-8
+            return num+1;
+        }else if(num==9){ // 9
+            return 11;
+        }else{ // >= 10
+            int midIdx = middleIndex(num);
+            int next = copyToRight(new StringBuilder(num+""), midIdx);
+            if(next>num) return next;
+            // inc digit in midIdx by 1
+            next += Math.round(Math.pow(10, length(next)-middleIndex(next)-1));
+            return copyToRight(new StringBuilder(next+""), middleIndex(next));
+        }
+    }
+    // copy to right of midIdx reversely with values whose positions are <= midIdx
+    private int copyToRight(StringBuilder sb, int midIdx){
+        for(int i=midIdx+1; i<sb.length(); i++){
+            sb.setCharAt(i, sb.charAt(sb.length()-i-1));
+        }
+        return Integer.parseInt(sb.toString());
+    }
+    private int middleIndex(int num){
+        return (length(num)-1)/2;
+    }
+    // number of digits in a number
+    private int length(int num){
+        int count = 0;
+        while(num>0){
+            num /= 10;
+            count++;
+        }
+        return count;
+    }
+}
+```
+
+Time: O(n). Finding a prime by generating next palindrome, its tryout times will be constant, so runtime is c*n => O(n).
+
+Space: O(logn). logn, whose base is 10, is the length of number, this is the space used by StringBuilder
+
