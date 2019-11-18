@@ -439,3 +439,161 @@ class Solution {
 }
 ```
 
+
+## 1192. Critical Connections in a Network
+
+### Description
+
+```
+There are n servers numbered from 0 to n-1 connected by undirected server-to-server connections forming a network where connections[i] = [a, b] represents a connection between servers a and b. Any server can reach any other server directly or indirectly through the network.
+
+A critical connection is a connection that, if removed, will make some server unable to reach some other server.
+
+Return all critical connections in the network in any order.
+
+ 
+
+Example 1:
+
+
+
+Input: n = 4, connections = [[0,1],[1,2],[2,0],[1,3]]
+Output: [[1,3]]
+Explanation: [[3,1]] is also accepted.
+ 
+
+Constraints:
+
+1 <= n <= 10^5
+n-1 <= connections.length <= 10^5
+connections[i][0] != connections[i][1]
+There are no repeated connections.
+```
+
+### Solution - Tarjan's Algo(TLE)
+
+```
+class Solution {
+    private int nextId = 0;
+    Map<Integer, List<Integer>> graph = new HashMap<>(); // (node num, list of neighbor's node num)
+    Map<Integer, Integer> lowLinkVal = new HashMap<>(); // (node num, node's low link value)
+    Map<Integer, Set<Integer>> lowLinkToNum = new HashMap<>(); // (node's low link value, node num)
+    Set<Integer> scc = new HashSet<>(); // low link values that are already completed SCC
+    public List<List<Integer>> criticalConnections(int n, List<List<Integer>> connections) {
+        List<List<Integer>> ans = new ArrayList<>();
+        initGraph(connections, graph);
+        scc(0, n);
+        for(List<Integer> conn: connections){
+            if(lowLinkVal.get(conn.get(0))!=lowLinkVal.get(conn.get(1))) ans.add(conn);
+        }
+        return ans;
+    }
+    private void scc(int nodeNum, int n){
+        for(int i=0; i<n; i++){
+            dfs(i, n, -1);
+        }
+    }
+
+    private int dfs(int nodeNum, int n, int parent){
+        if(lowLinkVal.containsKey(nodeNum)) return lowLinkVal.get(nodeNum);
+        int nodeId = nextId++;
+        lowLinkVal.put(nodeNum, nodeId);
+        lowLinkToNum.put(nodeId, new HashSet<Integer>(){{add(nodeNum);}});
+        List<Integer> neighbors = graph.get(nodeNum);
+        for(int i=0; neighbors!=null && i<neighbors.size(); i++){
+            int neighbor = neighbors.get(i);
+            if(neighbor==parent) continue; // avoid getting low link from parent the same way as parent visits neighbor
+            int returnedLowLink = dfs(neighbor, n, nodeNum);
+            if(scc.contains(lowLinkVal.get(neighbor))==false){ // use min low link value if neighbor is not completed SCC
+                int curLowLink = lowLinkVal.get(nodeNum);
+                if(returnedLowLink<curLowLink){ // update all node using the same low link with returned one
+                    Iterator<Integer> iter = lowLinkToNum.get(curLowLink).iterator();
+                    while(iter.hasNext()){
+                        int node = iter.next();
+                        lowLinkVal.put(node, returnedLowLink);
+                        lowLinkToNum.get(returnedLowLink).add(node);
+                        iter.remove();
+                    }
+                    
+                }
+            }
+        }
+        // after all neighbors visited, if id equals low link value, add id to completed SCC set
+        if(nodeId==lowLinkVal.get(nodeNum)){ // complete SCC
+            scc.add(nodeId);
+        }
+        return lowLinkVal.get(nodeNum);
+    }
+    private void initGraph(List<List<Integer>> connections, Map<Integer, List<Integer>> graph){
+        for(List<Integer> conn: connections){
+            int a = conn.get(0);
+            int b = conn.get(1);
+            if(graph.containsKey(a)==false) graph.put(a, new ArrayList<Integer>());
+            graph.get(a).add(b);
+            if(graph.containsKey(b)==false) graph.put(b, new ArrayList<Integer>());
+            graph.get(b).add(a);
+        }
+    }
+}
+```
+
+### Final Solution
+
+If node's discovery time is smaller than minimum discovery time(low link value) reachable from neighbor x, the the edge between this node and x is the only path connectiong them. Once removed, you cannot reach x from this node.
+
+Explanation:
+
+If node's discovery time is smaller than minimum discovery time reachable from neighbor x(excluding parent path), there is no cycle containing this node and x, the edge is the only path from node to x.
+
+If there is a cycle, the min discovery time from x can be equal to or even smaller than node's discovery time.
+time,low:   1,1   2,2   3,3
+            1  -  2  -  3
+
+time,low:   1,1   2,2   3,2
+            1  -  2  -  3
+                   \   /
+                     4
+                    4,2
+
+As shown in the example 2, 2,3,4 have the same low link value 2(reachable minimum discovery time excluding parent path) since they are in a cycle, so 2 is reachable for 3, 4 in 2 paths, even exclude the parent path, there still exists 1 path to reach 2. Then no discovery time in the cycle can be smaller than 2, so there is no critical connection here. And 1's dicovery time 1 is smaller than 2's low link value 2, showing they are not in a cycle, otherwise 2's low can be as small as 1. Therefore edge (1, 2) is a critical connection.
+
+[articulation-points-and-bridges](https://www.hackerearth.com/zh/practice/algorithms/graphs/articulation-points-and-bridges/tutorial/)
+
+```
+class Solution {
+    private int nextId = 1;
+    List<Integer>[] graph;
+    int[] lowLinkVal;
+    List<List<Integer>> ans = new ArrayList<>();
+    public List<List<Integer>> criticalConnections(int n, List<List<Integer>> connections) {
+        graph = new ArrayList[n+1]; // (node num, list of neighbor's node num)
+        for(int i=0; i<graph.length; i++) graph[i] = new ArrayList<>();
+        lowLinkVal = new int[n+1]; // (node num, node's low link value)
+        initGraph(connections);
+        dfs(0, n, -1);
+        return ans;
+    }
+    private int dfs(int nodeNum, int n, int parent){
+        if(lowLinkVal[nodeNum]!=0) return lowLinkVal[nodeNum];
+        int nodeId = nextId++;
+        lowLinkVal[nodeNum] = nodeId;
+        List<Integer> neighbors = graph[nodeNum];
+        for(int i=0; neighbors!=null && i<neighbors.size(); i++){
+            int neighbor = neighbors.get(i);
+            if(neighbor==parent) continue; // avoid getting low link from parent the same way as parent visits neighbor
+            int returnedLowLink = dfs(neighbor, n, nodeNum);
+            lowLinkVal[nodeNum] = Math.min(lowLinkVal[nodeNum], returnedLowLink);
+            if(nodeId<returnedLowLink) ans.add(Arrays.asList(nodeNum, neighbor));
+        }
+        return lowLinkVal[nodeNum];
+    }
+    private void initGraph(List<List<Integer>> connections){
+        for(List<Integer> conn: connections){
+            int a = conn.get(0);
+            int b = conn.get(1);
+            graph[a].add(b);
+            graph[b].add(a);
+        }
+    }
+}
+```
