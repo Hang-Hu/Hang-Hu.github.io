@@ -1,0 +1,45 @@
+## Use Ref to get Chart Object
+
+```
+constructor(props) {
+  super(props);
+  this.state = {
+    options: {}
+  };
+  this.chart = React.createRef(); // create ref
+  this.setOptions = this.setOptions.bind(this);
+}
+
+render() {
+  return (
+    <div>
+      {this.state.options && (
+        <HighchartsReact
+          highcharts={Highcharts}
+          options={this.state.options}
+          ref={this.chart} // use ref in chart
+        />
+      )}
+    </div>
+  );
+}
+```
+
+Use `this.chart.current.chart` to get the chart object like below.
+
+```
+componentDidUpdate(prevProps) {
+  if (this.chart) console.log("Heeeeere: ", this.chart.current.chart);
+  if (this.chart && this.props.loading !== prevProps.loading) {
+    if (this.props.loading) {
+      this.chart.current.chart.showLoading("Loading...");
+    } else {
+      this.chart.current.chart.hideLoading();
+    }
+  }
+  if (prevProps.itemName !== this.props.itemName) {
+    this.setOptions();
+  }
+}
+```
+
