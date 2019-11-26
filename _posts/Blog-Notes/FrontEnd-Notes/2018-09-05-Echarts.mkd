@@ -5,6 +5,191 @@ categories: frontend
 tags: Blog FrontEnd 
 cover: 
 ---
+
+## install
+
+```
+npm install --save echarts-for-react
+```
+
+## adaptive
+
+
+Echarts is not adaptive to div change, use Card in antd to surround it, and give echarts white background in the `div` containing echarts. Then even echarts doesn't adapt to div change, since the container Card is, it seems to be an adaptive app.
+
+
+## Use lib `echarts-for-react` along with lib `echarts`
+
+
+This library provides echarts based on react state.
+
+
+```
+import ReactEcharts from 'echarts-for-react';
+
+<ReactEcharts
+    option={this.getOption()}
+    notMerge={true}
+    lazyUpdate={true}
+    theme={"theme_name"}
+    onChartReady={this.onChartReadyCallback}
+    showLoading={ this.state.isLoading }
+    onEvents={
+    {
+        click: onEchartsClick
+    }
+    }
+    opts={ {height: 300} }
+/>
+```
+
+## Example
+
+```
+import React, { Component } from "react";
+import ReactEcharts from "echarts-for-react";
+
+export default class BubbleChart extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+    this.createOptions = this.createOptions.bind(this);
+  }
+  componentDidMount() {}
+  componentDidUpdate(prevProps) {}
+  createOptions() {
+    let obj = {};
+    let years = new Set();
+    let maxValue = 0;
+    let minValue = Number.MAX_VALUE;
+    let xAxisData = [];
+
+    this.props.dataArr &&
+      this.props.dataArr.forEach(e => {
+        if (e.area in obj) {
+          if (e.element in obj[e.area]) {
+            years.add(+e.year);
+            maxValue = Math.max(maxValue, +e.value);
+            minValue = Math.min(minValue, +e.value);
+            obj[e.area][e.element].push([+e.year, +e.value]);
+          } else {
+            obj[e.area][e.element] = [];
+          }
+        } else {
+          obj[e.area] = {};
+        }
+      });
+    years = [...years];
+    years.sort((a, b) => b - a); // in place sort
+    let series = [];
+    let data = [];
+    // scale the value from [minInput, maxInput] to minTarget, maxTarget
+    let scaleFunc = (number, minInput, maxInput, minTarget, maxTarget) => {
+      return (
+        ((number - minInput) * (maxTarget - minTarget)) /
+          (maxInput - minInput) +
+        minTarget
+      );
+    };
+    let countryNames = this.props.countryNames;
+    for (let country in obj) {
+      data = [];
+      xAxisData.push("");
+      for (let element in obj[country]) {
+        xAxisData.push(element);
+        let listOfE = obj[country][element];
+        listOfE = listOfE.map(e => {
+          return [xAxisData.length - 1, years.indexOf(e[0]), e[1]];
+        });
+        // (xAxis index(YPH and country), yAxis index(0 in origin, reversed year index), size of bubble)
+        data = [...data, ...listOfE];
+      }
+      series[countryNames.indexOf(country)] = {
+        name: country,
+        type: "scatter",
+        symbolSize: function(val) {
+          return scaleFunc(val[2], minValue, maxValue, 5, 15);
+        },
+        data: data,
+        animationDelay: function(idx) {
+          return idx * 5;
+        }
+      };
+    }
+    xAxisData.push("");
+    return {
+      title: {
+        text: `Bubble Chart for ${this.props.itemName}`
+      },
+      legend: {
+        data: countryNames,
+        left: "right"
+      },
+      tooltip: {
+        position: "top",
+        // (xAxis index(YPH and country), yAxis index(0 in origin, reversed year index), size of bubble)
+        formatter: function(params) {
+          return `${xAxisData[params.value[0]]} of crops is ${
+            params.value[2]
+          } in ${years[params.value[1]]}`;
+        }
+      },
+      grid: {
+        left: 2,
+        bottom: 10,
+        right: 10,
+        containLabel: true
+      },
+      xAxis: {
+        type: "category",
+        data: xAxisData,
+        boundaryGap: false,
+        splitLine: {
+          show: true,
+          lineStyle: {
+            color: "#999",
+            type: "dashed"
+          }
+        },
+        axisLine: {
+          show: false
+        },
+        axisLabel: {
+          formatter: value => value.slice(0, 1)
+        }
+      },
+      yAxis: {
+        type: "category",
+        data: years,
+        axisLine: {
+          show: false
+        }
+      },
+      series: series
+    };
+  }
+
+  render() {
+    return (
+      <ReactEcharts
+        option={this.createOptions()}
+        notMerge={true}
+        lazyUpdate={true}
+        theme={"theme_name"}
+        // onChartReady={this.onChartReadyCallback}
+        showLoading={this.props.loading}
+        onEvents={
+          {
+            // click: onEchartsClick
+          }
+        }
+        opts={{ height: 500 }}
+      />
+    );
+  }
+}
+```
+
 ## grid: bar chart position
 
 Bistance between axis and chart border: `grid`
@@ -295,35 +480,6 @@ series: [{
 }]
 ```
 
-
-## adaptive
-
-
-Echarts is not adaptive to div change, use Card in antd to surround it, and give echarts white background in the `div` containing echarts. Then even echarts doesn't adapt to div change, since the container Card is, it seems to be an adaptive app.
-
-
-## Use lib `echarts-for-react` along with lib `echarts`
-
-
-This library provides echarts based on react state.
-
-
-```
-<ReactEcharts
-    option={this.getOption()}
-    notMerge={true}
-    lazyUpdate={true}
-    theme={"theme_name"}
-    onChartReady={this.onChartReadyCallback}
-    showLoading={ this.state.isLoading }
-    onEvents={
-    {
-        click: onEchartsClick
-    }
-    }
-    opts={ {height: 300} }
-/>
-```
 
 
 ## legend circle icon
