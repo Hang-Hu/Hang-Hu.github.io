@@ -409,6 +409,20 @@ tooltip : {
 },
 ```
 
+### get series name in tooltip
+
+Use `params.seriesName`.
+
+```
+tooltip: {
+  position: "top",
+  formatter: function(params) {
+    return `${xAxisData[params.value[0]]} in ${params.seriesName} is ${
+      params.value[2]
+    } in ${years[params.value[1]]}`;
+  }
+}
+```
 
 ## series.color: color of each bar
 
