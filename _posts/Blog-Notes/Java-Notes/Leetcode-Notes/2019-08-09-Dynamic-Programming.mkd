@@ -3988,3 +3988,77 @@ class Solution {
 ```
 
 ### Final Solution - DivideAndConquer+DP
+
+## 1027. Longest Arithmetic Sequence
+
+### Description
+
+```
+Given an array A of integers, return the length of the longest arithmetic subsequence in A.
+
+Recall that a subsequence of A is a list A[i_1], A[i_2], ..., A[i_k] with 0 <= i_1 < i_2 < ... < i_k <= A.length - 1, and that a sequence B is arithmetic if B[i+1] - B[i] are all the same value (for 0 <= i < B.length - 1).
+
+ 
+
+Example 1:
+
+Input: [3,6,9,12]
+Output: 4
+Explanation: 
+The whole array is an arithmetic sequence with steps of length = 3.
+Example 2:
+
+Input: [9,4,7,2,10]
+Output: 3
+Explanation: 
+The longest arithmetic subsequence is [4,7,10].
+Example 3:
+
+Input: [20,1,15,3,10,5,8]
+Output: 4
+Explanation: 
+The longest arithmetic subsequence is [20,15,10,5].
+ 
+
+Note:
+
+2 <= A.length <= 2000
+0 <= A[i] <= 10000
+```
+
+### Final Solution - DP
+
+opt(i, diff) is number of elements in arithmetic sequence from A_0 to A_i with length diff.
+
+```
+opt(i, diff) = opt(preI, diff)+1
+```
+
+diff = A[i]-A[preI], preI is from 0 to i-1.
+
+For all opt, get the max one, max+1 is result because I didn't calculate the first element.
+
+```
+class Solution {
+    public int longestArithSeqLength(int[] A) {
+        int max = Integer.MIN_VALUE;
+        int min = Integer.MAX_VALUE;
+        for(int a: A){
+            max=Math.max(max, a);
+            min=Math.min(min, a);
+        }
+        int maxDiff = max-min;
+        // use 2*maxDiff to solve the negative diff problem, move all diff right by +maxDiff
+        int[][] opt = new int[A.length][2*maxDiff+1];
+        int maxNum = 0;
+        for(int i=0; i<A.length; i++){
+            for(int preI=0; preI<i; preI++){
+                int diff = A[i]-A[preI];
+                opt[i][diff+maxDiff] = opt[preI][diff+maxDiff]+1;
+                maxNum = Math.max(maxNum, opt[i][diff+maxDiff]);
+            }
+        }
+        return maxNum+1;
+    }
+}
+```
