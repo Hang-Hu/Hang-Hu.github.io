@@ -98,3 +98,113 @@ class Solution {
     }
 }
 ```
+
+## 692. Top K Frequent Words
+
+
+### Description
+
+### First Solution - Map
+
+1. Put all words in map (word, occurrence)
+2. From k to 1, find the word largest occurrence, add to `ans`, set its occurrence to be 0 to void it for next round.
+
+```
+class Solution {
+    public List<String> topKFrequent(String[] words, int k) {
+        Map<String, Integer> map = new HashMap<>(); // (word, occurrence)
+        for(String w: words){
+            map.put(w, map.getOrDefault(w, 0)+1);
+        }
+        List<String> ans = new ArrayList<>();
+        while(k>0){
+            int maxOccurrence = 0;
+            String wordWithMaxOccurrence = "";
+            for(Map.Entry<String, Integer> e: map.entrySet()){
+                if(e.getValue()>maxOccurrence){
+                    maxOccurrence = e.getValue();
+                    wordWithMaxOccurrence = e.getKey();
+                }else if(e.getValue()==maxOccurrence && e.getKey().compareTo(wordWithMaxOccurrence)<0){
+                    wordWithMaxOccurrence = e.getKey();
+                }
+            }
+            map.put(wordWithMaxOccurrence, 0);
+            ans.add(wordWithMaxOccurrence);
+            k--;
+        }
+        return ans;
+    }
+}
+```
+
+Time: O(k*n)
+
+Space: O(n)
+
+### Solution - Map+Heap
+
+Map is same usage as before. Use maxHeap to output k words with largest occurrence.
+
+```
+class Solution {
+    public List<String> topKFrequent(String[] words, int k) {
+        Map<String, Integer> map = new HashMap<>(); // (word, occurrence)
+        for(String w: words){
+            map.put(w, map.getOrDefault(w, 0)+1);
+        }
+        List<String> ans = new ArrayList<>();
+        Queue<Map.Entry<String, Integer>> q = new PriorityQueue<>(new Comparator<Map.Entry<String, Integer>>(){
+            @Override
+            public int compare(Map.Entry<String, Integer> e1, Map.Entry<String, Integer> e2){
+                int occur = e2.getValue()-e1.getValue();
+                if(occur!=0) return occur;
+                return e1.getKey().compareTo(e2.getKey())<0?-1:1;
+            }
+        });
+        for(Map.Entry<String, Integer> e: map.entrySet()) q.add(e);
+        for(int i=0; i<k; i++) ans.add(q.poll().getKey());
+        return ans;
+    }
+}
+```
+
+Time: O(n)+O(nlogn)+O(klogn) = O(nlogn)
+
+Space: O(n)+O(n) = O(n)
+
+### Final Solution - freqMap+minHeap+Poll if heap size > K. 
+
+The improvement from last one is that, I used minHeap instead of maxHeap. And when adding into heap, once size>k, I poll out those small entries. So that size of heap is always <= k instead of n. 
+
+Finally, I just reverse `ans` to get the result.
+
+```
+class Solution {
+    public List<String> topKFrequent(String[] words, int k) {
+        Map<String, Integer> map = new HashMap<>(); // (word, occurrence)
+        for(String w: words){
+            map.put(w, map.getOrDefault(w, 0)+1);
+        }
+        List<String> ans = new ArrayList<>();
+        Queue<Map.Entry<String, Integer>> minHeap = new PriorityQueue<>(new Comparator<Map.Entry<String, Integer>>(){
+            @Override
+            public int compare(Map.Entry<String, Integer> e1, Map.Entry<String, Integer> e2){
+                int occur = e1.getValue()-e2.getValue();
+                if(occur!=0) return occur;
+                return e1.getKey().compareTo(e2.getKey())<0?1:-1;
+            }
+        });
+        for(Map.Entry<String, Integer> e: map.entrySet()){
+            minHeap.add(e);
+            if(minHeap.size()>k) minHeap.poll();
+        }
+        for(int i=0; i<k; i++) ans.add(minHeap.poll().getKey());
+        Collections.reverse(ans);
+        return ans;
+    }
+}
+```
+
+Time: O(n)+O((n+n-k)*logk)+O(klogk) = O(nlogk). `n+n-k` because n added into minHeap, then n-k polled from minHeap.
+
+Space: O(n)+O(k) = O(n)
