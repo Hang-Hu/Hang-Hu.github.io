@@ -104,6 +104,17 @@ Once installation has finished, return to the main menu, select Reboot, and then
 5. Reboot to system
 6. You get your lineage unrooted
 
+### Root again
+
+### Unroot it
+
+1. Download addonsu-14.1-arm64-signed.zip and copy it to phone.
+2. Reboot to recovery mode
+3. Unlock with passpord, select install, and find the addonsu-14.1-arm64-signed.zip
+4. Swift right to install without versify signature
+5. Reboot to system
+6. You get your lineage rooted again
+
 ### Difference between root and unrooted device
 
 On Lineage OS official builds, root access is allowed via ADB only. After root, we can select between Apps only, ADB only, Apps and ADB.
