@@ -25,7 +25,7 @@ Boot into recovery mode using command or holding power and volume down.
 
 
 ```
-adb reboot bootloader
+adb reboot recovery
 ```
 
 
