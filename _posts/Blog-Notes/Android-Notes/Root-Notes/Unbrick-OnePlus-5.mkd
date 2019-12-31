@@ -1,0 +1,34 @@
+## Driver
+
+1. Download `Qualcomm9008Driver-Recommended.exe`, 2.2 GB `OnePlus5-UnbrickTool.zip`, `Qualcomm-9008Driver.rar`.
+2. Install `Qualcomm9008Driver-Recommended.exe`
+
+## Unzip
+
+Using drag to avoid "image not detected" problem when running `MsmDownloadTool V4.0.exe` as administrator.
+
+1. Create folder `Oneplus5-Unbrick`, put previously downloaded files into that
+2. Drag files in `Qualcomm-9008Driver.rar`'s `Qualcomm-9008Driver.rar` to `Oneplus5-Unbrick`
+3. Create a folder `tool` under `Oneplus5-Unbrick`, and drag 4 files in `OnePlus5-UnbrickTool.zip` (including `MsmDownloadTool V4.0.exe`, `cheeseburger_23_H.09_170703.ops`, etc) to tool folder.
+
+## Unbrick
+
+1. Long press button and volume up at the same time to enter fastboot, use volume to select `Power Off` and press button quickly to select it.
+2. Long press volume up/down(don't remember which one) and power before opening MsmDownloadTool. You can hear connected and unconnected voices. Right click on `MsmDownloadTool V4.0.exe` to run as administrator while still pressing. After 1 or 2 seconds seeing `COM`, click `Start`. Then you see "connection build" and green loading bar appears, after 1 or 2 seconds, stop pressing. Be careful that you keep long pressing one volume and power before running MsmDownloadTool and until now.
+3. Wait for around 400 seconds until it fully loaded and shows `Download Completed`. The phone is rebooted once download finishes.
+4. The phone will boot into Hydrogen system, follow the instructions to set it up.
+
+## Problems encountered
+
+1. For Sahara connection failed, make sure power off:
+
+Press volume up/down(don't remember which one) and power before opening msndownload. You can hear connected and unconnected voices. Open MSNDowload then 1/2 seconds after you see COM then click start and stop pressing.
+
+2. For image not detected, follow the video to drag files in Qualcomm-9008 driver.zip to outside, create a folder tool, and drag main files including MSNDownloader, cheeseburger H to tool folder. Then the problem got solved.
+
+
+## Reference
+
+http://www.oneplusbbs.com/thread-3466751-1-1.html
+http://www.oneplusbbs.com/thread-4446250-1.html
+https://www.youtube.com/watch?v=PpLvmID1wdI

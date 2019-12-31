@@ -1,0 +1,25 @@
+## Install OxygenOS released also in 2017
+
+In Settings -> About Phone, click `Build` 7 times to unlock developer options. In Developer options, enable `USB debugging`, `Advanced reboot`.
+
+
+```
+adb push OnePlus5Oxygen_23_OTA_015_all_1708252353_e6d7756780064352.zip /sdcard/
+```
+
+Press power button, select reboot, and select recovery to reboot into recovery.
+
+In `Wipe data and cache`, reset system setting and wipe cache.(you have to otherwise you get stuck at Boot Logo))
+
+Select `Install from USB`, then `adb sideload OnePlus5Oxygen_23_OTA_015_all_1708252353_e6d7756780064352.zip `.
+
+Reboot, this is `OxygenOS 4.5.10` and `android 7.1.1`.
+
+## Upgrade OxygenOS
+
+1. Turn on WIFI and turn off cellular data
+2. 
+3. Go to Settings-> System Updates, it prompts `OxygenOS 5.1.4`(`Android 8.1.0`), click `Download now`, after downloading, click `reboot to upgrade now`.
+4. Go to Settings-> System Updates, it prompts OxygenOS 9.0.9(`Android 9`), click `Download now`, after downloading, click `reboot to upgrade now`.
+5. Click `Build` 7 times to enable Developer options, in developer options enable `Advanced reboot` and reboot to recovery, reset system settings and wipe cache.
+
