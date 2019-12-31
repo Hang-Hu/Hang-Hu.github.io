@@ -6,7 +6,11 @@ tags: Root
 cover: 
 ---
 
+## Latest Oxygen is pre-requisite of LineageOS
+
 Install the lastest oxygen to meet the firmware and modem requirements of LineageOS so that the installation won't exit throwing error 7.
+
+In Settings -> About Phone, click `Build` 7 times to unlock developer options. In Developer options, enable `USB debugging`, `Advanced reboot` and `OEM unlocking`
 
 ## Latest Oxygen recovery
 
@@ -14,6 +18,7 @@ Install the lastest oxygen to meet the firmware and modem requirements of Lineag
 adb devices
 adb reboot bootloader
 sudo fastboot devices
+sudo fastboot oem unlock
 sudo fastboot flash recovery OP5_recovery.img
 ```
 
