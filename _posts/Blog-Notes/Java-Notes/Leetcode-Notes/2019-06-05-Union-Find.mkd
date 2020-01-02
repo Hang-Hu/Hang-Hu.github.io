@@ -266,3 +266,144 @@ class UnionFind{
     }
 }
 ```
+
+## 1102. Path With Maximum Minimum Value
+
+### Description
+
+https://leetcode.com/problems/path-with-maximum-minimum-value/
+
+### Solution - DFS+Backtracking (TLE)
+
+```
+class Solution {
+    private int maxScore = Integer.MIN_VALUE;
+    public int maximumMinimumPath(int[][] A) {
+        boolean[][] visited = new boolean[A.length][A[0].length];
+        dfs(A, visited, Integer.MAX_VALUE, 0, 0);
+        return maxScore;
+    }
+    // return the maximum score of paths from (0,0) to (R-1,C-1)
+    private void dfs(int[][] A, boolean[][] visited, int score, int x, int y){
+        visited[x][y] = true;
+        score = Math.min(score, A[x][y]);
+        if(maxScore>=score){
+            visited[x][y] = false;
+            return; // stop if current score is already <= maxScore
+        }
+        if(x==A.length-1 && y==A[0].length-1){
+            visited[x][y] = false;
+            maxScore = Math.max(maxScore, score);
+            return;
+        }
+        // up
+        if(x-1>=0 && visited[x-1][y]==false) dfs(A, visited, score, x-1, y);
+        // right
+        if(y+1<A[0].length && visited[x][y+1]==false) dfs(A, visited, score, x, y+1);
+        // left
+        if(y-1>=0 && visited[x][y-1]==false) dfs(A, visited, score, x, y-1);
+        // down
+        if(x+1<A.length && visited[x+1][y]==false) dfs(A, visited, score, x+1, y);
+        visited[x][y] = false;
+    }
+}
+```
+
+### Final Solution - UnionFind+DFS
+
+Start from (0, 0), go dfs. For each point, union with point 0, add four direction unadded point into maxHeap. Then traverse point from large to small through maxHeap.
+
+In this way, I added points from large to small to union find, so that when connnected, the min value in points added to union find will be the maximum score.
+
+```
+class Solution {
+    public int maximumMinimumPath(int[][] A) {
+        int totalNum = A.length*A[0].length;
+        UnionFind uf = new UnionFind(totalNum);
+        boolean[][] added = new boolean[A.length][A[0].length];
+        Queue<Cell> maxHeap = new PriorityQueue<>(new Comparator<Cell>(){
+            @Override
+            public int compare(Cell c1, Cell c2){
+                return c2.value-c1.value;
+            }
+        });
+        added[0][0] = true;
+        return dfs(maxHeap, A, added, uf, 0, 0, A[0][0]);
+        
+    }
+    private int dfs(Queue<Cell> maxHeap, int[][] A, boolean[][] added, UnionFind uf, int x, int y, int score){
+        // System.out.println(x+" "+y);
+        added[x][y] = true;
+        score = Math.min(score, A[x][y]);
+        int pos = position(x, y, A);
+        uf.union(0, pos);
+        if(uf.isConnected(0, A.length*A[0].length-1)) return score;
+        if(x-1>=0 && added[x-1][y]==false) maxHeap.add(new Cell(position(x-1, y, A), A[x-1][y]));
+        if(x+1<A.length && added[x+1][y]==false) maxHeap.add(new Cell(position(x+1, y, A), A[x+1][y]));
+        if(y-1>=0 && added[x][y-1]==false) maxHeap.add(new Cell(position(x, y-1, A), A[x][y-1]));
+        if(y+1<A[0].length && added[x][y+1]==false) maxHeap.add(new Cell(position(x, y+1, A), A[x][y+1]));
+        while(maxHeap.isEmpty()==false){
+            Cell c = maxHeap.poll();
+            // System.out.println(c);
+            int res = dfs(maxHeap, A, added, uf, getX(c.pos, A), getY(c.pos, A), score);            
+            if(res!=-1) return res;
+        }
+        return -1;
+    }
+    private int getX(int pos, int[][] A){
+        return pos/A[0].length;
+    }
+    private int getY(int pos, int[][] A){
+        return pos%A[0].length;
+    }
+    private int position(int x, int y, int[][] A){
+        return x*A[0].length+y;
+    }
+}
+class Cell {
+    int pos;
+    int value;
+    public Cell(int pos, int value){
+        this.pos = pos;
+        this.value = value;
+    }
+    @Override
+    public String toString(){
+        return "("+pos+" "+value+")";
+    }
+}
+class UnionFind{
+    int[] array;
+    int[] weight;
+    public UnionFind(int n){
+        array = new int[n];
+        weight = new int[n];
+        for(int i=0; i<n; i++){
+            array[i] = i;
+            weight[i] = 1;
+        }
+    }
+    public int root(int n){
+        while(array[n]!=n){
+            n = array[n];
+        }
+        return n;
+    }
+    public void union(int a, int b){
+        int aRoot = root(a);
+        int bRoot = root(b);
+        if(aRoot==bRoot) return;
+        if(weight[a]>weight[b]){
+            array[bRoot] = aRoot;
+        }else if(weight[a]<weight[b]){
+            array[aRoot] = bRoot;
+        }else{ // ==
+            array[bRoot] = aRoot;
+            weight[bRoot] += 1;
+        }
+    }
+    public boolean isConnected(int a, int b){
+        return root(a)==root(b);
+    }
+}
+```
