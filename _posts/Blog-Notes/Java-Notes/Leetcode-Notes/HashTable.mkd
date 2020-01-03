@@ -208,3 +208,104 @@ class Solution {
 Time: O(n)+O((n+n-k)*logk)+O(klogk) = O(nlogk). `n+n-k` because n added into minHeap, then n-k polled from minHeap.
 
 Space: O(n)+O(k) = O(n)
+
+## 525. Contiguous Array
+
+###
+
+### First Solution - PrefixSum (TLE)
+
+```
+class Solution {
+    public int findMaxLength(int[] nums) {
+        int[] preSum = getPrefixSum(nums);
+        int maxLen = 0;
+        for(int i=0; i<preSum.length; i++){
+            for(int j=i+1; j<preSum.length; j++){
+                if(2*(preSum[j]-preSum[i])==(j-i)){
+                    maxLen = Math.max(maxLen, j-i);
+                }
+            }
+        }
+        return maxLen;
+    }
+    // preSum[i] is sum from 0 to i(exclusive)
+    private int[] getPrefixSum(int[] nums){
+        int[] ans = new int[nums.length+1];
+        for(int i=1; i<ans.length; i++){
+            ans[i] = ans[i-1] + nums[i-1];
+        }
+        return ans;
+    }
+}
+```
+
+Time: O(n^2)
+Space: O(n)
+
+### Second Solution - PrefixSum + length from large to small
+
+```
+class Solution {
+    public int findMaxLength(int[] nums) {
+        int[] preSum = getPrefixSum(nums);
+        for(int len=nums.length; len>=1; len--){
+            for(int i=0; i+len<preSum.length; i++){
+                int j = i+len;
+                if(2*(preSum[j]-preSum[i])==(j-i)){
+                    return j-i;
+                }
+            }            
+        }
+        return 0;
+    }
+    // preSum[i] is sum from 0 to i(exclusive)
+    private int[] getPrefixSum(int[] nums){
+        int[] ans = new int[nums.length+1];
+        for(int i=1; i<ans.length; i++){
+            ans[i] = ans[i-1] + nums[i-1];
+        }
+        return ans;
+    }
+}
+```
+
+Time: O(n^2)
+Space: O(n)
+
+### Final Solution - Count array(like prefixSum) + HashMap
+
+```
+// count[i] is from 0 to i(inclusive), if 1 add 1, if 0 then -1.
+// if count[i]==0, the [0, i] is subarray with equal number of 0 and 1
+// if count[i]==count[j], (i, j] is subarray with equal number of 0 and 1
+class Solution {
+    public int findMaxLength(int[] nums) {
+        if(nums.length==0) return 0;
+        int[] count = getCount(nums);
+        int maxLen = 0;
+        Map<Integer, Integer> map = new HashMap<>(); // (count value, first index of the count value)
+        for(int i=0; i<count.length; i++){
+            if(count[i]==0) maxLen = Math.max(maxLen, i+1);
+            if(map.containsKey(count[i])){
+                maxLen = Math.max(maxLen, i-map.get(count[i]));
+            }else{
+                map.put(count[i], i);
+            }
+        }
+        return maxLen;
+    }
+    private int[] getCount(int[] arr){
+        int[] count = new int[arr.length];
+        count[0] = arr[0]==0?-1:1;
+        for(int i=1; i<arr.length; i++){
+            if(arr[i]==0) count[i] = count[i-1]-1;
+            else count[i] = count[i-1]+1;
+        }
+        return count;
+    }
+}
+```
+
+Time: O(n)
+Space: O(n)
