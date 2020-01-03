@@ -1,0 +1,79 @@
+## 855. Exam Room
+
+### Description
+
+```
+```
+
+### First Solution - leftDis+rightDis Array (TLE)
+
+```
+class ExamRoom {
+    // from left, for each slot, if someone seat then it's 0, if no one then incrementally add 1. when it encountered occupied seat then reset to 0 again. 
+    private int[] leftDis;
+    private int[] rightDis; // similar to leftDis, but it's from right.
+    public ExamRoom(int N) {
+        leftDis = new int[N];
+        rightDis = new int[N];
+        for(int i=0; i<N; i++){
+            leftDis[i] = 1000000001; // use 1000000001 as +inf
+            rightDis[i] = 1000000001;
+        }
+    }
+    
+    public int seat() {
+        int maxDis=Integer.MIN_VALUE;
+        int maxIdx=-1;
+        for(int i=0; i<leftDis.length; i++){
+            int dis = Math.min(leftDis[i], rightDis[i]);
+            if(dis>maxDis){
+                maxDis = dis;
+                maxIdx = i;
+            }
+        }
+        leftDis[maxIdx]=0;
+        for(int i=maxIdx+1; i<leftDis.length&&leftDis[i]!=0; i++){
+            leftDis[i]=leftDis[i-1]+1;
+        }
+        rightDis[maxIdx]=0;
+        for(int i=maxIdx-1; i>=0&&leftDis[i]!=0; i--){
+            rightDis[i]=rightDis[i+1]+1;
+        }
+        return maxIdx;
+    }
+    
+    public void leave(int p) {
+        if(p==0){
+            for(int i=p; i==p||(i<leftDis.length&&leftDis[i]!=0); i++){
+                leftDis[i]=1000000001;
+            }    
+        }else{
+            for(int i=p; i==p||(i<leftDis.length&&leftDis[i]!=0); i++){
+                leftDis[i]=leftDis[i-1]+1;
+            }    
+        }
+        if(p+1==rightDis.length){
+            for(int i=p; i==p||(i>=0&&rightDis[i]!=0); i--){
+                rightDis[i]=1000000001;
+            }
+        }else{
+            for(int i=p; i==p||(i>=0&&rightDis[i]!=0); i--){
+                rightDis[i]=rightDis[i+1]+1;
+            }    
+        }
+        
+    }
+}
+
+/**
+ * Your ExamRoom object will be instantiated and called as such:
+ * ExamRoom obj = new ExamRoom(N);
+ * int param_1 = obj.seat();
+ * obj.leave(p);
+ */
+```
+
+
+Time: O(n) for each seat() or leave() operation.
+
+Space: O(n)
