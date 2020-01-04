@@ -1,0 +1,31 @@
+## pdf-redact-tools
+
+```
+pdf-redact-tools -e file.pdf
+```
+
+In `file_pages/`, open the png with GIMP, use rectangle tool to select, use eraser tool to eraser all info in selected rectangle, and use bucket fill tool to fill the rectangle, and click on File->Overwrite the png.
+
+Even for png not redacted, still open in GIMP and overwrite to make sure they have the same size. 
+
+```
+pdf-redact-tools -m file.pdf
+```
+
+Then you get `file_final.pdf`, which is the redacted file.
+
+## pdftk
+
+Sometimes `pdf-redact-tools` failed. Then you can use pdftk.
+
+```
+pdftk file.pdf burst
+```
+
+This command generates `pg_0001.pdf` and more pdf for each page.
+
+Open pdf directly with GIMP, redact as instructed before, overwrite to pdf. Note that even not redacted pdf should be opened and overwrite by GIMP to make sure they are now all non selectable.
+
+```
+pdftk pg_000*.pdf cat output file_final.pdf
+```
