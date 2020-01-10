@@ -27,3 +27,11 @@ Find file with name "vim" in current directory.
 ```
 find ./ -name "*vim*"
 ```
+
+## find file within date range
+
+Find pdf between 2017-07-31 and 2017-11-30.
+
+```
+find ./Documents -newermt 20170731 \! -newermt 20171130 -iname '*.pdf' 
+```
