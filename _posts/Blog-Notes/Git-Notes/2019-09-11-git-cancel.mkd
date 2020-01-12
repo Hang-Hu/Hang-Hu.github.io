@@ -66,8 +66,29 @@ git push origin branch_name --force
 Note that you have to specify branch name or you might inadvertently modify other branches!
 
 
-### Cancel/Delete files in commit history
+### Show a commit
 
+```
+git show COMMIT_ID
+```
+
+### Show commit of a file
+
+The file is a file that currently exist in HEAD.
+
+#### Include commits before the file renamed
+
+```
+git log --follow -- PATH_TO_FILE
+```
+
+#### Not include commits before the file renamed
+
+```
+git log --follow -- PATH_TO_FILE
+```
+
+### Cancel/Delete files in commit history
 
 For example, sensitive data and large files. The folder or file can be folder or file that has been already deleted in previous commit but still in first few commit history.
 
@@ -81,6 +102,8 @@ git filter-branch --force --index-filter "git rm --cached --ignore-unmatch -r PA
 
 
 Or if it's file
+
+If the file with sensitive data used to exist at any other paths (because it was moved or renamed), you must run this command on those paths first, then run on current path in `HEAD`.
 
 
 ```
@@ -97,3 +120,13 @@ git push origin --force --all
 
 
 [Reference in Github](https://help.github.com/en/articles/removing-sensitive-data-from-a-repository)
+
+
+### Cancel Git Operation
+
+```
+git reflog
+git reset --hard COMMIT_ID_SEEN_IN_REFLOG
+```
+
+Reference: http://effectif.com/git/recovering-lost-git-commits
