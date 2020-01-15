@@ -5,12 +5,18 @@ categories: leetcode
 tags: Blog Java Leetcode 
 cover: 
 ---
+
+## List
+
 ### List to int[]
 
 ```
 this.ansList.stream().mapToInt(i->i).toArray();
 ```
 
+### Sorted List
+
+No sorted list, only sorted set.
 
 ### Clone Map with List inside
 
@@ -185,6 +191,22 @@ String[] wordArr = str.split("\\s+")
 ```
 
 
+### String to char array
+
+```
+char[] arr = str.toCharArray();
+```
+
+### Sort String
+
+From "happy" to "ahppy".
+
+```
+char[] arr = str.toCharArray();
+Arrays.sort(arr);
+String sorted = new String(arr);
+```
+
 ## Map
 
 
@@ -194,4 +216,10 @@ String[] wordArr = str.split("\\s+")
 ```
 map.remove(k);
 ```
+
+## Set
+
+### sorted set
+
+Use `TreeSet` instead of `HashSet`.
 
