@@ -1,0 +1,6 @@
+### Use tree view
+
+
+1. F2 to enter setup page
+2. select tree view and unselect hide userland process threads
+3. Press esc to quit
