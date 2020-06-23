@@ -1,0 +1,4 @@
+### Enable ribbon ui
+
+1. Tools -> Options -> View -> Icon Style -> Colibre(SVG), Icon Size all three set to large
+2. View -> User Interface -> Tabbed

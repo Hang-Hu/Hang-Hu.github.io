@@ -1,0 +1,31 @@
+### Install
+
+Reference: https://flatpak.org/setup/Ubuntu/
+
+```
+# for versions before Ubuntu 18.10
+sudo add-apt-repository ppa:alexlarsson/flatpak
+sudo apt update
+sudo apt install flatpak
+
+sudo apt install gnome-software-plugin-flatpak
+
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+```
+
+Then restart system.
+
+```
+flatpak install --user flathub org.libreoffice.LibreOffice
+```
+
+### Run
+
+```
+flatpak run org.kde.kontact or flatpak run org.kde.kontact --user
+```
+
+### Debug
+
+Use `-v` option.
