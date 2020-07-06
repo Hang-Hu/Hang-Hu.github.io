@@ -1,0 +1,19 @@
+## Enable/Disable Lock Screen
+
+Check current setting: `gsettings get org.gnome.desktop.lockdown disable-lock-screen`
+
+Disable Lock Screen: `gsettings set org.gnome.desktop.lockdown disable-lock-screen 'true'`
+
+Enable Lock Screen: `gsettings set org.gnome.desktop.lockdown disable-lock-screen 'false'`
+
+## Enable/Disable Screen Saver
+
+Check current setting: `gsettings get org.gnome.desktop.screensaver lock-enabled`
+
+Disable Screen Saver: `gsettings set org.gnome.desktop.screensaver lock-enabled false`
+
+Enable Screen Saver: `gsettings set org.gnome.desktop.screensaver lock-enabled true`
+
+## Reference
+
+https://askubuntu.com/questions/1048774/disabling-lock-screen-18-04
