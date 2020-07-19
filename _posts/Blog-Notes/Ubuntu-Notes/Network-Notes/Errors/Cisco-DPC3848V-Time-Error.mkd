@@ -1,0 +1,7 @@
+## Check
+
+A laptop cannot connect to network, after investigation it's due to access restriction based on time. The time in status is a wrong time and a time that was set to be blocked.
+
+Go to Setup -> LAN Setup, check time zone, and disable NTP, then save. Turn off access restriction based on time and on, then network is back. Maybe it's time server error.
+
+Check time server by `sntp time.nist.gov` or in https://servertest.online/ntp.
