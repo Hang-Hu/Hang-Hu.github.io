@@ -5,6 +5,8 @@ categories: environment-setup
 tags: Blog Ubuntu Environment-Setup 
 cover: 
 ---
+
+```
 tar -xvf apache-cassandra-3.11.3-bin.tar.gz
 mv apache-cassandra-3.11.3 ~/Programs
 ```
